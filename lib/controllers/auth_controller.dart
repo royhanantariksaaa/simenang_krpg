@@ -2,12 +2,15 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import '../services/api_service.dart';
 import '../services/storage_service.dart';
+import '../services/dummy_data_service.dart';
 import '../models/user_model.dart';
+import '../config/app_config.dart';
 import 'package:flutter/widgets.dart';
 
 class AuthController extends ChangeNotifier {
   final ApiService _apiService = ApiService();
   final StorageService _storageService = StorageService();
+  final DummyDataService _dummyDataService = DummyDataService();
   
   User? _currentUser;
   bool _isLoading = false;
@@ -19,7 +22,7 @@ class AuthController extends ChangeNotifier {
   User? get currentUser => _currentUser;
   bool get isLoading => _isLoading;
   String? get error => _error;
-  bool get isAuthenticated => _currentUser != null && _apiService.isAuthenticated;
+  bool get isAuthenticated => AppConfig.isDummyDataForUEQSTest ? _currentUser != null : _currentUser != null && _apiService.isAuthenticated;
   bool get isInitialized => _isInitialized;
 
   // Initialize auth state (load stored token and validate)
@@ -29,7 +32,33 @@ class AuthController extends ChangeNotifier {
     _log('🔐 Initializing authentication...');
 
     try {
-      // Initialize API service first
+      // Check if we're in dummy data mode for UEQ-S testing
+      if (AppConfig.isDummyDataForUEQSTest) {
+        _log('🧪 UEQ-S Testing Mode: Using dummy authentication...');
+        
+        // Create dummy user based on configuration
+        final dummyUserData = _dummyDataService.generateDummyUser();
+        _currentUser = User(
+          idAccount: dummyUserData['id'].toString(),
+          username: dummyUserData['name'],
+          email: dummyUserData['email'],
+          role: UserRole.fromString(dummyUserData['role']),
+          status: UserStatus.active,
+          createdAt: DateTime.now(),
+          profile: Profile(
+            idProfile: '1',
+            idAccount: dummyUserData['id'].toString(),
+            name: dummyUserData['name'],
+            phoneNumber: dummyUserData['phone'],
+            profilePicture: dummyUserData['profileImageUrl'],
+            joinDate: DateTime.parse(dummyUserData['joinDate']),
+            status: ProfileStatus.active,
+          ),
+        );
+        
+        _log('✅ Dummy user authenticated: ${_currentUser!.username} as ${_currentUser!.role.value}');
+      } else {
+        // Normal API initialization
       await _apiService.initialize();
       
       // Check if we have a stored token
@@ -48,10 +77,13 @@ class AuthController extends ChangeNotifier {
         }
       } else {
         _log('📱 No stored token found');
+        }
       }
     } catch (e) {
       _log('❌ Error during initialization: $e');
+      if (!AppConfig.isDummyDataForUEQSTest) {
       await _clearAllData();
+      }
     } finally {
       _isInitialized = true;
       // Use post-frame callback to avoid setState during build
@@ -64,13 +96,46 @@ class AuthController extends ChangeNotifier {
   }
 
   // Login - Fixed to match Laravel API
-  Future<bool> login(String login, String password) async {
+  Future<bool> login(String login, String password, {String? role}) async {
     if (_isDisposed) return false;
     
     _setLoading(true);
     _clearError();
 
     try {
+      // Check if we're in dummy data mode for UEQ-S testing
+      if (AppConfig.isDummyDataForUEQSTest) {
+        _log('🧪 UEQ-S Testing Mode: Using dummy login...');
+        
+        // Simulate login delay for realistic UX
+        await Future.delayed(const Duration(milliseconds: 800));
+        
+        // Accept any login credentials in dummy mode
+        final selectedRole = role ?? 'coach'; // Use provided role or default to coach
+        final dummyUserData = _dummyDataService.generateDummyUser(role: selectedRole);
+        _currentUser = User(
+          idAccount: dummyUserData['id'].toString(),
+          username: dummyUserData['name'],
+          email: dummyUserData['email'],
+          role: UserRole.fromString(dummyUserData['role']),
+          status: UserStatus.active,
+          createdAt: DateTime.now(),
+          profile: Profile(
+            idProfile: '1',
+            idAccount: dummyUserData['id'].toString(),
+            name: dummyUserData['name'],
+            phoneNumber: dummyUserData['phone'],
+            profilePicture: dummyUserData['profileImageUrl'],
+            joinDate: DateTime.parse(dummyUserData['joinDate']),
+            status: ProfileStatus.active,
+          ),
+        );
+        
+        _log('✅ Dummy login successful for user: ${_currentUser!.username} as ${_currentUser!.role.value}');
+        _safeNotifyListeners();
+        return true;
+      } else {
+        // Normal API login
       final response = await _apiService.post('login', body: {
         'login': login, // Laravel expects 'login' field (email or username)
         'password': password,
@@ -107,6 +172,7 @@ class AuthController extends ChangeNotifier {
       } else {
         _setError(parsedResponse['error'] ?? 'Login failed');
         return false;
+        }
       }
     } catch (e) {
       _setError('Login error: $e');
@@ -452,8 +518,8 @@ class AuthController extends ChangeNotifier {
 
   void _safeNotifyListeners() {
     if (!_isDisposed) {
-      // Add a small delay to ensure we're not in the middle of a build
-      Future.microtask(() {
+      // Use post frame callback to ensure we're not in the middle of a build
+      WidgetsBinding.instance.addPostFrameCallback((_) {
         if (!_isDisposed) {
           notifyListeners();
         }

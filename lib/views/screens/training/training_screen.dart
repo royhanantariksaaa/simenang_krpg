@@ -84,7 +84,6 @@ class _TrainingScreenState extends State<TrainingScreen>
           ),
         ],
       ),
-      floatingActionButton: _buildFloatingActionButton(),
     );
   }
 
@@ -269,26 +268,7 @@ class _TrainingScreenState extends State<TrainingScreen>
     );
   }
 
-  Widget _buildFloatingActionButton() {
-    return Consumer<AuthController>(
-      builder: (context, authController, child) {
-        // Only show FAB for coaches and leaders
-        if (authController.currentUser?.role != UserRole.coach &&
-            authController.currentUser?.role != UserRole.leader) {
-          return const SizedBox.shrink();
-        }
 
-        return FloatingActionButton(
-          onPressed: () {
-            _showCreateTrainingDialog();
-          },
-          backgroundColor: KRPGTheme.primaryColor,
-          foregroundColor: Colors.white,
-          child: const Icon(Icons.add),
-        );
-      },
-    );
-  }
 
   void _performSearch() {
     final trainingController = context.read<TrainingController>();
@@ -301,14 +281,42 @@ class _TrainingScreenState extends State<TrainingScreen>
   }
 
   void _showTrainingDetails(dynamic training) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => TrainingDetailScreen(
-          training: training,
+    // Debug logging for UEQ-S testing
+    debugPrint('🔍 [Training Navigation] Clicked training: ${training.title} (ID: ${training.idTraining})');
+    debugPrint('🔍 [Training Navigation] Training data: ${training.toString()}');
+    
+    // Ensure we have valid training data before navigation
+    if (training == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('❌ Training data not available'),
+          backgroundColor: Colors.red,
         ),
-      ),
-    );
+      );
+      return;
+    }
+
+    try {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => TrainingDetailScreen(
+            training: training,
+          ),
+        ),
+      ).then((_) {
+        // Refresh the training list when returning from detail screen
+        _loadTrainings();
+      });
+    } catch (e) {
+      debugPrint('❌ [Training Navigation] Navigation error: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('❌ Failed to open training details: $e'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
   }
 
   void _startTraining(String trainingId) {

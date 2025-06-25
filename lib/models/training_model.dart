@@ -234,13 +234,27 @@ class Location {
   });
 
   factory Location.fromJson(Map<String, dynamic> json) {
+    // Helper function to parse coordinates that might be strings or numbers
+    double? parseCoordinate(dynamic value) {
+      if (value == null) return null;
+      if (value is num) return value.toDouble();
+      if (value is String) {
+        try {
+          return double.parse(value);
+        } catch (e) {
+          return null;
+        }
+      }
+      return null;
+    }
+
     return Location(
       idLocation: json['id_location']?.toString() ?? '',
       locationName: json['location_name'] ?? '',
       address: json['address'],
       description: json['description'],
-      latitude: json['latitude']?.toDouble(),
-      longitude: json['longitude']?.toDouble(),
+      latitude: parseCoordinate(json['latitude']),
+      longitude: parseCoordinate(json['longitude']),
     );
   }
 

@@ -103,7 +103,6 @@ class _CompetitionScreenState extends State<CompetitionScreen>
           ),
         ],
       ),
-      floatingActionButton: _buildFloatingActionButton(),
     );
   }
 
@@ -324,26 +323,7 @@ class _CompetitionScreenState extends State<CompetitionScreen>
     );
   }
 
-  Widget _buildFloatingActionButton() {
-    return Consumer<AuthController>(
-      builder: (context, authController, child) {
-        // Only show FAB for coaches and leaders
-        if (authController.currentUser?.role != UserRole.coach &&
-            authController.currentUser?.role != UserRole.leader) {
-          return const SizedBox.shrink();
-        }
 
-        return FloatingActionButton(
-          onPressed: () {
-            _showCreateCompetitionDialog();
-          },
-          backgroundColor: KRPGTheme.primaryColor,
-          foregroundColor: Colors.white,
-          child: const Icon(Icons.add),
-        );
-      },
-    );
-  }
 
   void _performSearch() {
     // Defer the search to avoid setState during build

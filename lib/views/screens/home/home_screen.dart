@@ -53,8 +53,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   _buildRecentActivitiesSection(homeController),
                   const SizedBox(height: KRPGTheme.spacingLg),
                   _buildUpcomingTrainingsSection(homeController),
-                  const SizedBox(height: KRPGTheme.spacingLg),
-                  _buildQuickActionsSection(),
                 ],
               ),
             ),
@@ -157,7 +155,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 'Training Sessions',
                 homeData['total_trainings']?.toString() ?? '0',
                 Icons.fitness_center,
-                KRPGTheme.primaryColor,
+                KRPGTheme.neutralMedium,
               ),
             ),
             const SizedBox(width: KRPGTheme.spacingMd),
@@ -166,7 +164,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 'Competitions',
                 homeData['total_competitions']?.toString() ?? '0',
                 Icons.emoji_events,
-                KRPGTheme.secondaryColor,
+                KRPGTheme.neutralMedium,
               ),
             ),
           ],
@@ -179,7 +177,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 'Classrooms',
                 homeData['total_classrooms']?.toString() ?? '0',
                 Icons.class_,
-                KRPGTheme.successColor,
+                KRPGTheme.neutralMedium,
               ),
             ),
             const SizedBox(width: KRPGTheme.spacingMd),
@@ -188,7 +186,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 'Athletes',
                 homeData['total_athletes']?.toString() ?? '0',
                 Icons.people,
-                KRPGTheme.warningColor,
+                KRPGTheme.neutralMedium,
               ),
             ),
           ],
@@ -421,70 +419,5 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  Widget _buildQuickActionsSection() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Quick Actions',
-          style: KRPGTextStyles.heading5,
-        ),
-        const SizedBox(height: KRPGTheme.spacingMd),
-        Row(
-          children: [
-            Expanded(
-              child: KRPGButton(
-                text: 'Start Training',
-                icon: Icons.play_arrow,
-                onPressed: () {
-                  // Navigate to training screen
-                  // This will be implemented when we create the training screen
-                },
-              ),
-            ),
-            const SizedBox(width: KRPGTheme.spacingMd),
-            Expanded(
-              child: KRPGButton(
-                text: 'View Schedule',
-                icon: Icons.calendar_today,
-                type: KRPGButtonType.outlined,
-                onPressed: () {
-                  // Navigate to schedule screen
-                  // This will be implemented when we create the schedule screen
-                },
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: KRPGTheme.spacingMd),
-        Row(
-          children: [
-            Expanded(
-              child: KRPGButton(
-                text: 'Join Competition',
-                icon: Icons.emoji_events,
-                type: KRPGButtonType.outlined,
-                onPressed: () {
-                  // Navigate to competition screen
-                  // This will be implemented when we create the competition screen
-                },
-              ),
-            ),
-            const SizedBox(width: KRPGTheme.spacingMd),
-            Expanded(
-              child: KRPGButton(
-                text: 'View Profile',
-                icon: Icons.person,
-                type: KRPGButtonType.outlined,
-                onPressed: () {
-                  // Navigate to profile screen
-                  // This will be implemented when we create the profile screen
-                },
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
+
 } 

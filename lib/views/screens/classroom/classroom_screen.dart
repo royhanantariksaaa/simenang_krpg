@@ -85,7 +85,6 @@ class _ClassroomScreenState extends State<ClassroomScreen>
           ),
         ],
       ),
-      floatingActionButton: _buildFloatingActionButton(),
     );
   }
 
@@ -325,26 +324,7 @@ class _ClassroomScreenState extends State<ClassroomScreen>
     );
   }
 
-  Widget _buildFloatingActionButton() {
-    return Consumer<AuthController>(
-      builder: (context, authController, child) {
-        // Only show FAB for coaches and leaders
-        if (authController.currentUser?.role != UserRole.coach &&
-            authController.currentUser?.role != UserRole.leader) {
-          return const SizedBox.shrink();
-        }
 
-        return FloatingActionButton(
-          onPressed: () {
-            _showCreateClassroomDialog();
-          },
-          backgroundColor: KRPGTheme.primaryColor,
-          foregroundColor: Colors.white,
-          child: const Icon(Icons.add),
-        );
-      },
-    );
-  }
 
   void _performSearch() {
     final classroomController = context.read<ClassroomController>();
@@ -363,6 +343,11 @@ class _ClassroomScreenState extends State<ClassroomScreen>
   }
 
   void _showClassroomDetails(dynamic classroom) {
+    // Debug log the classroom object
+    print('🔍 Navigating to classroom details with classroom: ${classroom.toString()}');
+    print('🔍 Classroom ID: ${classroom.id}');
+    print('🔍 Classroom Name: ${classroom.name}');
+    
     Navigator.push(
       context,
       MaterialPageRoute(

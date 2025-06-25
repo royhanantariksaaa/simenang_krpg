@@ -7,11 +7,11 @@ import '../../../design_system/krpg_theme.dart';
 import '../../../design_system/krpg_spacing.dart';
 
 class AthleteDetailScreen extends StatefulWidget {
-  final Map<String, dynamic> athlete;
+  final String athleteId;
 
   const AthleteDetailScreen({
     Key? key,
-    required this.athlete,
+    required this.athleteId,
   }) : super(key: key);
 
   @override
@@ -49,19 +49,19 @@ class _AthleteDetailScreenState extends State<AthleteDetailScreen>
 
     try {
       // Load athlete details
-      final athlete = await controller.getAthleteDetail(widget.athlete['id']);
+      final athlete = await controller.getAthleteDetail(widget.athleteId);
       if (athlete != null) {
         _athlete = athlete;
       }
 
       // Load training history
-      final trainingHistory = await controller.getAthleteTrainingHistory(widget.athlete['id']);
+      final trainingHistory = await controller.getAthleteTrainingHistory(widget.athleteId);
       if (trainingHistory != null) {
         _trainingHistory = trainingHistory;
       }
 
       // Load competition history
-      final competitionHistory = await controller.getAthleteCompetitionHistory(widget.athlete['id']);
+      final competitionHistory = await controller.getAthleteCompetitionHistory(widget.athleteId);
       if (competitionHistory != null) {
         _competitionHistory = competitionHistory;
       }
@@ -86,7 +86,7 @@ class _AthleteDetailScreenState extends State<AthleteDetailScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.athlete['name'] ?? 'Unknown'),
+        title: Text(_athlete?['name'] ?? 'Athlete Details'),
         backgroundColor: KRPGTheme.primaryColor,
         foregroundColor: Colors.white,
         elevation: 0,

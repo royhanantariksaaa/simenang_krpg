@@ -17,6 +17,8 @@ import 'controllers/classroom_controller.dart';
 import 'controllers/athletes_controller.dart';
 import 'controllers/membership_controller.dart';
 import 'design_system/krpg_theme.dart';
+import 'config/app_config.dart';
+import 'components/ui/dummy_data_indicator.dart';
 
 void main() {
   runApp(const MainApp());
@@ -114,6 +116,7 @@ class MainNavigationScreen extends StatefulWidget {
 
 class _MainNavigationScreenState extends State<MainNavigationScreen> {
   int _currentIndex = 0;
+  bool _hasShownUEQSDialog = false;
 
   final List<Widget> _screens = [
     const HomeScreen(),
@@ -125,9 +128,32 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+    // Show UEQ-S welcome dialog after build is complete
+    if (AppConfig.isDummyDataForUEQSTest && !_hasShownUEQSDialog) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _showUEQSWelcomeDialog();
+      });
+    }
+  }
+
+  void _showUEQSWelcomeDialog() {
+    if (_hasShownUEQSDialog) return;
+    _hasShownUEQSDialog = true;
+    DummyDataDialog.show(context);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _screens[_currentIndex],
+      body: Stack(
+        children: [
+          _screens[_currentIndex],
+          // Show dummy data indicator in floating mode
+          const DummyDataIndicator(isFloating: true),
+        ],
+      ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         currentIndex: _currentIndex,

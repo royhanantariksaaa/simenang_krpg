@@ -47,12 +47,21 @@ class _StatisticsRecordingDialogState extends State<StatisticsRecordingDialog> {
     {'value': 'mixed', 'label': 'Mixed'},
   ];
 
-  // Energy system options
+  // Energy system options (matching database enum values)
   final List<Map<String, String>> _energySystemOptions = [
-    {'value': 'aerobic', 'label': 'Aerobic'},
-    {'value': 'anaerobic_lactic', 'label': 'Anaerobic Lactic'},
-    {'value': 'anaerobic_alactic', 'label': 'Anaerobic Alactic'},
-    {'value': 'mixed', 'label': 'Mixed'},
+    {'value': 'aerobic_11', 'label': 'Aerobic 1.1'},
+    {'value': 'aerobic_12', 'label': 'Aerobic 1.2'},
+    {'value': 'aerobic_13', 'label': 'Aerobic 1.3'},
+    {'value': 'aerobic_21', 'label': 'Aerobic 2.1'},
+    {'value': 'aerobic_22', 'label': 'Aerobic 2.2'},
+    {'value': 'aerobic_31', 'label': 'Aerobic 3.1'},
+    {'value': 'aerobic_32', 'label': 'Aerobic 3.2'},
+    {'value': 'vo2max_11', 'label': 'VO2 Max 1.1'},
+    {'value': 'vo2max_12', 'label': 'VO2 Max 1.2'},
+    {'value': 'anaerobic_11', 'label': 'Anaerobic 1.1'},
+    {'value': 'anaerobic_12', 'label': 'Anaerobic 1.2'},
+    {'value': 'anaerobic_21', 'label': 'Anaerobic 2.1'},
+    {'value': 'anaerobic_22', 'label': 'Anaerobic 2.2'},
   ];
 
   @override
@@ -214,7 +223,7 @@ class _StatisticsRecordingDialogState extends State<StatisticsRecordingDialog> {
 
                       // Energy System
                       KRPGDropdown(
-                        label: 'Energy System',
+                        label: 'Energy System (Optional)',
                         value: _selectedEnergySystem,
                         items: _energySystemOptions.map((system) {
                           return DropdownMenuItem(
@@ -227,13 +236,7 @@ class _StatisticsRecordingDialogState extends State<StatisticsRecordingDialog> {
                             _selectedEnergySystem = value;
                           });
                         },
-                        hint: 'Select Energy System',
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please select an energy system';
-                          }
-                          return null;
-                        },
+                        hint: 'Select Energy System (Optional)',
                       ),
 
                       const SizedBox(height: 16),
@@ -293,7 +296,7 @@ class _StatisticsRecordingDialogState extends State<StatisticsRecordingDialog> {
           stroke: _selectedStroke!,
           duration: _durationController.text.isNotEmpty ? _durationController.text : null,
           distance: _distanceController.text.isNotEmpty ? int.tryParse(_distanceController.text) : null,
-          energySystem: _selectedEnergySystem!,
+          energySystem: _selectedEnergySystem, // Allow null values
           note: _noteController.text.isNotEmpty ? _noteController.text : null,
         );
 

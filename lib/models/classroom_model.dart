@@ -23,11 +23,14 @@ class Classroom {
   });
 
   factory Classroom.fromJson(Map<String, dynamic> json) {
+    // Handle both id_classroom and id_classrooms
+    final id = json['id_classroom']?.toString() ?? json['id_classrooms']?.toString() ?? '';
+    
     return Classroom(
-      id: json['id_classrooms']?.toString() ?? '',
-      name: json['classroom_name'] ?? '',
+      id: id,
+      name: json['classroom_name'] ?? json['name'] ?? '',
       coachId: json['id_coach']?.toString() ?? '',
-      createdDate: DateTime.parse(json['create_date'] ?? DateTime.now().toIso8601String()),
+      createdDate: DateTime.parse(json['create_date'] ?? json['created_at'] ?? DateTime.now().toIso8601String()),
       
       // Hydrated fields
       coach: json['coach'] != null ? Coach.fromJson(json['coach']) : null,

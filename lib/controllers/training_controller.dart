@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
 import '../services/api_service.dart';
 import '../services/location_service.dart';
 import '../models/training_model.dart';
@@ -18,6 +19,13 @@ class TrainingController extends ChangeNotifier {
   bool _isLoading = false;
   String? _error;
   bool _isDisposed = false;
+  
+  // Pagination metadata
+  int _currentPage = 1;
+  int _lastPage = 1;
+  int _perPage = 15;
+  int _total = 0;
+  bool _hasMorePages = false;
 
   // Location tracking
   bool _isLocationTracking = false;
@@ -33,13 +41,21 @@ class TrainingController extends ChangeNotifier {
   bool get isLocationTracking => _isLocationTracking;
   Map<String, Map<String, dynamic>> get athleteLocations => _athleteLocations;
 
-  // Get all trainings with filtering
+  // Pagination getters
+  int get currentPage => _currentPage;
+  int get lastPage => _lastPage;
+  int get perPage => _perPage;
+  int get total => _total;
+  bool get hasMorePages => _hasMorePages;
+
+  // Get all trainings with filtering - now with pagination
   Future<List<Training>> getTrainings({
     String? search,
     String? status,
     String? phase,
     int? page,
-    int? limit,
+    int? perPage,
+    bool refresh = false,
   }) async {
     if (_isDisposed) return [];
     
@@ -52,7 +68,7 @@ class TrainingController extends ChangeNotifier {
       if (status != null && status.isNotEmpty) queryParams['status'] = status;
       if (phase != null && phase.isNotEmpty) queryParams['phase'] = phase;
       if (page != null) queryParams['page'] = page.toString();
-      if (limit != null) queryParams['limit'] = limit.toString();
+      if (perPage != null) queryParams['per_page'] = perPage.toString();
 
       final response = await _apiService.get('training', queryParams: queryParams);
       final parsedResponse = ApiService.parseLaravelResponse(response);
@@ -60,20 +76,48 @@ class TrainingController extends ChangeNotifier {
       if (parsedResponse['success']) {
         final data = parsedResponse['data'];
         
-        // Handle Laravel pagination structure: data.items
+        // Handle Laravel pagination structure
         List<dynamic> items = [];
-        if (data is Map<String, dynamic> && data.containsKey('items')) {
+        Map<String, dynamic> paginationData = {};
+        
+        if (data is Map<String, dynamic>) {
+          if (data.containsKey('data')) {
+            // Standard Laravel pagination
+            items = data['data'] as List<dynamic>;
+            paginationData = data;
+          } else if (data.containsKey('items')) {
+            // Custom pagination structure
           items = data['items'] as List<dynamic>;
+            paginationData = data;
+          } else {
+            // Fallback to direct list
+            items = data.values.toList();
+          }
         } else if (data is List) {
           items = data;
-        } else {
-          items = [];
         }
         
-        _trainings = items
+        // Update pagination metadata
+        if (paginationData.isNotEmpty) {
+          _currentPage = paginationData['current_page'] ?? 1;
+          _lastPage = paginationData['last_page'] ?? 1;
+          _perPage = paginationData['per_page'] ?? 15;
+          _total = paginationData['total'] ?? items.length;
+          _hasMorePages = _currentPage < _lastPage;
+        }
+        
+        final newTrainings = items
             .map((json) => Training.fromJson(json))
             .toList();
-        _log('✅ Retrieved ${_trainings.length} trainings');
+        
+        // Handle refresh vs append
+        if (refresh || page == 1) {
+          _trainings = newTrainings;
+        } else {
+          _trainings.addAll(newTrainings);
+        }
+        
+        _log('✅ Retrieved ${newTrainings.length} trainings (Page $_currentPage of $_lastPage, Total: $_total)');
         _safeNotifyListeners();
         return _trainings;
       } else {
@@ -88,7 +132,40 @@ class TrainingController extends ChangeNotifier {
     }
   }
 
-  // Get training details
+  // Load next page of trainings
+  Future<List<Training>> loadNextPage({
+    String? search,
+    String? status,
+    String? phase,
+  }) async {
+    if (!_hasMorePages || _isLoading) return _trainings;
+    
+    return await getTrainings(
+      search: search,
+      status: status,
+      phase: phase,
+      page: _currentPage + 1,
+      perPage: _perPage,
+    );
+  }
+
+  // Refresh trainings list
+  Future<List<Training>> refreshTrainings({
+    String? search,
+    String? status,
+    String? phase,
+  }) async {
+    return await getTrainings(
+      search: search,
+      status: status,
+      phase: phase,
+      page: 1,
+      perPage: _perPage,
+      refresh: true,
+    );
+  }
+
+  // Get training details (lightweight version)
   Future<Training?> getTrainingDetails(String trainingId) async {
     if (_isDisposed) return null;
     
@@ -96,7 +173,8 @@ class TrainingController extends ChangeNotifier {
     _clearError();
 
     try {
-      final response = await _apiService.get('training/$trainingId');
+      // Use the lightweight endpoint to avoid large response issues
+      final response = await _apiService.get('training/$trainingId/details');
       final parsedResponse = ApiService.parseLaravelResponse(response);
 
       if (parsedResponse['success']) {
@@ -111,6 +189,35 @@ class TrainingController extends ChangeNotifier {
       }
     } catch (e) {
       _setError('Get training details error: $e');
+      return null;
+    } finally {
+      _setLoading(false);
+    }
+  }
+
+  // Get full training details (when needed)
+  Future<Training?> getFullTrainingDetails(String trainingId) async {
+    if (_isDisposed) return null;
+    
+    _setLoading(true);
+    _clearError();
+
+    try {
+      final response = await _apiService.get('training/$trainingId');
+      final parsedResponse = ApiService.parseLaravelResponse(response);
+
+      if (parsedResponse['success']) {
+        final data = parsedResponse['data'];
+        _currentTraining = Training.fromJson(data);
+        _log('✅ Retrieved full training details for ID: $trainingId');
+        _safeNotifyListeners();
+        return _currentTraining;
+      } else {
+        _setError(parsedResponse['error'] ?? 'Failed to get full training details');
+        return null;
+      }
+    } catch (e) {
+      _setError('Get full training details error: $e');
       return null;
     } finally {
       _setLoading(false);
@@ -280,21 +387,33 @@ class TrainingController extends ChangeNotifier {
     required String stroke,
     String? duration,
     int? distance,
-    required String energySystem,
+    String? energySystem, // Made optional with default
     String? note,
   }) async {
     _setLoading(true);
     _clearError();
 
     try {
+      // Map energy system to database-safe values - always provide a default
+      String mappedEnergySystem;
+      if (energySystem != null && energySystem.isNotEmpty) {
+        mappedEnergySystem = _mapEnergySystemForDatabase(energySystem);
+        _log('🔄 Energy System Mapping: "$energySystem" -> "$mappedEnergySystem"');
+      } else {
+        mappedEnergySystem = 'aerobic_11'; // Default value
+        _log('ℹ️ Energy System: null/empty, using default: "$mappedEnergySystem"');
+      }
+
       final body = <String, dynamic>{
         'profile_id': profileId,
         'stroke': stroke,
-        'energy_system': energySystem,
+        'energy_system': mappedEnergySystem, // Always include energy_system
         if (duration != null) 'duration': duration,
         if (distance != null) 'distance': distance,
         if (note != null) 'note': note,
       };
+
+      _log('📤 Sending body: ${body.toString()}');
 
       final response = await _apiService.post('training/sessions/$sessionId/statistics', body: body);
       final parsedResponse = ApiService.parseLaravelResponse(response);
@@ -453,6 +572,27 @@ class TrainingController extends ChangeNotifier {
     }
   }
 
+  // Get active session for a training (attendance or recording status)
+  Future<session_model.TrainingSession?> getActiveSession(String trainingId) async {
+    try {
+      final sessions = await getTrainingSessions(trainingId);
+      if (sessions != null) {
+        // Find active session (attendance or recording status)
+        final activeSession = sessions.firstWhere(
+          (session) => session.status == session_model.TrainingSessionStatus.attendance ||
+                      session.status == session_model.TrainingSessionStatus.recording,
+          orElse: () => throw StateError('No active session found'),
+        );
+        _log('✅ Found active session: ${activeSession.id}');
+        return activeSession;
+      }
+      return null;
+    } catch (e) {
+      _log('ℹ️ No active session found for training ID: $trainingId');
+      return null;
+    }
+  }
+
   // Get session attendance
   Future<Map<String, dynamic>?> getSessionAttendance(String sessionId) async {
     _setLoading(true);
@@ -510,6 +650,45 @@ class TrainingController extends ChangeNotifier {
       _setLoading(false);
     }
   }
+
+     // Helper method to map energy system values to database enum values
+   String _mapEnergySystemForDatabase(String energySystem) {
+     // Map energy system values to valid database enum values
+     switch (energySystem.toLowerCase()) {
+       case 'aerobic':
+         return 'aerobic_11';
+       case 'anaerobic_lactic':
+       case 'anaerobic lactic':
+         return 'anaerobic_11';
+       case 'anaerobic_alactic':
+       case 'anaerobic alactic':
+         return 'anaerobic_12';
+       case 'mixed':
+         return 'aerobic_21'; // Default mixed to aerobic_21
+       case 'general':
+         return 'aerobic_11'; // Default general to aerobic_11
+       case 'vo2max':
+         return 'vo2max_11';
+       // Direct enum values
+       case 'aerobic_11':
+       case 'aerobic_12':
+       case 'aerobic_13':
+       case 'aerobic_21':
+       case 'aerobic_22':
+       case 'aerobic_31':
+       case 'aerobic_32':
+       case 'vo2max_11':
+       case 'vo2max_12':
+       case 'anaerobic_11':
+       case 'anaerobic_12':
+       case 'anaerobic_21':
+       case 'anaerobic_22':
+         return energySystem;
+       default:
+         // Default to aerobic_11 for any unknown values
+         return 'aerobic_11';
+     }
+   }
 
   // ===== LOCATION TRACKING METHODS =====
 
@@ -670,36 +849,35 @@ class TrainingController extends ChangeNotifier {
   // ===== PRIVATE METHODS =====
 
   void _setLoading(bool loading) {
-    if (!_isDisposed) {
       _isLoading = loading;
       _safeNotifyListeners();
-    }
   }
 
   void _setError(String error) {
-    if (!_isDisposed) {
       _error = error;
       _log('❌ Error: $error');
       _safeNotifyListeners();
-    }
   }
 
   void _clearError() {
-    if (!_isDisposed) {
       _error = null;
       _safeNotifyListeners();
-    }
   }
 
   void _safeNotifyListeners() {
     if (!_isDisposed) {
+      // Use post frame callback to ensure we're not in the middle of a build
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+    if (!_isDisposed) {
       notifyListeners();
+        }
+      });
     }
   }
 
   void _log(String message) {
     if (kDebugMode) {
-      print('🏊 TrainingController: $message');
+      print('🏊 Training Controller: $message');
     }
   }
 

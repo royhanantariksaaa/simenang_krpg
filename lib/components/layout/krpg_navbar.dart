@@ -16,6 +16,7 @@ class KRPGNavbar extends StatefulWidget {
   final VoidCallback? onMenuPressed;
   final VoidCallback? onNotificationPressed;
   final VoidCallback? onProfilePressed;
+  final VoidCallback? onLogoutPressed;
   final String? userAvatar;
   final String? userName;
   final String? userRole;
@@ -32,6 +33,7 @@ class KRPGNavbar extends StatefulWidget {
     this.onMenuPressed,
     this.onNotificationPressed,
     this.onProfilePressed,
+    this.onLogoutPressed,
     this.userAvatar,
     this.userName,
     this.userRole,
@@ -224,7 +226,7 @@ class _KRPGNavbarState extends State<KRPGNavbar> {
             // Handle settings
             break;
           case 'logout':
-            // Handle logout
+            widget.onLogoutPressed?.call();
             break;
         }
       },

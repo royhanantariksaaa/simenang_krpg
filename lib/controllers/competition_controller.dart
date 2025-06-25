@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
 import '../services/api_service.dart';
 import '../models/competition_model.dart';
 import '../models/competition_result_model.dart' as result_model;
@@ -15,6 +16,13 @@ class CompetitionController extends ChangeNotifier {
   bool _isLoading = false;
   String? _error;
   bool _isDisposed = false;
+  
+  // Pagination metadata
+  int _currentPage = 1;
+  int _lastPage = 1;
+  int _perPage = 15;
+  int _total = 0;
+  bool _hasMorePages = false;
 
   // Getters
   List<Competition> get competitions => _competitions;
@@ -24,13 +32,21 @@ class CompetitionController extends ChangeNotifier {
   bool get isLoading => _isLoading;
   String? get error => _error;
 
-  // Get all competitions with filtering
+  // Pagination getters
+  int get currentPage => _currentPage;
+  int get lastPage => _lastPage;
+  int get perPage => _perPage;
+  int get total => _total;
+  bool get hasMorePages => _hasMorePages;
+
+  // Get all competitions with filtering - now with pagination
   Future<List<Competition>> getCompetitions({
     String? search,
     String? status,
     String? level,
     int? page,
-    int? limit,
+    int? perPage,
+    bool refresh = false,
   }) async {
     if (_isDisposed) return [];
     
@@ -43,7 +59,7 @@ class CompetitionController extends ChangeNotifier {
       if (status != null && status.isNotEmpty) queryParams['status'] = status;
       if (level != null && level.isNotEmpty) queryParams['level'] = level;
       if (page != null) queryParams['page'] = page.toString();
-      if (limit != null) queryParams['limit'] = limit.toString();
+      if (perPage != null) queryParams['per_page'] = perPage.toString();
 
       final response = await _apiService.get('competitions', queryParams: queryParams);
       final parsedResponse = ApiService.parseLaravelResponse(response);
@@ -51,20 +67,48 @@ class CompetitionController extends ChangeNotifier {
       if (parsedResponse['success']) {
         final data = parsedResponse['data'];
         
-        // Handle Laravel pagination structure: data.items
+        // Handle Laravel pagination structure
         List<dynamic> items = [];
-        if (data is Map<String, dynamic> && data.containsKey('items')) {
+        Map<String, dynamic> paginationData = {};
+        
+        if (data is Map<String, dynamic>) {
+          if (data.containsKey('data')) {
+            // Standard Laravel pagination
+            items = data['data'] as List<dynamic>;
+            paginationData = data;
+          } else if (data.containsKey('items')) {
+            // Custom pagination structure
           items = data['items'] as List<dynamic>;
+            paginationData = data;
+          } else {
+            // Fallback to direct list
+            items = data.values.toList();
+          }
         } else if (data is List) {
           items = data;
-        } else {
-          items = [];
         }
         
-        _competitions = items
+        // Update pagination metadata
+        if (paginationData.isNotEmpty) {
+          _currentPage = paginationData['current_page'] ?? 1;
+          _lastPage = paginationData['last_page'] ?? 1;
+          _perPage = paginationData['per_page'] ?? 15;
+          _total = paginationData['total'] ?? items.length;
+          _hasMorePages = _currentPage < _lastPage;
+        }
+        
+        final newCompetitions = items
             .map((json) => Competition.fromJson(json))
             .toList();
-        _log('✅ Retrieved ${_competitions.length} competitions');
+        
+        // Handle refresh vs append
+        if (refresh || page == 1) {
+          _competitions = newCompetitions;
+        } else {
+          _competitions.addAll(newCompetitions);
+        }
+        
+        _log('✅ Retrieved ${newCompetitions.length} competitions (Page $_currentPage of $_lastPage, Total: $_total)');
         _safeNotifyListeners();
         return _competitions;
       } else {
@@ -77,6 +121,39 @@ class CompetitionController extends ChangeNotifier {
     } finally {
       _setLoading(false);
     }
+  }
+
+  // Load next page of competitions
+  Future<List<Competition>> loadNextPage({
+    String? search,
+    String? status,
+    String? level,
+  }) async {
+    if (!_hasMorePages || _isLoading) return _competitions;
+    
+    return await getCompetitions(
+      search: search,
+      status: status,
+      level: level,
+      page: _currentPage + 1,
+      perPage: _perPage,
+    );
+  }
+
+  // Refresh competitions list
+  Future<List<Competition>> refreshCompetitions({
+    String? search,
+    String? status,
+    String? level,
+  }) async {
+    return await getCompetitions(
+      search: search,
+      status: status,
+      level: level,
+      page: 1,
+      perPage: _perPage,
+      refresh: true,
+    );
   }
 
   // Get competition statistics
@@ -430,8 +507,8 @@ class CompetitionController extends ChangeNotifier {
 
   void _safeNotifyListeners() {
     if (!_isDisposed) {
-      // Add a small delay to ensure we're not in the middle of a build
-      Future.microtask(() {
+      // Use post frame callback to ensure we're not in the middle of a build
+      WidgetsBinding.instance.addPostFrameCallback((_) {
         if (!_isDisposed) {
           notifyListeners();
         }

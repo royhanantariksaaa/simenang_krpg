@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import '../services/api_service.dart';
+import 'package:flutter/widgets.dart';
 
 class AthletesController extends ChangeNotifier {
   final ApiService _apiService = ApiService();
@@ -10,6 +11,13 @@ class AthletesController extends ChangeNotifier {
   bool _isLoading = false;
   String? _error;
   bool _isDisposed = false;
+  
+  // Pagination metadata
+  int _currentPage = 1;
+  int _lastPage = 1;
+  int _perPage = 15;
+  int _total = 0;
+  bool _hasMorePages = false;
 
   // Getters
   List<Map<String, dynamic>> get athletes => _athletes;
@@ -17,12 +25,20 @@ class AthletesController extends ChangeNotifier {
   bool get isLoading => _isLoading;
   String? get error => _error;
 
-  // Get all athletes (coach/leader only)
+  // Pagination getters
+  int get currentPage => _currentPage;
+  int get lastPage => _lastPage;
+  int get perPage => _perPage;
+  int get total => _total;
+  bool get hasMorePages => _hasMorePages;
+
+  // Get all athletes (coach/leader only) - now with pagination
   Future<List<Map<String, dynamic>>?> getAthletes({
     String? search,
     String? status,
     int? page,
-    int? limit,
+    int? perPage,
+    bool refresh = false,
   }) async {
     if (_isDisposed) return null;
     
@@ -34,7 +50,7 @@ class AthletesController extends ChangeNotifier {
       if (search != null && search.isNotEmpty) queryParams['search'] = search;
       if (status != null && status.isNotEmpty) queryParams['status'] = status;
       if (page != null) queryParams['page'] = page.toString();
-      if (limit != null) queryParams['limit'] = limit.toString();
+      if (perPage != null) queryParams['per_page'] = perPage.toString();
 
       final response = await _apiService.get('athletes', queryParams: queryParams);
       final parsedResponse = ApiService.parseLaravelResponse(response);
@@ -42,18 +58,44 @@ class AthletesController extends ChangeNotifier {
       if (parsedResponse['success']) {
         final data = parsedResponse['data'];
         
-        // Handle Laravel pagination structure: data.items
+        // Handle Laravel pagination structure
         List<dynamic> items = [];
-        if (data is Map<String, dynamic> && data.containsKey('items')) {
+        Map<String, dynamic> paginationData = {};
+        
+        if (data is Map<String, dynamic>) {
+          if (data.containsKey('data')) {
+            // Standard Laravel pagination
+            items = data['data'] as List<dynamic>;
+            paginationData = data;
+          } else if (data.containsKey('items')) {
+            // Custom pagination structure
           items = data['items'] as List<dynamic>;
+            paginationData = data;
+          } else {
+            // Fallback to direct list
+            items = data.values.toList();
+          }
         } else if (data is List) {
           items = data;
-        } else {
-          items = [];
         }
         
-        _athletes = items.cast<Map<String, dynamic>>();
-        _log('✅ Retrieved ${_athletes.length} athletes');
+        // Update pagination metadata
+        if (paginationData.isNotEmpty) {
+          _currentPage = paginationData['current_page'] ?? 1;
+          _lastPage = paginationData['last_page'] ?? 1;
+          _perPage = paginationData['per_page'] ?? 15;
+          _total = paginationData['total'] ?? items.length;
+          _hasMorePages = _currentPage < _lastPage;
+        }
+        
+        // Handle refresh vs append
+        if (refresh || page == 1) {
+          _athletes = items.cast<Map<String, dynamic>>();
+        } else {
+          _athletes.addAll(items.cast<Map<String, dynamic>>());
+        }
+        
+        _log('✅ Retrieved ${items.length} athletes (Page $_currentPage of $_lastPage, Total: $_total)');
         _safeNotifyListeners();
         return _athletes;
       } else {
@@ -66,6 +108,35 @@ class AthletesController extends ChangeNotifier {
     } finally {
       _setLoading(false);
     }
+  }
+
+  // Load next page of athletes
+  Future<List<Map<String, dynamic>>?> loadNextPage({
+    String? search,
+    String? status,
+  }) async {
+    if (!_hasMorePages || _isLoading) return _athletes;
+    
+    return await getAthletes(
+      search: search,
+      status: status,
+      page: _currentPage + 1,
+      perPage: _perPage,
+    );
+  }
+
+  // Refresh athletes list
+  Future<List<Map<String, dynamic>>?> refreshAthletes({
+    String? search,
+    String? status,
+  }) async {
+    return await getAthletes(
+      search: search,
+      status: status,
+      page: 1,
+      perPage: _perPage,
+      refresh: true,
+    );
   }
 
   // Get athlete statistics (coach/leader only)
@@ -286,8 +357,8 @@ class AthletesController extends ChangeNotifier {
 
   void _safeNotifyListeners() {
     if (!_isDisposed) {
-      // Add a small delay to ensure we're not in the middle of a build
-      Future.microtask(() {
+      // Use post frame callback to ensure we're not in the middle of a build
+      WidgetsBinding.instance.addPostFrameCallback((_) {
         if (!_isDisposed) {
           notifyListeners();
         }

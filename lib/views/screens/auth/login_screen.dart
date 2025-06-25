@@ -6,6 +6,8 @@ import '../../../components/cards/krpg_card.dart';
 import '../../../components/forms/krpg_form_field.dart';
 import '../../../design_system/krpg_theme.dart';
 import '../../../design_system/krpg_text_styles.dart';
+import '../../../config/app_config.dart';
+import '../../../components/ui/dummy_data_indicator.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -18,6 +20,17 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
+  String _selectedRole = 'coach'; // Default role
+
+  @override
+  void initState() {
+    super.initState();
+    // Auto-populate default coach data in UEQ-S testing mode
+    if (AppConfig.isDummyDataForUEQSTest) {
+      _usernameController.text = 'coach@krpg.com';
+      _passwordController.text = 'coach123';
+    }
+  }
 
   @override
   void dispose() {
@@ -35,6 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
     final success = await authController.login(
       _usernameController.text.trim(),
       _passwordController.text,
+      role: _selectedRole,
     );
 
     if (!success && mounted) {
@@ -51,13 +65,19 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(KRPGTheme.spacingLg),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
+      body: Column(
+        children: [
+          // UEQ-S Testing Banner
+          const DummyDataBanner(),
+          
+          Expanded(
+            child: Center(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(KRPGTheme.spacingLg),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
               // Logo and title
               Center(
                 child: Column(
@@ -111,6 +131,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           
                           // Username/Email field
                           KRPGFormField(
+                            key: const Key('email_field'),
                             controller: _usernameController,
                             label: 'Username or Email',
                             prefixIcon: Icons.person,
@@ -126,6 +147,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           
                           // Password field
                           KRPGFormField(
+                            key: const Key('password_field'),
                             controller: _passwordController,
                             label: 'Password',
                             prefixIcon: Icons.lock,
@@ -137,7 +159,120 @@ class _LoginScreenState extends State<LoginScreen> {
                               return null;
                             },
                           ),
-                          const SizedBox(height: KRPGTheme.spacingLg),
+                          const SizedBox(height: KRPGTheme.spacingMd),
+                          
+                          // Role selector (only in UEQ-S testing mode)
+                          if (AppConfig.isDummyDataForUEQSTest) ...[
+                            Text(
+                              'Login sebagai:',
+                              style: KRPGTextStyles.bodyMedium.copyWith(
+                                fontWeight: KRPGTheme.fontWeightMedium,
+                                color: KRPGTheme.textDark,
+                              ),
+                            ),
+                            const SizedBox(height: KRPGTheme.spacingSm),
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(KRPGTheme.radiusMd),
+                                border: Border.all(color: KRPGTheme.borderColor),
+                              ),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: RadioListTile<String>(
+                                      value: 'coach',
+                                      groupValue: _selectedRole,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          _selectedRole = value!;
+                                          // Auto-populate dummy data for coach
+                                          _usernameController.text = 'coach@krpg.com';
+                                          _passwordController.text = 'coach123';
+                                        });
+                                      },
+                                      title: Row(
+                                        children: [
+                                          Icon(
+                                            Icons.sports,
+                                            color: KRPGTheme.primaryColor,
+                                            size: 20,
+                                          ),
+                                          const SizedBox(width: KRPGTheme.spacingSm),
+                                          Text(
+                                            'Pelatih',
+                                            style: KRPGTextStyles.bodyMedium,
+                                          ),
+                                        ],
+                                      ),
+                                      activeColor: KRPGTheme.primaryColor,
+                                      contentPadding: const EdgeInsets.symmetric(horizontal: KRPGTheme.spacingSm),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: RadioListTile<String>(
+                                      value: 'athlete',
+                                      groupValue: _selectedRole,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          _selectedRole = value!;
+                                          // Auto-populate dummy data for athlete
+                                          _usernameController.text = 'athlete@krpg.com';
+                                          _passwordController.text = 'athlete123';
+                                        });
+                                      },
+                                      title: Row(
+                                        children: [
+                                          Icon(
+                                            Icons.pool,
+                                            color: KRPGTheme.primaryColor,
+                                            size: 20,
+                                          ),
+                                          const SizedBox(width: KRPGTheme.spacingSm),
+                                          Text(
+                                            'Atlet',
+                                            style: KRPGTextStyles.bodyMedium,
+                                          ),
+                                        ],
+                                      ),
+                                      activeColor: KRPGTheme.primaryColor,
+                                      contentPadding: const EdgeInsets.symmetric(horizontal: KRPGTheme.spacingSm),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: RadioListTile<String>(
+                                      value: 'admin',
+                                      groupValue: _selectedRole,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          _selectedRole = value!;
+                                          // Auto-populate dummy data for ketua
+                                          _usernameController.text = 'ketua@krpg.com';
+                                          _passwordController.text = 'ketua123';
+                                        });
+                                      },
+                                      title: Row(
+                                        children: [
+                                          Icon(
+                                            Icons.verified_user,
+                                            color: KRPGTheme.primaryColor,
+                                            size: 20,
+                                          ),
+                                          const SizedBox(width: KRPGTheme.spacingSm),
+                                          Text(
+                                            'Ketua',
+                                            style: KRPGTextStyles.bodyMedium,
+                                          ),
+                                        ],
+                                      ),
+                                      activeColor: KRPGTheme.primaryColor,
+                                      contentPadding: const EdgeInsets.symmetric(horizontal: KRPGTheme.spacingSm),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: KRPGTheme.spacingMd),
+                          ],
                           
                           // Error message
                           if (authController.error != null)
@@ -173,6 +308,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           
                           // Login button
                           KRPGButton(
+                            key: const Key('login_button'),
                             text: 'Login',
                             isLoading: authController.isLoading,
                             onPressed: _handleLogin,
@@ -207,9 +343,56 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                 ),
               ),
+              
+              // UEQ-S Testing Instructions
+              if (AppConfig.isDummyDataForUEQSTest)
+                Container(
+                  margin: const EdgeInsets.only(top: KRPGTheme.spacingLg),
+                  padding: const EdgeInsets.all(KRPGTheme.spacingMd),
+                  decoration: BoxDecoration(
+                    color: KRPGTheme.backgroundAccent,
+                    borderRadius: BorderRadius.circular(KRPGTheme.radiusMd),
+                    border: Border.all(
+                      color: KRPGTheme.borderColorGreen,
+                      width: 1,
+                    ),
+                  ),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.info_outline,
+                            color: KRPGTheme.infoColor,
+                            size: 20,
+                          ),
+                          const SizedBox(width: KRPGTheme.spacingSm),
+                          Text(
+                            'Mode Testing UEQ-S',
+                            style: KRPGTextStyles.bodyMedium.copyWith(
+                              fontWeight: KRPGTheme.fontWeightSemiBold,
+                              color: KRPGTheme.textDark,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: KRPGTheme.spacingSm),
+                      Text(
+                        'Klik pada peran (Pelatih/Atlet/Ketua) untuk mengisi otomatis username dan password. Sistem akan menggunakan data dummy untuk pengujian.',
+                        style: KRPGTextStyles.bodySmall.copyWith(
+                          color: KRPGTheme.textMedium,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                ),
             ],
+                ),
+              ),
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

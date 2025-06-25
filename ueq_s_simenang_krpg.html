@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UEQ-S - Aplikasi SiMenang KRPG</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .app-title {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .subtitle {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+        
+        .version {
+            font-size: 14px;
+            opacity: 0.7;
+            font-style: italic;
+        }
+        
+        .instructions {
+            background-color: white;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border-left: 5px solid #667eea;
+        }
+        
+        .instructions h3 {
+            color: #667eea;
+            margin-top: 0;
+            font-size: 20px;
+        }
+        
+        .questionnaire {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }
+        
+        .question-group {
+            margin-bottom: 25px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+        
+        .semantic-pair {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-weight: 500;
+            font-size: 16px;
+        }
+        
+        .left-term {
+            font-weight: bold;
+            color: #dc3545;
+            min-width: 120px;
+            text-align: right;
+            margin-right: 15px;
+        }
+        
+        .right-term {
+            font-weight: bold;
+            color: #28a745;
+            min-width: 120px;
+            text-align: left;
+            margin-left: 15px;
+        }
+        
+        .scale {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .scale input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: #667eea;
+        }
+        
+        .scale-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+            font-size: 12px;
+            color: #6c757d;
+            margin-left: 135px;
+            margin-right: 135px;
+        }
+        
+        .demographic {
+            background-color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }
+        
+        .demographic h3 {
+            color: #667eea;
+            margin-top: 0;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #495057;
+        }
+        
+        .form-group select, .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e9ecef;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group select:focus, .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .submit-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 25px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            font-size: 14px;
+            color: #6c757d;
+        }
+        
+        .required {
+            color: #dc3545;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .semantic-pair {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .left-term, .right-term {
+                margin: 5px 0;
+                min-width: auto;
+            }
+            
+            .scale-labels {
+                margin-left: 0;
+                margin-right: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="app-title">UEQ-S</div>
+        <div class="subtitle">User Experience Questionnaire - Short Version</div>
+        <div class="subtitle">untuk Aplikasi SiMenang KRPG</div>
+        <div class="version">Versi 1.0 - 2025</div>
+    </div>
+
+    <div class="instructions">
+        <h3>📋 Petunjuk Pengisian</h3>
+        <p><strong>Aplikasi yang dievaluasi:</strong> SiMenang KRPG (Sistem Manajemen Pelatihan Klub Renang Petrokimia Gresik)</p>
+        <p>Untuk setiap item di bawah ini, silakan beri tanda pada salah satu dari tujuh lingkaran antara kedua kata sifat yang berlawanan.</p>
+        <p><strong>Contoh:</strong> Jika Anda merasa aplikasi lebih cenderung "mudah" daripada "rumit", pilih lingkaran yang lebih dekat ke kata "mudah".</p>
+        <p>⚠️ <strong>Penting:</strong> Berikan penilaian berdasarkan pengalaman Anda menggunakan aplikasi secara keseluruhan, bukan fitur tertentu saja.</p>
+    </div>
+
+    <form id="ueqForm">
+        <div class="questionnaire">
+            <h3 style="text-align: center; color: #667eea; margin-bottom: 30px;">
+                🎯 Evaluasi Pengalaman Pengguna Aplikasi SiMenang KRPG
+            </h3>
+
+            <!-- Item 1: obstructive - supportive -->
+            <div class="question-group">
+                <div class="semantic-pair">
+                    <span class="left-term">menghalangi</span>
+                    <div class="scale">
+                        <input type="radio" name="q1" value="1" required>
+                        <input type="radio" name="q1" value="2">
+                        <input type="radio" name="q1" value="3">
+                        <input type="radio" name="q1" value="4">
+                        <input type="radio" name="q1" value="5">
+                        <input type="radio" name="q1" value="6">
+                        <input type="radio" name="q1" value="7">
+                    </div>
+                    <span class="right-term">mendukung</span>
+                </div>
+                <div class="scale-labels">
+                    <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span>
+                </div>
+            </div>
+
+            <!-- Item 2: complicated - easy -->
+            <div class="question-group">
+                <div class="semantic-pair">
+                    <span class="left-term">rumit</span>
+                    <div class="scale">
+                        <input type="radio" name="q2" value="1" required>
+                        <input type="radio" name="q2" value="2">
+                        <input type="radio" name="q2" value="3">
+                        <input type="radio" name="q2" value="4">
+                        <input type="radio" name="q2" value="5">
+                        <input type="radio" name="q2" value="6">
+                        <input type="radio" name="q2" value="7">
+                    </div>
+                    <span class="right-term">sederhana</span>
+                </div>
+                <div class="scale-labels">
+                    <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span>
+                </div>
+            </div>
+
+            <!-- Item 3: inefficient - efficient -->
+            <div class="question-group">
+                <div class="semantic-pair">
+                    <span class="left-term">tidak efisien</span>
+                    <div class="scale">
+                        <input type="radio" name="q3" value="1" required>
+                        <input type="radio" name="q3" value="2">
+                        <input type="radio" name="q3" value="3">
+                        <input type="radio" name="q3" value="4">
+                        <input type="radio" name="q3" value="5">
+                        <input type="radio" name="q3" value="6">
+                        <input type="radio" name="q3" value="7">
+                    </div>
+                    <span class="right-term">efisien</span>
+                </div>
+                <div class="scale-labels">
+                    <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span>
+                </div>
+            </div>
+
+            <!-- Item 4: confusing - clear -->
+            <div class="question-group">
+                <div class="semantic-pair">
+                    <span class="left-term">membingungkan</span>
+                    <div class="scale">
+                        <input type="radio" name="q4" value="1" required>
+                        <input type="radio" name="q4" value="2">
+                        <input type="radio" name="q4" value="3">
+                        <input type="radio" name="q4" value="4">
+                        <input type="radio" name="q4" value="5">
+                        <input type="radio" name="q4" value="6">
+                        <input type="radio" name="q4" value="7">
+                    </div>
+                    <span class="right-term">jelas</span>
+                </div>
+                <div class="scale-labels">
+                    <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span>
+                </div>
+            </div>
+
+            <!-- Item 5: boring - exciting -->
+            <div class="question-group">
+                <div class="semantic-pair">
+                    <span class="left-term">membosankan</span>
+                    <div class="scale">
+                        <input type="radio" name="q5" value="1" required>
+                        <input type="radio" name="q5" value="2">
+                        <input type="radio" name="q5" value="3">
+                        <input type="radio" name="q5" value="4">
+                        <input type="radio" name="q5" value="5">
+                        <input type="radio" name="q5" value="6">
+                        <input type="radio" name="q5" value="7">
+                    </div>
+                    <span class="right-term">mengasyikkan</span>
+                </div>
+                <div class="scale-labels">
+                    <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span>
+                </div>
+            </div>
+
+            <!-- Item 6: not interesting - interesting -->
+            <div class="question-group">
+                <div class="semantic-pair">
+                    <span class="left-term">tidak menarik</span>
+                    <div class="scale">
+                        <input type="radio" name="q6" value="1" required>
+                        <input type="radio" name="q6" value="2">
+                        <input type="radio" name="q6" value="3">
+                        <input type="radio" name="q6" value="4">
+                        <input type="radio" name="q6" value="5">
+                        <input type="radio" name="q6" value="6">
+                        <input type="radio" name="q6" value="7">
+                    </div>
+                    <span class="right-term">menarik</span>
+                </div>
+                <div class="scale-labels">
+                    <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span>
+                </div>
+            </div>
+
+            <!-- Item 7: conventional - inventive -->
+            <div class="question-group">
+                <div class="semantic-pair">
+                    <span class="left-term">konvensional</span>
+                    <div class="scale">
+                        <input type="radio" name="q7" value="1" required>
+                        <input type="radio" name="q7" value="2">
+                        <input type="radio" name="q7" value="3">
+                        <input type="radio" name="q7" value="4">
+                        <input type="radio" name="q7" value="5">
+                        <input type="radio" name="q7" value="6">
+                        <input type="radio" name="q7" value="7">
+                    </div>
+                    <span class="right-term">inovatif</span>
+                </div>
+                <div class="scale-labels">
+                    <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span>
+                </div>
+            </div>
+
+            <!-- Item 8: usual - leading edge -->
+            <div class="question-group">
+                <div class="semantic-pair">
+                    <span class="left-term">biasa saja</span>
+                    <div class="scale">
+                        <input type="radio" name="q8" value="1" required>
+                        <input type="radio" name="q8" value="2">
+                        <input type="radio" name="q8" value="3">
+                        <input type="radio" name="q8" value="4">
+                        <input type="radio" name="q8" value="5">
+                        <input type="radio" name="q8" value="6">
+                        <input type="radio" name="q8" value="7">
+                    </div>
+                    <span class="right-term">terdepan</span>
+                </div>
+                <div class="scale-labels">
+                    <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="demographic">
+            <h3>👤 Informasi Demografis</h3>
+            
+            <div class="form-group">
+                <label for="role">Peran Anda di Klub Renang Petrokimia Gresik <span class="required">*</span></label>
+                <select id="role" name="role" required>
+                    <option value="">-- Pilih Peran --</option>
+                    <option value="pelatih">Pelatih</option>
+                    <option value="atlet">Atlet</option>
+                    <option value="ketua">Ketua/Pengurus</option>
+                    <option value="admin">Admin</option>
+                    <option value="lainnya">Lainnya</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="age">Usia</label>
+                <select id="age" name="age">
+                    <option value="">-- Pilih Usia --</option>
+                    <option value="dibawah-18">Di bawah 18 tahun</option>
+                    <option value="18-25">18-25 tahun</option>
+                    <option value="26-35">26-35 tahun</option>
+                    <option value="36-45">36-45 tahun</option>
+                    <option value="diatas-45">Di atas 45 tahun</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="usage">Seberapa sering Anda menggunakan aplikasi SiMenang KRPG?</label>
+                <select id="usage" name="usage">
+                    <option value="">-- Pilih Frekuensi --</option>
+                    <option value="harian">Setiap hari</option>
+                    <option value="mingguan">Beberapa kali seminggu</option>
+                    <option value="bulanan">Beberapa kali sebulan</option>
+                    <option value="jarang">Jarang sekali</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="experience">Seberapa baik pengetahuan Anda tentang aplikasi serupa?</label>
+                <select id="experience" name="experience">
+                    <option value="">-- Pilih Tingkat --</option>
+                    <option value="pemula">Pemula</option>
+                    <option value="menengah">Menengah</option>
+                    <option value="mahir">Mahir</option>
+                    <option value="expert">Expert</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="submit-container">
+            <button type="submit" class="submit-btn">✨ Kirim Evaluasi</button>
+        </div>
+    </form>
+
+    <div class="footer">
+        <p><strong>📊 Tentang UEQ-S:</strong> User Experience Questionnaire - Short Version adalah metode terstandar untuk mengukur pengalaman pengguna yang dikembangkan oleh Schrepp, Hinderks, dan Thomaschewski.</p>
+        <p><strong>🏊‍♂️ SiMenang KRPG:</strong> Sistem Manajemen Pelatihan Klub Renang Petrokimia Gresik</p>
+        <p>© 2025 - Evaluasi UX SiMenang KRPG | <a href="https://www.ueq-online.org/" target="_blank" style="color: #667eea;">UEQ Official Website</a></p>
+    </div>
+
+    <script>
+        document.getElementById('ueqForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Collect all responses
+            const formData = new FormData(this);
+            const responses = {};
+            
+            // Get UEQ-S responses
+            for (let i = 1; i <= 8; i++) {
+                responses[`q${i}`] = parseInt(formData.get(`q${i}`)) || 0;
+            }
+            
+            // Get demographic data
+            responses.role = formData.get('role');
+            responses.age = formData.get('age');
+            responses.usage = formData.get('usage');
+            responses.experience = formData.get('experience');
+            
+            // Calculate UEQ-S scores
+            const pragmaticQuality = (responses.q1 + responses.q2 + responses.q3 + responses.q4) / 4;
+            const hedonicQuality = (responses.q5 + responses.q6 + responses.q7 + responses.q8) / 4;
+            const overallUX = (pragmaticQuality + hedonicQuality) / 2;
+            
+            // Convert to UEQ scale (-3 to +3)
+            const toUEQScale = (score) => ((score - 1) * 6 / 6) - 3;
+            
+            const results = {
+                pragmaticQuality: toUEQScale(pragmaticQuality),
+                hedonicQuality: toUEQScale(hedonicQuality),
+                overallUX: toUEQScale(overallUX),
+                rawResponses: responses,
+                timestamp: new Date().toISOString()
+            };
+            
+            // Display results
+            alert(`Terima kasih atas evaluasi Anda!
+
+📊 Hasil UEQ-S untuk SiMenang KRPG:
+• Kualitas Pragmatis: ${results.pragmaticQuality.toFixed(2)}
+• Kualitas Hedonik: ${results.hedonicQuality.toFixed(2)}
+• UX Keseluruhan: ${results.overallUX.toFixed(2)}
+
+Skala: -3 (sangat negatif) hingga +3 (sangat positif)
+
+Data akan digunakan untuk meningkatkan pengalaman pengguna aplikasi SiMenang KRPG.`);
+            
+            // Here you would typically send the data to your server
+            console.log('UEQ-S Results for SiMenang KRPG:', results);
+        });
+    </script>
+</body>
+</html> 

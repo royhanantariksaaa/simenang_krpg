@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:simenang_krpg/design_system/krpg_design_system.dart';
 
 enum KRPGButtonType { filled, outlined, text }
 enum KRPGButtonSize { small, medium, large }
@@ -48,8 +49,8 @@ class KRPGButton extends StatelessWidget {
       onPressed: onPressed,
       type: KRPGButtonType.filled,
       size: size,
-      backgroundColor: Colors.blue,
-      textColor: Colors.white,
+      backgroundColor: KRPGTheme.primaryColor,
+      textColor: KRPGTheme.backgroundPrimary,
       icon: icon,
       isLoading: isLoading,
     );
@@ -67,8 +68,8 @@ class KRPGButton extends StatelessWidget {
       onPressed: onPressed,
       type: KRPGButtonType.outlined,
       size: size,
-      borderColor: Colors.blue,
-      textColor: Colors.blue,
+      borderColor: KRPGTheme.primaryColor,
+      textColor: KRPGTheme.primaryColor,
       icon: icon,
       isLoading: isLoading,
     );
@@ -86,8 +87,8 @@ class KRPGButton extends StatelessWidget {
       onPressed: onPressed,
       type: KRPGButtonType.filled,
       size: size,
-      backgroundColor: Colors.green,
-      textColor: Colors.white,
+      backgroundColor: KRPGTheme.successColor,
+      textColor: KRPGTheme.backgroundPrimary,
       icon: icon,
       isLoading: isLoading,
     );
@@ -105,8 +106,8 @@ class KRPGButton extends StatelessWidget {
       onPressed: onPressed,
       type: KRPGButtonType.filled,
       size: size,
-      backgroundColor: Colors.red,
-      textColor: Colors.white,
+      backgroundColor: KRPGTheme.dangerColor,
+      textColor: KRPGTheme.backgroundPrimary,
       icon: icon,
       isLoading: isLoading,
     );
@@ -249,11 +250,14 @@ class KRPGButton extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: iconOnRight
           ? [
-              Text(
+              Flexible(
+                child: Text(
                 text,
                 style: TextStyle(
                   fontSize: fontSize,
                   fontWeight: FontWeight.w600,
+                  ),
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
               const SizedBox(width: 8),
@@ -262,11 +266,14 @@ class KRPGButton extends StatelessWidget {
           : [
               Icon(icon, size: iconSize),
               const SizedBox(width: 8),
-              Text(
+              Flexible(
+                child: Text(
                 text,
                 style: TextStyle(
                   fontSize: fontSize,
                   fontWeight: FontWeight.w600,
+                  ),
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
             ],

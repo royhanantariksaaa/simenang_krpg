@@ -32,22 +32,44 @@ class TrainingSession {
   });
 
   factory TrainingSession.fromJson(Map<String, dynamic> json) {
+    // Helper function to safely parse dates
+    DateTime? parseDate(dynamic value) {
+      if (value == null) return null;
+      try {
+        if (value is String) {
+          return DateTime.parse(value);
+        } else if (value is DateTime) {
+          return value;
+        }
+        return null;
+      } catch (e) {
+        print('Error parsing date: $value, error: $e');
+        return null;
+      }
+    }
+
+    // Helper function to safely convert to string
+    String safeToString(dynamic value, [String defaultValue = '']) {
+      if (value == null) return defaultValue;
+      return value.toString();
+    }
+
     return TrainingSession(
-      id: json['id_training_session']?.toString() ?? '',
-      trainingId: json['id_training']?.toString() ?? '',
-      scheduleDate: DateTime.parse(json['schedule_date'] ?? DateTime.now().toIso8601String()),
-      startTime: json['start_time'] ?? '00:00',
-      endTime: json['end_time'] ?? '00:00',
-      startedAt: json['started_at'] != null ? DateTime.parse(json['started_at']) : null,
-      endedAt: json['ended_at'] != null ? DateTime.parse(json['ended_at']) : null,
-      status: TrainingSessionStatus.fromString(json['status'] ?? ''),
-      createDate: DateTime.parse(json['create_date'] ?? DateTime.now().toIso8601String()),
-      createdById: json['create_id']?.toString() ?? '',
+      id: safeToString(json['id_training_session']),
+      trainingId: safeToString(json['id_training']),
+      scheduleDate: parseDate(json['schedule_date']) ?? DateTime.now(),
+      startTime: safeToString(json['start_time'], '00:00'),
+      endTime: safeToString(json['end_time'], '00:00'),
+      startedAt: parseDate(json['started_at']),
+      endedAt: parseDate(json['ended_at']),
+      status: TrainingSessionStatus.fromString(safeToString(json['status'])),
+      createDate: parseDate(json['create_date']) ?? DateTime.now(),
+      createdById: safeToString(json['create_id']),
       
       // Hydrated fields
-      trainingTitle: json['training_title'],
-      coachName: json['coach_name'],
-      attendeeCount: json['attendee_count'],
+      trainingTitle: json['training_title']?.toString(),
+      coachName: json['coach_name']?.toString(),
+      attendeeCount: json['attendee_count'] is int ? json['attendee_count'] : null,
     );
   }
 

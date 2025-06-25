@@ -1,42 +1,106 @@
 import 'package:flutter/material.dart';
 
-/// KRPG Design System - Theme
+/// KRPG Design System - Enhanced Green Chromatic Theme
 /// 
-/// This class defines the global design system for the SiMenang KRPG app,
-/// mirroring the web application's design patterns.
+/// This class defines the enhanced design system for the SiMenang KRPG app
+/// with a rich, chromatic green color palette for better visual variety.
 class KRPGTheme {
   // Private constructor to prevent instantiation
   KRPGTheme._();
   
-  // Brand Colors
-  static const Color primaryColor = Color(0xFF2563EB); // Blue 600
-  static const Color secondaryColor = Color(0xFF10B981); // Emerald 500
-  static const Color accentColor = Color(0xFFF97316); // Orange 500
+  // Enhanced Green Color Palette - Chromatic Variations
+  static const Color primaryGreen = Color(0xFF10B981); // Emerald 500 - Main brand
+  static const Color primaryGreenDark = Color(0xFF059669); // Emerald 600 - Darker primary
+  static const Color primaryGreenLight = Color(0xFF34D399); // Emerald 400 - Lighter primary
+  static const Color primaryGreenVeryLight = Color(0xFF6EE7B7); // Emerald 300 - Very light
   
-  // Neutral Colors
+  // Forest Green Variations
+  static const Color forestGreen = Color(0xFF047857); // Emerald 700
+  static const Color forestGreenDark = Color(0xFF065F46); // Emerald 800
+  static const Color forestGreenVeryDark = Color(0xFF064E3B); // Emerald 900
+  
+  // Mint & Jade Variations
+  static const Color mintGreen = Color(0xFFA7F3D0); // Emerald 200
+  static const Color jadeGreen = Color(0xFF6EE7B7); // Emerald 300
+  static const Color seafoamGreen = Color(0xFFD1FAE5); // Emerald 100
+  static const Color paleGreen = Color(0xFFECFDF5); // Emerald 50
+  
+  // Complementary Colors for Contrast
+  static const Color tealAccent = Color(0xFF14B8A6); // Teal 500
+  static const Color limeMedium = Color(0xFF65A30D); // Lime 600
+  static const Color oliveGreen = Color(0xFF84CC16); // Lime 500
+  
+  // Warm Complementary Colors
+  static const Color warmOrange = Color(0xFFF97316); // Orange 500
+  static const Color warmAmber = Color(0xFFFBBF24); // Amber 400
+  static const Color coralPink = Color(0xFFF472B6); // Pink 400
+  
+  // Updated Brand Colors
+  static const Color primaryColor = primaryGreen;
+  static const Color secondaryColor = tealAccent;
+  static const Color accentColor = warmOrange;
+  static const Color tertiaryColor = limeMedium;
+  
+  // Enhanced Neutral Colors with Green Tints
   static const Color neutralDark = Color(0xFF1F2937); // Gray 800
   static const Color neutralMedium = Color(0xFF6B7280); // Gray 500
   static const Color neutralLight = Color(0xFFF3F4F6); // Gray 100
+  static const Color neutralGreenTint = Color(0xFFF0FDF4); // Green-tinted neutral
   
-  // Semantic Colors
-  static const Color successColor = Color(0xFF10B981); // Emerald 500
-  static const Color warningColor = Color(0xFFF59E0B); // Amber 500
+  // Enhanced Semantic Colors
+  static const Color successColor = primaryGreen;
+  static const Color successColorLight = mintGreen;
+  static const Color warningColor = warmAmber;
+  static const Color warningColorLight = Color(0xFFFEF3C7); // Amber 100
   static const Color dangerColor = Color(0xFFEF4444); // Red 500
-  static const Color infoColor = Color(0xFF3B82F6); // Blue 500
+  static const Color dangerColorLight = Color(0xFFFEE2E2); // Red 100
+  static const Color infoColor = tealAccent;
+  static const Color infoColorLight = Color(0xFFCCFBF1); // Teal 100
   
-  // Text Colors
-  static const Color textDark = Color(0xFF1F2937); // Gray 800
+  // Text Colors with Green Harmony
+  static const Color textDark = Color(0xFF065F46); // Dark emerald for better harmony
   static const Color textMedium = Color(0xFF6B7280); // Gray 500
   static const Color textLight = Color(0xFFE5E7EB); // Gray 200
+  static const Color textOnGreen = Color(0xFFFFFFFF); // White on green backgrounds
+  static const Color textAccent = primaryGreenDark; // Green accent text
   
-  // Background Colors
+  // Enhanced Background Colors
   static const Color backgroundPrimary = Color(0xFFFFFFFF); // White
-  static const Color backgroundSecondary = Color(0xFFF9FAFB); // Gray 50
-  static const Color backgroundTertiary = Color(0xFFF3F4F6); // Gray 100
+  static const Color backgroundSecondary = neutralGreenTint; // Green-tinted background
+  static const Color backgroundTertiary = seafoamGreen; // Very light green
+  static const Color backgroundCard = Color(0xFFFAFAFA); // Slightly warm white
+  static const Color backgroundAccent = paleGreen; // Pale green for highlights
   
-  // Border Colors
+  // Border Colors with Green Variations
   static const Color borderColor = Color(0xFFE5E7EB); // Gray 200
   static const Color borderColorDark = Color(0xFFD1D5DB); // Gray 300
+  static const Color borderColorGreen = mintGreen; // Green border
+  static const Color borderColorAccent = primaryGreenLight; // Accent green border
+  
+  // Gradient Definitions
+  static const LinearGradient primaryGradient = LinearGradient(
+    colors: [primaryGreen, primaryGreenDark],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
+  
+  static const LinearGradient successGradient = LinearGradient(
+    colors: [primaryGreenLight, primaryGreen],
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+  );
+  
+  static const LinearGradient accentGradient = LinearGradient(
+    colors: [tealAccent, primaryGreen],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
+  
+  static const LinearGradient backgroundGradient = LinearGradient(
+    colors: [paleGreen, seafoamGreen],
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+  );
   
   // Elevation (Shadow) Levels
   static List<BoxShadow> get shadowSmall => [
@@ -110,14 +174,28 @@ class KRPGTheme {
   // Get the ThemeData for the app
   static ThemeData get lightTheme {
     return ThemeData(
-      // Color Scheme
+      // Enhanced Color Scheme with Green Variations
       primaryColor: primaryColor,
-      colorScheme: const ColorScheme.light(
+      colorScheme: ColorScheme.light(
         primary: primaryColor,
+        primaryContainer: primaryGreenLight,
         secondary: secondaryColor,
+        secondaryContainer: Color(0xFFCCFBF1), // Teal 100
+        tertiary: tertiaryColor,
+        tertiaryContainer: Color(0xFFECFCCB), // Lime 100
         error: dangerColor,
-        background: backgroundPrimary,
+        errorContainer: dangerColorLight,
+        background: backgroundSecondary,
         surface: backgroundPrimary,
+        surfaceVariant: backgroundAccent,
+        outline: borderColorGreen,
+        onPrimary: textOnGreen,
+        onSecondary: textOnGreen,
+        onTertiary: textOnGreen,
+        onError: textOnGreen,
+        onBackground: textDark,
+        onSurface: textDark,
+        onSurfaceVariant: textMedium,
       ),
       
       // Text Theme
@@ -170,25 +248,32 @@ class KRPGTheme {
         ),
       ),
       
-      // Component Themes
-      appBarTheme: const AppBarTheme(
+      // Enhanced Component Themes
+      appBarTheme: AppBarTheme(
         backgroundColor: primaryColor,
-        foregroundColor: Colors.white,
+        foregroundColor: textOnGreen,
         elevation: 0,
         centerTitle: false,
+        iconTheme: const IconThemeData(color: textOnGreen),
+        titleTextStyle: TextStyle(
+          color: textOnGreen,
+          fontSize: fontSizeLg,
+          fontWeight: fontWeightSemiBold,
+        ),
       ),
       
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: primaryColor,
-          foregroundColor: Colors.white,
-          elevation: 2,
+          foregroundColor: textOnGreen,
+          elevation: 3,
+          shadowColor: primaryGreenDark.withOpacity(0.3),
           padding: const EdgeInsets.symmetric(
             horizontal: spacingMd,
             vertical: spacingSm,
           ),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(radiusSm),
+            borderRadius: BorderRadius.circular(radiusMd),
           ),
           textStyle: const TextStyle(
             fontSize: fontSizeSm,
@@ -200,13 +285,14 @@ class KRPGTheme {
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
           foregroundColor: primaryColor,
-          side: const BorderSide(color: primaryColor, width: 1.5),
+          backgroundColor: backgroundAccent,
+          side: BorderSide(color: primaryGreenLight, width: 1.5),
           padding: const EdgeInsets.symmetric(
             horizontal: spacingMd,
             vertical: spacingSm,
           ),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(radiusSm),
+            borderRadius: BorderRadius.circular(radiusMd),
           ),
           textStyle: const TextStyle(
             fontSize: fontSizeSm,
@@ -260,18 +346,22 @@ class KRPGTheme {
       ),
       
       cardTheme: CardTheme(
-        color: backgroundPrimary,
-        elevation: 2,
+        color: backgroundCard,
+        elevation: 3,
+        shadowColor: primaryGreen.withOpacity(0.1),
         margin: const EdgeInsets.all(spacingSm),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(radiusMd),
+          borderRadius: BorderRadius.circular(radiusLg),
+          side: BorderSide(color: borderColorGreen.withOpacity(0.3), width: 0.5),
         ),
       ),
       
-      // Miscellaneous
+      // Enhanced Miscellaneous Colors
       scaffoldBackgroundColor: backgroundSecondary,
-      dividerColor: borderColor,
-      disabledColor: neutralMedium,
+      dividerColor: borderColorGreen,
+      disabledColor: neutralMedium.withOpacity(0.6),
+      highlightColor: primaryGreenVeryLight.withOpacity(0.3),
+      splashColor: primaryGreenLight.withOpacity(0.2),
       
       // Material 3
       useMaterial3: true,

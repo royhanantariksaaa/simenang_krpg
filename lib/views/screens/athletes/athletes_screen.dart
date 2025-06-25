@@ -24,6 +24,7 @@ class _AthletesScreenState extends State<AthletesScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   final TextEditingController _searchController = TextEditingController();
+  final ScrollController _scrollController = ScrollController();
   String _selectedClassroom = 'all';
   Timer? _debounceTimer;
 
@@ -31,6 +32,7 @@ class _AthletesScreenState extends State<AthletesScreen>
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
+    _scrollController.addListener(_onScroll);
     // Defer the API call to after the build is complete to avoid setState during build
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _loadAthletes();
@@ -41,8 +43,18 @@ class _AthletesScreenState extends State<AthletesScreen>
   void dispose() {
     _tabController.dispose();
     _searchController.dispose();
+    _scrollController.dispose();
     _debounceTimer?.cancel();
     super.dispose();
+  }
+
+  void _onScroll() {
+    if (_scrollController.position.pixels >= _scrollController.position.maxScrollExtent - 200) {
+      final athletesController = context.read<AthletesController>();
+      if (athletesController.hasMorePages && !athletesController.isLoading) {
+        athletesController.loadNextPage();
+      }
+    }
   }
 
   void _loadAthletes() {
@@ -83,7 +95,6 @@ class _AthletesScreenState extends State<AthletesScreen>
           ),
         ],
       ),
-      floatingActionButton: _buildFloatingActionButton(),
     );
   }
 
@@ -184,12 +195,23 @@ class _AthletesScreenState extends State<AthletesScreen>
 
         return RefreshIndicator(
           onRefresh: () async {
-            await athletesController.getAthletes();
+            await athletesController.refreshAthletes();
           },
           child: ListView.builder(
+            controller: _scrollController,
             padding: const EdgeInsets.all(KRPGTheme.spacingMd),
-            itemCount: filteredAthletes.length,
+            itemCount: filteredAthletes.length + (athletesController.hasMorePages ? 1 : 0),
             itemBuilder: (context, index) {
+              // Show loading indicator at the bottom
+              if (index == filteredAthletes.length) {
+                return const Padding(
+                  padding: EdgeInsets.all(KRPGTheme.spacingMd),
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                );
+              }
+              
               final athlete = filteredAthletes[index];
               return Padding(
                 padding: const EdgeInsets.only(bottom: KRPGTheme.spacingMd),
@@ -395,26 +417,7 @@ class _AthletesScreenState extends State<AthletesScreen>
     );
   }
 
-  Widget _buildFloatingActionButton() {
-    return Consumer<AuthController>(
-      builder: (context, authController, child) {
-        // Only show FAB for coaches and leaders
-        if (authController.currentUser?.role != UserRole.coach &&
-            authController.currentUser?.role != UserRole.leader) {
-          return const SizedBox.shrink();
-        }
 
-        return FloatingActionButton(
-          onPressed: () {
-            _showAddAthleteDialog();
-          },
-          backgroundColor: KRPGTheme.primaryColor,
-          foregroundColor: Colors.white,
-          child: const Icon(Icons.person_add),
-        );
-      },
-    );
-  }
 
   void _performSearch() {
     final athletesController = context.read<AthletesController>();
@@ -432,11 +435,21 @@ class _AthletesScreenState extends State<AthletesScreen>
   }
 
   void _showAthleteDetails(Map<String, dynamic> athlete) {
+    final athleteId = athlete['id_profile'] ?? athlete['id'];
+    if (athleteId == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Unable to open athlete details: Invalid ID'),
+        ),
+      );
+      return;
+    }
+    
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => AthleteDetailScreen(
-          athlete: athlete,
+          athleteId: athleteId.toString(),
         ),
       ),
     );

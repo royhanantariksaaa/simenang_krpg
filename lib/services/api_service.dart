@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
 import 'storage_service.dart';
+import '../config/app_config.dart';
+import 'offline_data_manager.dart';
 
 class ApiService {
   // Base URL for Android emulator to access localhost
@@ -15,6 +17,7 @@ class ApiService {
 
   // Services
   final StorageService _storageService = StorageService();
+  final OfflineDataManager _offlineDataManager = OfflineDataManager();
 
   // Auth token storage
   String? _authToken;
@@ -82,6 +85,12 @@ class ApiService {
 
   // GET request
   Future<Map<String, dynamic>> get(String endpoint, {Map<String, String>? queryParams}) async {
+    // Check if we're in dummy data mode for UEQ-S testing
+    if (AppConfig.isDummyDataForUEQSTest) {
+      _log('🧪 UEQ-S Testing Mode: Using offline data for GET $endpoint');
+      return await _handleOfflineGet(endpoint, queryParams);
+    }
+
     await _ensureInitialized();
     final uri = _buildUri(endpoint, queryParams);
     _log('GET Request: $uri');
@@ -97,6 +106,12 @@ class ApiService {
 
   // POST request
   Future<Map<String, dynamic>> post(String endpoint, {Map<String, dynamic>? body}) async {
+    // Check if we're in dummy data mode for UEQ-S testing
+    if (AppConfig.isDummyDataForUEQSTest) {
+      _log('🧪 UEQ-S Testing Mode: Using offline data for POST $endpoint');
+      return await _handleOfflinePost(endpoint, body);
+    }
+
     await _ensureInitialized();
     final uri = Uri.parse('$baseUrl/$endpoint');
     _log('POST Request: $uri');
@@ -355,5 +370,182 @@ class ApiService {
   Future<Map<String, dynamic>> healthCheck() async {
     _log('Performing health check...');
     return await get('check-token');
+  }
+
+  // Handle offline GET requests for UEQ-S testing
+  Future<Map<String, dynamic>> _handleOfflineGet(String endpoint, Map<String, String>? queryParams) async {
+    try {
+      // Map common endpoints to offline data manager methods
+      switch (endpoint) {
+        case 'athletes':
+          final page = int.tryParse(queryParams?['page'] ?? '1') ?? 1;
+          final limit = int.tryParse(queryParams?['limit'] ?? '20') ?? 20;
+          final search = queryParams?['search'];
+          return await _offlineDataManager.getAthletes(page: page, limit: limit, search: search);
+          
+        case 'training':
+        case 'training-sessions':
+          final page = int.tryParse(queryParams?['page'] ?? '1') ?? 1;
+          final limit = int.tryParse(queryParams?['limit'] ?? '20') ?? 20;
+          final status = queryParams?['status'];
+          return await _offlineDataManager.getTrainingSessions(page: page, limit: limit, status: status);
+          
+        case 'classrooms':
+          return await _offlineDataManager.getClassrooms();
+          
+        case 'competitions':
+          final status = queryParams?['status'];
+          return await _offlineDataManager.getCompetitions(status: status);
+          
+        case 'attendance':
+          final athleteId = int.tryParse(queryParams?['athlete_id'] ?? '');
+          final sessionId = int.tryParse(queryParams?['session_id'] ?? '');
+          return await _offlineDataManager.getAttendance(athleteId: athleteId, sessionId: sessionId);
+          
+        case 'home':
+        case 'dashboard/stats':
+        case 'dashboard':
+          return await _offlineDataManager.getDashboardStats();
+          
+        default:
+          // Handle single resource requests and actions
+          if (endpoint.contains('/')) {
+            final parts = endpoint.split('/');
+            
+            if (parts.length >= 2) {
+              final resource = parts[0];
+              final id = int.tryParse(parts[1]);
+              
+              if (resource == 'athletes' && id != null) {
+                return await _offlineDataManager.getAthlete(id);
+              } else if (resource == 'training' && id != null) {
+                if (parts.length == 2) {
+                  // training/1 - get training details
+                  return await _offlineDataManager.getTrainingDetails(id);
+                } else if (parts.length == 3) {
+                  final action = parts[2];
+                  switch (action) {
+                    case 'details':
+                      return await _offlineDataManager.getTrainingDetails(id);
+                    case 'can-start':
+                      return await _offlineDataManager.canStartTraining(id);
+                    case 'athletes':
+                      return await _offlineDataManager.getTrainingAthletes(id);
+                    case 'sessions':
+                      return await _offlineDataManager.getTrainingSessions();
+                    default:
+                      return await _offlineDataManager.getTrainingDetails(id);
+                  }
+                }
+              }
+            }
+          }
+          
+          // Default generic response
+          return await _offlineDataManager.get(endpoint);
+      }
+         } catch (e) {
+       _log('❌ Offline GET $endpoint error: $e');
+       return <String, dynamic>{
+         'success': false,
+         'error': 'Offline mode error: $e',
+       };
+     }
+  }
+
+  // Handle offline POST requests for UEQ-S testing
+  Future<Map<String, dynamic>> _handleOfflinePost(String endpoint, Map<String, dynamic>? body) async {
+    try {
+      // Map common POST endpoints
+      switch (endpoint) {
+        case 'training-sessions':
+          return await _offlineDataManager.createTrainingSession(body ?? {});
+          
+        case 'attendance/checkin':
+          return await _offlineDataManager.checkInOut(
+            athleteId: body?['athlete_id'] ?? 1,
+            sessionId: body?['session_id'] ?? 1,
+            action: 'checkin',
+            lat: body?['latitude'],
+            lng: body?['longitude'],
+          );
+          
+        case 'attendance/checkout':
+          return await _offlineDataManager.checkInOut(
+            athleteId: body?['athlete_id'] ?? 1,
+            sessionId: body?['session_id'] ?? 1,
+            action: 'checkout',
+            lat: body?['latitude'],
+            lng: body?['longitude'],
+          );
+          
+        default:
+          // Handle complex endpoints with multiple segments
+          if (endpoint.contains('/')) {
+            final parts = endpoint.split('/');
+            
+            if (parts.length >= 2) {
+              final resource = parts[0];
+              
+              // Handle training sessions endpoints
+              if (resource == 'training' && parts.length >= 4 && parts[1] == 'sessions') {
+                final sessionId = parts[2];
+                final action = parts[3];
+                
+                switch (action) {
+                  case 'attendance':
+                    _log('🧪 Handling attendance marking for session: $sessionId');
+                    return await _offlineDataManager.markAttendance(
+                      sessionId: sessionId,
+                      profileId: body?['profile_id']?.toString(),
+                      status: body?['status']?.toString() ?? '2',
+                      note: body?['note']?.toString(),
+                      location: body?['location'] != null 
+                        ? Map<String, double>.from(body!['location'])
+                        : null,
+                    );
+                  case 'statistics':
+                    _log('🧪 Handling statistics recording for session: $sessionId');
+                    return await _offlineDataManager.recordStatistics(
+                      sessionId: sessionId,
+                      profileId: body?['profile_id']?.toString() ?? 'current_user',
+                      stroke: body?['stroke']?.toString() ?? 'freestyle',
+                      duration: body?['duration']?.toString(),
+                      distance: body?['distance'] is int ? body!['distance'] : int.tryParse(body?['distance']?.toString() ?? '0'),
+                      energySystem: body?['energy_system']?.toString(),
+                      note: body?['note']?.toString(),
+                    );
+                  case 'end-attendance':
+                    return await _offlineDataManager.endAttendance(sessionId);
+                  case 'end':
+                    return await _offlineDataManager.endSession(sessionId);
+                  default:
+                    break;
+                }
+              }
+              
+              // Handle other endpoint patterns
+              final id = int.tryParse(parts[1]);
+              if (resource == 'training-sessions' && id != null) {
+                return await _offlineDataManager.updateTrainingSession(id, body ?? {});
+              } else if (resource == 'training' && id != null && parts.length == 3) {
+                final action = parts[2];
+                if (action == 'start') {
+                  return await _offlineDataManager.startTraining(id);
+                }
+              }
+            }
+          }
+          
+          // Default generic response
+          return await _offlineDataManager.post(endpoint, body: body);
+      }
+         } catch (e) {
+       _log('❌ Offline POST $endpoint error: $e');
+       return <String, dynamic>{
+         'success': false,
+         'error': 'Offline mode error: $e',
+       };
+     }
   }
 } 
