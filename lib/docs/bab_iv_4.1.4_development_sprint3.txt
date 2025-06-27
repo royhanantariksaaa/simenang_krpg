@@ -1,0 +1,141 @@
+4.1.4. Development Sprint 3
+Fase keempat implementasi pendekatan integrasi User-Centered Design dan Scrum adalah Development Sprint 3. Pada fase ini, tim melanjutkan pengembangan aplikasi dengan fokus pada fitur-fitur yang berkaitan dengan pemantauan performa atlet, manajemen keanggotaan, dan profil pengguna. Fase ini menggunakan hasil evaluasi dan umpan balik dari Sprint 2 sebagai acuan untuk perbaikan dan pengembangan fitur-fitur baru.
+
+4.1.4.1. Sprint Planning
+Pelaksanaan Development Sprint 3 dimulai dengan Sprint Planning untuk menentukan daftar backlog item yang akan dilaksanakan selama siklus sprint 3. Berikut adalah daftar Sprint Backlog item pada Sprint 3:
+
+Tabel IV.10 Daftar Sprint Backlog item (Sprint 3)
+| No. | Sprint Backlog item | Prioritas | Estimasi | Status |
+|-----|---------------------|-----------|----------|--------|
+| 1.  | View Athlete Competition Participation | Low | 8 jam | Selesai |
+| 2.  | Athlete Performance Monitoring | Low | 12 jam | Selesai |
+| 3.  | View Athlete Performance History | Low | 8 jam | Selesai |
+| 4.  | View Athlete Membership Status | High | 6 jam | Selesai |
+| 5.  | Upload Payment Evidence | High | 10 jam | Selesai |
+| 6.  | View Profile | Low | 4 jam | Selesai |
+| 7.  | Edit Profile | Low | 6 jam | Selesai |
+
+4.1.4.2. View Athlete Competition Participation
+Fitur View Athlete Competition Participation memungkinkan pelatih dan atlet untuk melihat daftar kompetisi yang telah diikuti oleh atlet. Fitur ini membantu pelatih dalam memantau pengalaman kompetisi atlet dan membantu atlet dalam melihat riwayat kompetisi mereka.
+
+Gambar IV.25 Antarmuka View Athlete Competition Participation
+
+Pada halaman View Athlete Competition Participation, pengguna dapat melihat daftar kompetisi yang telah diikuti oleh atlet beserta detail seperti nama kompetisi, tanggal, lokasi, tingkat kompetisi, dan hasil yang dicapai. Pengguna juga dapat melakukan filter berdasarkan tanggal atau tingkat kompetisi.
+
+Gambar IV.26 Activity Diagram View Athlete Competition Participation
+
+Activity Diagram pada Gambar IV.26 menggambarkan alur proses melihat partisipasi kompetisi atlet. Proses dimulai ketika pengguna (pelatih atau atlet) mengakses menu partisipasi kompetisi. Sistem akan mengambil data partisipasi kompetisi atlet dari database dan menampilkannya dalam bentuk daftar. Jika tidak ada data partisipasi kompetisi yang ditemukan, sistem akan menampilkan pesan "Tidak ada data partisipasi kompetisi". Pengguna dapat melakukan filter untuk menemukan data partisipasi kompetisi yang diinginkan.
+
+4.1.4.3. Athlete Performance Monitoring
+Fitur Athlete Performance Monitoring memungkinkan pelatih untuk memantau performa atlet berdasarkan data latihan yang telah dicatat. Fitur ini membantu pelatih dalam mengevaluasi perkembangan atlet dan membuat keputusan terkait program latihan.
+
+Gambar IV.27 Antarmuka Athlete Performance Monitoring
+
+Pada halaman Athlete Performance Monitoring, pelatih dapat melihat data performa atlet dalam bentuk grafik dan tabel. Data performa mencakup waktu, jarak, dan metrik lainnya yang telah dicatat selama sesi latihan. Pelatih dapat memilih atlet dan periode waktu tertentu untuk melihat perkembangan performa atlet.
+
+Gambar IV.28 Activity Diagram Athlete Performance Monitoring
+
+Activity Diagram pada Gambar IV.28 menggambarkan alur proses memantau performa atlet. Proses dimulai ketika pelatih mengakses menu pemantauan performa atlet. Sistem akan meminta pelatih untuk memilih atlet dan periode waktu. Setelah pelatih memilih atlet dan periode waktu, sistem akan mengambil data performa atlet dari database dan menampilkannya dalam bentuk grafik dan tabel. Jika tidak ada data performa yang ditemukan, sistem akan menampilkan pesan "Tidak ada data performa".
+
+4.1.4.4. View Athlete Performance History
+Fitur View Athlete Performance History memungkinkan atlet untuk melihat riwayat performa mereka berdasarkan data latihan yang telah dicatat. Fitur ini membantu atlet dalam memantau perkembangan mereka sendiri dan memotivasi mereka untuk terus meningkatkan performa.
+
+Gambar IV.29 Antarmuka View Athlete Performance History
+
+Pada halaman View Athlete Performance History, atlet dapat melihat data performa mereka dalam bentuk grafik dan tabel. Data performa mencakup waktu, jarak, dan metrik lainnya yang telah dicatat selama sesi latihan. Atlet dapat memilih periode waktu tertentu untuk melihat perkembangan performa mereka.
+
+Gambar IV.30 Activity Diagram View Athlete Performance History
+
+Activity Diagram pada Gambar IV.30 menggambarkan alur proses melihat riwayat performa atlet. Proses dimulai ketika atlet mengakses menu riwayat performa. Sistem akan meminta atlet untuk memilih periode waktu. Setelah atlet memilih periode waktu, sistem akan mengambil data performa atlet dari database dan menampilkannya dalam bentuk grafik dan tabel. Jika tidak ada data performa yang ditemukan, sistem akan menampilkan pesan "Tidak ada data performa".
+
+4.1.4.5. View Athlete Membership Status
+Fitur View Athlete Membership Status memungkinkan atlet untuk melihat status keanggotaan mereka di Klub Renang Petrokimia Gresik. Status keanggotaan mencakup informasi seperti tanggal bergabung, tanggal berakhir keanggotaan, status pembayaran, dan informasi lainnya.
+
+Gambar IV.31 Antarmuka View Athlete Membership Status
+
+Pada halaman View Athlete Membership Status, atlet dapat melihat informasi status keanggotaan mereka. Informasi yang ditampilkan mencakup nama atlet, nomor keanggotaan, tanggal bergabung, tanggal berakhir keanggotaan, status pembayaran, dan informasi lainnya. Atlet juga dapat melihat riwayat pembayaran mereka.
+
+Gambar IV.32 Activity Diagram View Athlete Membership Status
+
+Activity Diagram pada Gambar IV.32 menggambarkan alur proses melihat status keanggotaan atlet. Proses dimulai ketika atlet mengakses menu status keanggotaan. Sistem akan mengambil data status keanggotaan atlet dari database dan menampilkannya. Jika tidak ada data status keanggotaan yang ditemukan, sistem akan menampilkan pesan "Tidak ada data status keanggotaan".
+
+4.1.4.6. Upload Payment Evidence
+Fitur Upload Payment Evidence memungkinkan atlet untuk mengunggah bukti pembayaran keanggotaan mereka. Fitur ini memudahkan proses verifikasi pembayaran oleh pihak klub.
+
+Gambar IV.33 Antarmuka Upload Payment Evidence
+
+Pada halaman Upload Payment Evidence, atlet dapat mengunggah bukti pembayaran keanggotaan mereka. Atlet perlu mengisi informasi seperti tanggal pembayaran, jumlah pembayaran, dan metode pembayaran. Atlet juga perlu mengunggah foto bukti pembayaran.
+
+Gambar IV.34 Activity Diagram Upload Payment Evidence
+
+Activity Diagram pada Gambar IV.34 menggambarkan alur proses mengunggah bukti pembayaran. Proses dimulai ketika atlet mengakses menu unggah bukti pembayaran. Sistem akan menampilkan form unggah bukti pembayaran. Atlet mengisi form tersebut dan mengunggah foto bukti pembayaran. Sistem akan memvalidasi data yang dimasukkan dan menyimpannya ke database jika valid. Jika data berhasil disimpan, sistem akan menampilkan pesan sukses dan mengirimkan notifikasi kepada admin klub untuk verifikasi.
+
+4.1.4.7. View Profile
+Fitur View Profile memungkinkan pengguna (pelatih dan atlet) untuk melihat informasi profil mereka. Informasi profil mencakup data pribadi seperti nama, tanggal lahir, alamat, nomor telepon, dan informasi lainnya.
+
+Gambar IV.35 Antarmuka View Profile
+
+Pada halaman View Profile, pengguna dapat melihat informasi profil mereka. Informasi yang ditampilkan mencakup nama, tanggal lahir, alamat, nomor telepon, email, dan informasi lainnya. Pengguna juga dapat melihat foto profil mereka.
+
+Gambar IV.36 Activity Diagram View Profile
+
+Activity Diagram pada Gambar IV.36 menggambarkan alur proses melihat profil pengguna. Proses dimulai ketika pengguna mengakses menu profil. Sistem akan mengambil data profil pengguna dari database dan menampilkannya. Jika tidak ada data profil yang ditemukan, sistem akan menampilkan pesan "Tidak ada data profil".
+
+4.1.4.8. Edit Profile
+Fitur Edit Profile memungkinkan pengguna (pelatih dan atlet) untuk mengubah informasi profil mereka. Fitur ini memudahkan pengguna dalam memperbarui data pribadi mereka.
+
+Gambar IV.37 Antarmuka Edit Profile
+
+Pada halaman Edit Profile, pengguna dapat mengubah informasi profil mereka. Pengguna dapat mengubah data seperti nama, tanggal lahir, alamat, nomor telepon, dan informasi lainnya. Pengguna juga dapat mengunggah foto profil baru.
+
+Gambar IV.38 Activity Diagram Edit Profile
+
+Activity Diagram pada Gambar IV.38 menggambarkan alur proses mengubah profil pengguna. Proses dimulai ketika pengguna mengakses menu edit profil. Sistem akan menampilkan form edit profil yang telah diisi dengan data profil pengguna saat ini. Pengguna mengubah data yang diinginkan dan menyimpannya. Sistem akan memvalidasi data yang dimasukkan dan menyimpannya ke database jika valid. Jika data berhasil disimpan, sistem akan menampilkan pesan sukses.
+
+4.1.4.9. Pengujian Whitebox Testing
+Setelah melakukan implementasi pada masing-masing backlog item di Sprint 3, tahapan selanjutnya yang dilakukan untuk memastikan bahwa seluruh backlog item yang dikerjakan berjalan dengan baik adalah pengujian whitebox. Berikut adalah beberapa contoh pengujian whitebox yang dilakukan pada Sprint 3:
+
+1. **Unit Testing untuk View Athlete Competition Participation**
+   - Pengujian fungsi getAthleteCompetitionParticipation() untuk memastikan bahwa fungsi tersebut dapat mengambil data partisipasi kompetisi atlet dengan benar.
+   - Pengujian fungsi filterCompetitionParticipation() untuk memastikan bahwa fungsi tersebut dapat melakukan filter data partisipasi kompetisi dengan benar.
+
+2. **Unit Testing untuk Athlete Performance Monitoring**
+   - Pengujian fungsi getAthletePerformance() untuk memastikan bahwa fungsi tersebut dapat mengambil data performa atlet dengan benar.
+   - Pengujian fungsi generatePerformanceChart() untuk memastikan bahwa fungsi tersebut dapat menghasilkan grafik performa atlet dengan benar.
+
+3. **Unit Testing untuk View Athlete Performance History**
+   - Pengujian fungsi getAthletePerformanceHistory() untuk memastikan bahwa fungsi tersebut dapat mengambil riwayat performa atlet dengan benar.
+   - Pengujian fungsi filterPerformanceHistory() untuk memastikan bahwa fungsi tersebut dapat melakukan filter riwayat performa dengan benar.
+
+4. **Unit Testing untuk View Athlete Membership Status**
+   - Pengujian fungsi getAthleteMembershipStatus() untuk memastikan bahwa fungsi tersebut dapat mengambil status keanggotaan atlet dengan benar.
+   - Pengujian fungsi getPaymentHistory() untuk memastikan bahwa fungsi tersebut dapat mengambil riwayat pembayaran atlet dengan benar.
+
+5. **Unit Testing untuk Upload Payment Evidence**
+   - Pengujian fungsi uploadPaymentEvidence() untuk memastikan bahwa fungsi tersebut dapat mengunggah bukti pembayaran dengan benar.
+   - Pengujian fungsi validatePaymentData() untuk memastikan bahwa fungsi tersebut dapat memvalidasi data pembayaran dengan benar.
+
+6. **Unit Testing untuk View Profile**
+   - Pengujian fungsi getUserProfile() untuk memastikan bahwa fungsi tersebut dapat mengambil data profil pengguna dengan benar.
+
+7. **Unit Testing untuk Edit Profile**
+   - Pengujian fungsi updateUserProfile() untuk memastikan bahwa fungsi tersebut dapat memperbarui data profil pengguna dengan benar.
+   - Pengujian fungsi validateProfileData() untuk memastikan bahwa fungsi tersebut dapat memvalidasi data profil dengan benar.
+   - Pengujian fungsi uploadProfilePicture() untuk memastikan bahwa fungsi tersebut dapat mengunggah foto profil dengan benar.
+
+Hasil pengujian whitebox menunjukkan bahwa semua fungsi yang diuji telah berjalan dengan baik dan sesuai dengan yang diharapkan. Beberapa bug minor ditemukan pada fungsi generatePerformanceChart() dan uploadProfilePicture(), namun telah diperbaiki sebelum sprint selesai.
+
+4.1.4.10. Sprint Review & Retrospective
+Setelah semua backlog item pada Sprint 3 selesai dikerjakan dan diuji, dilakukan Sprint Review untuk meninjau hasil kerja selama siklus sprint dan Sprint Retrospective untuk melakukan refleksi dan evaluasi terhadap produktivitas pengerjaan.
+
+Pada Sprint Review, tim mendemonstrasikan fitur-fitur yang telah dikembangkan kepada pihak Klub Renang Petrokimia Gresik. Pihak klub memberikan umpan balik positif terhadap fitur-fitur yang telah dikembangkan. Beberapa saran perbaikan yang diberikan antara lain:
+- Penambahan fitur notifikasi untuk mengingatkan atlet ketika masa keanggotaan hampir berakhir.
+- Penambahan fitur untuk membandingkan performa atlet dengan atlet lain atau dengan standar tertentu.
+- Penambahan fitur untuk mengekspor data performa atlet dalam format PDF atau Excel.
+
+Pada Sprint Retrospective, tim melakukan refleksi terhadap proses pengerjaan Sprint 3. Beberapa hal yang menjadi catatan antara lain:
+- Pengerjaan fitur Athlete Performance Monitoring memakan waktu lebih lama dari yang diperkirakan karena kompleksitas implementasi grafik performa.
+- Integrasi dengan penyimpanan cloud untuk mengunggah bukti pembayaran dan foto profil memerlukan waktu lebih lama dari yang diperkirakan.
+- Komunikasi dengan pihak klub sudah sangat baik dan membantu dalam proses pengembangan.
+
+Secara keseluruhan, Sprint 3 telah berhasil diselesaikan dengan baik meskipun terdapat beberapa tantangan dalam implementasi. Semua backlog item telah selesai dikerjakan dan diuji. Umpan balik dari pihak klub akan digunakan untuk pengembangan lebih lanjut di masa depan. 

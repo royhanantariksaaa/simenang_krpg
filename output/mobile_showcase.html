@@ -1,0 +1,2358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SiMenang KRPG - Mobile App Showcase</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; color: #333; margin: 0; padding: 20px; }
+        .header { text-align: center; margin-bottom: 40px; }
+        .header h1 { font-size: 2.5em; color: #0070c0; }
+        .header p { font-size: 1.2em; color: #555; }
+        .screen-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 30px; }
+        .screen-card { background-color: white; border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.08); overflow: hidden; display: flex; flex-direction: column; }
+        .screen-card-header { padding: 20px; border-bottom: 1px solid #e0e0e0; }
+        .screen-card-header h3 { margin: 0; font-size: 1.5em; color: #005a9c; }
+        .screen-card-content { flex-grow: 1; padding: 20px; }
+        .view-toggle { display: flex; justify-content: center; margin-bottom: 20px; }
+        .toggle-btn { background-color: #e0e0e0; border: none; padding: 10px 20px; cursor: pointer; border-radius: 20px; margin: 0 5px; font-weight: 600; transition: all 0.3s ease; }
+        .toggle-btn.active { background-color: #0070c0; color: white; }
+        .screen-view { display: none; }
+        .screen-view.active { display: block; }
+        .screen-mockup { border: 1px solid #ddd; border-radius: 10px; padding: 15px; background-color: #f9f9f9; }
+        .wireframe { /* Styles for wireframe view */ border: 2px dashed #aaa; background-color: #f0f0f0; color: #555; }
+        .wireframe .wf-box { background-color: #d9d9d9; border: 1px solid #b0b0b0; border-radius: 5px; margin-bottom: 10px; padding: 10px; text-align: center; }
+        .wireframe .wf-text { color: #555; }
+        .high-fidelity { /* Styles for high-fidelity view */ }
+        .download-btn { display: block; width: calc(100% - 40px); margin: 20px auto; padding: 12px; background-color: #28a745; color: white; text-align: center; border: none; border-radius: 8px; font-size: 1em; font-weight: bold; cursor: pointer; text-decoration: none; }
+        .download-btn:hover { background-color: #218838; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Mobile App Showcase</h1>
+        <p>Wireframes and High-Fidelity UI of SiMenang KRPG</p>
+    </div>
+
+    <div class="screen-gallery" id="gallery">
+        <!-- Screen cards will be injected here by JavaScript -->
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const screens = [
+                { id: 'login', title: 'Login Screen' },
+                { id: 'home', title: 'Home Screen' },
+                { id: 'profile', title: 'Profile Screen' },
+                { id: 'athletes', title: 'Athletes List' },
+                { id: 'athlete_detail_overview', title: 'Athlete Detail (Overview)' },
+                { id: 'athlete_detail_training', title: 'Athlete Detail (Training)' },
+                { id: 'athlete_detail_competitions', title: 'Athlete Detail (Competitions)' },
+                { id: 'athlete_detail_statistics', title: 'Athlete Detail (Statistics)' },
+                { id: 'classroom', title: 'Classroom List' },
+                { id: 'classroom_detail_overview', title: 'Classroom Detail (Overview)' },
+                { id: 'classroom_detail_students', title: 'Classroom Detail (Students)' },
+                { id: 'classroom_detail_statistics', title: 'Classroom Detail (Statistics)' },
+                { id: 'competition', title: 'Competition List' },
+                { id: 'competition_detail_overview', title: 'Competition Detail (Overview)' },
+                { id: 'competition_detail_statistics', title: 'Competition Detail (Statistics)' },
+                { id: 'training', title: 'Training Screen' },
+                { id: 'training_detail_overview', title: 'Training Detail (Overview)' },
+                { id: 'training_detail_athletes', title: 'Training Detail (Athletes)' },
+                { id: 'training_detail_history', title: 'Training Detail (History)' },
+                { id: 'training_session_attendance', title: 'Training Session (Attendance)' },
+                { id: 'training_session_stopwatch', title: 'Training Session (Stopwatch)' },
+                { id: 'training_session_statistics', title: 'Training Session (Statistics)' },
+                { id: 'attendance_check', title: 'Attendance Check' },
+            ];
+
+            const gallery = document.getElementById('gallery');
+            screens.forEach(screen => {
+                gallery.appendChild(createScreenCard(screen));
+            });
+
+            // Add event listeners for toggle buttons
+            document.querySelectorAll('.toggle-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const card = e.target.closest('.screen-card');
+                    const targetView = e.target.dataset.view; // 'wireframe' or 'hifi'
+                    
+                    // Update button active state
+                    card.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+                    e.target.classList.add('active');
+
+                    // Update view active state
+                    card.querySelectorAll('.screen-view').forEach(v => v.classList.remove('active'));
+                    card.querySelector(`.screen-view.${targetView}`).classList.add('active');
+                });
+            });
+
+            // Add event listeners for download buttons
+            document.querySelectorAll('.download-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const card = e.target.closest('.screen-card');
+                    const activeView = card.querySelector('.screen-view.active .screen-mockup');
+                    const screenTitle = card.querySelector('h3').textContent.replace(/\s+/g, '_');
+
+                    html2canvas(activeView, { scale: 2 }).then(canvas => {
+                        const link = document.createElement('a');
+                        link.download = `${screenTitle}.png`;
+                        link.href = canvas.toDataURL();
+                        link.click();
+                    });
+                });
+            });
+        });
+
+        function createScreenCard(screen) {
+            const card = document.createElement('div');
+            card.className = 'screen-card';
+            card.innerHTML = `
+                <div class="screen-card-header">
+                    <h3>${screen.title}</h3>
+                    <p>${screen.description}</p>
+                </div>
+                <div class="screen-card-content">
+                    <div class="view-toggle">
+                        <button class="toggle-btn active" data-view="hifi">High-Fidelity</button>
+                        <button class="toggle-btn" data-view="wireframe">Wireframe</button>
+                    </div>
+                    
+                    <div class="screen-view hifi active" id="${screen.id}-hifi-view">
+                        <div class="screen-mockup" id="${screen.id}-hifi-mockup">
+                            ${getHighFidelityContent(screen.id)}
+                        </div>
+                    </div>
+
+                    <div class="screen-view wireframe" id="${screen.id}-wf-view">
+                        <div class="screen-mockup" id="${screen.id}-wf-mockup">
+                            ${getWireframeContent(screen.id)}
+                        </div>
+                    </div>
+                </div>
+                <a href="#" class="download-btn">Download Image</a>
+            `;
+            return card;
+        }
+
+        function getHighFidelityContent(id) {
+            const THEME = {
+                primary: '#10B981',
+                primaryDark: '#059669',
+                background: '#F0FDF4',
+                cardBg: '#FFFFFF',
+                textDark: '#065F46',
+                textMedium: '#6B7280',
+                border: '#E5E7EB',
+                radiusMd: '12px',
+                radiusLg: '16px',
+                radiusRound: '99px',
+            };
+
+            const HiFi = {
+                AppBar: (title, actions = []) => {
+                    const titleHtml = `<h2 style="margin:0; font-weight: 600; font-size: 18px;">${title}</h2>`;
+                    const actionsHtml = actions.map(icon => `<span class="material-symbols-outlined">${icon}</span>`).join('');
+                    
+                    return `
+                        <div style="background: ${THEME.primary}; color: white; padding: 15px 20px;">
+                            <div style="display: flex; align-items: center; justify-content: space-between;">
+                                ${titleHtml}
+                                ${actionsHtml ? `<div style="display: flex; gap: 8px;">${actionsHtml}</div>` : ''}
+                            </div>
+                        </div>
+                    `;
+                },
+                TabBar: (tabs = [], activeIndex = 0) => {
+                    return `
+                        <div style="background: ${THEME.primaryDark}; display: flex;">
+                            ${tabs.map((tab, index) => `
+                                <div style="flex: 1; text-align: center; padding: 12px 0; border-bottom: 3px solid ${index === activeIndex ? 'white' : 'transparent'}; color: ${index === activeIndex ? 'white' : 'rgba(255,255,255,0.7)'}; font-weight: ${index === activeIndex ? '600' : '500'}; font-size: 14px; cursor: pointer;">
+                                    ${tab}
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                },
+                Scaffold: (title, body, nav) => `
+                    <div style="background-color: ${THEME.background}; position: relative; min-height: 600px; box-sizing: border-box; display: flex; flex-direction: column;">
+                        <div style="background: ${THEME.primary}; color: white; padding: 15px 20px; font-weight: 600; font-size: 18px;">${title}</div>
+                        <div style="flex-grow: 1; overflow-y: auto; padding-bottom: ${nav ? '80px' : '0'};">${body}</div>
+                        ${nav ? HiFi.BottomNav() : ''}
+                    </div>
+                `,
+                BottomNav: () => `
+                    <div style="background: white; padding: 10px 5px; display: flex; justify-content: space-around; border-top: 1px solid ${THEME.border}; position: absolute; bottom: 0; left: 0; right: 0; text-align: center;">
+                        <div style="color: ${THEME.primary}; flex: 1;">
+                            <span class="material-symbols-outlined" style="font-size: 28px;">home</span>
+                            <small style="display: block; font-size: 12px; font-weight: 500;">Home</small>
+                        </div>
+                        <div style="color: ${THEME.textMedium}; flex: 1;">
+                            <span class="material-symbols-outlined" style="font-size: 28px;">fitness_center</span>
+                            <small style="display: block; font-size: 12px;">Training</small>
+                        </div>
+                        <div style="color: ${THEME.textMedium}; flex: 1;">
+                            <span class="material-symbols-outlined" style="font-size: 28px;">emoji_events</span>
+                            <small style="display: block; font-size: 12px;">Competition</small>
+                        </div>
+                        <div style="color: ${THEME.textMedium}; flex: 1;">
+                            <span class="material-symbols-outlined" style="font-size: 28px;">school</span>
+                            <small style="display: block; font-size: 12px;">Classroom</small>
+                        </div>
+                        <div style="color: ${THEME.textMedium}; flex: 1;">
+                            <span class="material-symbols-outlined" style="font-size: 28px;">groups</span>
+                            <small style="display: block; font-size: 12px;">Athlete</small>
+                        </div>
+                        <div style="color: ${THEME.textMedium}; flex: 1;">
+                            <span class="material-symbols-outlined" style="font-size: 28px;">person</span>
+                            <small style="display: block; font-size: 12px;">Profile</small>
+                        </div>
+                    </div>
+                `,
+                Card: (content) => `
+                    <div style="background: ${THEME.cardBg}; border-radius: ${THEME.radiusLg}; padding: 16px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border: 1px solid rgba(167, 243, 208, 0.3); margin-bottom: 16px;">
+                        ${content}
+                    </div>
+                `,
+                AthleteCardContent: (name, email, status, statusColor) => `
+                    <div style="display: flex; align-items: flex-start;">
+                        <div style="width: 48px; height: 48px; border-radius: 50%; background: rgba(16, 185, 129, 0.1); display: grid; place-items: center; color: ${THEME.primary}; flex-shrink: 0;"><span class="material-symbols-outlined" style="font-size: 28px;">person</span></div>
+                        <div style="margin-left: 12px; flex-grow: 1;">
+                            <p style="font-weight: 600; margin: 0; color: ${THEME.textDark};">${name}</p>
+                            <p style="font-size: 14px; margin: 4px 0 0 0; color: ${THEME.textMedium};">${email}</p>
+                        </div>
+                        <div style="background: ${statusColor}1A; color: ${statusColor}; padding: 4px 8px; border-radius: 99px; font-size: 12px; font-weight: 500;">${status}</div>
+                    </div>
+                `,
+                FormField: (label, icon) => `
+                     <div style="margin-bottom: 16px;">
+                        <label style="display: block; font-size: 14px; font-weight: 500; color: ${THEME.textDark}; margin-bottom: 8px;">${label}</label>
+                        <div style="position: relative;">
+                            <span class="material-symbols-outlined" style="position: absolute; left: 14px; top: 13px; color: ${THEME.textMedium}; font-size: 22px;">${icon}</span>
+                            <input type="text" style="width: 100%; box-sizing: border-box; border-radius: 8px; border: 1px solid ${THEME.border}; padding: 14px 14px 14px 45px; background: white;">
+                        </div>
+                    </div>
+                `,
+                Button: (text, fullWidth = false, bgColor = THEME.primary) => `
+                    <button style="width: ${fullWidth ? '100%' : 'auto'}; background: ${bgColor}; color: white; border: none; padding: 14px 20px; border-radius: ${THEME.radiusMd}; font-weight: 600; font-size: 14px; cursor: pointer; box-shadow: 0 2px 5px ${bgColor === THEME.primary ? THEME.primaryDark : '#000000'}33;">${text}</button>
+                `,
+                DetailRow: (label, value) => `
+                    <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid ${THEME.border};">
+                        <span style="font-weight: 500; color: ${THEME.textMedium};">${label}</span>
+                        <span style="color: ${THEME.textDark}; text-align: right;">${value}</span>
+                    </div>
+                `,
+                ActionTile: (icon, title) => `
+                    <div style="display: flex; align-items: center; padding: 12px 0;">
+                        <span class="material-symbols-outlined" style="font-size: 22px; width: 30px; text-align: center; color: ${THEME.textMedium};">${icon}</span>
+                        <span style="flex-grow: 1; margin-left: 12px; color: ${THEME.textDark};">${title}</span>
+                        <span class="material-symbols-outlined" style="color: ${THEME.textMedium};">arrow_forward_ios</span>
+                    </div>
+                `,
+                ListTileCard: (icon, title, subtitle) => `
+                    <div style="background: ${THEME.cardBg}; border-radius: ${THEME.radiusMd}; padding: 12px 16px; box-shadow: 0 2px 4px rgba(0,0,0,0.04); border: 1px solid ${THEME.border}; margin-bottom: 12px; display: flex; align-items: center;">
+                        <div style="width: 40px; height: 40px; border-radius: 50%; background: ${THEME.primary}1A; display: grid; place-items: center; color: ${THEME.primary}; flex-shrink: 0;"><span class="material-symbols-outlined">${icon}</span></div>
+                        <div style="margin-left: 16px; flex-grow: 1;">
+                            <p style="font-weight: 600; margin: 0; color: ${THEME.textDark}; font-size: 15px;">${title}</p>
+                            <p style="font-size: 13px; margin: 4px 0 0 0; color: ${THEME.textMedium};">${subtitle}</p>
+                        </div>
+                        <span class="material-symbols-outlined" style="color: ${THEME.textMedium}; font-size: 18px;">arrow_forward_ios</span>
+                    </div>
+                `,
+                ListTileContent: (title, subtitle, icon) => `
+                    <div style="display: flex; align-items: center; padding: 12px 0;">
+                        <span class="material-symbols-outlined" style="font-size: 22px; width: 30px; text-align: center; color: ${THEME.textMedium};">${icon}</span>
+                        <div style="margin-left: 12px; flex-grow: 1;">
+                            <p style="font-weight: 600; margin: 0; color: ${THEME.textDark};">${title}</p>
+                            <p style="font-size: 14px; margin: 4px 0 0 0; color: ${THEME.textMedium};">${subtitle}</p>
+                        </div>
+                    </div>
+                `,
+                StatCard: (label, value, icon) => `
+                    <div style="background: ${THEME.cardBg}; border-radius: ${THEME.radiusLg}; padding: 16px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border: 1px solid rgba(167, 243, 208, 0.3); text-align: center;">
+                        <span class="material-symbols-outlined" style="font-size: 32px; color: ${THEME.primary}; margin-bottom: 8px;">${icon}</span>
+                        <p style="font-size: 20px; font-weight: 700; color: ${THEME.textDark}; margin: 0 0 4px 0;">${value}</p>
+                        <p style="font-size: 12px; color: ${THEME.textMedium}; margin: 0;">${label}</p>
+                    </div>
+                `,
+                FilterChip: (label, isSelected = false) => `
+                    <div style="display: inline-block; padding: 8px 16px; border-radius: ${THEME.radiusRound}; font-size: 14px; font-weight: 500; cursor: pointer;
+                        background: ${isSelected ? THEME.primary + '33' : '#FFFFFF'}; 
+                        color: ${isSelected ? THEME.primaryDark : THEME.textMedium}; 
+                        border: 1px solid ${isSelected ? THEME.primary + '4D' : THEME.border};">
+                        ${label}
+                    </div>
+                `,
+                ClassroomCard: (title, coach, studentCount) => `
+                    <div style="background: ${THEME.cardBg}; border-radius: ${THEME.radiusMd}; padding: 16px; box-shadow: 0 2px 4px rgba(0,0,0,0.04); border: 1px solid ${THEME.border}; margin-bottom: 12px;">
+                        <div style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+                            <span class="material-symbols-outlined" style="font-size: 28px; color: ${THEME.primary}; margin-right: 12px; margin-top: 2px;">school</span>
+                            <div style="flex-grow: 1;">
+                                <p style="font-weight: 600; margin: 0; color: ${THEME.textDark}; font-size: 16px;">${title}</p>
+                                <p style="font-size: 13px; margin: 4px 0 0 0; color: ${THEME.textMedium};">Coached by ${coach}</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; justify-content: flex-end;">
+                            <div style="background: ${THEME.primary}1A; color: ${THEME.primaryDark}; padding: 4px 10px; border-radius: 99px; font-size: 12px; font-weight: 500; display: inline-flex; align-items: center;">
+                                <span class="material-symbols-outlined" style="font-size: 16px; margin-right: 4px;">groups</span>
+                                ${studentCount} Students
+                            </div>
+                        </div>
+                    </div>
+                `,
+                CompetitionCard: (image, title, organizer, status, statusColor, details, description, actions) => `
+                    <div style="background: ${THEME.cardBg}; border-radius: ${THEME.radiusLg}; padding: 16px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border: 1px solid ${THEME.border}; margin-bottom: 16px;">
+                        ${image ? `<img src="${image}" style="width: 100%; height: 120px; object-fit: cover; border-radius: ${THEME.radiusMd}; margin-bottom: 12px;">` : ''}
+                        
+                        <div style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+                            <span class="material-symbols-outlined" style="font-size: 28px; color: ${THEME.primary}; margin-right: 12px; margin-top: 2px;">emoji_events</span>
+                            <div style="flex-grow: 1;">
+                                <p style="font-weight: 600; margin: 0; color: ${THEME.textDark}; font-size: 16px; line-height: 1.3;">${title}</p>
+                                <p style="font-size: 13px; margin: 4px 0 0 0; color: ${THEME.textMedium};">by ${organizer}</p>
+                            </div>
+                            <div style="background: ${statusColor}1A; color: ${statusColor}; padding: 4px 10px; border-radius: 99px; font-size: 12px; font-weight: 500; flex-shrink: 0; margin-left: 8px;">${status}</div>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; border-top: 1px solid ${THEME.border}; border-bottom: 1px solid ${THEME.border}; padding: 12px 0;">
+                            ${details.map(d => `
+                                <div style="display: flex; align-items: center;">
+                                    <span class="material-symbols-outlined" style="font-size: 18px; color: ${THEME.textMedium}; margin-right: 8px;">${d.icon}</span>
+                                    <div>
+                                        <p style="font-size: 12px; color: ${THEME.textMedium}; margin: 0;">${d.label}</p>
+                                        <p style="font-size: 14px; color: ${THEME.textDark}; margin: 2px 0 0 0; font-weight: 500;">${d.value}</p>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                        
+                        ${description ? `
+                            <div style="margin-top: 12px;">
+                                <p style="font-size: 13px; color: ${THEME.textMedium}; margin: 0; line-height: 1.5;">${description}</p>
+                            </div>
+                        ` : ''}
+
+                        ${actions.length > 0 ? `
+                            <div style="margin-top: 16px; display: flex; justify-content: flex-end; gap: 8px;">
+                                ${actions.map(a => HiFi.Button(a.text, false, a.color)).join('')}
+                            </div>
+                        ` : ''}
+                    </div>
+                `,
+                TrainingCard: (title, description, status, statusColor, details, actions) => `
+                    <div style="background: ${THEME.cardBg}; border-radius: ${THEME.radiusLg}; padding: 16px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border: 1px solid ${THEME.border}; margin-bottom: 16px;">
+                        <div style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+                            <span class="material-symbols-outlined" style="font-size: 28px; color: ${THEME.primary}; margin-right: 12px; margin-top: 2px;">fitness_center</span>
+                            <div style="flex-grow: 1;">
+                                <p style="font-weight: 600; margin: 0; color: ${THEME.textDark}; font-size: 16px;">${title}</p>
+                                <p style="font-size: 13px; margin: 4px 0 0 0; color: ${THEME.textMedium};">${description}</p>
+                            </div>
+                            <div style="background: ${statusColor}1A; color: ${statusColor}; padding: 4px 10px; border-radius: 99px; font-size: 12px; font-weight: 500; flex-shrink: 0; margin-left: 8px;">${status}</div>
+                        </div>
+
+                        <div style="border-top: 1px solid ${THEME.border}; padding-top: 12px;">
+                             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                                ${details.map(d => `
+                                    <div style="display: flex; align-items: center;">
+                                        <span class="material-symbols-outlined" style="font-size: 18px; color: ${THEME.textMedium}; margin-right: 8px;">${d.icon}</span>
+                                        <div>
+                                            <p style="font-size: 12px; color: ${THEME.textMedium}; margin: 0;">${d.label}</p>
+                                            <p style="font-size: 14px; color: ${THEME.textDark}; margin: 2px 0 0 0; font-weight: 500;">${d.value}</p>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                        
+                        ${actions.length > 0 ? `
+                            <div style="margin-top: 16px; display: flex; justify-content: flex-end; gap: 8px;">
+                                ${actions.map(a => HiFi.Button(a.text, false, a.color)).join('')}
+                            </div>
+                        ` : ''}
+                    </div>
+                `,
+                ProfileHeader: (image, name, status, statusColor, infoItems) => `
+                    <div style="background-color: ${THEME.primary}; color: white; padding: 24px; text-align: center;">
+                        <img src="${image}" style="width: 90px; height: 90px; border-radius: 50%; object-fit: cover; border: 3px solid white; margin-bottom: 12px;">
+                        <h2 style="margin: 0 0 8px 0; font-size: 22px; font-weight: 700;">${name}</h2>
+                        <div style="background: ${statusColor}; color: white; padding: 4px 12px; border-radius: 99px; font-size: 12px; font-weight: 600; display: inline-block; margin-bottom: 16px;">${status}</div>
+                        <div style="display: flex; justify-content: space-around; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 16px;">
+                            ${infoItems.map(item => `
+                                <div>
+                                    <p style="margin: 0; font-size: 12px; color: rgba(255,255,255,0.8);">${item.label}</p>
+                                    <p style="margin: 4px 0 0 0; font-size: 14px; font-weight: 600;">${item.value}</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `,
+                InfoCard: (title, items) => `
+                     <div style="margin-bottom: 16px;">
+                        <h3 style="font-size: 16px; font-weight: 600; color: ${THEME.textDark}; margin: 0 0 8px 0;">${title}</h3>
+                        ${HiFi.Card(items.map(item => HiFi.DetailRow(item.label, item.value)).join(''))}
+                    </div>
+                `,
+                HistoryCard: (icon, title, subtitle, date) => `
+                    ${HiFi.Card(`
+                        <div style="display: flex; align-items: center;">
+                            <div style="width: 40px; height: 40px; border-radius: 12px; background: ${THEME.primary}1A; display: grid; place-items: center; color: ${THEME.primary}; flex-shrink: 0; margin-right: 12px;">
+                                <span class="material-symbols-outlined">${icon}</span>
+                            </div>
+                            <div style="flex-grow: 1;">
+                                <p style="font-weight: 600; margin: 0; color: ${THEME.textDark}; font-size: 15px;">${title}</p>
+                                <p style="font-size: 13px; margin: 4px 0 0 0; color: ${THEME.textMedium};">${subtitle}</p>
+                            </div>
+                            <div style="text-align: right;">
+                                <p style="font-size: 12px; color: ${THEME.textMedium}; margin: 0;">${date}</p>
+                            </div>
+                        </div>
+                    `)}
+                `,
+                 StatGrid: (items) => `
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                        ${items.map(item => HiFi.StatCard(item.label, item.value, item.icon)).join('')}
+                    </div>
+                 `
+            };
+
+            // --- Athlete Detail Screens ---
+            if (id.startsWith('athlete_detail')) {
+                const tab = id.split('_')[2]; // overview, training, etc.
+                const TABS = ['Overview', 'Training', 'Competitions', 'Statistics'];
+                const activeIndex = TABS.findIndex(t => t.toLowerCase() === tab);
+
+                const profileInfo = {
+                    image: 'https://images.unsplash.com/photo-1557862921-37829c790f19?q=80&w=800&auto=format&fit=crop',
+                    name: 'Ahmad Subagja',
+                    status: 'Active',
+                    statusColor: '#22C55E',
+                    infoItems: [
+                        {label: 'Age', value: '21 years'},
+                        {label: 'Gender', value: 'Male'},
+                        {label: 'City', value: 'Surabaya'}
+                    ]
+                };
+
+                const contactInfo = {
+                    title: 'Contact Information',
+                    items: [
+                        {label: 'Email', value: 'ahmad.sub@example.com'},
+                        {label: 'Phone', value: '+62 812 9876 5432'},
+                    ]
+                };
+
+                const athletePersonalInfo = {
+                    title: 'Personal Information',
+                    items: [
+                        {label: 'Address', value: 'Jl. Juara No. 1, Jakarta'},
+                        {label: 'Join Date', value: '15 Jan 2023'},
+                    ]
+                };
+
+                const stats = [
+                    {label: 'Total Trainings', value: '72', icon: 'fitness_center'},
+                    {label: 'Total Competitions', value: '8', icon: 'emoji_events'},
+                    {label: 'Avg Attendance', value: '95%', icon: 'check_circle'},
+                    {label: 'Avg Pace', value: '1:45/100m', icon: 'speed'},
+                ];
+
+                const contentMap = {
+                    overview: `
+                        <div style="padding: 16px;">
+                           ${HiFi.InfoCard(contactInfo.title, contactInfo.items)}
+                           ${HiFi.InfoCard(athletePersonalInfo.title, athletePersonalInfo.items)}
+                        </div>
+                    `,
+                    training: `
+                        <div style="padding: 16px;">
+                            ${HiFi.HistoryCard('fitness_center', 'Latihan Endurance', 'Coach: Royhan A.', '22 Jul 2024')}
+                            ${HiFi.HistoryCard('fitness_center', 'Latihan Kekuatan', 'Coach: Budi S.', '23 Jul 2024')}
+                        </div>
+                    `,
+                    competitions: `
+                         <div style="padding: 16px;">
+                            ${HiFi.HistoryCard('emoji_events', 'Kejurda 2024', 'Finished 5th', '15 Aug 2024')}
+                        </div>
+                    `,
+                    statistics: `
+                        <div style="padding: 16px;">
+                           ${HiFi.StatGrid(stats)}
+                        </div>
+                    `
+                };
+                
+                return `
+                    <div style="background-color: ${THEME.background}; min-height: 600px;">
+                        <div style="box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                            ${HiFi.AppBar('Athlete Detail', ['edit'])}
+                            ${HiFi.ProfileHeader(profileInfo.image, profileInfo.name, profileInfo.status, profileInfo.statusColor, profileInfo.infoItems)}
+                            <div style="background: ${THEME.primary};"> 
+                                ${HiFi.TabBar(TABS, activeIndex)}
+                            </div>
+                        </div>
+                        <div style="padding-bottom: 20px;">
+                            ${contentMap[tab]}
+                        </div>
+                    </div>
+                `;
+            }
+
+            // --- Classroom Detail Screens ---
+            if (id.startsWith('classroom_detail')) {
+                const tab = id.split('_')[2]; // overview, students, statistics
+                const TABS = ['Overview', 'Students', 'Statistics'];
+                const activeIndex = TABS.findIndex(t => t.toLowerCase() === tab);
+
+                const classroomHeaderInfo = {
+                    icon: 'school',
+                    name: 'Kelas Pemula A',
+                    infoItems: [
+                        {label: 'Students', value: '18'},
+                        {label: 'Coach', value: 'Budi Santoso'},
+                        {label: 'Status', value: 'Active'}
+                    ]
+                };
+
+                const classroomDetails = {
+                    title: 'Classroom Information',
+                    items: [
+                        {label: 'Schedule', value: 'Mon, Wed, Fri'},
+                        {label: 'Time', value: '15:00 - 17:00'},
+                        {label: 'Location', value: 'Main Pool'},
+                    ]
+                };
+
+                const studentStats = [
+                    {label: 'Avg Attendance', value: '92%', icon: 'checklist'},
+                    {label: 'Improvement Rate', value: '+12%', icon: 'trending_up'},
+                    {label: 'Total Drills', value: '48', icon: 'subtitles'},
+                    {label: 'Avg Pace', value: '2:15/100m', icon: 'speed'},
+                ];
+
+                const contentMap = {
+                    overview: `
+                        <div style="padding: 16px;">
+                            ${HiFi.InfoCard(classroomDetails.title, classroomDetails.items)}
+                        </div>
+                    `,
+                    students: `
+                        <div style="padding: 16px;">
+                            ${HiFi.ListTileCard('person', 'Ahmad Subagja', 'ahmad.sub@example.com')}
+                            ${HiFi.ListTileCard('person', 'Citra Lestari', 'citra.l@example.com')}
+                            ${HiFi.ListTileCard('person', 'Budi Doremi', 'budi.do@example.com')}
+                        </div>
+                    `,
+                    statistics: `
+                        <div style="padding: 16px;">
+                            ${HiFi.StatGrid(studentStats)}
+                        </div>
+                    `
+                };
+
+                const classroomHeader = `
+                    <div style="background-color: ${THEME.primary}; color: white; padding: 24px; text-align: center;">
+                        <div style="width: 90px; height: 90px; border-radius: 50%; background: rgba(255,255,255,0.2); display: grid; place-items: center; margin: 0 auto 12px auto;">
+                            <span class="material-symbols-outlined" style="font-size: 48px;">${classroomHeaderInfo.icon}</span>
+                        </div>
+                        <h2 style="margin: 0 0 16px 0; font-size: 22px; font-weight: 700;">${classroomHeaderInfo.name}</h2>
+                        <div style="display: flex; justify-content: space-around; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 16px;">
+                            ${classroomHeaderInfo.infoItems.map(item => `
+                                <div>
+                                    <p style="margin: 0; font-size: 12px; color: rgba(255,255,255,0.8);">${item.label}</p>
+                                    <p style="margin: 4px 0 0 0; font-size: 14px; font-weight: 600;">${item.value}</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+                
+                return `
+                    <div style="background-color: ${THEME.background}; min-height: 600px;">
+                        <div style="box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                            ${HiFi.AppBar('Classroom Detail', ['edit'])}
+                            ${classroomHeader}
+                            <div style="background: ${THEME.primary};"> 
+                                ${HiFi.TabBar(TABS, activeIndex)}
+                            </div>
+                        </div>
+                        <div style="padding-bottom: 20px;">
+                            ${contentMap[tab]}
+                        </div>
+                    </div>
+                `;
+            }
+
+            // --- Competition Detail Screens ---
+            if (id.startsWith('competition_detail')) {
+                const tab = id.split('_')[2]; // overview, statistics
+                const TABS = ['Overview', 'Statistics'];
+                const activeIndex = TABS.findIndex(t => t.toLowerCase() === tab);
+
+                const competitionHeaderInfo = {
+                    icon: 'emoji_events',
+                    name: 'Kejuaraan Daerah 2024',
+                    infoItems: [
+                        {label: 'Date', value: '15 Aug 2024'},
+                        {label: 'Location', value: 'Surabaya'},
+                        {label: 'Level', value: 'Regional'}
+                    ]
+                };
+
+                const competitionDetails = {
+                    title: 'Competition Information',
+                    items: [
+                        {label: 'Organizer', value: 'Dispora Jatim'},
+                        {label: 'Prize', value: 'IDR 5,000,000'},
+                    ]
+                };
+
+                 const registrationDetails = {
+                    title: 'Registration Information',
+                    items: [
+                        {label: 'Deadline', value: '10 Aug 2024'},
+                        {label: 'Fee', value: 'IDR 100,000'},
+                    ]
+                };
+
+                 const competitionStats = [
+                    {label: 'Participants', value: '128', icon: 'groups'},
+                    {label: 'KRPG Athletes', value: '8', icon: 'sports'},
+                    {label: 'Podiums', value: '2', icon: 'military_tech'},
+                    {label: 'New Records', value: '1', icon: 'new_releases'},
+                ];
+                
+                const contentMap = {
+                    overview: `
+                        <div style="padding: 16px;">
+                            ${HiFi.InfoCard(competitionDetails.title, competitionDetails.items)}
+                            ${HiFi.InfoCard(registrationDetails.title, registrationDetails.items)}
+                        </div>
+                    `,
+                    statistics: `
+                        <div style="padding: 16px;">
+                            ${HiFi.StatGrid(competitionStats)}
+                        </div>
+                    `
+                };
+
+                 const competitionHeader = `
+                    <div style="background-color: ${THEME.primary}; color: white; padding: 24px; text-align: center;">
+                        <div style="width: 90px; height: 90px; border-radius: 50%; background: rgba(255,255,255,0.2); display: grid; place-items: center; margin: 0 auto 12px auto;">
+                            <span class="material-symbols-outlined" style="font-size: 48px;">${competitionHeaderInfo.icon}</span>
+                        </div>
+                        <h2 style="margin: 0 0 16px 0; font-size: 22px; font-weight: 700; text-align: center;">${competitionHeaderInfo.name}</h2>
+                        <div style="display: flex; justify-content: space-around; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 16px;">
+                            ${competitionHeaderInfo.infoItems.map(item => `
+                                <div>
+                                    <p style="margin: 0; font-size: 12px; color: rgba(255,255,255,0.8);">${item.label}</p>
+                                    <p style="margin: 4px 0 0 0; font-size: 14px; font-weight: 600;">${item.value}</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+
+                return `
+                    <div style="background-color: ${THEME.background}; min-height: 600px;">
+                        <div style="box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                            ${HiFi.AppBar('Competition Detail', ['edit'])}
+                            ${competitionHeader}
+                            <div style="background: ${THEME.primary};"> 
+                                ${HiFi.TabBar(TABS, activeIndex)}
+                            </div>
+                        </div>
+                        <div style="padding-bottom: 20px;">
+                            ${contentMap[tab]}
+                        </div>
+                    </div>
+                `;
+            }
+
+            // --- Training Detail Screens ---
+            if (id.startsWith('training_detail')) {
+                const tab = id.split('_')[2]; // overview, athletes, history
+                const TABS = ['Overview', 'Athletes', 'History'];
+                const activeIndex = TABS.findIndex(t => t.toLowerCase() === tab);
+
+                const trainingHeaderInfo = {
+                    icon: 'fitness_center',
+                    name: 'Latihan Endurance Pagi',
+                    infoItems: [
+                        {label: 'Date', value: 'Mon, 22 Jul'},
+                        {label: 'Location', value: 'Main Pool'},
+                        {label: 'Coach', value: 'Royhan A.'}
+                    ]
+                };
+
+                 const trainingDetails = {
+                    title: 'Training Information',
+                    items: [
+                        {label: 'Time', value: '08:00 - 10:00'},
+                        {label: 'Focus', value: 'Cardio & Endurance'},
+                    ]
+                };
+
+                const contentMap = {
+                    overview: `
+                        <div style="padding: 16px;">
+                            ${HiFi.InfoCard(trainingDetails.title, trainingDetails.items)}
+                        </div>
+                    `,
+                    athletes: `
+                        <div style="padding: 16px;">
+                            ${HiFi.ListTileCard('person', 'Ahmad Subagja', 'Present')}
+                            ${HiFi.ListTileCard('person', 'Citra Lestari', 'Present')}
+                            ${HiFi.ListTileCard('person', 'Budi Santoso', 'Absent')}
+                        </div>
+                    `,
+                    history: `
+                        <div style="padding: 16px;">
+                           ${HiFi.HistoryCard('history', 'Previous Session', 'Avg Pace: 1:50/100m', '19 Jul 2024')}
+                           ${HiFi.HistoryCard('history', 'Session Before', 'Avg Pace: 1:52/100m', '15 Jul 2024')}
+                        </div>
+                    `
+                };
+                
+                 const trainingHeader = `
+                    <div style="background-color: ${THEME.primary}; color: white; padding: 24px; text-align: center;">
+                         <div style="width: 90px; height: 90px; border-radius: 50%; background: rgba(255,255,255,0.2); display: grid; place-items: center; margin: 0 auto 12px auto;">
+                            <span class="material-symbols-outlined" style="font-size: 48px;">${trainingHeaderInfo.icon}</span>
+                        </div>
+                        <h2 style="margin: 0 0 16px 0; font-size: 22px; font-weight: 700; text-align: center;">${trainingHeaderInfo.name}</h2>
+                        <div style="display: flex; justify-content: space-around; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 16px;">
+                            ${trainingHeaderInfo.infoItems.map(item => `
+                                <div>
+                                    <p style="margin: 0; font-size: 12px; color: rgba(255,255,255,0.8);">${item.label}</p>
+                                    <p style="margin: 4px 0 0 0; font-size: 14px; font-weight: 600;">${item.value}</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+
+                return `
+                    <div style="background-color: ${THEME.background}; min-height: 600px;">
+                        <div style="box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                            ${HiFi.AppBar('Training Detail', ['edit'])}
+                            ${trainingHeader}
+                            <div style="background: ${THEME.primary}; padding: 12px 16px;">
+                                ${HiFi.Button('Start Session', true, THEME.primaryDark)}
+                            </div>
+                            <div style="background: ${THEME.primary};"> 
+                                ${HiFi.TabBar(TABS, activeIndex)}
+                            </div>
+                        </div>
+                        <div style="padding-bottom: 20px;">
+                            ${contentMap[tab]}
+                        </div>
+                    </div>
+                `;
+            }
+
+            // --- Training Session Screens ---
+            if (id.startsWith('training_session')) {
+                const tab = id.split('_')[2]; // attendance, stopwatch, statistics
+                const TABS = ['Attendance', 'Stopwatch', 'Statistics'];
+                const activeIndex = TABS.findIndex(t => t.toLowerCase() === tab);
+
+                const locationStatus = `
+                    <div style="padding: 12px 16px; background: ${THEME.primaryDark}; color: white; display: flex; justify-content: space-around; text-align: center; font-size: 13px;">
+                        <div><span class="material-symbols-outlined" style="font-size: 16px; vertical-align: bottom; margin-right: 4px;">location_on</span>Lokasi: <strong>25m</strong></div>
+                        <div><span class="material-symbols-outlined" style="font-size: 16px; vertical-align: bottom; margin-right: 4px;">wifi</span>Realtime: <strong>Connected</strong></div>
+                    </div>
+                `;
+
+                const stopwatch = `
+                    <div style="text-align: center; padding: 24px;">
+                         <div style="font-size: 48px; font-weight: 200; color: ${THEME.textDark}; margin-bottom: 24px;">00:00.00</div>
+                         <div style="display: flex; gap: 16px; justify-content: center;">
+                            ${HiFi.Button('Start', false, THEME.primary)}
+                            ${HiFi.Button('Reset', false, '#6B7280')}
+                         </div>
+                    </div>
+                `;
+                
+                const sessionStats = [
+                    {label: 'Elapsed Time', value: '45:18', icon: 'timer'},
+                    {label: 'Athletes Present', value: '15/18', icon: 'groups'},
+                    {label: 'Laps Recorded', value: '120', icon: 'replay'},
+                    {label: 'Avg Pace', value: '1:55/100m', icon: 'speed'},
+                ];
+
+                const contentMap = {
+                    attendance: `
+                         <div style="padding: 16px;">
+                            ${HiFi.ListTileCard('person', 'Ahmad Subagja', 'Present')}
+                            ${HiFi.ListTileCard('person', 'Citra Lestari', 'Present')}
+                            ${HiFi.ListTileCard('person', 'Budi Santoso', 'Absent')}
+                        </div>
+                    `,
+                    stopwatch: `
+                        <div style="padding: 16px;">
+                           ${HiFi.Card(`
+                                <h3 style="margin-top:0; font-size: 16px; color: ${THEME.textDark}; margin-bottom: 16px;">Stopwatch for: <strong>Ahmad Subagja</strong></h3>
+                                ${stopwatch}
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                                    ${HiFi.FormField('Stroke', 'swap_horiz')}
+                                    ${HiFi.FormField('Distance', 'straighten')}
+                                </div>
+                           `)}
+                        </div>
+                    `,
+                    statistics: `
+                        <div style="padding: 16px;">
+                           ${HiFi.StatGrid(sessionStats)}
+                        </div>
+                    `
+                };
+                 
+                return `
+                    <div style="background-color: ${THEME.background}; height: 100%; display: flex; flex-direction: column;">
+                        <div style="box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                            ${HiFi.AppBar('Training Session', ['help'])}
+                            ${locationStatus}
+                            <div style="background: ${THEME.primary};">
+                                ${HiFi.TabBar(TABS, activeIndex)}
+                            </div>
+                        </div>
+                        <div style="flex-grow: 1; overflow-y: auto;">
+                            ${contentMap[tab]}
+                        </div>
+                        <div style="padding: 16px; border-top: 1px solid ${THEME.border}; background: white;">
+                            ${HiFi.Button('End Session', true, '#EF4444')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            switch(id) {
+                case 'login':
+                    const loginLogo = `
+                        <div style="text-align: center; margin-bottom: 32px;">
+                            <div style="width: 80px; height: 80px; border-radius: 50%; background-color: rgba(16, 185, 129, 0.1); display: flex; align-items: center; justify-content: center; margin: 0 auto;">
+                                <span class="material-symbols-outlined" style="font-size: 48px; color: ${THEME.primary};">pool</span>
+                            </div>
+                            <h1 style="color: ${THEME.textDark}; font-size: 24px; margin: 16px 0 4px 0; font-weight: 700;">SiMenang KRPG</h1>
+                            <p style="color: ${THEME.textMedium}; font-size: 16px; margin: 0;">Petrokimia Gresik Swimming Club</p>
+                        </div>
+                    `;
+                    const loginForm = HiFi.Card(`
+                        <h2 style="font-size: 20px; font-weight: 600; color: ${THEME.textDark}; margin: 0 0 24px 0;">Login</h2>
+                        ${HiFi.FormField('Username or Email', 'person')}
+                        ${HiFi.FormField('Password', 'lock')}
+                        <div style="height: 16px;"></div>
+                        ${HiFi.Button('Login', true)}
+                        <div style="text-align: center; margin-top: 16px;">
+                            <a href="#" style="color: ${THEME.primary}; font-size: 14px; text-decoration: none; font-weight: 500;">Forgot Password?</a>
+                        </div>
+                    `);
+                    return `
+                        <div style="background-color: ${THEME.background}; padding: 32px; height: 100%; display: flex; flex-direction: column; justify-content: center; box-sizing: border-box;">
+                           ${loginLogo}
+                           ${loginForm}
+                        </div>
+                    `;
+                case 'home':
+                    const welcomeCard = HiFi.Card(`
+                        <div style="display: flex; align-items: center;">
+                            <div style="width: 48px; height: 48px; border-radius: 50%; background: rgba(16, 185, 129, 0.1); display: grid; place-items: center; color: ${THEME.primary}; flex-shrink: 0;"><span class="material-symbols-outlined" style="font-size: 28px;">person</span></div>
+                            <div style="margin-left: 16px; flex-grow: 1;">
+                                <p style="font-size: 14px; margin: 0; color: ${THEME.textMedium};">Welcome back!</p>
+                                <p style="font-size: 18px; font-weight: 700; margin: 4px 0 4px 0; color: ${THEME.textDark};">Royhan Antariksa</p>
+                                <div style="display: inline-block; background: rgba(20, 184, 166, 0.1); color: #14B8A6; padding: 2px 8px; border-radius: 99px; font-size: 12px; font-weight: 500;">COACH</div>
+                            </div>
+                        </div>
+                    `);
+                    const quickStats = `
+                        <div>
+                           <h3 style="font-size: 18px; font-weight: 600; color: ${THEME.textDark}; margin: 24px 0 12px 0;">Quick Stats</h3>
+                           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                               ${HiFi.StatCard('Trainings', '72', 'fitness_center')}
+                               ${HiFi.StatCard('Competitions', '8', 'emoji_events')}
+                               ${HiFi.StatCard('Classrooms', '3', 'school')}
+                               ${HiFi.StatCard('Athletes', '16', 'groups')}
+                           </div>
+                        </div>
+                    `;
+                    const recentActivities = `
+                        <div>
+                           <h3 style="font-size: 18px; font-weight: 600; color: ${THEME.textDark}; margin: 24px 0 12px 0;">Recent Activities</h3>
+                           ${HiFi.Card(HiFi.ListTileContent('New competition result added', 'Kejurda 2024', 'emoji_events'))}
+                        </div>
+                    `;
+                    const homeBody = `${welcomeCard}${quickStats}${recentActivities}`;
+                    return HiFi.Scaffold('Home', `<div style="padding: 16px;">${homeBody}</div>`, true);
+                case 'athletes':
+                    const athletesAppBar = `
+                        <div style="box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                            ${HiFi.AppBar('Athletes')}
+                            ${HiFi.TabBar(['All Athletes', 'My Profile'])}
+                        </div>
+                    `;
+                    const searchAndFilter = `
+                        <div style="padding: 16px; background-color: ${THEME.background}; border-bottom: 1px solid ${THEME.border};">
+                            ${HiFi.FormField('Search athletes...', 'search')}
+                            <div style="display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px; margin-top: 8px;">
+                                ${HiFi.FilterChip('All Classrooms', true)}
+                                ${HiFi.FilterChip('Class A')}
+                                ${HiFi.FilterChip('Class B')}
+                                ${HiFi.FilterChip('Advanced')}
+                            </div>
+                        </div>
+                    `;
+                    const athletesList = `
+                        <div style="padding: 16px;">
+                            ${HiFi.ListTileCard('person', 'Ahmad Subagja', 'ahmad.sub@example.com')}
+                            ${HiFi.ListTileCard('person', 'Budi Santoso', 'budi.s@example.com')}
+                            ${HiFi.ListTileCard('person', 'Citra Lestari', 'citra.l@example.com')}
+                            ${HiFi.ListTileCard('person', 'Dewi Anggraini', 'dewi.a@example.com')}
+                        </div>
+                    `;
+
+                    return `
+                        <div style="background-color: ${THEME.background}; position: relative; min-height: 600px; box-sizing: border-box; display: flex; flex-direction: column;">
+                            ${athletesAppBar}
+                            <div style="flex-grow: 1; overflow-y: auto; padding-bottom: 80px;">
+                                ${searchAndFilter}
+                                ${athletesList}
+                            </div>
+                            ${HiFi.BottomNav()}
+                        </div>
+                    `;
+                case 'profile':
+                    const profileHeader = HiFi.Card(`
+                        <div style="display: flex; flex-direction: column; align-items: center; text-align: center; padding: 16px 0;">
+                            <div style="width: 80px; height: 80px; border-radius: 50%; background-color: ${THEME.primary}; display: flex; align-items: center; justify-content: center; color: white; font-size: 40px; font-weight: bold; margin-bottom: 16px;">
+                                R
+                            </div>
+                            <p style="font-size: 20px; font-weight: 600; color: ${THEME.textDark}; margin: 0 0 4px 0;">Royhan Antariksa</p>
+                            <p style="font-size: 14px; color: ${THEME.textMedium}; margin: 0 0 4px 0;">Pelatih</p>
+                            <p style="font-size: 12px; color: ${THEME.textMedium}; margin: 0 0 16px 0;">royhan.antariksa@example.com</p>
+                            <button style="background-color: transparent; border: 1.5px solid ${THEME.primary}; color: ${THEME.primary}; padding: 6px 16px; border-radius: 12px; font-weight: 600; font-size: 13px; cursor: pointer;">Edit Profile</button>
+                        </div>
+                    `);
+
+                    const personalInfo = HiFi.Card(`
+                        <h3 style="margin: 0 0 16px 0; font-size: 16px; font-weight: 600; color: ${THEME.textDark};">Personal Information</h3>
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            ${HiFi.DetailRow('Phone:', '081234567890')}
+                            ${HiFi.DetailRow('Address:', 'Jl. Pahlawan No. 45, Surabaya')}
+                            ${HiFi.DetailRow('Gender:', 'Male')}
+                            ${HiFi.DetailRow('Join Date:', '15 Jan 2023')}
+                        </div>
+                    `);
+
+                    const actions = HiFi.Card(`
+                        <h3 style="margin: 0 0 8px 0; font-size: 16px; font-weight: 600; color: ${THEME.textDark};">Actions</h3>
+                        <div style="display: flex; flex-direction: column;">
+                           ${HiFi.ActionTile('key', 'Change Password')}
+                           ${HiFi.ActionTile('image', 'Upload Picture')}
+                           ${HiFi.ActionTile('help', 'Help & Support')}
+                           ${HiFi.ActionTile('info', 'About App')}
+                        </div>
+                    `);
+
+                    const logoutButton = HiFi.Button('Logout', true, '#EF4444');
+                    
+                    const body = `
+                        <div style="padding: 16px;">
+                           ${profileHeader}
+                           <div style="height: 24px;"></div>
+                           ${personalInfo}
+                           <div style="height: 24px;"></div>
+                           ${actions}
+                           <div style="height: 24px;"></div>
+                           ${logoutButton}
+                        </div>
+                    `;
+
+                    return HiFi.Scaffold('Profile', body, true);
+                case 'classroom':
+                    const classroomAppBar = `
+                        <div style="box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                            ${HiFi.AppBar('Classrooms')}
+                            ${HiFi.TabBar(['All', 'Active', 'My Classes'])}
+                        </div>
+                    `;
+                     const classroomSearch = `
+                        <div style="padding: 16px; background-color: ${THEME.background}; border-bottom: 1px solid ${THEME.border};">
+                            ${HiFi.FormField('Search classrooms...', 'search')}
+                            <div style="display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px; margin-top: 8px;">
+                                ${HiFi.FilterChip('All', true)}
+                                ${HiFi.FilterChip('Active')}
+                                ${HiFi.FilterChip('Inactive')}
+                                ${HiFi.FilterChip('Full')}
+                            </div>
+                        </div>
+                    `;
+                    const classroomList = `
+                        <div style="padding: 16px;">
+                            ${HiFi.ClassroomCard('Kelas Pemula A', 'Budi Santoso', 18)}
+                            ${HiFi.ClassroomCard('Kelas Menengah', 'Royhan Antariksa', 12)}
+                            ${HiFi.ClassroomCard('Kelas Lanjutan', 'Royhan Antariksa', 8)}
+                        </div>
+                    `;
+                     return `
+                        <div style="background-color: ${THEME.background}; position: relative; min-height: 600px; box-sizing: border-box; display: flex; flex-direction: column;">
+                            ${classroomAppBar}
+                            <div style="flex-grow: 1; overflow-y: auto; padding-bottom: 80px;">
+                                ${classroomSearch}
+                                ${classroomList}
+                            </div>
+                            ${HiFi.BottomNav()}
+                        </div>
+                    `;
+                case 'competition':
+                    const competitionAppBar = `
+                         <div style="box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                            ${HiFi.AppBar('Competitions', ['pending_actions'])}
+                            ${HiFi.TabBar(['All', 'Coming Soon', 'Ongoing', 'Finished'])}
+                        </div>
+                    `;
+                    const competitionSearch = `
+                        <div style="padding: 16px; background-color: ${THEME.background}; border-bottom: 1px solid ${THEME.border};">
+                            ${HiFi.FormField('Search competitions...', 'search')}
+                            <div style="display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px; margin-top: 8px;">
+                                ${HiFi.FilterChip('All Status', true)}
+                                ${HiFi.FilterChip('Coming Soon')}
+                                ${HiFi.FilterChip('Ongoing')}
+                                ${HiFi.FilterChip('Finished')}
+                            </div>
+                             <div style="display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px; margin-top: 8px;">
+                                ${HiFi.FilterChip('All Levels', true)}
+                                ${HiFi.FilterChip('Local')}
+                                ${HiFi.FilterChip('Regional')}
+                                ${HiFi.FilterChip('National')}
+                            </div>
+                        </div>
+                    `;
+
+                    const kejurdaDetails = [
+                        {icon: 'today', label: 'Date', value: '15 Aug 2024'},
+                        {icon: 'location_on', label: 'Location', value: 'Surabaya'},
+                        {icon: 'timer', label: 'Register by', value: '10 Aug 2024'},
+                        {icon: 'military_tech', label: 'Prize', value: 'IDR 5,000,000'},
+                    ];
+                    const kejurdaActions = [{text: 'Register', color: THEME.primary}];
+
+                    const popdaDetails = [
+                        {icon: 'today', label: 'Date', value: '20 Sep 2024'},
+                        {icon: 'location_on', label: 'Location', value: 'Gresik'},
+                        {icon: 'timer', label: 'Register by', value: '15 Sep 2024'},
+                        {icon: 'military_tech', label: 'Prize', value: 'Medal'},
+                    ];
+                     const popdaActions = [{text: 'Register', color: THEME.primary}];
+
+                    const competitionList = `
+                        <div style="padding: 16px;">
+                            ${HiFi.CompetitionCard('https://images.unsplash.com/photo-1557053503-7c2c7579b440?q=80&w=800&auto=format&fit=crop', 'Kejuaraan Daerah 2024', 'Dispora Jatim', 'Coming Soon', '#F97316', kejurdaDetails, 'Kejuaraan renang tingkat provinsi untuk kategori junior dan senior.', kejurdaActions)}
+                            ${HiFi.CompetitionCard(null, 'Pekan Olahraga Daerah', 'KONI Gresik', 'Coming Soon', '#F97316', popdaDetails, null, popdaActions)}
+                        </div>
+                    `;
+
+                    return `
+                        <div style="background-color: ${THEME.background}; position: relative; min-height: 600px; box-sizing: border-box; display: flex; flex-direction: column;">
+                            ${competitionAppBar}
+                            <div style="flex-grow: 1; overflow-y: auto; padding-bottom: 80px;">
+                                ${competitionSearch}
+                                ${competitionList}
+                            </div>
+                            ${HiFi.BottomNav()}
+                        </div>
+                    `;
+                case 'training':
+                    const trainingAppBar = `
+                        <div style="box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                            ${HiFi.AppBar('Training')}
+                            ${HiFi.TabBar(['All', 'Scheduled', 'Ongoing', 'Completed'])}
+                        </div>
+                    `;
+                     const trainingSearch = `
+                        <div style="padding: 16px; background-color: ${THEME.background}; border-bottom: 1px solid ${THEME.border};">
+                            ${HiFi.FormField('Search trainings...', 'search')}
+                            <div style="display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px; margin-top: 8px;">
+                                ${HiFi.FilterChip('All', true)}
+                                ${HiFi.FilterChip('Scheduled')}
+                                ${HiFi.FilterChip('Ongoing')}
+                                ${HiFi.FilterChip('Completed')}
+                                ${HiFi.FilterChip('Cancelled')}
+                            </div>
+                        </div>
+                    `;
+
+                    const training1Details = [
+                        {icon: 'schedule', label: 'Time', value: '08:00 - 10:00'},
+                        {icon: 'location_on', label: 'Location', value: 'Main Pool'},
+                        {icon: 'person', label: 'Coach', value: 'Royhan A.'},
+                        {icon: 'today', label: 'Date', value: 'Mon, 22 Jul'},
+                    ];
+                    const training1Actions = [{text: 'Join', color: THEME.primary}];
+                    
+                    const training2Details = [
+                        {icon: 'schedule', label: 'Time', value: '16:00 - 18:00'},
+                        {icon: 'location_on', label: 'Location', value: 'Fitness Center'},
+                        {icon: 'person', label: 'Coach', value: 'Budi S.'},
+                        {icon: 'today', label: 'Date', value: 'Tue, 23 Jul'},
+                    ];
+                    const training2Actions = [{text: 'Attendance', color: '#28a745'}];
+
+                    const trainingList = `
+                        <div style="padding: 16px;">
+                            ${HiFi.TrainingCard('Latihan Endurance Pagi', 'Fokus pada ketahanan kardio.', 'Scheduled', '#F97316', training1Details, training1Actions)}
+                            ${HiFi.TrainingCard('Latihan Kekuatan Sore', 'Latihan beban dan inti.', 'Active', THEME.primary, training2Details, training2Actions)}
+                        </div>
+                    `;
+
+                    return `
+                        <div style="background-color: ${THEME.background}; position: relative; min-height: 600px; box-sizing: border-box; display: flex; flex-direction: column;">
+                            ${trainingAppBar}
+                            <div style="flex-grow: 1; overflow-y: auto; padding-bottom: 80px;">
+                                ${trainingSearch}
+                                ${trainingList}
+                            </div>
+                            ${HiFi.BottomNav()}
+                        </div>
+                    `;
+                case 'attendance_check':
+                    const mapPlaceholder = `<div style="height: 250px; background: #E5E7EB; display: grid; place-items: center; color: ${THEME.textMedium}; font-weight: 500;">[ Map Placeholder ]</div>`;
+                    
+                    const simpleLocationCard = HiFi.Card(`
+                        <div style="text-align: center;">
+                            <h3 style="margin-top: 0; font-size: 16px; color: ${THEME.textDark};">Location Status</h3>
+                            <div style="margin: 16px 0;">
+                                <span class="material-symbols-outlined" style="font-size: 48px; color: #22C55E;">my_location</span>
+                            </div>
+                            <p style="margin: 8px 0; font-size: 24px; font-weight: 700; color: ${THEME.textDark};">25 meters</p>
+                            <p style="margin: 0; color: ${THEME.textMedium}; font-size: 14px;">You are within the 100m attendance range.</p>
+                        </div>
+                    `);
+
+                    const trainingInfoCard = HiFi.Card(`
+                        <h3 style="margin-top: 0; font-size: 16px; color: ${THEME.textDark};">Training Information</h3>
+                        ${HiFi.DetailRow('Training', 'Latihan Endurance Pagi')}
+                        ${HiFi.DetailRow('Location', 'Main Pool')}
+                    `);
+
+                    return `
+                        <div style="background-color: ${THEME.background}; height: 100%; display: flex; flex-direction: column;">
+                            ${HiFi.AppBar('Mark Attendance')}
+                            <div style="flex-grow: 1;">
+                                ${mapPlaceholder}
+                                <div style="padding: 16px; transform: translateY(-40px);">
+                                    ${simpleLocationCard}
+                                    <div style="height: 16px;"></div>
+                                    ${trainingInfoCard}
+                                </div>
+                            </div>
+                            <div style="padding: 16px; border-top: 1px solid ${THEME.border}; background: white;">
+                                ${HiFi.Button('Mark My Attendance', true, THEME.primary)}
+                            </div>
+                        </div>
+                    `;
+            }
+
+            // --- Default Case ---
+            return HiFi.Scaffold(id.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase()), 
+                HiFi.Card(`<p style="color: ${THEME.textMedium}; text-align: center;">UI untuk layar ini belum dirender.</p>`),
+                true
+            );
+        }
+
+        function getWireframeContent(id) {
+            const WF = {
+                Scaffold: (title, body, hasNav) => `
+                    <div class="wireframe" style="padding: 10px; min-height: 600px; display: flex; flex-direction: column;">
+                        <div class="wf-box" style="padding: 12px;"><strong>AppBar:</strong> ${title}</div>
+                        <div style="flex-grow: 1; padding: 10px 0;">${body}</div>
+                        ${hasNav ? `<div class="wf-box" style="padding: 12px; margin-top: auto;">Bottom Navigation</div>` : ''}
+                    </div>
+                `,
+                Card: (content, title = '') => `
+                    <div class="wf-box" style="padding: 15px; text-align: left; margin-bottom: 15px; border-style: solid;">
+                        ${title ? `<div class="wf-box" style="background: #c0c0c0; margin-bottom: 10px;"><strong>${title}</strong></div>` : ''}
+                        ${content}
+                    </div>
+                `,
+                Button: (text) => `<div class="wf-box" style="background: #b0b0b0;">${text} Button</div>`,
+                FormField: (label) => `<div class="wf-box" style="text-align: left; padding: 8px; margin-bottom: 5px;">${label} Field</div>`,
+                ListTile: (text) => `<div class="wf-box" style="text-align: left; padding: 10px;">List Item: ${text}</div>`,
+                TabBar: (tabs) => `<div class="wf-box">Tabs: ${tabs.join(' | ')}</div>`,
+                ProfileHeader: (name) => `
+                    <div class="wf-box" style="padding: 20px;">
+                        <div style="width: 80px; height: 80px; border-radius: 50%; background: #c0c0c0; margin: 0 auto 10px auto;"></div>
+                        <div class="wf-text"><strong>${name}</strong></div>
+                        <div class="wf-text" style="font-size: 12px; margin: 4px 0;">Status</div>
+                        <div class="wf-box" style="margin-top: 10px;">Info/Stats Area</div>
+                    </div>
+                `,
+                GenericHeader: (name) => `
+                    <div class="wf-box" style="padding: 20px;">
+                        <div style="width: 60px; height: 60px; border-radius: 50%; background: #c0c0c0; margin: 0 auto 10px auto;"></div>
+                        <div class="wf-text"><strong>${name}</strong></div>
+                        <div class="wf-box" style="margin-top: 10px;">Header Info</div>
+                    </div>
+                `,
+                StatGrid: (count) => `
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                        ${Array(count).fill('<div class="wf-box" style="height: 50px;">Stat</div>').join('')}
+                    </div>
+                `,
+                DetailRow: (label) => `<div class="wf-box" style="text-align: left; font-size: 12px; padding: 6px; margin-bottom: 5px;">${label}: [Value]</div>`,
+                MapPlaceholder: () => `<div class="wf-box" style="height: 150px; display: grid; place-items: center;">Map</div>`,
+            };
+
+            // --- Detail Screens with Headers & Tabs ---
+            if (id.startsWith('athlete_detail') || id.startsWith('classroom_detail') || id.startsWith('competition_detail') || id.startsWith('training_detail') || id.startsWith('training_session')) {
+                const parts = id.split('_');
+                const screenGroup = `${parts[0]}_${parts[1]}`;
+                const tab = parts.slice(2).join('_');
+
+                let TABS = [];
+                let headerContent = '';
+                let bodyContent = `<div class="wf-text" style="text-align:center; padding: 20px;">Content for ${tab}</div>`;
+                let footerContent = '';
+                let appBarTitle = 'Detail Screen';
+
+                switch (screenGroup) {
+                    case 'athlete_detail':
+                        TABS = ['Overview', 'Training', 'Competitions', 'Statistics'];
+                        headerContent = WF.ProfileHeader('Athlete Name');
+                        appBarTitle = 'Athlete Detail';
+                        if (tab === 'overview') bodyContent = WF.Card(`${WF.DetailRow('Label')}${WF.DetailRow('Label')}`, 'Info Card');
+                        else if (tab === 'statistics') bodyContent = WF.StatGrid(4);
+                        else bodyContent = `${WF.ListTile('History Item')}${WF.ListTile('History Item')}`;
+                        break;
+                    case 'classroom_detail':
+                        TABS = ['Overview', 'Students', 'Statistics'];
+                        headerContent = WF.GenericHeader('Classroom Name');
+                        appBarTitle = 'Classroom Detail';
+                        if (tab === 'overview') bodyContent = WF.Card(`${WF.DetailRow('Label')}${WF.DetailRow('Label')}`, 'Info Card');
+                        else if (tab === 'statistics') bodyContent = WF.StatGrid(4);
+                        else bodyContent = `${WF.ListTile('Student')}${WF.ListTile('Student')}`;
+                        break;
+                    case 'competition_detail':
+                        TABS = ['Overview', 'Statistics'];
+                        headerContent = WF.GenericHeader('Competition Name');
+                        appBarTitle = 'Competition Detail';
+                        if (tab === 'overview') bodyContent = WF.Card(`${WF.DetailRow('Label')}${WF.DetailRow('Label')}`, 'Info Card');
+                        else bodyContent = WF.StatGrid(4);
+                        break;
+                    case 'training_detail':
+                        TABS = ['Overview', 'Athletes', 'History'];
+                        headerContent = WF.GenericHeader('Training Name');
+                        appBarTitle = 'Training Detail';
+                        footerContent = WF.Button('Start Session');
+                        if (tab === 'overview') bodyContent = WF.Card(`${WF.DetailRow('Label')}`, 'Info Card');
+                        else bodyContent = `${WF.ListTile('Athlete/History Item')}`;
+                        break;
+                    case 'training_session':
+                        TABS = ['Attendance', 'Stopwatch', 'Statistics'];
+                        headerContent = `<div class="wf-box">Location/Status Bar</div>`;
+                        appBarTitle = 'Training Session';
+                        footerContent = WF.Button('End Session');
+                        if(tab === 'stopwatch') bodyContent = WF.Card(`${WF.FormField('Target')}<div class="wf-box" style="height: 60px; display: grid; place-items: center;">Timer</div>${WF.Button('Start')}`, 'Stopwatch');
+                        else if (tab === 'statistics') bodyContent = WF.StatGrid(4);
+                        else bodyContent = `${WF.ListTile('Student Attendance')}`;
+                        break;
+                }
+
+                return `
+                    <div class="wireframe" style="padding: 10px; min-height: 600px; display: flex; flex-direction: column;">
+                        <div class="wf-box" style="padding: 12px;"><strong>AppBar:</strong> ${appBarTitle}</div>
+                        ${headerContent}
+                        ${TABS.length > 0 ? WF.TabBar(TABS) : ''}
+                        <div style="flex-grow: 1; padding: 10px 0;">${bodyContent}</div>
+                        ${footerContent ? `<div style="margin-top: auto;">${footerContent}</div>` : ''}
+                    </div>
+                `;
+            }
+
+            switch(id) {
+                case 'login':
+                    const loginBody = `
+                        <div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center;">
+                            <div class="wf-box" style="width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 20px auto; display: grid; place-items: center;">Logo</div>
+                            ${WF.Card(`
+                                ${WF.FormField('Username')}
+                                ${WF.FormField('Password')}
+                                ${WF.Button('Login')}
+                            `, 'Login Form')}
+                        </div>
+                    `;
+                    return WF.Scaffold('Login', loginBody, false);
+                case 'home':
+                    const homeBody = `
+                        ${WF.Card('Welcome Message', 'Welcome Card')}
+                        ${WF.Card(WF.StatGrid(4), 'Quick Stats')}
+                        ${WF.Card(WF.ListTile('Recent Activity'), 'Recent Activities')}
+                    `;
+                    return WF.Scaffold('Home', homeBody, true);
+                case 'profile':
+                    const profileBody = `
+                        ${WF.ProfileHeader('User Name')}
+                        ${WF.Card(`${WF.DetailRow('Info')}${WF.DetailRow('Info')}`, 'Personal Info')}
+                        ${WF.Card(`${WF.ListTile('Action')}${WF.ListTile('Action')}`, 'Actions')}
+                        <div style="margin-top: auto;">
+                            ${WF.Button('Logout')}
+                        </div>
+                    `;
+                    return WF.Scaffold('Profile', profileBody, true);
+                case 'athletes':
+                case 'classroom':
+                case 'competition':
+                case 'training':
+                    const listBody = `
+                        <div class="wf-box">Tabs</div>
+                        ${WF.Card(`${WF.FormField('Search')}<div class="wf-box" style="margin-top: 5px;">Filters</div>`)}
+                        <div style="flex-grow: 1;">
+                            ${WF.ListTile(`${id} item 1`)}
+                            ${WF.ListTile(`${id} item 2`)}
+                            ${WF.ListTile(`${id} item 3`)}
+                        </div>
+                    `;
+                    return WF.Scaffold(id.charAt(0).toUpperCase() + id.slice(1), listBody, true);
+                case 'attendance_check':
+                    const attendanceBody = `
+                        ${WF.MapPlaceholder()}
+                        <div style="padding: 10px 0;">
+                            ${WF.Card('Location Status Details', 'Location Card')}
+                            ${WF.Card('Training Info', 'Info Card')}
+                        </div>
+                        <div style="margin-top: auto;">
+                           ${WF.Button('Mark Attendance')}
+                        </div>
+                    `;
+                    return WF.Scaffold('Attendance Check', attendanceBody, false);
+            }
+
+            return `<div class="wireframe"><div class="wf-box">Wireframe for ${id} not implemented.</div></div>`;
+        }
+
+        function getHighFidelityContent(id) {
+            const THEME = {
+                primary: '#10B981',
+                primaryDark: '#059669',
+                background: '#F0FDF4',
+                cardBg: '#FFFFFF',
+                textDark: '#065F46',
+                textMedium: '#6B7280',
+                border: '#E5E7EB',
+                radiusMd: '12px',
+                radiusLg: '16px',
+                radiusRound: '99px',
+            };
+
+            const HiFi = {
+                AppBar: (title, actions = []) => {
+                    const titleHtml = `<h2 style="margin:0; font-weight: 600; font-size: 18px;">${title}</h2>`;
+                    const actionsHtml = actions.map(icon => `<span class="material-symbols-outlined">${icon}</span>`).join('');
+                    
+                    return `
+                        <div style="background: ${THEME.primary}; color: white; padding: 15px 20px;">
+                            <div style="display: flex; align-items: center; justify-content: space-between;">
+                                ${titleHtml}
+                                ${actionsHtml ? `<div style="display: flex; gap: 8px;">${actionsHtml}</div>` : ''}
+                            </div>
+                        </div>
+                    `;
+                },
+                TabBar: (tabs = [], activeIndex = 0) => {
+                    return `
+                        <div style="background: ${THEME.primaryDark}; display: flex;">
+                            ${tabs.map((tab, index) => `
+                                <div style="flex: 1; text-align: center; padding: 12px 0; border-bottom: 3px solid ${index === activeIndex ? 'white' : 'transparent'}; color: ${index === activeIndex ? 'white' : 'rgba(255,255,255,0.7)'}; font-weight: ${index === activeIndex ? '600' : '500'}; font-size: 14px; cursor: pointer;">
+                                    ${tab}
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                },
+                Scaffold: (title, body, nav) => `
+                    <div style="background-color: ${THEME.background}; position: relative; min-height: 600px; box-sizing: border-box; display: flex; flex-direction: column;">
+                        <div style="background: ${THEME.primary}; color: white; padding: 15px 20px; font-weight: 600; font-size: 18px;">${title}</div>
+                        <div style="flex-grow: 1; overflow-y: auto; padding-bottom: ${nav ? '80px' : '0'};">${body}</div>
+                        ${nav ? HiFi.BottomNav() : ''}
+                    </div>
+                `,
+                BottomNav: () => `
+                    <div style="background: white; padding: 10px 5px; display: flex; justify-content: space-around; border-top: 1px solid ${THEME.border}; position: absolute; bottom: 0; left: 0; right: 0; text-align: center;">
+                        <div style="color: ${THEME.primary}; flex: 1;">
+                            <span class="material-symbols-outlined" style="font-size: 28px;">home</span>
+                            <small style="display: block; font-size: 12px; font-weight: 500;">Home</small>
+                        </div>
+                        <div style="color: ${THEME.textMedium}; flex: 1;">
+                            <span class="material-symbols-outlined" style="font-size: 28px;">fitness_center</span>
+                            <small style="display: block; font-size: 12px;">Training</small>
+                        </div>
+                        <div style="color: ${THEME.textMedium}; flex: 1;">
+                            <span class="material-symbols-outlined" style="font-size: 28px;">emoji_events</span>
+                            <small style="display: block; font-size: 12px;">Competition</small>
+                        </div>
+                        <div style="color: ${THEME.textMedium}; flex: 1;">
+                            <span class="material-symbols-outlined" style="font-size: 28px;">school</span>
+                            <small style="display: block; font-size: 12px;">Classroom</small>
+                        </div>
+                        <div style="color: ${THEME.textMedium}; flex: 1;">
+                            <span class="material-symbols-outlined" style="font-size: 28px;">groups</span>
+                            <small style="display: block; font-size: 12px;">Athlete</small>
+                        </div>
+                        <div style="color: ${THEME.textMedium}; flex: 1;">
+                            <span class="material-symbols-outlined" style="font-size: 28px;">person</span>
+                            <small style="display: block; font-size: 12px;">Profile</small>
+                        </div>
+                    </div>
+                `,
+                Card: (content) => `
+                    <div style="background: ${THEME.cardBg}; border-radius: ${THEME.radiusLg}; padding: 16px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border: 1px solid rgba(167, 243, 208, 0.3); margin-bottom: 16px;">
+                        ${content}
+                    </div>
+                `,
+                AthleteCardContent: (name, email, status, statusColor) => `
+                    <div style="display: flex; align-items: flex-start;">
+                        <div style="width: 48px; height: 48px; border-radius: 50%; background: rgba(16, 185, 129, 0.1); display: grid; place-items: center; color: ${THEME.primary}; flex-shrink: 0;"><span class="material-symbols-outlined" style="font-size: 28px;">person</span></div>
+                        <div style="margin-left: 12px; flex-grow: 1;">
+                            <p style="font-weight: 600; margin: 0; color: ${THEME.textDark};">${name}</p>
+                            <p style="font-size: 14px; margin: 4px 0 0 0; color: ${THEME.textMedium};">${email}</p>
+                        </div>
+                        <div style="background: ${statusColor}1A; color: ${statusColor}; padding: 4px 8px; border-radius: 99px; font-size: 12px; font-weight: 500;">${status}</div>
+                    </div>
+                `,
+                FormField: (label, icon) => `
+                     <div style="margin-bottom: 16px;">
+                        <label style="display: block; font-size: 14px; font-weight: 500; color: ${THEME.textDark}; margin-bottom: 8px;">${label}</label>
+                        <div style="position: relative;">
+                            <span class="material-symbols-outlined" style="position: absolute; left: 14px; top: 13px; color: ${THEME.textMedium}; font-size: 22px;">${icon}</span>
+                            <input type="text" style="width: 100%; box-sizing: border-box; border-radius: 8px; border: 1px solid ${THEME.border}; padding: 14px 14px 14px 45px; background: white;">
+                        </div>
+                    </div>
+                `,
+                Button: (text, fullWidth = false, bgColor = THEME.primary) => `
+                    <button style="width: ${fullWidth ? '100%' : 'auto'}; background: ${bgColor}; color: white; border: none; padding: 14px 20px; border-radius: ${THEME.radiusMd}; font-weight: 600; font-size: 14px; cursor: pointer; box-shadow: 0 2px 5px ${bgColor === THEME.primary ? THEME.primaryDark : '#000000'}33;">${text}</button>
+                `,
+                DetailRow: (label, value) => `
+                    <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid ${THEME.border};">
+                        <span style="font-weight: 500; color: ${THEME.textMedium};">${label}</span>
+                        <span style="color: ${THEME.textDark}; text-align: right;">${value}</span>
+                    </div>
+                `,
+                ActionTile: (icon, title) => `
+                    <div style="display: flex; align-items: center; padding: 12px 0;">
+                        <span class="material-symbols-outlined" style="font-size: 22px; width: 30px; text-align: center; color: ${THEME.textMedium};">${icon}</span>
+                        <span style="flex-grow: 1; margin-left: 12px; color: ${THEME.textDark};">${title}</span>
+                        <span class="material-symbols-outlined" style="color: ${THEME.textMedium};">arrow_forward_ios</span>
+                    </div>
+                `,
+                ListTileCard: (icon, title, subtitle) => `
+                    <div style="background: ${THEME.cardBg}; border-radius: ${THEME.radiusMd}; padding: 12px 16px; box-shadow: 0 2px 4px rgba(0,0,0,0.04); border: 1px solid ${THEME.border}; margin-bottom: 12px; display: flex; align-items: center;">
+                        <div style="width: 40px; height: 40px; border-radius: 50%; background: ${THEME.primary}1A; display: grid; place-items: center; color: ${THEME.primary}; flex-shrink: 0;"><span class="material-symbols-outlined">${icon}</span></div>
+                        <div style="margin-left: 16px; flex-grow: 1;">
+                            <p style="font-weight: 600; margin: 0; color: ${THEME.textDark}; font-size: 15px;">${title}</p>
+                            <p style="font-size: 13px; margin: 4px 0 0 0; color: ${THEME.textMedium};">${subtitle}</p>
+                        </div>
+                        <span class="material-symbols-outlined" style="color: ${THEME.textMedium}; font-size: 18px;">arrow_forward_ios</span>
+                    </div>
+                `,
+                ListTileContent: (title, subtitle, icon) => `
+                    <div style="display: flex; align-items: center; padding: 12px 0;">
+                        <span class="material-symbols-outlined" style="font-size: 22px; width: 30px; text-align: center; color: ${THEME.textMedium};">${icon}</span>
+                        <div style="margin-left: 12px; flex-grow: 1;">
+                            <p style="font-weight: 600; margin: 0; color: ${THEME.textDark};">${title}</p>
+                            <p style="font-size: 14px; margin: 4px 0 0 0; color: ${THEME.textMedium};">${subtitle}</p>
+                        </div>
+                    </div>
+                `,
+                StatCard: (label, value, icon) => `
+                    <div style="background: ${THEME.cardBg}; border-radius: ${THEME.radiusLg}; padding: 16px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border: 1px solid rgba(167, 243, 208, 0.3); text-align: center;">
+                        <span class="material-symbols-outlined" style="font-size: 32px; color: ${THEME.primary}; margin-bottom: 8px;">${icon}</span>
+                        <p style="font-size: 20px; font-weight: 700; color: ${THEME.textDark}; margin: 0 0 4px 0;">${value}</p>
+                        <p style="font-size: 12px; color: ${THEME.textMedium}; margin: 0;">${label}</p>
+                    </div>
+                `,
+                FilterChip: (label, isSelected = false) => `
+                    <div style="display: inline-block; padding: 8px 16px; border-radius: ${THEME.radiusRound}; font-size: 14px; font-weight: 500; cursor: pointer;
+                        background: ${isSelected ? THEME.primary + '33' : '#FFFFFF'}; 
+                        color: ${isSelected ? THEME.primaryDark : THEME.textMedium}; 
+                        border: 1px solid ${isSelected ? THEME.primary + '4D' : THEME.border};">
+                        ${label}
+                    </div>
+                `,
+                ClassroomCard: (title, coach, studentCount) => `
+                    <div style="background: ${THEME.cardBg}; border-radius: ${THEME.radiusMd}; padding: 16px; box-shadow: 0 2px 4px rgba(0,0,0,0.04); border: 1px solid ${THEME.border}; margin-bottom: 12px;">
+                        <div style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+                            <span class="material-symbols-outlined" style="font-size: 28px; color: ${THEME.primary}; margin-right: 12px; margin-top: 2px;">school</span>
+                            <div style="flex-grow: 1;">
+                                <p style="font-weight: 600; margin: 0; color: ${THEME.textDark}; font-size: 16px;">${title}</p>
+                                <p style="font-size: 13px; margin: 4px 0 0 0; color: ${THEME.textMedium};">Coached by ${coach}</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; justify-content: flex-end;">
+                            <div style="background: ${THEME.primary}1A; color: ${THEME.primaryDark}; padding: 4px 10px; border-radius: 99px; font-size: 12px; font-weight: 500; display: inline-flex; align-items: center;">
+                                <span class="material-symbols-outlined" style="font-size: 16px; margin-right: 4px;">groups</span>
+                                ${studentCount} Students
+                            </div>
+                        </div>
+                    </div>
+                `,
+                CompetitionCard: (image, title, organizer, status, statusColor, details, description, actions) => `
+                    <div style="background: ${THEME.cardBg}; border-radius: ${THEME.radiusLg}; padding: 16px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border: 1px solid ${THEME.border}; margin-bottom: 16px;">
+                        ${image ? `<img src="${image}" style="width: 100%; height: 120px; object-fit: cover; border-radius: ${THEME.radiusMd}; margin-bottom: 12px;">` : ''}
+                        
+                        <div style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+                            <span class="material-symbols-outlined" style="font-size: 28px; color: ${THEME.primary}; margin-right: 12px; margin-top: 2px;">emoji_events</span>
+                            <div style="flex-grow: 1;">
+                                <p style="font-weight: 600; margin: 0; color: ${THEME.textDark}; font-size: 16px; line-height: 1.3;">${title}</p>
+                                <p style="font-size: 13px; margin: 4px 0 0 0; color: ${THEME.textMedium};">by ${organizer}</p>
+                            </div>
+                            <div style="background: ${statusColor}1A; color: ${statusColor}; padding: 4px 10px; border-radius: 99px; font-size: 12px; font-weight: 500; flex-shrink: 0; margin-left: 8px;">${status}</div>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; border-top: 1px solid ${THEME.border}; border-bottom: 1px solid ${THEME.border}; padding: 12px 0;">
+                            ${details.map(d => `
+                                <div style="display: flex; align-items: center;">
+                                    <span class="material-symbols-outlined" style="font-size: 18px; color: ${THEME.textMedium}; margin-right: 8px;">${d.icon}</span>
+                                    <div>
+                                        <p style="font-size: 12px; color: ${THEME.textMedium}; margin: 0;">${d.label}</p>
+                                        <p style="font-size: 14px; color: ${THEME.textDark}; margin: 2px 0 0 0; font-weight: 500;">${d.value}</p>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                        
+                        ${description ? `
+                            <div style="margin-top: 12px;">
+                                <p style="font-size: 13px; color: ${THEME.textMedium}; margin: 0; line-height: 1.5;">${description}</p>
+                            </div>
+                        ` : ''}
+
+                        ${actions.length > 0 ? `
+                            <div style="margin-top: 16px; display: flex; justify-content: flex-end; gap: 8px;">
+                                ${actions.map(a => HiFi.Button(a.text, false, a.color)).join('')}
+                            </div>
+                        ` : ''}
+                    </div>
+                `,
+                TrainingCard: (title, description, status, statusColor, details, actions) => `
+                    <div style="background: ${THEME.cardBg}; border-radius: ${THEME.radiusLg}; padding: 16px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border: 1px solid ${THEME.border}; margin-bottom: 16px;">
+                        <div style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+                            <span class="material-symbols-outlined" style="font-size: 28px; color: ${THEME.primary}; margin-right: 12px; margin-top: 2px;">fitness_center</span>
+                            <div style="flex-grow: 1;">
+                                <p style="font-weight: 600; margin: 0; color: ${THEME.textDark}; font-size: 16px;">${title}</p>
+                                <p style="font-size: 13px; margin: 4px 0 0 0; color: ${THEME.textMedium};">${description}</p>
+                            </div>
+                            <div style="background: ${statusColor}1A; color: ${statusColor}; padding: 4px 10px; border-radius: 99px; font-size: 12px; font-weight: 500; flex-shrink: 0; margin-left: 8px;">${status}</div>
+                        </div>
+
+                        <div style="border-top: 1px solid ${THEME.border}; padding-top: 12px;">
+                             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                                ${details.map(d => `
+                                    <div style="display: flex; align-items: center;">
+                                        <span class="material-symbols-outlined" style="font-size: 18px; color: ${THEME.textMedium}; margin-right: 8px;">${d.icon}</span>
+                                        <div>
+                                            <p style="font-size: 12px; color: ${THEME.textMedium}; margin: 0;">${d.label}</p>
+                                            <p style="font-size: 14px; color: ${THEME.textDark}; margin: 2px 0 0 0; font-weight: 500;">${d.value}</p>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                        
+                        ${actions.length > 0 ? `
+                            <div style="margin-top: 16px; display: flex; justify-content: flex-end; gap: 8px;">
+                                ${actions.map(a => HiFi.Button(a.text, false, a.color)).join('')}
+                            </div>
+                        ` : ''}
+                    </div>
+                `,
+                ProfileHeader: (image, name, status, statusColor, infoItems) => `
+                    <div style="background-color: ${THEME.primary}; color: white; padding: 24px; text-align: center;">
+                        <img src="${image}" style="width: 90px; height: 90px; border-radius: 50%; object-fit: cover; border: 3px solid white; margin-bottom: 12px;">
+                        <h2 style="margin: 0 0 8px 0; font-size: 22px; font-weight: 700;">${name}</h2>
+                        <div style="background: ${statusColor}; color: white; padding: 4px 12px; border-radius: 99px; font-size: 12px; font-weight: 600; display: inline-block; margin-bottom: 16px;">${status}</div>
+                        <div style="display: flex; justify-content: space-around; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 16px;">
+                            ${infoItems.map(item => `
+                                <div>
+                                    <p style="margin: 0; font-size: 12px; color: rgba(255,255,255,0.8);">${item.label}</p>
+                                    <p style="margin: 4px 0 0 0; font-size: 14px; font-weight: 600;">${item.value}</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `,
+                InfoCard: (title, items) => `
+                     <div style="margin-bottom: 16px;">
+                        <h3 style="font-size: 16px; font-weight: 600; color: ${THEME.textDark}; margin: 0 0 8px 0;">${title}</h3>
+                        ${HiFi.Card(items.map(item => HiFi.DetailRow(item.label, item.value)).join(''))}
+                    </div>
+                `,
+                HistoryCard: (icon, title, subtitle, date) => `
+                    ${HiFi.Card(`
+                        <div style="display: flex; align-items: center;">
+                            <div style="width: 40px; height: 40px; border-radius: 12px; background: ${THEME.primary}1A; display: grid; place-items: center; color: ${THEME.primary}; flex-shrink: 0; margin-right: 12px;">
+                                <span class="material-symbols-outlined">${icon}</span>
+                            </div>
+                            <div style="flex-grow: 1;">
+                                <p style="font-weight: 600; margin: 0; color: ${THEME.textDark}; font-size: 15px;">${title}</p>
+                                <p style="font-size: 13px; margin: 4px 0 0 0; color: ${THEME.textMedium};">${subtitle}</p>
+                            </div>
+                            <div style="text-align: right;">
+                                <p style="font-size: 12px; color: ${THEME.textMedium}; margin: 0;">${date}</p>
+                            </div>
+                        </div>
+                    `)}
+                `,
+                 StatGrid: (items) => `
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                        ${items.map(item => HiFi.StatCard(item.label, item.value, item.icon)).join('')}
+                    </div>
+                 `
+            };
+
+            // --- Athlete Detail Screens ---
+            if (id.startsWith('athlete_detail')) {
+                const tab = id.split('_')[2]; // overview, training, etc.
+                const TABS = ['Overview', 'Training', 'Competitions', 'Statistics'];
+                const activeIndex = TABS.findIndex(t => t.toLowerCase() === tab);
+
+                const profileInfo = {
+                    image: 'https://images.unsplash.com/photo-1557862921-37829c790f19?q=80&w=800&auto=format&fit=crop',
+                    name: 'Ahmad Subagja',
+                    status: 'Active',
+                    statusColor: '#22C55E',
+                    infoItems: [
+                        {label: 'Age', value: '21 years'},
+                        {label: 'Gender', value: 'Male'},
+                        {label: 'City', value: 'Surabaya'}
+                    ]
+                };
+
+                const contactInfo = {
+                    title: 'Contact Information',
+                    items: [
+                        {label: 'Email', value: 'ahmad.sub@example.com'},
+                        {label: 'Phone', value: '+62 812 9876 5432'},
+                    ]
+                };
+
+                const athletePersonalInfo = {
+                    title: 'Personal Information',
+                    items: [
+                        {label: 'Address', value: 'Jl. Juara No. 1, Jakarta'},
+                        {label: 'Join Date', value: '15 Jan 2023'},
+                    ]
+                };
+
+                const stats = [
+                    {label: 'Total Trainings', value: '72', icon: 'fitness_center'},
+                    {label: 'Total Competitions', value: '8', icon: 'emoji_events'},
+                    {label: 'Avg Attendance', value: '95%', icon: 'check_circle'},
+                    {label: 'Avg Pace', value: '1:45/100m', icon: 'speed'},
+                ];
+
+                const contentMap = {
+                    overview: `
+                        <div style="padding: 16px;">
+                           ${HiFi.InfoCard(contactInfo.title, contactInfo.items)}
+                           ${HiFi.InfoCard(athletePersonalInfo.title, athletePersonalInfo.items)}
+                        </div>
+                    `,
+                    training: `
+                        <div style="padding: 16px;">
+                            ${HiFi.HistoryCard('fitness_center', 'Latihan Endurance', 'Coach: Royhan A.', '22 Jul 2024')}
+                            ${HiFi.HistoryCard('fitness_center', 'Latihan Kekuatan', 'Coach: Budi S.', '23 Jul 2024')}
+                        </div>
+                    `,
+                    competitions: `
+                         <div style="padding: 16px;">
+                            ${HiFi.HistoryCard('emoji_events', 'Kejurda 2024', 'Finished 5th', '15 Aug 2024')}
+                        </div>
+                    `,
+                    statistics: `
+                        <div style="padding: 16px;">
+                           ${HiFi.StatGrid(stats)}
+                        </div>
+                    `
+                };
+                
+                return `
+                    <div style="background-color: ${THEME.background}; min-height: 600px;">
+                        <div style="box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                            ${HiFi.AppBar('Athlete Detail', ['edit'])}
+                            ${HiFi.ProfileHeader(profileInfo.image, profileInfo.name, profileInfo.status, profileInfo.statusColor, profileInfo.infoItems)}
+                            <div style="background: ${THEME.primary};"> 
+                                ${HiFi.TabBar(TABS, activeIndex)}
+                            </div>
+                        </div>
+                        <div style="padding-bottom: 20px;">
+                            ${contentMap[tab]}
+                        </div>
+                    </div>
+                `;
+            }
+
+            // --- Classroom Detail Screens ---
+            if (id.startsWith('classroom_detail')) {
+                const tab = id.split('_')[2]; // overview, students, statistics
+                const TABS = ['Overview', 'Students', 'Statistics'];
+                const activeIndex = TABS.findIndex(t => t.toLowerCase() === tab);
+
+                const classroomHeaderInfo = {
+                    icon: 'school',
+                    name: 'Kelas Pemula A',
+                    infoItems: [
+                        {label: 'Students', value: '18'},
+                        {label: 'Coach', value: 'Budi Santoso'},
+                        {label: 'Status', value: 'Active'}
+                    ]
+                };
+
+                const classroomDetails = {
+                    title: 'Classroom Information',
+                    items: [
+                        {label: 'Schedule', value: 'Mon, Wed, Fri'},
+                        {label: 'Time', value: '15:00 - 17:00'},
+                        {label: 'Location', value: 'Main Pool'},
+                    ]
+                };
+
+                const studentStats = [
+                    {label: 'Avg Attendance', value: '92%', icon: 'checklist'},
+                    {label: 'Improvement Rate', value: '+12%', icon: 'trending_up'},
+                    {label: 'Total Drills', value: '48', icon: 'subtitles'},
+                    {label: 'Avg Pace', value: '2:15/100m', icon: 'speed'},
+                ];
+
+                const contentMap = {
+                    overview: `
+                        <div style="padding: 16px;">
+                            ${HiFi.InfoCard(classroomDetails.title, classroomDetails.items)}
+                        </div>
+                    `,
+                    students: `
+                        <div style="padding: 16px;">
+                            ${HiFi.ListTileCard('person', 'Ahmad Subagja', 'ahmad.sub@example.com')}
+                            ${HiFi.ListTileCard('person', 'Citra Lestari', 'citra.l@example.com')}
+                            ${HiFi.ListTileCard('person', 'Budi Doremi', 'budi.do@example.com')}
+                        </div>
+                    `,
+                    statistics: `
+                        <div style="padding: 16px;">
+                            ${HiFi.StatGrid(studentStats)}
+                        </div>
+                    `
+                };
+
+                const classroomHeader = `
+                    <div style="background-color: ${THEME.primary}; color: white; padding: 24px; text-align: center;">
+                        <div style="width: 90px; height: 90px; border-radius: 50%; background: rgba(255,255,255,0.2); display: grid; place-items: center; margin: 0 auto 12px auto;">
+                            <span class="material-symbols-outlined" style="font-size: 48px;">${classroomHeaderInfo.icon}</span>
+                        </div>
+                        <h2 style="margin: 0 0 16px 0; font-size: 22px; font-weight: 700;">${classroomHeaderInfo.name}</h2>
+                        <div style="display: flex; justify-content: space-around; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 16px;">
+                            ${classroomHeaderInfo.infoItems.map(item => `
+                                <div>
+                                    <p style="margin: 0; font-size: 12px; color: rgba(255,255,255,0.8);">${item.label}</p>
+                                    <p style="margin: 4px 0 0 0; font-size: 14px; font-weight: 600;">${item.value}</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+                
+                return `
+                    <div style="background-color: ${THEME.background}; min-height: 600px;">
+                        <div style="box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                            ${HiFi.AppBar('Classroom Detail', ['edit'])}
+                            ${classroomHeader}
+                            <div style="background: ${THEME.primary};"> 
+                                ${HiFi.TabBar(TABS, activeIndex)}
+                            </div>
+                        </div>
+                        <div style="padding-bottom: 20px;">
+                            ${contentMap[tab]}
+                        </div>
+                    </div>
+                `;
+            }
+
+            // --- Competition Detail Screens ---
+            if (id.startsWith('competition_detail')) {
+                const tab = id.split('_')[2]; // overview, statistics
+                const TABS = ['Overview', 'Statistics'];
+                const activeIndex = TABS.findIndex(t => t.toLowerCase() === tab);
+
+                const competitionHeaderInfo = {
+                    icon: 'emoji_events',
+                    name: 'Kejuaraan Daerah 2024',
+                    infoItems: [
+                        {label: 'Date', value: '15 Aug 2024'},
+                        {label: 'Location', value: 'Surabaya'},
+                        {label: 'Level', value: 'Regional'}
+                    ]
+                };
+
+                const competitionDetails = {
+                    title: 'Competition Information',
+                    items: [
+                        {label: 'Organizer', value: 'Dispora Jatim'},
+                        {label: 'Prize', value: 'IDR 5,000,000'},
+                    ]
+                };
+
+                 const registrationDetails = {
+                    title: 'Registration Information',
+                    items: [
+                        {label: 'Deadline', value: '10 Aug 2024'},
+                        {label: 'Fee', value: 'IDR 100,000'},
+                    ]
+                };
+
+                 const competitionStats = [
+                    {label: 'Participants', value: '128', icon: 'groups'},
+                    {label: 'KRPG Athletes', value: '8', icon: 'sports'},
+                    {label: 'Podiums', value: '2', icon: 'military_tech'},
+                    {label: 'New Records', value: '1', icon: 'new_releases'},
+                ];
+                
+                const contentMap = {
+                    overview: `
+                        <div style="padding: 16px;">
+                            ${HiFi.InfoCard(competitionDetails.title, competitionDetails.items)}
+                            ${HiFi.InfoCard(registrationDetails.title, registrationDetails.items)}
+                        </div>
+                    `,
+                    statistics: `
+                        <div style="padding: 16px;">
+                            ${HiFi.StatGrid(competitionStats)}
+                        </div>
+                    `
+                };
+
+                 const competitionHeader = `
+                    <div style="background-color: ${THEME.primary}; color: white; padding: 24px; text-align: center;">
+                        <div style="width: 90px; height: 90px; border-radius: 50%; background: rgba(255,255,255,0.2); display: grid; place-items: center; margin: 0 auto 12px auto;">
+                            <span class="material-symbols-outlined" style="font-size: 48px;">${competitionHeaderInfo.icon}</span>
+                        </div>
+                        <h2 style="margin: 0 0 16px 0; font-size: 22px; font-weight: 700; text-align: center;">${competitionHeaderInfo.name}</h2>
+                        <div style="display: flex; justify-content: space-around; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 16px;">
+                            ${competitionHeaderInfo.infoItems.map(item => `
+                                <div>
+                                    <p style="margin: 0; font-size: 12px; color: rgba(255,255,255,0.8);">${item.label}</p>
+                                    <p style="margin: 4px 0 0 0; font-size: 14px; font-weight: 600;">${item.value}</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+
+                return `
+                    <div style="background-color: ${THEME.background}; min-height: 600px;">
+                        <div style="box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                            ${HiFi.AppBar('Competition Detail', ['edit'])}
+                            ${competitionHeader}
+                            <div style="background: ${THEME.primary};"> 
+                                ${HiFi.TabBar(TABS, activeIndex)}
+                            </div>
+                        </div>
+                        <div style="padding-bottom: 20px;">
+                            ${contentMap[tab]}
+                        </div>
+                    </div>
+                `;
+            }
+
+            // --- Training Detail Screens ---
+            if (id.startsWith('training_detail')) {
+                const tab = id.split('_')[2]; // overview, athletes, history
+                const TABS = ['Overview', 'Athletes', 'History'];
+                const activeIndex = TABS.findIndex(t => t.toLowerCase() === tab);
+
+                const trainingHeaderInfo = {
+                    icon: 'fitness_center',
+                    name: 'Latihan Endurance Pagi',
+                    infoItems: [
+                        {label: 'Date', value: 'Mon, 22 Jul'},
+                        {label: 'Location', value: 'Main Pool'},
+                        {label: 'Coach', value: 'Royhan A.'}
+                    ]
+                };
+
+                 const trainingDetails = {
+                    title: 'Training Information',
+                    items: [
+                        {label: 'Time', value: '08:00 - 10:00'},
+                        {label: 'Focus', value: 'Cardio & Endurance'},
+                    ]
+                };
+
+                const contentMap = {
+                    overview: `
+                        <div style="padding: 16px;">
+                            ${HiFi.InfoCard(trainingDetails.title, trainingDetails.items)}
+                        </div>
+                    `,
+                    athletes: `
+                        <div style="padding: 16px;">
+                            ${HiFi.ListTileCard('person', 'Ahmad Subagja', 'Present')}
+                            ${HiFi.ListTileCard('person', 'Citra Lestari', 'Present')}
+                            ${HiFi.ListTileCard('person', 'Budi Santoso', 'Absent')}
+                        </div>
+                    `,
+                    history: `
+                        <div style="padding: 16px;">
+                           ${HiFi.HistoryCard('history', 'Previous Session', 'Avg Pace: 1:50/100m', '19 Jul 2024')}
+                           ${HiFi.HistoryCard('history', 'Session Before', 'Avg Pace: 1:52/100m', '15 Jul 2024')}
+                        </div>
+                    `
+                };
+                
+                 const trainingHeader = `
+                    <div style="background-color: ${THEME.primary}; color: white; padding: 24px; text-align: center;">
+                         <div style="width: 90px; height: 90px; border-radius: 50%; background: rgba(255,255,255,0.2); display: grid; place-items: center; margin: 0 auto 12px auto;">
+                            <span class="material-symbols-outlined" style="font-size: 48px;">${trainingHeaderInfo.icon}</span>
+                        </div>
+                        <h2 style="margin: 0 0 16px 0; font-size: 22px; font-weight: 700; text-align: center;">${trainingHeaderInfo.name}</h2>
+                        <div style="display: flex; justify-content: space-around; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 16px;">
+                            ${trainingHeaderInfo.infoItems.map(item => `
+                                <div>
+                                    <p style="margin: 0; font-size: 12px; color: rgba(255,255,255,0.8);">${item.label}</p>
+                                    <p style="margin: 4px 0 0 0; font-size: 14px; font-weight: 600;">${item.value}</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+
+                return `
+                    <div style="background-color: ${THEME.background}; min-height: 600px;">
+                        <div style="box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                            ${HiFi.AppBar('Training Detail', ['edit'])}
+                            ${trainingHeader}
+                            <div style="background: ${THEME.primary}; padding: 12px 16px;">
+                                ${HiFi.Button('Start Session', true, THEME.primaryDark)}
+                            </div>
+                            <div style="background: ${THEME.primary};"> 
+                                ${HiFi.TabBar(TABS, activeIndex)}
+                            </div>
+                        </div>
+                        <div style="padding-bottom: 20px;">
+                            ${contentMap[tab]}
+                        </div>
+                    </div>
+                `;
+            }
+
+            // --- Training Session Screens ---
+            if (id.startsWith('training_session')) {
+                const tab = id.split('_')[2]; // attendance, stopwatch, statistics
+                const TABS = ['Attendance', 'Stopwatch', 'Statistics'];
+                const activeIndex = TABS.findIndex(t => t.toLowerCase() === tab);
+
+                const locationStatus = `
+                    <div style="padding: 12px 16px; background: ${THEME.primaryDark}; color: white; display: flex; justify-content: space-around; text-align: center; font-size: 13px;">
+                        <div><span class="material-symbols-outlined" style="font-size: 16px; vertical-align: bottom; margin-right: 4px;">location_on</span>Lokasi: <strong>25m</strong></div>
+                        <div><span class="material-symbols-outlined" style="font-size: 16px; vertical-align: bottom; margin-right: 4px;">wifi</span>Realtime: <strong>Connected</strong></div>
+                    </div>
+                `;
+
+                const stopwatch = `
+                    <div style="text-align: center; padding: 24px;">
+                         <div style="font-size: 48px; font-weight: 200; color: ${THEME.textDark}; margin-bottom: 24px;">00:00.00</div>
+                         <div style="display: flex; gap: 16px; justify-content: center;">
+                            ${HiFi.Button('Start', false, THEME.primary)}
+                            ${HiFi.Button('Reset', false, '#6B7280')}
+                         </div>
+                    </div>
+                `;
+                
+                const sessionStats = [
+                    {label: 'Elapsed Time', value: '45:18', icon: 'timer'},
+                    {label: 'Athletes Present', value: '15/18', icon: 'groups'},
+                    {label: 'Laps Recorded', value: '120', icon: 'replay'},
+                    {label: 'Avg Pace', value: '1:55/100m', icon: 'speed'},
+                ];
+
+                const contentMap = {
+                    attendance: `
+                         <div style="padding: 16px;">
+                            ${HiFi.ListTileCard('person', 'Ahmad Subagja', 'Present')}
+                            ${HiFi.ListTileCard('person', 'Citra Lestari', 'Present')}
+                            ${HiFi.ListTileCard('person', 'Budi Santoso', 'Absent')}
+                        </div>
+                    `,
+                    stopwatch: `
+                        <div style="padding: 16px;">
+                           ${HiFi.Card(`
+                                <h3 style="margin-top:0; font-size: 16px; color: ${THEME.textDark}; margin-bottom: 16px;">Stopwatch for: <strong>Ahmad Subagja</strong></h3>
+                                ${stopwatch}
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                                    ${HiFi.FormField('Stroke', 'swap_horiz')}
+                                    ${HiFi.FormField('Distance', 'straighten')}
+                                </div>
+                           `)}
+                        </div>
+                    `,
+                    statistics: `
+                        <div style="padding: 16px;">
+                           ${HiFi.StatGrid(sessionStats)}
+                        </div>
+                    `
+                };
+                 
+                return `
+                    <div style="background-color: ${THEME.background}; height: 100%; display: flex; flex-direction: column;">
+                        <div style="box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                            ${HiFi.AppBar('Training Session', ['help'])}
+                            ${locationStatus}
+                            <div style="background: ${THEME.primary};">
+                                ${HiFi.TabBar(TABS, activeIndex)}
+                            </div>
+                        </div>
+                        <div style="flex-grow: 1; overflow-y: auto;">
+                            ${contentMap[tab]}
+                        </div>
+                        <div style="padding: 16px; border-top: 1px solid ${THEME.border}; background: white;">
+                            ${HiFi.Button('End Session', true, '#EF4444')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            switch(id) {
+                case 'login':
+                    const loginLogo = `
+                        <div style="text-align: center; margin-bottom: 32px;">
+                            <div style="width: 80px; height: 80px; border-radius: 50%; background-color: rgba(16, 185, 129, 0.1); display: flex; align-items: center; justify-content: center; margin: 0 auto;">
+                                <span class="material-symbols-outlined" style="font-size: 48px; color: ${THEME.primary};">pool</span>
+                            </div>
+                            <h1 style="color: ${THEME.textDark}; font-size: 24px; margin: 16px 0 4px 0; font-weight: 700;">SiMenang KRPG</h1>
+                            <p style="color: ${THEME.textMedium}; font-size: 16px; margin: 0;">Petrokimia Gresik Swimming Club</p>
+                        </div>
+                    `;
+                    const loginForm = HiFi.Card(`
+                        <h2 style="font-size: 20px; font-weight: 600; color: ${THEME.textDark}; margin: 0 0 24px 0;">Login</h2>
+                        ${HiFi.FormField('Username or Email', 'person')}
+                        ${HiFi.FormField('Password', 'lock')}
+                        <div style="height: 16px;"></div>
+                        ${HiFi.Button('Login', true)}
+                        <div style="text-align: center; margin-top: 16px;">
+                            <a href="#" style="color: ${THEME.primary}; font-size: 14px; text-decoration: none; font-weight: 500;">Forgot Password?</a>
+                        </div>
+                    `);
+                    return `
+                        <div style="background-color: ${THEME.background}; padding: 32px; height: 100%; display: flex; flex-direction: column; justify-content: center; box-sizing: border-box;">
+                           ${loginLogo}
+                           ${loginForm}
+                        </div>
+                    `;
+                case 'home':
+                    const welcomeCard = HiFi.Card(`
+                        <div style="display: flex; align-items: center;">
+                            <div style="width: 48px; height: 48px; border-radius: 50%; background: rgba(16, 185, 129, 0.1); display: grid; place-items: center; color: ${THEME.primary}; flex-shrink: 0;"><span class="material-symbols-outlined" style="font-size: 28px;">person</span></div>
+                            <div style="margin-left: 16px; flex-grow: 1;">
+                                <p style="font-size: 14px; margin: 0; color: ${THEME.textMedium};">Welcome back!</p>
+                                <p style="font-size: 18px; font-weight: 700; margin: 4px 0 4px 0; color: ${THEME.textDark};">Royhan Antariksa</p>
+                                <div style="display: inline-block; background: rgba(20, 184, 166, 0.1); color: #14B8A6; padding: 2px 8px; border-radius: 99px; font-size: 12px; font-weight: 500;">COACH</div>
+                            </div>
+                        </div>
+                    `);
+                    const quickStats = `
+                        <div>
+                           <h3 style="font-size: 18px; font-weight: 600; color: ${THEME.textDark}; margin: 24px 0 12px 0;">Quick Stats</h3>
+                           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                               ${HiFi.StatCard('Trainings', '72', 'fitness_center')}
+                               ${HiFi.StatCard('Competitions', '8', 'emoji_events')}
+                               ${HiFi.StatCard('Classrooms', '3', 'school')}
+                               ${HiFi.StatCard('Athletes', '16', 'groups')}
+                           </div>
+                        </div>
+                    `;
+                    const recentActivities = `
+                        <div>
+                           <h3 style="font-size: 18px; font-weight: 600; color: ${THEME.textDark}; margin: 24px 0 12px 0;">Recent Activities</h3>
+                           ${HiFi.Card(HiFi.ListTileContent('New competition result added', 'Kejurda 2024', 'emoji_events'))}
+                        </div>
+                    `;
+                    const homeBody = `${welcomeCard}${quickStats}${recentActivities}`;
+                    return HiFi.Scaffold('Home', `<div style="padding: 16px;">${homeBody}</div>`, true);
+                case 'athletes':
+                    const athletesAppBar = `
+                        <div style="box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                            ${HiFi.AppBar('Athletes')}
+                            ${HiFi.TabBar(['All Athletes', 'My Profile'])}
+                        </div>
+                    `;
+                    const searchAndFilter = `
+                        <div style="padding: 16px; background-color: ${THEME.background}; border-bottom: 1px solid ${THEME.border};">
+                            ${HiFi.FormField('Search athletes...', 'search')}
+                            <div style="display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px; margin-top: 8px;">
+                                ${HiFi.FilterChip('All Classrooms', true)}
+                                ${HiFi.FilterChip('Class A')}
+                                ${HiFi.FilterChip('Class B')}
+                                ${HiFi.FilterChip('Advanced')}
+                            </div>
+                        </div>
+                    `;
+                    const athletesList = `
+                        <div style="padding: 16px;">
+                            ${HiFi.ListTileCard('person', 'Ahmad Subagja', 'ahmad.sub@example.com')}
+                            ${HiFi.ListTileCard('person', 'Budi Santoso', 'budi.s@example.com')}
+                            ${HiFi.ListTileCard('person', 'Citra Lestari', 'citra.l@example.com')}
+                            ${HiFi.ListTileCard('person', 'Dewi Anggraini', 'dewi.a@example.com')}
+                        </div>
+                    `;
+
+                    return `
+                        <div style="background-color: ${THEME.background}; position: relative; min-height: 600px; box-sizing: border-box; display: flex; flex-direction: column;">
+                            ${athletesAppBar}
+                            <div style="flex-grow: 1; overflow-y: auto; padding-bottom: 80px;">
+                                ${searchAndFilter}
+                                ${athletesList}
+                            </div>
+                            ${HiFi.BottomNav()}
+                        </div>
+                    `;
+                case 'profile':
+                    const profileHeader = HiFi.Card(`
+                        <div style="display: flex; flex-direction: column; align-items: center; text-align: center; padding: 16px 0;">
+                            <div style="width: 80px; height: 80px; border-radius: 50%; background-color: ${THEME.primary}; display: flex; align-items: center; justify-content: center; color: white; font-size: 40px; font-weight: bold; margin-bottom: 16px;">
+                                R
+                            </div>
+                            <p style="font-size: 20px; font-weight: 600; color: ${THEME.textDark}; margin: 0 0 4px 0;">Royhan Antariksa</p>
+                            <p style="font-size: 14px; color: ${THEME.textMedium}; margin: 0 0 4px 0;">Pelatih</p>
+                            <p style="font-size: 12px; color: ${THEME.textMedium}; margin: 0 0 16px 0;">royhan.antariksa@example.com</p>
+                            <button style="background-color: transparent; border: 1.5px solid ${THEME.primary}; color: ${THEME.primary}; padding: 6px 16px; border-radius: 12px; font-weight: 600; font-size: 13px; cursor: pointer;">Edit Profile</button>
+                        </div>
+                    `);
+
+                    const personalInfo = HiFi.Card(`
+                        <h3 style="margin: 0 0 16px 0; font-size: 16px; font-weight: 600; color: ${THEME.textDark};">Personal Information</h3>
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            ${HiFi.DetailRow('Phone:', '081234567890')}
+                            ${HiFi.DetailRow('Address:', 'Jl. Pahlawan No. 45, Surabaya')}
+                            ${HiFi.DetailRow('Gender:', 'Male')}
+                            ${HiFi.DetailRow('Join Date:', '15 Jan 2023')}
+                        </div>
+                    `);
+
+                    const actions = HiFi.Card(`
+                        <h3 style="margin: 0 0 8px 0; font-size: 16px; font-weight: 600; color: ${THEME.textDark};">Actions</h3>
+                        <div style="display: flex; flex-direction: column;">
+                           ${HiFi.ActionTile('key', 'Change Password')}
+                           ${HiFi.ActionTile('image', 'Upload Picture')}
+                           ${HiFi.ActionTile('help', 'Help & Support')}
+                           ${HiFi.ActionTile('info', 'About App')}
+                        </div>
+                    `);
+
+                    const logoutButton = HiFi.Button('Logout', true, '#EF4444');
+                    
+                    const body = `
+                        <div style="padding: 16px;">
+                           ${profileHeader}
+                           <div style="height: 24px;"></div>
+                           ${personalInfo}
+                           <div style="height: 24px;"></div>
+                           ${actions}
+                           <div style="height: 24px;"></div>
+                           ${logoutButton}
+                        </div>
+                    `;
+
+                    return HiFi.Scaffold('Profile', body, true);
+                case 'classroom':
+                    const classroomAppBar = `
+                        <div style="box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                            ${HiFi.AppBar('Classrooms')}
+                            ${HiFi.TabBar(['All', 'Active', 'My Classes'])}
+                        </div>
+                    `;
+                     const classroomSearch = `
+                        <div style="padding: 16px; background-color: ${THEME.background}; border-bottom: 1px solid ${THEME.border};">
+                            ${HiFi.FormField('Search classrooms...', 'search')}
+                            <div style="display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px; margin-top: 8px;">
+                                ${HiFi.FilterChip('All', true)}
+                                ${HiFi.FilterChip('Active')}
+                                ${HiFi.FilterChip('Inactive')}
+                                ${HiFi.FilterChip('Full')}
+                            </div>
+                        </div>
+                    `;
+                    const classroomList = `
+                        <div style="padding: 16px;">
+                            ${HiFi.ClassroomCard('Kelas Pemula A', 'Budi Santoso', 18)}
+                            ${HiFi.ClassroomCard('Kelas Menengah', 'Royhan Antariksa', 12)}
+                            ${HiFi.ClassroomCard('Kelas Lanjutan', 'Royhan Antariksa', 8)}
+                        </div>
+                    `;
+                     return `
+                        <div style="background-color: ${THEME.background}; position: relative; min-height: 600px; box-sizing: border-box; display: flex; flex-direction: column;">
+                            ${classroomAppBar}
+                            <div style="flex-grow: 1; overflow-y: auto; padding-bottom: 80px;">
+                                ${classroomSearch}
+                                ${classroomList}
+                            </div>
+                            ${HiFi.BottomNav()}
+                        </div>
+                    `;
+                case 'competition':
+                    const competitionAppBar = `
+                         <div style="box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                            ${HiFi.AppBar('Competitions', ['pending_actions'])}
+                            ${HiFi.TabBar(['All', 'Coming Soon', 'Ongoing', 'Finished'])}
+                        </div>
+                    `;
+                    const competitionSearch = `
+                        <div style="padding: 16px; background-color: ${THEME.background}; border-bottom: 1px solid ${THEME.border};">
+                            ${HiFi.FormField('Search competitions...', 'search')}
+                            <div style="display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px; margin-top: 8px;">
+                                ${HiFi.FilterChip('All Status', true)}
+                                ${HiFi.FilterChip('Coming Soon')}
+                                ${HiFi.FilterChip('Ongoing')}
+                                ${HiFi.FilterChip('Finished')}
+                            </div>
+                             <div style="display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px; margin-top: 8px;">
+                                ${HiFi.FilterChip('All Levels', true)}
+                                ${HiFi.FilterChip('Local')}
+                                ${HiFi.FilterChip('Regional')}
+                                ${HiFi.FilterChip('National')}
+                            </div>
+                        </div>
+                    `;
+
+                    const kejurdaDetails = [
+                        {icon: 'today', label: 'Date', value: '15 Aug 2024'},
+                        {icon: 'location_on', label: 'Location', value: 'Surabaya'},
+                        {icon: 'timer', label: 'Register by', value: '10 Aug 2024'},
+                        {icon: 'military_tech', label: 'Prize', value: 'IDR 5,000,000'},
+                    ];
+                    const kejurdaActions = [{text: 'Register', color: THEME.primary}];
+
+                    const popdaDetails = [
+                        {icon: 'today', label: 'Date', value: '20 Sep 2024'},
+                        {icon: 'location_on', label: 'Location', value: 'Gresik'},
+                        {icon: 'timer', label: 'Register by', value: '15 Sep 2024'},
+                        {icon: 'military_tech', label: 'Prize', value: 'Medal'},
+                    ];
+                     const popdaActions = [{text: 'Register', color: THEME.primary}];
+
+                    const competitionList = `
+                        <div style="padding: 16px;">
+                            ${HiFi.CompetitionCard('https://images.unsplash.com/photo-1557053503-7c2c7579b440?q=80&w=800&auto=format&fit=crop', 'Kejuaraan Daerah 2024', 'Dispora Jatim', 'Coming Soon', '#F97316', kejurdaDetails, 'Kejuaraan renang tingkat provinsi untuk kategori junior dan senior.', kejurdaActions)}
+                            ${HiFi.CompetitionCard(null, 'Pekan Olahraga Daerah', 'KONI Gresik', 'Coming Soon', '#F97316', popdaDetails, null, popdaActions)}
+                        </div>
+                    `;
+
+                    return `
+                        <div style="background-color: ${THEME.background}; position: relative; min-height: 600px; box-sizing: border-box; display: flex; flex-direction: column;">
+                            ${competitionAppBar}
+                            <div style="flex-grow: 1; overflow-y: auto; padding-bottom: 80px;">
+                                ${competitionSearch}
+                                ${competitionList}
+                            </div>
+                            ${HiFi.BottomNav()}
+                        </div>
+                    `;
+                case 'training':
+                    const trainingAppBar = `
+                        <div style="box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                            ${HiFi.AppBar('Training')}
+                            ${HiFi.TabBar(['All', 'Scheduled', 'Ongoing', 'Completed'])}
+                        </div>
+                    `;
+                     const trainingSearch = `
+                        <div style="padding: 16px; background-color: ${THEME.background}; border-bottom: 1px solid ${THEME.border};">
+                            ${HiFi.FormField('Search trainings...', 'search')}
+                            <div style="display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px; margin-top: 8px;">
+                                ${HiFi.FilterChip('All', true)}
+                                ${HiFi.FilterChip('Scheduled')}
+                                ${HiFi.FilterChip('Ongoing')}
+                                ${HiFi.FilterChip('Completed')}
+                                ${HiFi.FilterChip('Cancelled')}
+                            </div>
+                        </div>
+                    `;
+
+                    const training1Details = [
+                        {icon: 'schedule', label: 'Time', value: '08:00 - 10:00'},
+                        {icon: 'location_on', label: 'Location', value: 'Main Pool'},
+                        {icon: 'person', label: 'Coach', value: 'Royhan A.'},
+                        {icon: 'today', label: 'Date', value: 'Mon, 22 Jul'},
+                    ];
+                    const training1Actions = [{text: 'Join', color: THEME.primary}];
+                    
+                    const training2Details = [
+                        {icon: 'schedule', label: 'Time', value: '16:00 - 18:00'},
+                        {icon: 'location_on', label: 'Location', value: 'Fitness Center'},
+                        {icon: 'person', label: 'Coach', value: 'Budi S.'},
+                        {icon: 'today', label: 'Date', value: 'Tue, 23 Jul'},
+                    ];
+                    const training2Actions = [{text: 'Attendance', color: '#28a745'}];
+
+                    const trainingList = `
+                        <div style="padding: 16px;">
+                            ${HiFi.TrainingCard('Latihan Endurance Pagi', 'Fokus pada ketahanan kardio.', 'Scheduled', '#F97316', training1Details, training1Actions)}
+                            ${HiFi.TrainingCard('Latihan Kekuatan Sore', 'Latihan beban dan inti.', 'Active', THEME.primary, training2Details, training2Actions)}
+                        </div>
+                    `;
+
+                    return `
+                        <div style="background-color: ${THEME.background}; position: relative; min-height: 600px; box-sizing: border-box; display: flex; flex-direction: column;">
+                            ${trainingAppBar}
+                            <div style="flex-grow: 1; overflow-y: auto; padding-bottom: 80px;">
+                                ${trainingSearch}
+                                ${trainingList}
+                            </div>
+                            ${HiFi.BottomNav()}
+                        </div>
+                    `;
+                case 'attendance_check':
+                    const mapPlaceholder = `<div style="height: 250px; background: #E5E7EB; display: grid; place-items: center; color: ${THEME.textMedium}; font-weight: 500;">[ Map Placeholder ]</div>`;
+                    
+                    const simpleLocationCard = HiFi.Card(`
+                        <div style="text-align: center;">
+                            <h3 style="margin-top: 0; font-size: 16px; color: ${THEME.textDark};">Location Status</h3>
+                            <div style="margin: 16px 0;">
+                                <span class="material-symbols-outlined" style="font-size: 48px; color: #22C55E;">my_location</span>
+                            </div>
+                            <p style="margin: 8px 0; font-size: 24px; font-weight: 700; color: ${THEME.textDark};">25 meters</p>
+                            <p style="margin: 0; color: ${THEME.textMedium}; font-size: 14px;">You are within the 100m attendance range.</p>
+                        </div>
+                    `);
+
+                    const trainingInfoCard = HiFi.Card(`
+                        <h3 style="margin-top: 0; font-size: 16px; color: ${THEME.textDark};">Training Information</h3>
+                        ${HiFi.DetailRow('Training', 'Latihan Endurance Pagi')}
+                        ${HiFi.DetailRow('Location', 'Main Pool')}
+                    `);
+
+                    return `
+                        <div style="background-color: ${THEME.background}; height: 100%; display: flex; flex-direction: column;">
+                            ${HiFi.AppBar('Mark Attendance')}
+                            <div style="flex-grow: 1;">
+                                ${mapPlaceholder}
+                                <div style="padding: 16px; transform: translateY(-40px);">
+                                    ${simpleLocationCard}
+                                    <div style="height: 16px;"></div>
+                                    ${trainingInfoCard}
+                                </div>
+                            </div>
+                            <div style="padding: 16px; border-top: 1px solid ${THEME.border}; background: white;">
+                                ${HiFi.Button('Mark My Attendance', true, THEME.primary)}
+                            </div>
+                        </div>
+                    `;
+            }
+
+            // --- Default Case ---
+            return HiFi.Scaffold(id.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase()), 
+                HiFi.Card(`<p style="color: ${THEME.textMedium}; text-align: center;">UI untuk layar ini belum dirender.</p>`),
+                true
+            );
+        }
+
+    </script>
+</body>
+</html>

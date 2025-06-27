@@ -1,0 +1,94 @@
+4.1.2. Development Sprint 1
+Fase kedua implementasi pendekatan integrasi User-Centered Design dan Scrum adalah Development Sprint 1. Pada fase ini, prototipe interaktif dari hasil Design Sprint digunakan sebagai acuan untuk pengembangan aplikasi. Fase ini berfokus pada implementasi fitur-fitur dengan prioritas tinggi sesuai dengan product backlog yang telah disusun.
+
+4.1.2.1. Sprint Planning
+Pelaksanaan Development Sprint 1 dimulai dengan Sprint Planning untuk menentukan daftar backlog item yang akan dilaksanakan selama siklus sprint 1. Berikut adalah daftar Sprint Backlog item pada Sprint 1:
+
+Tabel IV.8 Daftar Sprint Backlog item (Sprint 1)
+| No. | Sprint Backlog item | Prioritas | Estimasi | Status |
+|-----|---------------------|-----------|----------|--------|
+| 1.  | View Competition Schedule List | High | 8 jam | Selesai |
+| 2.  | Request Athlete for Competition Delegation | High | 16 jam | Selesai |
+| 3.  | View Training Schedule List | Medium | 8 jam | Selesai |
+| 4.  | Approve Competition Delegation Request from Coach | High | 12 jam | Selesai |
+
+4.1.2.2. View Competition Schedule List
+Backlog item pertama yang dikerjakan pada Sprint 1 adalah fitur View Competition Schedule List. Fitur ini memungkinkan pelatih dan atlet untuk melihat daftar jadwal kompetisi yang akan datang. Berikut adalah implementasi dari fitur tersebut:
+
+Gambar IV.3 Antarmuka View Competition Schedule List
+
+Pada halaman View Competition Schedule List, pengguna dapat melihat daftar kompetisi yang akan datang beserta detail seperti nama kompetisi, tanggal pelaksanaan, lokasi, dan tingkat kompetisi. Pengguna juga dapat melakukan pencarian kompetisi berdasarkan nama atau filter berdasarkan tanggal dan tingkat kompetisi.
+
+Gambar IV.4 Activity Diagram View Competition Schedule List
+
+Activity Diagram pada Gambar IV.4 menggambarkan alur proses melihat daftar jadwal kompetisi. Proses dimulai ketika pengguna (pelatih atau atlet) mengakses menu kompetisi. Sistem kemudian akan mengambil data kompetisi dari database dan menampilkannya dalam bentuk daftar. Jika tidak ada data kompetisi yang ditemukan, sistem akan menampilkan pesan "Tidak ada data kompetisi". Pengguna dapat melakukan pencarian atau filter untuk menemukan kompetisi yang diinginkan.
+
+4.1.2.3. Request Athlete for Competition Delegation
+Fitur Request Athlete for Competition Delegation memungkinkan pelatih untuk memilih atlet yang akan didelegasikan untuk mengikuti kompetisi berdasarkan data prestasi dan performa latihan atlet.
+
+Gambar IV.5 Antarmuka Request Athlete for Competition Delegation
+
+Pada halaman Request Athlete for Competition Delegation, pelatih dapat memilih kompetisi terlebih dahulu, kemudian sistem akan menampilkan daftar atlet yang memenuhi kriteria untuk kompetisi tersebut. Pelatih dapat memilih atlet yang akan didelegasikan dan mengirimkan permintaan delegasi kepada ketua klub.
+
+Gambar IV.6 Activity Diagram Request Athlete for Competition Delegation
+
+Activity Diagram pada Gambar IV.6 menggambarkan alur proses permintaan delegasi atlet untuk kompetisi. Proses dimulai ketika pelatih memilih kompetisi dan mengakses fitur delegasi atlet. Sistem akan menampilkan daftar atlet yang memenuhi kriteria untuk kompetisi tersebut. Pelatih kemudian memilih atlet yang akan didelegasikan dan mengirimkan permintaan. Sistem akan memvalidasi permintaan dan menyimpannya ke database jika valid. Jika permintaan berhasil disimpan, sistem akan menampilkan pesan sukses dan mengirimkan notifikasi kepada ketua klub.
+
+4.1.2.4. View Training Schedule List
+Fitur View Training Schedule List memungkinkan pelatih dan atlet untuk melihat daftar jadwal latihan yang telah dijadwalkan.
+
+Gambar IV.7 Antarmuka View Training Schedule List
+
+Pada halaman View Training Schedule List, pengguna dapat melihat daftar jadwal latihan beserta detail seperti nama latihan, hari, waktu mulai, durasi, dan pelatih yang bertanggung jawab. Pengguna juga dapat melakukan pencarian jadwal latihan berdasarkan nama atau filter berdasarkan hari.
+
+Gambar IV.8 Activity Diagram View Training Schedule List
+
+Activity Diagram pada Gambar IV.8 menggambarkan alur proses melihat daftar jadwal latihan. Proses dimulai ketika pengguna (pelatih atau atlet) mengakses menu jadwal latihan. Sistem kemudian akan mengambil data jadwal latihan dari database dan menampilkannya dalam bentuk daftar. Jika tidak ada data jadwal latihan yang ditemukan, sistem akan menampilkan pesan "Tidak ada data jadwal latihan". Pengguna dapat melakukan pencarian atau filter untuk menemukan jadwal latihan yang diinginkan.
+
+4.1.2.5. Approve Competition Delegation Request from Coach
+Fitur Approve Competition Delegation Request from Coach memungkinkan ketua klub untuk menyetujui atau menolak permintaan delegasi atlet yang diajukan oleh pelatih.
+
+Gambar IV.9 Antarmuka Approve Competition Delegation Request from Coach
+
+Pada halaman Approve Competition Delegation Request from Coach, ketua klub dapat melihat daftar permintaan delegasi atlet yang belum diproses. Ketua klub dapat melihat detail permintaan seperti nama kompetisi, nama atlet, dan alasan delegasi. Ketua klub kemudian dapat menyetujui atau menolak permintaan tersebut.
+
+Gambar IV.10 Activity Diagram Approve Competition Delegation Request from Coach
+
+Activity Diagram pada Gambar IV.10 menggambarkan alur proses persetujuan permintaan delegasi atlet. Proses dimulai ketika ketua klub mengakses menu permintaan delegasi. Sistem akan menampilkan daftar permintaan delegasi yang belum diproses. Ketua klub dapat memilih permintaan dan melihat detailnya. Ketua klub kemudian dapat menyetujui atau menolak permintaan tersebut. Sistem akan memperbarui status permintaan dan mengirimkan notifikasi kepada pelatih yang mengajukan permintaan.
+
+4.1.2.6. Pengujian Whitebox Testing
+Setelah melakukan implementasi pada masing-masing backlog item di Sprint 1, tahapan selanjutnya yang dilakukan untuk memastikan bahwa seluruh backlog item yang dikerjakan berjalan dengan baik adalah pengujian whitebox. Whitebox testing dilakukan untuk menguji struktur internal dari program seperti aliran data dan logika program. Berikut adalah beberapa contoh pengujian whitebox yang dilakukan pada Sprint 1:
+
+1. **Unit Testing untuk View Competition Schedule List**
+   - Pengujian fungsi getCompetitionList() untuk memastikan bahwa fungsi tersebut dapat mengambil data kompetisi dari database dengan benar.
+   - Pengujian fungsi searchCompetition() untuk memastikan bahwa fungsi tersebut dapat melakukan pencarian kompetisi berdasarkan nama dengan benar.
+   - Pengujian fungsi filterCompetition() untuk memastikan bahwa fungsi tersebut dapat melakukan filter kompetisi berdasarkan tanggal dan tingkat kompetisi dengan benar.
+
+2. **Unit Testing untuk Request Athlete for Competition Delegation**
+   - Pengujian fungsi getAthleteList() untuk memastikan bahwa fungsi tersebut dapat mengambil data atlet yang memenuhi kriteria untuk kompetisi tertentu dengan benar.
+   - Pengujian fungsi requestDelegation() untuk memastikan bahwa fungsi tersebut dapat menyimpan permintaan delegasi ke database dengan benar.
+
+3. **Unit Testing untuk View Training Schedule List**
+   - Pengujian fungsi getTrainingList() untuk memastikan bahwa fungsi tersebut dapat mengambil data jadwal latihan dari database dengan benar.
+   - Pengujian fungsi searchTraining() untuk memastikan bahwa fungsi tersebut dapat melakukan pencarian jadwal latihan berdasarkan nama dengan benar.
+   - Pengujian fungsi filterTraining() untuk memastikan bahwa fungsi tersebut dapat melakukan filter jadwal latihan berdasarkan hari dengan benar.
+
+4. **Unit Testing untuk Approve Competition Delegation Request from Coach**
+   - Pengujian fungsi getDelegationRequestList() untuk memastikan bahwa fungsi tersebut dapat mengambil data permintaan delegasi yang belum diproses dengan benar.
+   - Pengujian fungsi approveDelegation() untuk memastikan bahwa fungsi tersebut dapat memperbarui status permintaan delegasi menjadi disetujui dengan benar.
+   - Pengujian fungsi rejectDelegation() untuk memastikan bahwa fungsi tersebut dapat memperbarui status permintaan delegasi menjadi ditolak dengan benar.
+
+Hasil pengujian whitebox menunjukkan bahwa semua fungsi yang diuji telah berjalan dengan baik dan sesuai dengan yang diharapkan. Tidak ditemukan adanya bug atau kesalahan pada aliran data dan logika program.
+
+4.1.2.7. Sprint Review & Retrospective
+Setelah semua backlog item pada Sprint 1 selesai dikerjakan dan diuji, dilakukan Sprint Review untuk meninjau hasil kerja selama siklus sprint dan Sprint Retrospective untuk melakukan refleksi dan evaluasi terhadap produktivitas pengerjaan.
+
+Pada Sprint Review, tim mendemonstrasikan fitur-fitur yang telah dikembangkan kepada pihak Klub Renang Petrokimia Gresik. Pihak klub memberikan umpan balik positif terhadap fitur-fitur yang telah dikembangkan. Beberapa saran perbaikan yang diberikan antara lain:
+- Penambahan filter berdasarkan kategori usia pada fitur View Competition Schedule List.
+- Penambahan informasi prestasi atlet pada fitur Request Athlete for Competition Delegation.
+
+Pada Sprint Retrospective, tim melakukan refleksi terhadap proses pengerjaan Sprint 1. Beberapa hal yang menjadi catatan antara lain:
+- Pengerjaan fitur Request Athlete for Competition Delegation memakan waktu lebih lama dari yang diperkirakan karena kompleksitas logika pemilihan atlet.
+- Komunikasi dengan pihak klub perlu ditingkatkan untuk mendapatkan umpan balik lebih cepat.
+
+Secara keseluruhan, Sprint 1 telah berhasil diselesaikan dengan baik dan sesuai dengan rencana. Semua backlog item telah selesai dikerjakan dan diuji. Umpan balik dari pihak klub akan digunakan untuk perbaikan pada sprint selanjutnya. 

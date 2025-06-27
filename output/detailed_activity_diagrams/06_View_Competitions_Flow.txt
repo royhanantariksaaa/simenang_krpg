@@ -1,0 +1,33 @@
+'Proses Melihat Data Kompetisi' {
+    |Pengguna, Aplikasi Mobile, API, Sistem Backend| {
+        $Pengguna$
+        (Pengguna) Navigasi ke Halaman Kompetisi;
+        (Aplikasi Mobile) Minta daftar kompetisi;
+        (API) GET /api/competitions;
+        (Sistem Backend) Terima permintaan;
+        (Sistem Backend) Ambil daftar semua kompetisi yang tersedia;
+        (Sistem Backend) Kirim respons dengan daftar kompetisi;
+        (API) Teruskan respons 200 OK;
+        (Aplikasi Mobile) Terima dan tampilkan daftar kompetisi;
+        (Pengguna) Lihat daftar kompetisi;
+        
+        <Pengguna> Ingin melihat detail kompetisi? {
+            -Ya- {
+                (Pengguna) Pilih satu kompetisi dari daftar;
+                (Aplikasi Mobile) Minta data detail untuk kompetisi yang dipilih;
+                (API) GET /api/competitions/{id_kompetisi};
+                (Sistem Backend) Terima permintaan;
+                (Sistem Backend) Ambil detail kompetisi (termasuk hasil jika ada);
+                (Sistem Backend) Kirim respons dengan data detail;
+                (API) Teruskan respons 200 OK;
+                (Aplikasi Mobile) Terima dan tampilkan halaman detail kompetisi;
+                (Pengguna) Lihat detail informasi kompetisi;
+            }
+            -Tidak- {
+                // Selesai
+            }
+        }
+        >Pengguna<;
+        @Pengguna@
+    }
+} 

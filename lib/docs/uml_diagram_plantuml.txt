@@ -1,0 +1,392 @@
+@startuml Aplikasi Manajemen Klub Renang Petrokimia Gresik
+
+!theme plain
+skinparam backgroundColor #FFFFFF
+skinparam classBackgroundColor #E8F4FD
+skinparam classBorderColor #2E86AB
+skinparam classArrowColor #2E86AB
+
+package "Authentication" {
+    class LoginScreen {
+        +String email
+        +String password
+        +bool isLoading
+        +login()
+        +validateInput()
+        +showError()
+    }
+}
+
+package "Home" {
+    class HomeScreen {
+        +List<dynamic> competitions
+        +List<dynamic> trainings
+        +List<dynamic> statistics
+        +loadDashboardData()
+        +navigateToCompetition()
+        +navigateToTraining()
+        +refreshData()
+    }
+}
+
+package "Competition Management" {
+    class CompetitionScreen {
+        +List<dynamic> competitions
+        +bool isLoading
+        +loadCompetitions()
+        +searchCompetition()
+        +filterCompetition()
+        +navigateToDetail()
+    }
+    
+    class CompetitionDetailScreen {
+        +dynamic competition
+        +List<dynamic> participants
+        +loadCompetitionDetail()
+        +requestDelegation()
+        +approveDelegation()
+        +rejectDelegation()
+    }
+}
+
+package "Training Management" {
+    class TrainingScreen {
+        +List<dynamic> trainings
+        +bool isLoading
+        +loadTrainings()
+        +searchTraining()
+        +filterTraining()
+        +navigateToDetail()
+    }
+    
+    class TrainingDetailScreen {
+        +dynamic training
+        +List<dynamic> attendees
+        +bool isStarted
+        +startTraining()
+        +endTraining()
+        +recordAttendance()
+        +recordTrainingData()
+    }
+    
+    class TrainingSessionScreen {
+        +dynamic training
+        +List<dynamic> athletes
+        +Map<String, dynamic> trainingData
+        +startSession()
+        +recordPerformance()
+        +useStopwatch()
+        +useTimer()
+        +saveSession()
+    }
+    
+    class AttendanceCheckScreen {
+        +dynamic training
+        +List<dynamic> athletes
+        +Map<String, bool> attendance
+        +checkLocation()
+        +recordAttendance()
+        +validateLocation()
+    }
+    
+    class SimpleAttendanceScreen {
+        +dynamic training
+        +List<dynamic> athletes
+        +Map<String, bool> attendance
+        +recordAttendance()
+        +submitAttendance()
+    }
+    
+    class TrainingSessionHistoryScreen {
+        +List<dynamic> sessions
+        +loadSessionHistory()
+        +filterSessions()
+        +viewSessionDetail()
+    }
+}
+
+package "Athlete Management" {
+    class AthletesScreen {
+        +List<dynamic> athletes
+        +bool isLoading
+        +loadAthletes()
+        +searchAthlete()
+        +filterAthlete()
+        +navigateToDetail()
+    }
+    
+    class AthleteDetailScreen {
+        +dynamic athlete
+        +List<dynamic> performance
+        +List<dynamic> attendance
+        +List<dynamic> competitions
+        +loadAthleteDetail()
+        +viewPerformance()
+        +viewAttendance()
+        +viewCompetitions()
+    }
+}
+
+package "Profile Management" {
+    class ProfileScreen {
+        +dynamic userProfile
+        +bool isEditing
+        +loadProfile()
+        +editProfile()
+        +updateProfile()
+        +uploadPhoto()
+        +changePassword()
+    }
+}
+
+package "Statistics & Performance" {
+    class StatisticsRecordingDialog {
+        +dynamic athlete
+        +Map<String, dynamic> statistics
+        +recordStatistics()
+        +validateData()
+        +saveStatistics()
+    }
+}
+
+' Relationships
+LoginScreen --> HomeScreen : navigates to
+HomeScreen --> CompetitionScreen : navigates to
+HomeScreen --> TrainingScreen : navigates to
+HomeScreen --> AthletesScreen : navigates to
+HomeScreen --> ProfileScreen : navigates to
+
+CompetitionScreen --> CompetitionDetailScreen : navigates to
+TrainingScreen --> TrainingDetailScreen : navigates to
+TrainingDetailScreen --> TrainingSessionScreen : navigates to
+TrainingDetailScreen --> AttendanceCheckScreen : navigates to
+TrainingDetailScreen --> SimpleAttendanceScreen : navigates to
+
+AthletesScreen --> AthleteDetailScreen : navigates to
+TrainingSessionScreen --> StatisticsRecordingDialog : opens
+
+@enduml
+
+@startuml Use Case Diagram
+
+!theme plain
+skinparam backgroundColor #FFFFFF
+skinparam usecaseBackgroundColor #E8F4FD
+skinparam usecaseBorderColor #2E86AB
+skinparam actorBackgroundColor #F0F0F0
+skinparam actorBorderColor #666666
+
+actor "Atlet" as Athlete
+actor "Pelatih" as Coach
+actor "Ketua" as Head
+actor "Admin" as Admin
+
+rectangle "Aplikasi Manajemen Klub Renang Petrokimia Gresik" {
+    
+    package "Authentication" {
+        usecase "Login" as UC1
+        usecase "Logout" as UC2
+        usecase "Lupa Password" as UC3
+    }
+    
+    package "Competition Management" {
+        usecase "View Competition Schedule List" as UC4
+        usecase "Request Athlete for Competition Delegation" as UC5
+        usecase "Approve Competition Delegation Request" as UC6
+        usecase "View Athlete Competition Participation" as UC7
+    }
+    
+    package "Training Management" {
+        usecase "View Training Schedule List" as UC8
+        usecase "Start Training Schedule" as UC9
+        usecase "Attend Training Schedule" as UC10
+        usecase "Record Athlete Training Data" as UC11
+        usecase "End Training Schedule" as UC12
+        usecase "View Athlete Attendance History" as UC13
+        usecase "Coach Attendance Monitoring" as UC14
+        usecase "Athlete Attendance Monitoring" as UC15
+    }
+    
+    package "Performance Management" {
+        usecase "Athlete Performance Monitoring" as UC16
+        usecase "View Athlete Performance History" as UC17
+    }
+    
+    package "Membership Management" {
+        usecase "View Athlete Membership Status" as UC18
+        usecase "Upload Payment Evidence" as UC19
+    }
+    
+    package "Profile Management" {
+        usecase "View Profile" as UC20
+        usecase "Edit Profile" as UC21
+    }
+}
+
+' Athlete relationships
+Athlete --> UC1
+Athlete --> UC2
+Athlete --> UC3
+Athlete --> UC4
+Athlete --> UC7
+Athlete --> UC8
+Athlete --> UC10
+Athlete --> UC13
+Athlete --> UC17
+Athlete --> UC18
+Athlete --> UC19
+Athlete --> UC20
+Athlete --> UC21
+
+' Coach relationships
+Coach --> UC1
+Coach --> UC2
+Coach --> UC3
+Coach --> UC4
+Coach --> UC5
+Coach --> UC8
+Coach --> UC9
+Coach --> UC11
+Coach --> UC12
+Coach --> UC14
+Coach --> UC15
+Coach --> UC16
+Coach --> UC20
+Coach --> UC21
+
+' Head relationships
+Head --> UC1
+Head --> UC2
+Head --> UC3
+Head --> UC6
+Head --> UC20
+Head --> UC21
+
+' Admin relationships
+Admin --> UC1
+Admin --> UC2
+Admin --> UC3
+Admin --> UC20
+Admin --> UC21
+
+@enduml
+
+@startuml Activity Diagram - Training Session
+
+!theme plain
+skinparam backgroundColor #FFFFFF
+skinparam activityBackgroundColor #E8F4FD
+skinparam activityBorderColor #2E86AB
+skinparam activityDiamondBackgroundColor #FFE6CC
+skinparam activityDiamondBorderColor #FF8C00
+
+start
+
+:Coach Login;
+:Coach memilih jadwal latihan;
+:Coach memulai sesi latihan;
+
+if (Lokasi valid?) then (ya)
+    :Sistem mencatat presensi coach;
+    :Sistem menampilkan daftar atlet;
+    
+    while (Ada atlet yang belum presensi?) is (ya)
+        :Atlet melakukan presensi;
+        if (Lokasi atlet valid?) then (ya)
+            :Sistem mencatat presensi atlet;
+            :Sistem menampilkan program latihan;
+            
+            while (Ada program latihan?) is (ya)
+                :Coach memilih program latihan;
+                :Coach mencatat data performa atlet;
+                
+                if (Program menggunakan stopwatch?) then (ya)
+                    :Coach menggunakan stopwatch;
+                else (tidak)
+                    :Coach menggunakan timer;
+                endif
+                
+                :Coach menyimpan data performa;
+            endwhile (tidak)
+        else (tidak)
+            :Sistem menampilkan pesan error;
+        endif
+    endwhile (tidak)
+    
+    :Coach mengakhiri sesi latihan;
+    :Sistem menyimpan data sesi;
+    :Sistem menampilkan ringkasan;
+else (tidak)
+    :Sistem menampilkan pesan error lokasi;
+endif
+
+stop
+
+@enduml
+
+@startuml Sequence Diagram - Training Session
+
+!theme plain
+skinparam backgroundColor #FFFFFF
+skinparam sequenceBoxBackgroundColor #E8F4FD
+skinparam sequenceBoxBorderColor #2E86AB
+
+actor Coach
+participant "TrainingScreen" as TS
+participant "TrainingSessionScreen" as TSS
+participant "AttendanceCheckScreen" as ACS
+participant "StatisticsRecordingDialog" as SRD
+participant "API Service" as API
+participant "Database" as DB
+
+Coach -> TS: Pilih jadwal latihan
+TS -> API: Get training schedule
+API -> DB: Query training data
+DB --> API: Return training data
+API --> TS: Return training schedule
+TS --> Coach: Tampilkan detail latihan
+
+Coach -> TS: Mulai sesi latihan
+TS -> TSS: Navigate to session
+TSS -> API: Start training session
+API -> DB: Create session record
+DB --> API: Session created
+API --> TSS: Session started
+TSS --> Coach: Tampilkan interface sesi
+
+Coach -> TSS: Cek presensi atlet
+TSS -> ACS: Open attendance screen
+ACS -> API: Get athlete list
+API -> DB: Query athletes
+DB --> API: Return athletes
+API --> ACS: Return athlete list
+ACS --> Coach: Tampilkan daftar atlet
+
+loop Untuk setiap atlet
+    Coach -> ACS: Record attendance
+    ACS -> API: Submit attendance
+    API -> DB: Save attendance
+    DB --> API: Attendance saved
+    API --> ACS: Attendance recorded
+    ACS --> Coach: Update UI
+end
+
+Coach -> TSS: Record performance data
+TSS -> SRD: Open statistics dialog
+SRD --> Coach: Tampilkan form data
+Coach -> SRD: Input performance data
+SRD -> API: Save performance data
+API -> DB: Store performance
+DB --> API: Data saved
+API --> SRD: Performance recorded
+SRD --> TSS: Close dialog
+TSS --> Coach: Update session data
+
+Coach -> TSS: End training session
+TSS -> API: End session
+API -> DB: Update session status
+DB --> API: Session ended
+API --> TSS: Session completed
+TSS --> Coach: Show summary
+
+@enduml 

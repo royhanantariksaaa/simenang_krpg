@@ -1,0 +1,35 @@
+'Alur Latihan - Peran Atlet' {
+    |Atlet, Aplikasi Mobile, API, Sistem Backend| {
+        $Atlet$
+        (Atlet) Navigasi ke Halaman Latihan;
+        (Aplikasi Mobile) Menampilkan detail latihan yang sedang berlangsung;
+        
+        (Aplikasi Mobile) Mendeteksi sesi latihan aktif;
+        (Aplikasi Mobile) Secara otomatis mulai melacak lokasi GPS;
+        
+        (Aplikasi Mobile) Secara berkala mengirim pembaruan lokasi;
+        (API) POST /api/training/sessions/{sessionId}/location [lat, long];
+        (Sistem Backend) Terima dan simpan data lokasi atlet;
+        (Sistem Backend) Broadcast pembaruan lokasi melalui WebSocket (Reverb);
+        (API) Teruskan respons 200 OK ke aplikasi;
+        
+        (Aplikasi Mobile) Mendengarkan pembaruan dari WebSocket channel (private-training.{trainingId});
+        (Aplikasi Mobile) Terima pembaruan (misal: status sesi, data atlet lain);
+        (Aplikasi Mobile) Perbarui UI secara real-time;
+        (Atlet) Lihat data latihan langsung (kecepatan, jarak, waktu);
+        
+        <Aplikasi Mobile> Sesi berakhir (diterima dari WebSocket atau Cek API)? {
+            -Ya- {
+                (Aplikasi Mobile) Hentikan pelacakan GPS;
+                (Aplikasi Mobile) Tampilkan layar untuk merekam statistik;
+                // Alur dilanjutkan di '08_Record_Statistics_Flow.txt'
+                (Atlet) Diarahkan untuk mengisi statistik;
+            }
+            -Tidak- {
+                (Atlet) Melanjutkan latihan;
+            }
+        }
+        >Aplikasi Mobile<;
+        @Atlet@
+    }
+} 

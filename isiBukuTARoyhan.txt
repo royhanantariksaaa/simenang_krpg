@@ -1,0 +1,492 @@
+ ABSTRAK
+Klub Renang Petrokimia Gresik merupakan organisasi olahraga renang milik Petrokimia Gresik yang bertujuan mengembangkan potensi atlet renang melalui pelatihan yang terstruktur dan kompetitif. Klub Renang ini memiliki reputasi yang baik sehingga tidak heran banyak peminat yang ingin mendaftarkan diri ke Klub Renang Petrokimia Gresik. Walaupun begitu, tetapi terdapat beberapa kendala yang dialami selama beroperasinya Klub Renang Petrokimia Gresik. Dalam segi pencarian prestasi atlet, pelatih mengalami kesulitan ketika mencari data karena data prestasi tidak tersimpan secara terstruktur. Tidak hanya itu saja, tetapi atlet dan pelatih juga mengalami kesulitan dalam melihat data performa latihannya karena data tidak dihitung dan disajikan secara realtime. 
+Untuk mengatasi permasalahan ini, kami mengusulkan pengembangan aplikasi berbasis Mobile yang dapat memudahkan manajemen Klub Renang Petrokimia Gresik dengan menggunakan metode Scrum dan User-Centered Design untuk menyesuaikan fungsi pada aplikasi sesuai dengan kebutuhan pengguna. Pengujian pada penelitian menggunakan User Experience Questionnaire-Short sebagai instrumen uji pengalaman pengguna untuk User-Centered Design dan Whitebox Testing untuk Scrum agar tidak ada bug saat aplikasi dijalankan. Penelitian ini bertujuan untuk mempermudah atlet dan pelatih, dalam mengelola dan mencari data secara realtime agar data dapat diakses setiap saat dan juga mendukung pencapaian Sustainable Development Goals ke-9 dengan menyediakan infrastuktur digital inklusif dan berkelanjutan di bidang olahraga.
+Luaran yang diharapkan pada penelitian ini adalah aplikasi mobile untuk menyimpan dan menampilkan data prestasi atlet dan pemantauan data performa atlet sehingga dapat membantu pelatih dalam mendelegasikan atlet pada suatu perlombaan, membantu pelatih dan atlet dalam memantau perkembangan performa atlet, serta hasil implementasi metode Scrum dan User-Centered Design dapat memenuhi kebutuhan pihak Klub Renang Petrokimia Gresik.
+Kata Kunci: Mobile, Scrum, User-Centered Design, User Experience Questionnaire-Short, Whitebox Testing, Sustainable Development Goals 
+ 
+ABSTRACT
+Petrokimia Gresik Swimming Club is a swimming sport organization owned by Petrokimia Gresik which aims to develop the potential of swimming athletes through structured and competitive training. This Swimming Club has a good reputation so it is not surprising that many enthusiasts want to register with the Petrokimia Gresik Swimming Club. Even so, there are several obstacles experienced during the operation of the Petrokimia Gresik Swimming Club. In terms of finding athlete achievements, coaches have difficulty when looking for data because achievement data is not stored in a structured manner. Not only that, but athletes and coaches also have difficulty in viewing their training performance data because the data is not calculated and presented in realtime. 
+To overcome this problem, we propose the development of an Mobile-based application that can facilitate the management of the Petrokimia Gresik Swimming Club by using the integration of the Scrum method and User-Centered Design to adjust the functions in the application according to user needs. Testing in the research uses User Experience Questionnaire-Short as a user experience test instrument for User-Centered Design and Whitebox Testing for Scrum so that there are no bugs when the application is run. This research aims to make it easier for athletes and coaches, in managing and searching data in realtime so that data can be accessed at any time and also supports the achievement of the 9th Sustainable Development Goals by providing inclusive and sustainable digital infrastructure in the field of sports.
+The expected output of this research is a mobile application for storing and displaying athlete achievement data and monitoring athlete performance data so that it can help coaches in delegating athletes to a competition, helping coaches and athletes in monitoring the development of athlete performance, and the results of the implementation of the integration of the Scrum method and User-Centered Design can meet the needs of the Petrokimia Gresik Swimming Club.
+Keywords: Mobile, Scrum, User-Centered Design, User Experience Questionnaire-Short, Whitebox Testing, Sustainable Development Goals
+ 
+KATA PENGANTAR
+Puji syukur kehadirat Tuhan Yang Maha Esa atas segala nikmat yang telah diberikan, sehingga penulis dapat menyelesaikan tugas akhir ini dengan judul “Implementasi Metode SCRUM dan User-Centered Design Pada Pengembangan Aplikasi Mobile Manajemen Klub Renang Petrokimia Gresik”. Tugas akhir ini disusun sebagai salah satu persyaratan untuk meraih gelar sarjana di Program Studi Rekayasa Perangkat Lunak, Universitas Telkom Surabaya.
+Penulis ingin menyampaikan rasa terima kasih karena tugas akhir ini tidak akan dapat dilaksanakan tanpa adanya dukungan, bantuan, dan bimbingan dari beberapa pihak berikut: 
+1.	Keluarga tercinta, yang selalu memberikan dukungan doa, moral, dan material kepada penulis. 
+2.	Dosen Pembimbing, Bapak Achmad Muzakki, S. Kom., M. Kom. dan Ibu Arni Muarifah Amri, S.T., M.T. atas arahan, bimbingan, dan dukungan yang diberikan selama proses pelaksanaan dan penyusunan tugas akhir ini. 
+3.	Para Dosen Program Studi Rekayasa Perangkat Lunak atas dedikasi, arahan, dan ilmu yang telah diajarkan kepada penulis selama menempuh pendidikan. 
+4.	Semua pihak yang telah membantu dan tentunya tidak dapat disebutkan satu per satu. 
+Penulis menyadari bahwa dalam pengerjaan tugas akhir ini masih terdapat kekurangan. Oleh karena itu, penulis mengharapkan kritik dan saran yang membangun demi penyempurnaan tugas akhir ini. Semoga tugas akhir ini dapat bermanfaat bagi pengembangan ilmu pengetahuan, khususnya di bidang teknologi informasi dan bagi pihak-pihak lain. Terima kasih. 
+
+Penulis 
+DAFTAR ISI
+LEMBAR PERSETUJUAN	ii
+ABSTRAK	iii
+ABSTRACT	iv
+KATA PENGANTAR	v
+DAFTAR ISI	vi
+DAFTAR TABEL	viii
+DAFTAR GAMBAR	ix
+DAFTAR LAMPIRAN	x
+DAFTAR ISTILAH	xi
+BAB I PENDAHULUAN	1
+1.1.	Latar Belakang	1
+1.2.	Rumusan Masalah	2
+1.3.	Tujuan Penelitian	3
+1.4.	Batasan dan Asumsi Penelitian	3
+1.4.1.	Batasan Penelitian	3
+1.4.2.	Asumsi Penelitian	4
+1.5.	Manfaat Penelitian	4
+1.6.	Sistematika Penulisan	5
+BAB II LANDASAN TEORI	6
+2.1.	Literatur Terkait Teori	6
+2.1.1.	Penelitian Terdahulu	6
+2.1.2.	Klub Renang Petrokimia Gresik	8
+2.1.3.	Metode Agile	8
+2.1.4.	Framework Scrum	9
+2.1.5.	Metode User-Centered Design	10
+2.1.6.	Metode Integrasi UCD dan Scrum	11
+2.1.7.	Aplikasi Mobile	12
+2.1.8.	Flutter	12
+2.1.9.	Laravel	13
+2.1.10.	Basis Data MySQL	13
+2.1.11.	User Experience Questionnaire-Short	13
+2.1.12.	Whitebox Testing	14
+2.2.	Alasan Pemilihan Metode	14
+BAB III METODOLOGI PENELITIAN	17
+3.1.	Sistematika Penyelesaian Masalah	17
+3.1.1.	Observasi dan Wawancara	17
+3.1.2.	Studi Literatur	18
+3.1.3.	Tahapan Perancangan dan Pengembangan	18
+3.1.4.	Analisis dan Evaluasi	19
+3.1.5.	Penarikan Kesimpulan	19
+3.1.6.	Penulisan Laporan	19
+3.2.	Tahapan Perancangan dan Pengembangan	20
+3.2.1.	Tahapan User Research	21
+3.2.2.	Tahapan Planning	26
+3.2.3.	Tahapan Sprint 0 (Design Sprint)	27
+3.2.4.	Tahapan Sprint 1..n (Development Sprint)	27
+3.3.	Alat dan Bahan Penelitian	28
+3.3.1.	Perangkat Keras	28
+3.3.2.	Perangkat Lunak	29
+3.4.	Arsitektur Sistem	30
+3.5.	Aktor	31
+3.6.	Kebutuhan Fungsional	32
+3.7.	Kebutuhan Non Fungsional	34
+3.8.	Jadwal Penelitian	35
+DAFTAR PUSTAKA	37
+LAMPIRAN	39
+ 
+DAFTAR TABEL
+Tabel III.1 Rancangan product backlog item	21
+Tabel III.2 Rancangan kamus data sementara aplikasi mobile	23
+Tabel III.3 Rancangan Sprint 1 Backlog Item	26
+Tabel III.4 Rancangan Sprint 2 Backlog Item	26
+Tabel III.5 Rancangan Sprint 3 Backlog Item	26
+Tabel III.6 Peran dan tugas aktor	31
+Tabel III.7 Kebutuhan fungsional	32
+Tabel III.8 Kebutuhan non fungsional	34
+Tabel III.9 Jadwal penelitian.	36
+ 
+DAFTAR GAMBAR
+Gambar II.1 Diagram metode Scrum (pm-partners, 2024).	9
+Gambar II.2 Diagram User-Centered Design(Interaction Design Foundation - IxDF, 2016).	10
+Gambar II.3 Kerangka kerja UCD dan Scrum (Rasheed et al., 2014)	11
+Gambar III.1 Diagram tahapan penelitian	17
+Gambar III.2 Diagram tahapan Perancangan dan Pengembangan User-Centered Design dan Scrum (Rasheed et al., 2014).	20
+Gambar III.3 Use Case Diagram Aplikasi Mobile Manajemen Klub Renang Petrokimia Gresik	22
+Gambar III.4 Diagram arsitektur sistem.	30
+ 
+DAFTAR LAMPIRAN
+Lampiran A Hasil sesi wawancara	39
+Lampiran B Dokumentasi Requirement Analysis dengan Petrokimia Gresik	41
+
+ 
+DAFTAR ISTILAH
+
+Agile	:	Sebuah pendekatan dalam pengelolaan proyek, terutama dalam pengembangan perangkat lunak, yang menekankan pada fleksibilitas, adaptasi, dan kolaborasi.
+History	:	Kumpulan peristiwa yang telah terjadi sebelumnya
+Realtime 	:	Kondisi di mana suatu tindakan atau respon terjadi secara langsung dan seketika, tanpa adanya jeda waktu yang signifikan.
+Front-end	:	Bagian dari aplikasi yang berinteraksi dengan pengguna.
+Back-end	:	Bagian aplikasi yang mengelola logika dan database aplikasi di belakang layar. 
+Database	:	Kumpulan data yang terorganisir secara terstruktur dan sistematis
+Hi-Fi / High Fidelity	:	Representasi kuat dan mendetail
+Prototype	:	Model uji coba dari produk yang dibuat untuk menguji dan mengevaluasi konsep produk
+Server	:	Penyedia layanan, sumber daya, atau data kepada perangkat lain yang terhubung jaringan
+Client	:	Peminta layanan atau data kepada server
+ 
+ 
+BAB I
+PENDAHULUAN
+1.1.	Latar Belakang
+Olahraga renang merupakan salah satu olahraga yang memiliki dampak baik pada kesehatan dan kebugaran tubuh manusia. Ketika tubuh beraktivitas di dalam air, semua otot yang ada pada tubuh akan bekerja sehingga menjadikannya salah satu olahraga yang baik untuk menjaga kesehatan dan kebugaran (Zubko, Cherevichko & Smirnov, 2023). Selain itu, olahraga renang juga merupakan salah satu cabang olahraga yang sering dikompetisikan di seluruh bagian dunia, terutama di Indonesia. Banyak sekali klub renang yang ada di Indonesia, yang memiliki prestasi membanggakan tanah air, salah satunya adalah Klub Renang Petrokimia Gresik.
+Untuk mencetak atlet renang berkualitas, Klub Renang Petrokimia Gresik melaksanakan berbagai kegiatan guna mengidentifikasi dan mengembangkan potensi atlet. Latihan rutin dan kompetisi internal menjadi bagian dari upaya klub dalam mengevaluasi kemampuan anggotanya. Namun, pada praktik di lapangan, pelatih sering kali mengalami kendala dalam melakukan seleksi kandidat atlet yang akan mengikuti kompetisi. Kendala ini dikarenakan pencarian data prestasi atlet untuk seleksi kandidat kompetisi belum tersimpan secara terstruktur. Tidak hanya itu, Pelatih mengalami kendala dalam mencatat data latihan dan memantau performa atlet secara berkelanjutan yang disebabkan oleh sistem pencatatan yang belum terorganisir dan data hasil pencatatan yang tidak terkalkulasikan secara otomatis. Atlet juga mengalami kendala dalam memantau perkembangan performa mereka karena data yang disajikan tidak diperbarui secara realtime. 
+Untuk mengatasi kendala ini, diperlukan aplikasi yang dapat memfasilitasi memantau dan mengevaluasi performa atlet dengan lebih transparan. Aplikasi diharapkan dapat memudahkan pelatih dalam mengurutkan peringkat atlet berdasarkan tingkat perlombaan yang pernah diikuti dan waktu data terbaik pada saat latihan. Aplikasi juga diharapkan dapat memudahkan pelatih dalam memantau perkembangan atlet setiap saat sesuai hasil data latihan yang telah dilakukan. Perkembangan ini didasarkan dari variabel yang digunakan saat ini yaitu konsistensi waktu pada latihan repetitif dan kecepatan waktu saat latihan. Aplikasi diharapkan dapat memudahkan atlet dan pelatih dalam mengakses data performa atlet secara realtime. Realtime yang dimaksud adalah setiap permintaan yang dibuat harus memenuhi batasan waktu respons tertentu agar dapat berfungsi dengan benar (Laplante & Ovaska, 2012). 
+Metode yang akan digunakan untuk pengembangan aplikasi Mobile ini adalah metode User-Centered Design dan Scrum. User-Centered Design berfokus pada kebutuhan dan kenyamanan pengguna melalui siklus desain, pengujian, dan feedback agar output memenuhi kebutuhan dan preferensi pengguna yang sebenarnya. Sedangkan Scrum, merupakan framework pengembangan dari agile yang fleksibel dan dapat beradaptasi dengan cepat terhadap perubahan, dimana pengembangan dikerjakan dengan siklus singkat yang disebut sprint. Pada setiap sprint, fitur-fitur sistem dapat dikembangkan dan diperbaiki secara bertahap berdasarkan feedback dari pengguna. 
+Penggabungan user-centered design dan scrum dengan melibatkat calon pengguna dalam proses perancangan dan pengembangan dengan tujuan untuk memahami pengguna dan tugas pengguna dalam proses bisnis secara, merancang desain dan mengevaluasi secara iteratif (Ojanen, 2016). Dengan menggunakan User-Centered Design dan Scrum, diharapkan aplikasi yang akan dikembangkan dapat menyelesaikan permasalahan pencarian data prestasi atlet, pencatatan data latihan, dan pemantauan performa atlet, yang dialami oleh Klub Renang Petrokimia Gresik. 
+1.2.	Rumusan Masalah
+Beberapa rumusan masalah yang didapatkan dari uraian latar belakang adalah sebagai berikut:
+1.	Bagaimana implementasi metode User-Centered Design dan Scrum dalam perancangan dan pengembangan aplikasi Mobile manajemen klub renang yang sesuai dengan kebutuhan Klub Renang Petrokimia Gresik?
+2.	Bagaimana pengujian menggunakan metode User Experience Questionnaire-Short dan Whitebox Testing dalam mengukur pengalaman pengguna dan kelayakan aplikasi hasil perancangan dan pengembangan?
+1.3.	Tujuan Penelitian
+Dari rumusan masalah yang didapatkan dari uraian latar belakang, tujuan penelitian adalah sebagai berikut:
+1.	Mengimplementasikan metode User-Centered Design dan Scrum dalam perancangan dan pengembangan aplikasi Mobile manajemen klub renang yang sesuai dengan kebutuhan Klub Renang Petrokimia Gresik.
+2.	Mengukur pengalaman pengguna dan kelayakan aplikasi dengan menguji menggunakan metode User Experience Questionnaire-Short dan Whitebox Testing pada hasil perancangan dan pengembangan aplikasi Mobile manajemen klub renang Petrokimia Gresik.
+1.4.	Batasan dan Asumsi Penelitian
+1.4.1.1.	Batasan Penelitian
+Agar menjaga penelitian ini tidak keluar dari alur penelitian, maka diperlukan batasan-batasan yang digunakan sebagai ruang lingkup pada penelitian. Berikut adalah ruang lingkup batasan masalah pada penelitian:
+1.	Penelitian ini bersifat capstone yang dilakukan oleh mahasiswa yang mengerjakan aplikasi Mobile dan mahasiswa yang mengerjakan aplikasi Website.
+2.	Ruang lingkup penggunaan aplikasi hasil penelitian adalah Klub Renang Petrokimia Gresik.
+3.	Fokus utama aplikasi adalah pemilihan atlet berdasarkan pengalaman lomba dan performa, pencatatan data latihan atlet, dan pemantauan perkembangan performa atlet.
+4.	Penelitian hanya dilakukan untuk platform Android dengan framework Flutter untuk front-end dan Laravel sebagai back-end.
+5.	Minimal versi OS (Operating System) pada perangkat mobile untuk pengembangan dan penggunaan adalah Android 10.
+6.	Pengujian pada penelitian menggunakan dua metode pengujian, yaitu metode user experience testing dengan pengukuran User Experience Questionnaire-Short pada tahap User-Centered Design dan metode white box testing selama siklus sprint pada Scrum.
+7.	Jumlah iterasi yang dilakukan pada saat pengembangan aplikasi adalah 4 kali iterasi siklus sprint.
+1.4.2.	Asumsi Penelitian
+Adapun asumsi penelitian untuk menjaga agar penelitian tetap terfokus pada ruang lingkup adalah sebagai berikut:
+1.	Calon pengguna aplikasi adalah individu yang terlibat dalam kegiatan Klub Renang Petrokimia Gresik.
+2.	Data yang digunakan pada penelitian bersumber dari pengelola Klub Renang Petrokimia Gresik dan pelatih Klub Renang Petrokimia Gresik.
+3.	Klub Renang Petrokimia Gresik memiliki infrastruktur yang mendukung dalam penggunaan jaringan internet dengan konektivitas yang stabil sehingga aplikasi dapat beroperasi tanpa gangguan signifikan.
+1.5.	Manfaat Penelitian 
+Adapun manfaat dari penulisan penelitian ini yakni sebagai berikut:
+1.	Bagi Penulis
+a.	Sebagai implementasi terhadap hasil studi yang telah dilakukan selama berkuliah di Universitas Telkom Surabaya.
+b.	Menambah wawasan, pengalaman, dan mengukur kemampuan penulis dalam perancangan dan pengembangan aplikasi mobile menggunakan metode kombinasi User-Centered Design dan Scrum.
+2.	Bagi Institusi dan Akademis 
+a.	Penelitian dapat dijadikan sebagai referensi dan kerangka acuan di masa mendatang untuk menyelesaikan masalah yang serupa. 
+b.	Penelitian memberikan wawasan dan inovasi terkait implementasi kombinasi metode kombinasi User-Centered Design dan Scrum pada pengembangan aplikasi.
+3.	Bagi Klub Renang Petrokimia Gresik 
+a.	Membantu pihak Klub Renang Petrokimia Gresik untuk memantau perkembangan dan prestasi atlet secara realtime 
+1.6.	Sistematika Penulisan
+Pada penelitian ini digunakan sistematika penulisan yang akan dibagi menjadi beberapa bab, yaitu:
+BAB I 		PENDAHULUAN
+Pada bab ini membahas latar belakang, rumusan masalah, tujuan penelitian, batasan dan asumsi penelitian, manfaat penelitian, dan sistematika penulisan laporan.
+BAB II 	LANDASAN TEORI
+Pada bab landasan teori membahas penelitian terkait yang telah dilakukan sebelumnya oleh pihak lain dan teori-teori yang akan digunakan pada penelitian. Landasan teori dan penelitian terdahulu tersebut akan digunakan sebagai pedoman dan pendukung pada penelitian ini.
+BAB III 	METODOLOGI PENELITIAN
+Pada bab metodologi membahas mengenai sistematika penyelesaian masalah dengan fokus metode penelitian dari awal sampai dengan metode perancangan dan pengembangan perangkat lunak yang digunakan untuk menyelesaikan masalah dan mencapai tujuan penelitian. 
+BAB IV 	PENGUMPULAN DAN PENGOLAHAN DATA
+Pada bab ini memuat penjelasan terkait proses pengumpulan dan pengolahan data yang diperlukan pada penelitian. Meliputi pengumpulan data dan pengolahan data.
+BAB V 	ANALISIS DAN PEMBAHASAN
+Pada bab ini memuat penjelasan terkait proses verifikasi, validasi, dan analisis hasil dan pembahasan tahap demi tahap terkait penyelesaian masalah pada penelitian.
+BAB VI 	KESIMPULAN DAN SARAN
+Pada bab ini dilakukan penarikan kesimpulan berdasarkan hasil analisis dan pembahasan terkait penelitian yang telah dilakukan. Selain kesimpulan, terdapat juga saran relevan untuk penelitian lanjutan di masa mendatang. 
+BAB II
+LANDASAN TEORI
+2.1.	Literatur Terkait Teori 
+Pada bab ini akan membahas berbagai literatur yang relevan dengan penelitian yang sedang dilaksanakan. Tujuan dari bab ini adalah untuk memberikan pedoman dan pendukung pada penelitian ini agar tidak keluar dari lingkup penelitian.
+2.1.1.	Penelitian Terdahulu
+Penelitian terdahulu yang berkaitan dengan aplikasi manajemen klub olahraga telah banyak dilakukan dengan berbagai metode yang berbeda, begitu juga penelitian yang membahas penggunaan metode User-Centered Design dan Scrum dalam pengembangan sistem informasi atau aplikasi. 
+Ada beberapa penelitian yang digunakan sebagai rujukan penelitian ini, antara lain, penelitian untuk mengembangkan aplikasi pengolahan data pada Persatuan Tenis Meja Seluruh Indonesia (PTMSI) Kalimantan Barat berbasis website. Penelitian ini bertujuan untuk mengatasi masalah seperti kesulitan dalam menyajikan informasi dan kesulitan dalam mengelola data atlet PTMSI Kalimantan Barat. Penelitian ini dikembangkan menggunakan metode pengembangan Waterfall dan Blackbox Testing sebagai metode pengujian sistem. Hasil dari penelitian ini adalah sistem informasi yang dikembangkan diterima dengan baik dengan skor penerimaan hampir sempurna (Riyadi, Nasution & Pratama, 2019). Penelitian lain yang digunakan sebagai referensi adalah penelitian pengembangan sistem informasi pengelolaan manajemen atlet pada Persatuan Sepak Bola Indonesia Kabupaten Blora berbasis Website. Penelitian ini membahas permasalahan yang dialami seperti sulitnya memantau perkembangan performa atlet, pencatatan presensi dengan satu persatu, dan pendaftaran yang dilakukan menggunakan kertas, sehingga perlu dikembangkan sebuah sistem informasi yang mengatasi masalah-masalah ini. Sistem informasi yang dikembangkan menggunakan metode pengembangan waterfall dan dikembangkan menggunakan bahasa pemrograman PHP dan database MySQL(Safitri, Setiawan & Muzid, 2022). Adapun penelitian berikutnya, yaitu penelitian pengembangan sistem informasi pengelolaan atlet tenis meja PTMSI Pekanbaru. Latar belakang dari penelitian ini adalah sulitnya mengelola seleksi atlet karena informasi data atlet sulit didapatkan sehingga dibutuhkan sistem informasi yang memudahkan pengelolaan seleksi kandidat lomba. Sistem informasi ini dikembangkan menggunakan metode pengembangan V Model dan menggunakan User Acceptance Test yang menghasilkan nilai 95% sehingga sistem yang dibangun diterima oleh pengguna (Saifuddin, 2023). Adapun penelitian lain yaitu penelitian mengenai pengembangan aplikasi manajemen Sports Club Universitas Telkom berbasis website menggunakan metode Prototyping. Penelitian ini membahas mengenai pengembangan aplikasi yang bertujuan untuk mengatasi masalah yang ada pada klub olahraga Universitas Telkom seperti lambatnya penyebaran informasi dan pendataan anggota baru yang tidak bisa dilihat prosesnya secara realtime. Pengembangan aplikasi pada penelitian ini menggunakan bahasa pemrograman Laravel sebagai framework Front-end maupun Back-end aplikasi (Nugraha, Lutfi & Hidayati, 2020). 
+Adapun beberapa penelitian berikut yang membahas tentang penggunaan metode perancangan dan pengembangan yang akan digunakan pada penelitian ini, salah satunya adalah penerapan User-Centered Design pada desain interaksi dan arsitektur informasi prototype aplikasi asisten BasketMu. Pada penelitian ini, membahas tentang penggunaan User-Centered Design yang dapat membantu menghasilkan prototype aplikasi sesuai dengan kebutuhan anggota klub basket (Satya, Sasongko, Nugroho, Syabani & Anggrawan, 2023). Adapun penelitian yang membahas tentang penggunaan Scrum pada pengembangan aplikasi manajemen keuangan berbasis mobile pada studi kasus mahasiswa FILKOM UB. Penelitian ini diuji menggunakan metode usability testing yaitu System Usability Scale (SUS) yang menghasilkan skor 79. Skor yang di atas nilai minimal usability, yaitu 68, menunjukkan bahwa penerapan Scrum berhasil menghasilkan aplikasi yang memenuhi kebutuhan pengguna (Arka, Brata & Brata, 2019). Adapun penelitian yang digunakan sebagai referensi dalam penggunaan metode Scrum dan User-Centered Design secara bersamaan, yaitu penelitian yang membahas tentang penggunaan integrasi Scrum dengan User-Centered Design pada pengembangan aplikasi kesehatan dengan kelompok umur lanjut usia sebagai pengguna aplikasi. Pada penelitian, Scrum dan User-Centered Design dilakukan oleh 2 tim inti, yaitu tim developer dan tim ui/ux designer. Kedua tim inti ini memungkinkan metode-metode yang digunakan untuk dijalankan secara bersamaan yang dimana perubahan dari User-Centered Design akan dijadikan sebagai tambahan backlog pada sprint selanjutnya. Hasil dari penelitian ini membahas bahwa Scrum dan User-Centered Design dapat menghasilkan aplikasi yang dapat mudah digunakan oleh kelompok umur lanjut usia (Barambones, Moral, Ferre & Mora, 2020).
+Berdasarkan dari temuan penelitian terdahulu yang dijadikan sebagai bahan referensi, gambaran secara umum mengenai bagaimana aplikasi manajemen Klub Renang Petrokimia Gresik yang akan dirancang dan dikembangkan pada penelitian menggunakan metode User-Centered Design dan Scrum.
+2.1.2.	Klub Renang Petrokimia Gresik
+PT Petrokimia Gresik adalah salah satu perusahaan yang bergerak dalam bidang industri pupuk. Perusahaan BUMN ini telah berdiri sejak 10 Juli 1972 Melalui keputusan Presiden No. 260 Tahun 1960, Ketetapan MPRS Nomor II/ MPRS/1960 yang pada awalnya disebut Proyek Petrokimia Surabaya (Petrokimia Gresik, 2022). Saat ini, Petrokimia bergerak di berbagai macam bidang usaha seperti industri, perdagangan, konstruksi, dan yang lain-lain.
+PT Petrokimia Gresik memiliki Klub Renang yang dinamakan Klub Renang Petrokimia Gresik. Klub Renang Petrokimia Gresik ini merupakan salah satu klub renang yang telah memiliki banyak prestasi. Salah satu prestasi yang dimiliki oleh klub renang ini adalah pada kejuaraan renang Jatim Open 2023 di Kolam Renang Kanjuruhan dimana klub renang ini menduduki juara umum (MALANG POSCO MEDIA, 2023). 
+2.1.3.	Metode Agile
+Metode agile merupakan metode pengembangan dan pengiriman perangkat lunak yang adaptif dan fleksibel terhadap perubahan kebutuhan pelanggan (Sommerville, 2011). Agile dikenal sebagai metode pengembangan perangkat lunak yang inkremental dan iteratif, dengan melibatkan pengguna dalam proses pengembangan untuk mendapatkan umpan balik cepat terkait perubahan yang diusulkan. 
+Komunikasi memiliki peran penting dalam implementasi metode ini, sebab setiap hal yang terjadi harus didiskusikan agar terjadi tidak ada kesalahpahaman. Beberapa contoh framework dari metode agile yang sering digunakan adalah extreme programming, kanban, scrum dan beberapa framework lainnya.
+2.1.4.	Framework Scrum
+ 
+Gambar II.1 Diagram metode Scrum (pm-partners, 2024).
+Scrum merupakan salah satu kerangka kerja (framework) yang membantu tim dan organisasi dalam menyelesaikan masalah kompleks dengan solusi yang adaptif (Schwaber & Sutherland, 2020). Secara garis besar, tahapan yang ada pada metode scrum sangatlah sederhana. Scrum pertama kali dimulai dengan Product Owner menyampaikan masalah kompleks yang akan dijadikan menjadi Product Backlog. 
+Setelah pembuatan Product Backlog, Tim yang disebut sebagai tim Scrum akan melakukan Sprint Planning dimana mereka membagi Product Backlog menjadi beberapa Sprint Backlog berdasarkan prioritas dari masing-masing Backlog Item. Setelah Sprint Planning, Tim akan melaksanakan Daily Scrum dimana mereka mengerjakan item yang diprioritaskan untuk dikerjakan dan menyampaikan apa yang telah dikerjakan, apa kendala yang dihadapi, dan apa yang akan dikerjakan pada Daily Sprint besok. Saat berada pada masa akhir sprint, dilakukan Sprint Retrospective dan Sprint Review dimana pada tahap ini tim menyampaikan hasil yang diperoleh selama sprint itu lalu hasil tersebut disesuaikan untuk sprint selanjutnya. Proses tahapan ini dilakukan secara siklus sesuai dengan jumlah iterasi yang ditentukan.
+2.1.5.	Metode User-Centered Design
+ 
+Gambar II.2 Diagram User-Centered Design(Interaction Design Foundation - IxDF, 2016).
+Metode User-Centered Design merupakan metode desain sistem yang menempatkan pengguna sebagai fokus utama. Metode ini bertujuan untuk merancang dan membangun sistem yang sesuai dengan kebutuhan pengguna (Salinas, Cueva & Paz, 2020). Aktivitas yang ada pada metode UCD terdiri dari 4 aktivitas yang dilakukan, yaitu understand and specify the context of use, specify the user and organizational requirements, produce design solutions, dan evaluate design against requirements (International Organization for Standardization, 2019).
+Tahap understand and specify the context of use mengidentifikasi peran dan tugas pengguna dalam sistem yang didesain. Tahap specify the user and organizational requirements mengidentifikasi kebutuhan yang menunjang pengguna agar tujuan pengguna tercapai. Produce design solutions adalah tahap dimana dimulai pembuatan prototipe antarmuka dan pengalaman pengguna sesuai dengan kebutuhan pengguna. Tahapan terakhir adalah evaluasi dengan pengguna dari hasil prototipe yang dirancang.
+2.1.6.	Metode Integrasi UCD dan Scrum
+ 
+Gambar II.3 Kerangka kerja UCD dan Scrum (Rasheed et al., 2014)
+Pendekatan terkait integrasi user-centered design dengan metode agile dalam pengembangan perangkat lunak sangat direkomendasi berdasarkan beberapa penelitian. User-centered design dikenal sebagai metode perancangan desain secara iteratif yang fokus kepada pengguna sedangkan  framework Scrum merupakan salah satu kerangka kerja metode agile dikenal dengan penerapan adaptif dan fleksibel secara cepat pada proyek nyata. Karakteristik proyek dengan perubahan kebutuhan yang cepat dan pengiriman cepat pada penerapan di industri sangat diperlukan sehingga untuk membantu dalam pemahaman permasalahan dan pengumpulan kebutuhan secara matang, maka integrasi diperlukan. Salah satu pendekatan integrasi tersebut dapat dilihat pada Gambar II.3 Kerangka kerja UCD dan Scrum (Rasheed et al., 2014) yang merupakan integrasi dari metode agile dan user-centered design (Rasheed et al., 2014).
+Pendekatan ini melaksanakan user-centered design hanya pada sprint pertama. Langkah pertama yang dilakukan adalah requirement gathering melalui contextual inquiry. Contextual inquiry dilakukan untuk mengetahui siapa saja calon pengguna aplikasi dan kebutuhan yang mereka butuhkan dalam bentuk product backlog. Product backlog ini akan digunakan sebagai acuan desain pada iterasi sprint pertama yang disebut design sprint. Pada sprint pertama, dilakukan tahapan user-centered design selanjutnya yaitu specify user requirements, design solutions, dan evaluate against requirements. Hasil dari sprint ini adalah desain antarmuka yang akan dijadikan sebagai acuan pengembangan pada sprint selanjutnya. 
+2.1.7.	Aplikasi Mobile 
+Pada penelitian ini, aplikasi yang dikembangkan adalah aplikasi mobile. Aplikasi Mobile merupakan aplikasi yang dapat dijalankan pada perangkat bergerak seperti smartphone dan tablet (Purnamasari & Panjaiatan, 2020). Umumnya, aplikasi mobile dirancang untuk 2 platform yang sering digunakan, yaitu Android dan iOS. Aplikasi mobile dirancang karena pengoperasiannya sangat mudah.
+Tidak hanya itu, aplikasi mobile juga dirancang agar dapat tersedia di berbagai tempat dan waktu. Hal ini didukung dengan ringannya perangkat bergerak daripada perangkat lainnya seperti laptop dan PC.
+2.1.8.	Flutter
+Flutter adalah SDK (Software Development Kit) untuk perangkat mobile, yang dibangun dan open-source oleh Google. Intinya, Flutter bertujuan untuk memudahkan semua orang agar dapat membuat aplikasi mobile. Flutter mempermudah pembuatan aplikasi mobile dengan cara yang lebih akrab dan sederhana (Windmill, 2020).
+Flutter memiliki keistimewaan yang dimana aplikasi yang dirancang dapat dijalankan di platform Android, iOS, ChromeOS, Web, dan Desktop. Hal ini disebabkan oleh aplikasi flutter akan dikompilasikan menjadi machine code sesuai dengan operating system yang dituju.
+2.1.9.	Laravel 
+Pada penelitian ini, Laravel digunakan sebagai aplikasi back-end bagi front-end Mobile. Laravel merupakan salah satu framework bahasa pemrograman PHP yang digunakan dalam pembuatan website (Stauffer, 2019). Laravel mengadopsi pola arsitektur Model-View-Controller (MVC) agar logika aplikasi terpisah dengan tampilan dan data.
+Pada penelitian ini juga, Laravel digunakan sebagai jembatan antara client dengan data yang ada pada database MySQL. Tujuan dari ini adalah agar client tidak mengakses database secara langsung. Hal ini didukung oleh modul authentication yang ada pada Laravel yang membuat client hanya dapat mengakses data tertentu.
+2.1.10.	Basis Data MySQL
+Basis data yang akan digunakan pada pengembangan ini adalah MySQL. MySQL adalah sebuah perangkat lunak pengelola basis data (database management system atau DBMS) yang sangat populer dan dapat digunakan secara gratis. MySQL mendukung banyak pengguna dalam menggunakannya secara bersamaan serta dapat menjalankan banyak tugas sekaligus (Converse et al., 2004).
+MySQL juga menjadi pilihan populer sebagai solusi database karena bersifat skalabel, aman dan efisien. Tidak hanya itu, tetapi pemeliharaan dan pengelolaan pada MySQL juga menjadi salah satu keunggulan dari database ini.
+2.1.11.	User Experience Questionnaire-Short
+User Experience Questionnaire (UEQ) adalah metode yang digunakan untuk mengukur seberapa baik pengguna merasa saat menggunakan suatu produk atau layanan. UEQ terdiri dari 26 pertanyaan yang dikelompokkan menjadi enam aspek utama, seperti Attractiveness, Perspicuity, Efficiency, Dependablity, Stimulation, dan Originality (Schrepp, Hinderks & Thomaschewski, 2017). Pada penelitian ini, digunakan versi singkat dari UEQ pada umumnya, yaitu UEQ-Short.
+UEQ-Short adalah sebuah metode yang lebih efisien untuk mengukur pengalaman pengguna dibandingkan dengan UEQ tradisional. Metode ini terdiri dari pertanyaan-pertanyaan yang lebih sedikit namun tetap dapat memberikan hasil yang akurat. Dengan menggunakan UEQ-Short, para peneliti dapat mengukur kepuasan pengguna dengan lebih cepat dan mudah, tanpa membuat pengguna merasa lelah.
+2.1.12.	Whitebox Testing
+Dalam pengembangan perangkat lunak, terdapat dua pendekatan utama untuk melakukan pengujian, yaitu blackbox testing dan whitebox testing. Pada penelitian ini akan menggunakan whitebox testing sebagai pendekatan pengujian yang diambil. Whitebox testing digunakan sebagai pengujian internal struktur dari program seperti aliran data dan logika program  (Myers et al., 2011).
+Whitebox testing dilakukan dengan menganalisis langsung kode program suatu aplikasi. Tujuannya adalah untuk memastikan bahwa kode program ditulis dengan benar dan tidak mengandung kesalahan yang dapat menyebabkan masalah pada sistem. 
+2.2.	Alasan Pemilihan Metode
+Pemilihan metode penelitian berperan penting dalam penyelesaian penelitian ini. Metode pengumpulan data, perancangan, pengembangan, pengujian, hingga pemilihan platform sebagai hasil penelitian harus dipilih berdasarkan alasan yang relevan dengan tujuan penelitian, serta sesuai dengan jenis data yang dikumpulkan dan dianalisis. Metode yang dipilih akan digunakan untuk menjawab rumusan masalah pada penelitian. Pada sub bab ini akan dijelaskan mengenai alasan-alasan pemilihan metode dan platform yang digunakan pada penelitian.
+Alasan pemilihan metode User-Centered Design dan Scrum sebagai metode perancangan dan pengembangan pada penelitian ini karena kedua metode ini saling mendukung untuk menghasilkan produk yang lebih sesuai dan terfokus kepada kebutuhan pengguna. User-Centered Design digunakan untuk merancang tampilan dan pengalaman sesuai dengan kebutuhan dan kenyamanan pengguna. Hasil dari User-Centered Design adalah hi-fi prototype. Hi-fi prototype ini akan digunakan pada Scrum sebagai product backlog yang akan dikelompokkan menjadi sprint backlog untuk sprint-sprint yang akan dilakukan. 
+Alasan pemilihan pengembangan aplikasi untuk Android untuk menjawab permasalahan pada manajemen Klub Renang Petrokimia Gresik ini didasarkan pada beberapa kebutuhan pengguna. Atlet harus melakukan presensi berdasarkan lokasi atlet dari tempat latihan agar presensi valid. Pelatih harus menggunakan perangkat bergerak untuk mencatat data dari program latihan yang dilakukan oleh atlet. Pelatih juga harus mengunggah bukti pelatihan yang dilakukan telah selesai dengan menggunakan perangkat yang memiliki kamera, yaitu perangkat bergerak seperti smartphone dan tablet. 
+Alasan pemilihan Flutter sebagai framework yang akan digunakan pada tahap pengembangan adalah karena Flutter memiliki keunggulan dalam pengembangan lintas platform sehingga pada pengembangan selanjutnya, terdapat potensi untuk menghemat waktu baik dalam pengembangan aplikasi maupun pengujian aplikasi karena bahasa pemrograman yang digunakan sama.
+Alasan pemilihan User Experience Questionnaire-Short sebagai instrumen pengukuran User Experience Testing adalah karena User Experience Questionnaire-Short digunakan untuk mengukur kenyamanan pengguna dalam menggunakan hi-fi prototype yang dirancang secara cepat dan efisien tanpa menghilangkan aspek-aspek seperti Attractiveness, Perspicuity, Efficiency, Dependablity, Stimulation, dan Originality. 
+Alasan pemilihan white box testing sebagai metode pengujian yang akan digunakan adalah karena white box testing memeriksa struktur internal, logika, dan alur kode program secara mendetail, sehingga dapat memastikan bahwa setiap fungsi dan jalur kode telah diuji dengan benar sesuai dengan kebutuhan metode Scrum yang mengutamakan iterasi cepat dan perbaikan berkelanjutan. White box testing digunakan sebagai Unit Testing untuk memastikan modul-modul yang ada pada kode program sesuai dengan algoritma yang dirancang. White box testing juga digunakan untuk memastikan variabel pada pemrograman dengan rancangan yang disusun.
+Metode-metode ini dipilih karena pengembangan yang dilakukan akan berorientasi kepada umpan balik dari pengguna berdasarkan dari antarmuka dan pengalaman pengguna yang akan dibuat.
+ 
+BAB III METODOLOGI PENELITIAN
+3.1.	Sistematika Penyelesaian Masalah
+Pada bab ini membahas tentang sistematika penyelesaian masalah dengan menjelaskan metode penelitian dan metode pengembangan perangkat lunak yang digunakan untuk menganalisis dan menyelesaikan masalah pada penelitian. Penelitian ini dilakukan pada lingkungan kolam renang Petrokimia Gresik untuk melakukan requirement analysis keperluan pengembangan aplikasi mobile manajemen klub renang menggunakan metode SCRUM dan User-Centered Design. Visualisasi langkah demi langkah dari tahap penelitian dapat ditunjukkan pada gambar berikut.
+ 
+Gambar III.1 Diagram tahapan penelitian
+3.1.1.	Observasi dan Wawancara
+Pada langkah awal penelitian, dilakukan observasi pada objek penelitian, yaitu Klub Renang Petrokimia Gresik, serta wawancara dengan pihak terkait, seperti pelatih Klub Renang Petrokimia Gresik, Bapak Chandra, dan sekretaris Klub Renang Petrokimia Gresik, Bapak Satria, di Kantor Petrokimia Gresik. Tahapan ini bertujuan untuk mengidentifikasi permasalahan dan kebutuhan Klub Renang Petrokimia Gresik. Data kualitatif yang dihasilkan dari tahap ini akan digunakan pada tahap perencanaan dan pengembangan.
+•	Masukan yang diperlukan pada tahap ini adalah daftar pertanyaan, daftar responden, dan catatan observasi
+•	Keluaran yang dihasilkan adalah data kualitatif yang berisi kebutuhan dan permasalahan pengguna aplikasi, yang akan digunakan pada tahap perencanaan dan juga tahap pengembangan. 
+Hasil dari observasi dan wawancara juga akan digunakan pada tahap perancangan dan pengembangan sebagai bahan referensi pada tahap User Research. Hasil dan dokumentasi dari wawancara yang dilakukan pada tahap ini dilampirkan pada Lampiran A Hasil Wawancara dan Lampiran B Dokumentasi Requirement Analysis  dengan Klub Renang Petrokimia Gresik.
+3.1.2.	 Studi Literatur 
+Setelah dilakukannya tahap observasi dan wawancara, tahap selanjutnya adalah tahap studi literatur. Pada tahap ini, dilakukan analisis terhadap penelitian-penelitian pengembangan aplikasi atau sistem informasi yang menerapkan metode User-Centered Design, metode Scrum, integrasi antara User-Centered Design dan Scrum, serta aplikasi atau sistem informasi serupa.
+•	Masukan yang diperlukan pada tahap ini adalah literatur, jurnal, buku, dan penelitian terdahulu yang relevan dengan topik (manajemen klub) dan metode pengembangan (User-Centered Design, dan Scrum).
+•	Keluaran yang dihasilkan adalah dasar teori yang mendukung dan konsep yang akan dijadikan sebagai landasan penelitian. 
+3.1.3.	 Tahapan Perancangan dan Pengembangan
+Tahapan setelah studi literatur adalah Tahapan Perancangan dan Pengembangan. Pada tahap ini, perancangan akan dilakukan menggunakan metode User-Centered Design dan pengembangan akan dilakukan menggunakan metode Scrum.
+Tahapan yang akan dilakukan terlebih dahulu adalah tahapan perancangan. Tahapan ini dilakukan sebagai pembuatan product backlog pada tahap pengembangan. Setelah dilakukan perancangan, selanjutnya adalah tahapan pengembangan. Pada tahapan ini, product backlog yang dibuat akan dikelompokkan sesuai dengan prioritas dan alur aplikasi menjadi sprint backlog.
+3.1.4.	Analisis dan Evaluasi
+Tahap ini dilakukan dengan menganalisis secara keseluruhan hasil pengujian baik dari usability testing menggunakan User Experience Questionnaire-Short dan white box testing. Hasil analisis dari uji usability akan digunakan untuk pengembangan  prototipe sebelum dikembangkan agar sesuai dengan keinginan dan kebutuhan pengguna. 
+Kemudian hasil evaluasi pada sprint review menggunakan white box testing akan digunakan untuk mengukur definition of done pada metode Scrum dan juga untuk perbaikan. Tahapan ini berkesinambungan dengan tahapan perancangan dan pengembangan, sebab hasil analisis dan evaluasi dari pengujian yang dilakukan akan digunakan untuk melanjutkan siklus perancangan dan pengembangan. 
+3.1.5.	Penarikan Kesimpulan
+Setelah dilakukan Analisis dan Evaluasi, tahap berikutnya adalah Penarikan Kesimpulan. Pada tahap ini dilakukan beberapa penarikan kesimpulan, mulai dari penarikan kesimpulan atas hasil tahapan pengembangan dan pengujian, hingga penarikan kesimpulan atas kelebihan dan kekurangan dari hasil aplikasi mobile yang telah dikembangkan menggunakan metode Scrum dan User-Centered Design. 
+Dari penarikan kesimpulan ini yang dilakukan akan digunakan sebagai saran dan rekomendasi terhadap pengembangan lebih lanjut di masa mendatang, sehingga menghasilkan perbaikan dan inovasi yang berkelanjutan.
+3.1.6.	Penulisan Laporan
+Tahapan terakhir pada penelitian ini adalah penulisan laporan sebagai bentuk bukti pertanggungjawaban atas penelitian yang telah dilakukan. Tahapan ini dilakukan agar seluruh proses penelitian terdokumentasikan dengan baik sehingga dapat dijadikan sebagai pedoman referensi penelitian selanjutnya. 
+Setiap bagian dari laporan ini ditulis dengan bahasa yang jelas, mudah dimengerti, dan juga harus memenuhi standar pedoman buku tugas akhir yang telah disusun oleh institusi. 
+3.2.	Tahapan Perancangan dan Pengembangan
+ 
+Gambar III.2 Diagram tahapan Perancangan dan Pengembangan User-Centered Design dan Scrum (Rasheed et al., 2014).
+Pada Sub bab ini akan membahas secara detail tentang tahapan User-Centered Design dan Scrum yang akan dilaksanakan pada tahap perancangan dan pengembangan aplikasi pada penelitian. Gambar di atas merupakan penggambaran dari alur yang akan dilakukan. 
+Scrum merupakan salah satu framework agile yang bekerja dalam siklus iteratif untuk memastikan adaptasi yang berkelanjutan. Tahapan yang ada pada Scrum dirancang untuk mendorong kolaborasi tim dalam pengerjaan dan memberikan fleksibilitas dalam mengelola perubahan kebutuhan berdasarkan umpan balik dari pengguna. Beberapa tahapan yang ada pada user-centered design akan dilakukan secara bersamaan dengan tahapan yang ada pada scrum seperti user research dan Sprint 0.  
+3.2.1.	Tahapan User Research
+Tahap awal pada Scrum dan UCD adalah melakukan User Research. User Research ini dilakukan dengan mengumpulkan semua data calon pengguna mulai dari peran mereka dalam aplikasi, permasalahan yang mereka alami, dan proses bisnis dari kegiatan mereka. Hasil dari User Research yang dilakukan adalah berupa penyusunan Product Backlog dan Use Case Diagram.
+Product Backlog ini merupakan daftar kebutuhan fungsional dan prioritasnya, yang harus diselesaikan dalam siklus sprint. Penyusunan ini menjadikan kebutuhan fungsional menjadi backlog item yang disesuaikan dengan tingkat atau skala prioritasnya. Berikut adalah daftar rancangan product backlog item sementara:
+Tabel III.1 Rancangan product backlog item
+No.	Product Backlog Item	Prioritas
+1.	View Competition Schedule List	High
+2.	Request Athlete for Competition Delegation	High
+3.	View Training Schedule List	Medium
+4.	Start Training Schedule	High
+5.	 Attend Training Schedule	High
+6.	Record Athlete Training Data	High
+7.	End Training Schedule	High
+8.	View Athlete Attendance History	Low
+9.	Coach Attendance Monitoring	Medium
+10.	Athlete Attendance Monitoring	Low
+11.	View Athlete Competition Participation	Low
+12.	Athlete Performance Monitoring	Low
+No.	Product Backlog Item	Prioritas
+13.	View Athlete Performance History	Low
+14.	View Athlete Membership Status	High
+15.	Upload Payment Evidence	High
+16.	View Profile	Low
+17.	Edit Profile	Low
+18.	Approve Competition Delegation Request from Coach	High
+Use Case Diagram ini merupakan diagram yang memberi gambaran umum mengenai fitur apa saja yang akan dikembangkan pada aplikasi beserta hak akses pengguna fitur tersebut. Use Case Diagram ini akan dijadikan acuan untuk perancangan prototype dan pengembangan baik pada Design Sprint maupun Development Sprint. Berikut gambaran sementara Use Case Diagram:
+ 
+Gambar III.3 Use Case Diagram Aplikasi Mobile Manajemen Klub Renang Petrokimia Gresik
+Adapun juga rancangan kamus data yang akan digunakan pada basis data MySQL yang bersifat sementara. Kamus data ini dirancang menyesuaikan dari rancangan kebutuhan fungsional yang ada pada Tabel III.7 Kebutuhan fungsional. Berikut Tabel rancangan kamus data sementara:
+Tabel III.2 Rancangan kamus data sementara aplikasi mobile
+Account: untuk menyimpan informasi registrasi akun/user   
+No.	Variabel	Tipe Data	Deskripsi
+1	ID_ACCOUNT	int (Primary Key)	ID Akun User
+2	USERNAME	varchar	Data Username User
+3	PASSWORD	varchar	Data Password User
+4	EMAIL	varchar	Data Email User
+5 	ROLE	Enum (Atlet, Pelatih, Ketua, Admin)	Peran pengguna dari aplikasi
+Attendances: untuk menyimpan informasi presensi atlet dan pelatih   
+No.	Variabel	Tipe Data	Deskripsi
+1	ID_ATTENDANCES	Int (Primary Key)	ID Kehadiran Atlet dan Pelatih
+2	ID_ACCOUNT	int (Foreign Key)	ID dari Akun Pengguna (Foreign Key)
+3	ID_TRAINING	int (Foreign Key)	ID dari Latihan (Foreign Key)
+4	STATUS	Enum (Present, Absent, Late)	Data Status kehadiran atlet dan pelatih
+5	CLOCK_IN	Timestamp	Data jam masuk atlet dan pelatih
+6	CLOCK_OUT	Timestamp	Data jam keluar atlet dan pelatih
+Training: untuk menyimpan data jadwal latihan   
+No.	Variabel	Tipe Data	Deskripsi
+1	ID_TRAINING	Int (Primary Key)	ID Kehadiran Atlet dan Pelatih
+2	ID_COACH	int (Foreign Key)	ID dari Akun Pelatih (Foreign Key)
+3	TRAINING_NAME	varchar	Nama Jadwal Latihan
+4	TRAINING_DAY	Enum (Senin, Selasa, Rabu, Kamis, Jumat)	Hari Jadwal Latihan
+5	RECURRING	boolean	Data apakah jadwal latihan bersifat rutin atau sekali
+6	DURATION	Float	Lama waktu latihan
+Training Program: untuk menyimpan data program latihan   
+No.	Variabel	Tipe Data	Deskripsi
+1	ID_PROGRAM	Int (Primary Key)	ID Program Latihan 
+2	PROGRAM_NAME	Enum (Present, Absent, Late)	Data Nama Program Latihan
+3	PROGRAM_TYPE	Enum (Timer, Stopwatch)	Data Jenis Pengambilan Waktu Program
+Competition: untuk menyimpan data kompetisi
+No.	Variabel	Tipe Data	Deskripsi
+1	ID_COMPETITION	Int (Primary Key)	ID Kehadiran Atlet dan Pelatih
+2	COMPETITION_NAME	varchar	Nama Kompetisi
+3	COMPETITION_LEVEL	Enum (Internasional, National, Province, City)	Enum dari tingkat perlombaan
+4	ATHLETE_LEVEL	Enum (Adult, Teen, Kid)	Enum dari kelas atlet perlombaan
+5	COMPETITION_ORGANIZER	Varchar	Data Nama Penyelenggara Kompetisi
+6	COMPETITION_LOCATION	Varchar	Data Lokasi Kompetisi diselenggarakan
+7	COMPETITION_STATUS	Enum(Registration,Start,End)	Enum dari Status Kompetisi
+Competition Participants: untuk menyimpan data perwakilan kompetisi   
+No.	Variabel	Tipe Data	Deskripsi
+1	ID_PARTICIPANT	Int (Primary Key)	ID Atlet Perwakilan
+2	ID_ACCOUNT	int (Foreign Key)	ID dari Akun Atlet (Foreign Key)
+3	ID_COMPETITION	int (Foreign Key)	ID dari Kompetisi (Foreign Key)
+4	APPROVED	boolean	Data disetujui tidaknya atlet untuk diwakilkan
+5	PARTICIPANT_FINISHEDAT	Int	Data Posisi atlet saat kompetisi selesai
+
+3.2.2.	 Tahapan Planning
+Tahapan yang pertama kali dilakukan adalah Planning. Pada tahap ini, tim akan memprioritaskan item backlog berdasarkan urgensi dan nilai bisnisnya. Item-item yang memiliki prioritas tertinggi akan dipilih untuk dikerjakan pada sprint yang akan datang. Selain itu, juga akan dilakukan pengelompokan backlog untuk memastikan bahwa setiap item telah didefinisikan dengan jelas dan siap untuk dikerjakan. 
+Tujuan utama dari Planning adalah untuk memberikan kejelasan dan fokus pada pekerjaan yang akan dilakukan selama Development Sprint. Dengan demikian, tim dapat bekerja secara efektif dan efisien menuju pencapaian tujuan sprint. Berikut beberapa rancangan sprint backlog item:
+Tabel III.3 Rancangan Sprint 1 Backlog Item
+No.	Sprint 1 backlog item
+1.	View Competition Schedule List
+2.	Request Athlete for Competition Delegation
+3.	View Training Schedule List
+4.	Approve Competition Delegation Request from Coach
+Tabel III.4 Rancangan Sprint 2 Backlog Item
+No.	Sprint 2 backlog item
+1.	Start Training Schedule
+2.	 Attend Training Schedule
+3.	Record Athlete Training Data
+4.	End Training Schedule
+5.	View Athlete Attendance History
+6.	Coach Attendance Monitoring
+7.	Athlete Attendance Monitoring
+Tabel III.5 Rancangan Sprint 3 Backlog Item
+No.	Sprint 3 backlog item
+1.	View Athlete Competition Participation
+2.	Athlete Performance Monitoring
+3.	View Athlete Performance History
+4.	View Athlete Membership Status
+5.	Upload Payment Evidence
+6.	View Profile
+10.	Edit Profile
+Keterangan: perlu diketahui bahwa rancangan sprint ini dibuat bersifat fleksibel dan dapat berubah sewaktu-waktu jika terjadi perubahan dan penyesuaian kebutuhan selama pelaksanaan penelitian.
+3.2.3.	 Tahapan Sprint 0 (Design Sprint)
+Setelah peran dan tujuan pengguna dalam sistem teridentifikasi, tahapan selanjutnya adalah Sprint 0. Tahapan ini menggunakan hasil yang telah diperoleh dari tahap sebelumnya, yaitu hasil identifikasi peran, permasalahan, dan fungsi pengguna pada sistem, untuk membantu dalam merancang kebutuhan fungsional, kebutuhan non fungsional, dan rancangan prototipe high fidelity. 
+Hasil dari prototipe yang dirancang akan dievaluasi oleh pengguna menggunakan pengujian pengalaman pengguna (User Experience Testing). Instrumen yang digunakan sebagai alat ukur menilai kualitas pengalaman pengguna prototipe adalah User Experience Questionnaire-Short. Pengujian ini dilakukan dengan calon pengguna aplikasi, seperti pihak penanggung jawab Klub Renang Petrokimia Gresik. Tujuan dari UET ini adalah untuk memastikan agar prototipe sesuai dengan kebutuhan pengguna. Prototipe ini akan digunakan sebagai referensi pengembangan pada sprint selanjutnya yaitu sprint development.
+3.2.4.	 Tahapan Sprint 1..n (Development Sprint)
+Setelah dilakukannya Design Sprint, tahap selanjutnya adalah Development Sprint. Pada tahap ini, prototipe yang dirancang akan digunakan sebagai referensi pengerjaan dalam sprint pengembangan. Sprint Item yang telah direncanakan pada tahap Planning, akan digunakan sebagai acuan untuk apa saja yang perlu dikerjakan pada sprint-sprint pengembangan. 
+Hasil dari sprint item yang telah dikembangkan ini akan menjadi modul-modul program yang akan diuji menggunakan Unit Testing dari White box Testing. Unit Testing ini dilakukan untuk menguji modul yang telah dirancang ditulis dengan benar baik dalam segi alur data, logika kode, maupun penulisan kode. Setelah dilakukan white box testing, maka selanjutnya akan dilakukan User Experience Testing menggunakan User Experience Questionnaire-Short. Pengujian ini dilakukan lagi pada Development Sprint dengan tujuan untuk memastikan apakah pengalaman pengguna dari modul yang telah dikembangkan sesuai dengan pengalaman pengguna yang diujikan pada tahap Design Sprint. Setelah dilakukan pengujian User Experience, maka Development Sprint akan dijalankan lagi sampai modul pada Product Backlog telah dikerjakan. 
+3.3.	 Alat dan Bahan Penelitian
+Alat dan bahan yang akan digunakan pada penelitian ini dibagi menjadi dua kategori, yaitu perangkat keras dan perangkat lunak. Alat dan bahan sangat berperan penting dalam pelaksanaan penelitian. Alat dan bahan bertujuan untuk menunjang kegiatan yang akan dilakukan selama penelitian berlangsung. Berikut adalah daftar alat dan bahan yang akan digunakan selama penelitian:
+3.3.1.	 Perangkat Keras
+Perangkat keras akan digunakan dalam penelitian ini untuk mengembangkan, menjalankan, menguji, dan melaporkan hasil dari penelitian berupa laporan penelitian. Berikut spesifikasi perangkat keras yang akan digunakan:
+a.	Laptop
+a.	Prosesor			: AMD Ryzen 7 7840HS 
+b.	Kartu Grafis			: NVIDIA GeForce RTX 4060
+c.	Memori/RAM			: 16 GB DDR5
+d.	Penyimpanan			: SSD 2 TB NVME
+b.	Smartphone
+a.	Tipe				: Samsung S23 FE
+b.	Memori/RAM			: 8 GB
+c.	Penyimpanan			: 256 GB
+Sedangkan untuk spesifikasi minimum perangkat keras yang dibutuhkan agar dapat mengakses aplikasi mobile manajemen klub renang petrokimia gresik:
+c.	Minimum Smartphone
+a.	Minimum RAM		: 3 GB
+b.	Minimum Operating System	: Android 10
+c.	Minimum penyimpanan 	: 20 GB
+d.	Kebutuhan lainnya		:
+-	Dapat mengakses internet
+-	Memiliki akses kamera
+-	Dapat mengirim lokasi dengan akurat
+-	Memiliki akses notifikasi
+Untuk spesifikasi server yang akan digunakan pada proses delivery adalah:
+d.	Minimum Server
+a.	Minimum Processor		: 1 core
+b.	Minimum RAM		: 4 GB
+c.	Minimum penyimpanan	: 40 GB
+d.	Operating System		: Linux Ubuntu Server 20.04
+3.3.2.	 Perangkat Lunak
+Berikut adalah spesifikasi perangkat lunak yang akan digunakan pada penelitian:
+a.	Versi OS Laptop	: Windows 11 Home Single Language
+b.	Versi OS Smartphone	: Samsung OneUI, Android 14
+c.	Text Editor		: Visual Studio Code
+d.	DBMS			: MySQL
+e.	Framework		: Flutter dan Laravel
+f.	Bahasa Pemrograman	: Dart, PHP, dan SQL
+g.	Tools lainnya		: Postman, Android Studio dan XAMPP
+3.4.	 Arsitektur Sistem
+ 
+Gambar III.4 Diagram arsitektur sistem.
+Gambar di atas digunakan sebagai gambaran umum arsitektur sistem aplikasi yang akan dikembangkan. Pengguna dapat mengakses aplikasi ini melalui smartphone dengan sistem operasi Android minimal versi 10 dan koneksi internet. Aplikasi Android, yang dikembangkan menggunakan framework Flutter, akan berkomunikasi dengan server back-end dilakukan melalui protokol HTTPS (HyperText Transfer Protocol Secure) untuk menjamin keamanan data.
+Sebagai lapisan perlindungan tambahan, komunikasi ini pertama-tama diproses oleh CloudFlare. CloudFlare berfungsi sebagai reverse proxy utama, yang bertugas melindungi server back-end dengan menyamarkan alamat IP server menggunakan domain, sekaligus menyaring permintaan yang masuk. Setelah melalui CloudFlare, permintaan selanjutnya diproses oleh NGINX, yang berperan sebagai reverse proxy kedua. NGINX menambah lapisan keamanan tambahan sebelum meneruskan permintaan ke API (Application Programming Interface). API ini disediakan oleh aplikasi back-end yang dikembangkan menggunakan framework Laravel dalam bentuk RESTful API agar memungkinkan pertukaran data secara efisien melalui protokol HTTPS dengan menggunakan metode standar seperti GET, POST, PUT, dan DELETE.
+Permintaan yang dibuat tidak lepas dari fungsionalitas yang ada pada sub bab 3.6 Kebutuhan Fungsional. Data yang diakses oleh API tersimpan pada basis data yang ada pada server. Basis data yang akan digunakan adalah MySQL Database. Basis data berfungsi sebagai pengelola data yang akan digunakan pada aplikasi back-end. Variabel yang akan digunakan basis data dapat dilihat pada Tabel III.2 Rancangan kamus data sementara aplikasi mobile  Rancangan kamus data aplikasi manajemen klub renang petrokimia gresik.
+3.5.	Aktor
+Aktor yang dibahas pada penelitian ini adalah para pemangku kepentingan pada aplikasi. Para pemangku kepentingan yang dimaksud merupakan pihak-pihak yang berinteraksi dengan sistem untuk menjalankan fungsi-fungsi yang ada pada aplikasi. Setiap aktor memiliki hak akses dan tugas yang berbeda pada aplikasi sesuai dengan perannya. 
+Aktor pada aplikasi yang akan dikembangkan merupakan pihak yang terlibat dalam proses bisnis Klub Renang Petrokimia Gresik. Aktor-aktor ini terdiri dari ketua Klub Renang Petrokimia Gresik, pelatih Klub Renang Petrokimia Gresik, dan Atlet dari Klub Renang Petrokimia Gresik.
+Tabel III.6 Peran dan tugas aktor
+Aktor	Peran	Tugas
+Pelatih	Pihak pelatih Klub Renang Petrokimia Gresik.	Melakukan pencatatan data latihan atlet, mendelegasikan atlet pada perlombaan, memantau performa atlet 
+Atlet 	Pihak atlet anggota Klub Renang Petrokimia Gresik.	Mengunggah bukti pembayaran, Memantau performa 
+Ketua	Pihak pengelola dan ketua dari Klub Renang Petrokimia Gresik	Melakukan persetujuan terhadap permintaan atlet yang dipilih oleh pelatih untuk didelegasikan ke suatu perlombaan
+
+3.6.	 Kebutuhan Fungsional
+Kebutuhan fungsional ini berisi tentang apa saja yang bisa dilakukan oleh sistem. Kebutuhan fungsional berikut merupakan rancangan sementara kebutuhan dari hasil tahapan Specify User Requirements pada metode User-Centered Design.
+Tabel III.7 Kebutuhan fungsional
+Kode 	Kebutuhan Fungsional	Deskripsi	Aktor	Prioritas
+FR01	View Competition Schedule List	Aplikasi dapat menampilkan list semua perlombaan 	Pelatih dan Atlet	High
+FR02	Request Athlete for Competition Delegation	Pelatih dapat melakukan pemilihan atlet untuk didaftarkan pada suatu perlombaan berdasarkan track record prestasi dan juga performa latihan atlet.	Pelatih	High
+FR03	View Training Schedule List	Aplikasi dapat menampilkan list semua jadwal perlombaan.	Pelatih dan Atlet	Medium
+FR04	Start Training Schedule	Pelatih dapat memulai jadwal latihan yang sesuai dengan tanggal diaksesnya aplikasi. Ketika pelatih memulai jadwal latihan, maka akan dihitung sebagai presensi pelatih.	Pelatih	High
+FR05	 Attend Training Schedule	Atlet dapat melakukan presensi sesuai dengan jadwal latihan kelas yang diikuti berdasarkan lokasi atlet dari tempat latihan.	Atlet	High
+FR06	Record Athlete Training Data	Pelatih dapat mencatat data latihan atlet dengan menggunakan stopwatch/timer yang ada pada aplikasi sesuai dengan program latihan yang dicatat.	Pelatih	High
+FR07	End Training Schedule	Pelatih dapat mengakhiri sesi latihan setelah semua atlet yang telah melakukan presensi datanya telah dicatat semua.	Pelatih 	High
+FR08	View Athlete Attendance History	Aplikasi dapat menampilkan history presensi atlet kepada aktor atlet.	Atlet	Low
+FR09	Coach Attendance Monitoring	Aplikasi dapat menampilkan history presensi pelatih kepada aktor pelatih.	Pelatih	Medium
+FR10	Athlete Attendance Monitoring	Aplikasi dapat menampilkan history presensi semua atlet kepada aktor pelatih.	Pelatih	Low
+FR11 	View Athlete Competition Participation	Aplikasi dapat menampilkan history yang pernah lomba yang pernah diikuti semua atlet kepada aktor pelatih dan atlet.	Pelatih dan Atlet	Low
+FR12 	Athlete Performance Monitoring	Aplikasi dapat menampilkan performa dari semua atlet baik dalam perlombaan maupun dalam pelatihan kepada aktor pelatih.	Pelatih	Low
+FR13	View Athlete Performance History	Aplikasi dapat menampilkan performa atlet baik dalam perlombaan maupun dalam pelatihan kepada aktor atlet.	Atlet	Low
+FR14	View Athlete Membership Status	Aplikasi dapat menampilkan status keanggotaan kepada aktor atlet.	Atlet	High
+FR15	Upload Payment Evidence	Aktor atlet dapat mengunggah bukti pembayaran pada aplikasi.	Atlet	High
+FR16	View Profile	Aplikasi dapat menampilkan informasi data pribadi pada aktor atlet dan pelatih.	Atlet dan Pelatih	Low
+FR17	Edit Profile	Aktor atlet dan pelatih dapat melakukan perubahan informasi data diri atlet.	Atlet dan Pelatih	Low
+FR18	Approve Competition Delegation Request from Coach	Aktor ketua dapat melakukan persetujuan permintaan delegasi atlet yang dilakukan oleh aktor pelatih.	Ketua	High
+
+3.7.	 Kebutuhan Non Fungsional
+Kebutuhan non fungsional adalah kebutuhan yang fokus pada bagaimana sistem bekerja pada berbagai macam kondisi. Berikut adalah rancangan sementara kebutuhan non fungsional dari hasil tahap design solutions pada metode User-Centered Design.
+Tabel III.8 Kebutuhan non fungsional
+Kode 	Kebutuhan Fungsional	Deskripsi
+NFR01	Correctness	-	Aplikasi dapat menampilkan data record latihan atlet yang tercatat dengan akurat.
+-	Aplikasi dapat beroperasi sesuai dengan proses bisnis yang berlaku.
+NFR02	Usability	-	Antarmuka pengguna harus didesain secara user-friendly agar para aktor yang terlibat dapat mudah memahami penggunaan dari aplikasi.
+-	target minimal dari hasil UEQ adalah good 
+NFR03	Reliability	-	Sistem harus memberikan pemberitahuan berupa pesan apabila terjadi kesalahan.
+-	Aplikasi harus dapat diakses selama paling tidak 14-20 jam perhari tanpa kendala dengan persentase 92%.
+NFR04	Integrity	-	Sistem harus memiliki fitur autentikasi untuk membedakan izin hak akses pengguna agar tidak ada upaya akses tidak sah pada aplikasi.
+-	Transmisi data antara aplikasi client dengan server harus dilakukan menggunakan protokol HTTPS agar data terenkripsi.
+
+3.8.	 Jadwal Penelitian
+Pada sub bagian berikut merupakan rancangan jadwal pelaksanaan penelitian dari awal hingga akhir. Penyusunan rancangan jadwal penelitian ini disusun dengan memperhatikan setiap tahapan pada metode User-Centered Design dan Scrum agar dapat mencapai tujuan penelitian. Rancangan jadwal penelitian ini dapat mengalami berubah seiring dengan penyesuaian kondisi dan kebutuhan yang muncul selama proses penelitian berlangsung. Visualisasi rancangan jadwal penelitian ditampilkan dalam bentuk linimasa sebagai berikut:
+Tabel III.9 Jadwal penelitian.
+No	Aktivitas	Minggu Ke-
+		1	2	3	4	5	6	7	8	9	10	11	12	13	14	15	16
+1.
+	Observasi & Wawancara	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 
+2.
+	Studi Literatur	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 
+3.
+	User Research	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 
+4.
+	Planning	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 
+5.
+	Design Sprint	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 
+6.
+
+	Development Sprint 1	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 
+7.
+
+	Development Sprint 2	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 
+8.
+
+	Development Sprint 3	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 
+9.
+
+	Analisis dan Evaluasi	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 
+10.
+
+	Penarikan Kesimpulan	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 
+11.
+
+	Penulisan Laporan	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 

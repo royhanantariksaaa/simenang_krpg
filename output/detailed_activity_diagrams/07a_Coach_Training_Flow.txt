@@ -1,0 +1,70 @@
+'Alur Latihan - Peran Pelatih' {
+    |Pelatih, Aplikasi Mobile, API, Sistem Backend| {
+        $Pelatih$
+        (Pelatih) Navigasi ke Halaman Latihan;
+        (Aplikasi Mobile) GET /api/training;
+        (Sistem Backend) Ambil & kirim daftar jadwal latihan;
+        (API) Teruskan respons;
+        (Aplikasi Mobile) Tampilkan daftar jadwal;
+        (Pelatih) Pilih satu jadwal latihan;
+        (Aplikasi Mobile) Tampilkan halaman detail latihan;
+        (Aplikasi Mobile) Periksa apakah latihan bisa dimulai;
+        (API) GET /api/training/{id}/can-start;
+        (Sistem Backend) Lakukan validasi (misal: waktu, status);
+        (API) Kirim respons (true/false);
+        (Aplikasi Mobile) Terima respons & aktifkan/nonaktifkan tombol 'Mulai';
+        
+        <Pelatih> Tekan tombol 'Mulai Sesi'? {
+            -Ya- {
+                (Aplikasi Mobile) Kirim permintaan untuk memulai sesi;
+                (API) POST /api/training/{id}/start;
+                (Sistem Backend) Buat sesi latihan baru di database;
+                (Sistem Backend) Set status sesi menjadi 'Absensi';
+                (Sistem Backend) Kirim respons sukses dengan data sesi baru;
+                (API) Teruskan respons;
+                (Aplikasi Mobile) Terima data sesi baru;
+                (Aplikasi Mobile) Tampilkan layar Sesi Latihan Aktif (Mode Absensi);
+                
+                (Pelatih) Mengelola absensi atlet (misal: menandai hadir/absen);
+                (Aplikasi Mobile) POST /api/training/sessions/{sessionId}/attendance;
+                //... Alur absensi ...//
+
+                <Pelatih> Akhiri masa absensi? {
+                    -Ya- {
+                        (Aplikasi Mobile) Kirim permintaan akhir absensi;
+                        (API) POST /api/training/sessions/{id}/end-attendance;
+                        (Sistem Backend) Ubah status sesi menjadi 'Berlangsung';
+                        (API) Kirim respons sukses;
+                        (Aplikasi Mobile) Update UI ke mode Latihan Berlangsung;
+                        (Pelatih) Memantau sesi latihan (melihat lokasi atlet, dll);
+
+                        <Pelatih> Akhiri sesi latihan? {
+                            -Ya- {
+                                (Aplikasi Mobile) Kirim permintaan akhir sesi;
+                                (API) POST /api/training/sessions/{id}/end;
+                                (Sistem Backend) Ubah status sesi menjadi 'Selesai';
+                                (Sistem Backend) Picu proses kalkulasi hasil akhir;
+                                (API) Kirim respons sukses;
+                                (Aplikasi Mobile) Kembali ke halaman detail latihan & segarkan data;
+                                (Pelatih) Lihat ringkasan sesi yang telah selesai;
+                            }
+                            -Tidak- {
+                                // Lanjut memantau
+                            }
+                        }
+                        >Pelatih<;
+                    }
+                    -Tidak- {
+                        // Lanjut absensi
+                    }
+                }
+                >Pelatih<;
+            }
+            -Tidak- {
+                // Tetap di halaman detail
+            }
+        }
+        >Pelatih<;
+        @Pelatih@
+    }
+} 

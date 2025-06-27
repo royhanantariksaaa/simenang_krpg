@@ -1,0 +1,677 @@
+BAB IV
+IMPLEMENTASI DAN PENGUMPULAN DATA
+Pada bab ini memuat uraian proses dan hasil implementasi dari pendekatan integrasi design thinking dan scrum, yakni DT@Scrum terhadap pengembangan aplikasi mobile untuk pemantauan dan pelaporan smart farming yang mencakup tahapan-tahapan implementasi dan pengumpulan data selama pelaksanaan penelitian.
+4.1 Implementasi
+Berdasarkan pendekatan integrasi design thinking dan scrum dengan metode DT@Scrum sebagaimana telah disebutkan pada bahasan sebelumnya, telah dilakukan implementasi yang dibagi menjadi tiga fase, yakni design thinking phase, initial development phase, dan fully integrated phase. Masing-masing fase memiliki siklus tersendiri yang telah dilaksanakan dan akan dijelaskan sebagai berikut:
+4.1.1 Design Thinking Phase (Sprint 1)
+Sebagaimana pada pembahasan sebelumnya, menyebutkan bahwa fase ini merupakan fase yang berfokus pada aktivitas pemahaman masalah dan kebutuhan untuk eksplorasi dan menghasilkan ide inovatif. Pelaksanaan fase ini disebut juga dengan sprint 1 dan dilakukan dalam siklus yang memiliki beberapa tahap kecil, yaitu DT sprint planning, emphatize, define, ideate, prototyping, dan testing, serta DT sprint retrospective. Hasil dari siklus sprint 1 berupa basic set user story, low fidelity prototipe, dan visi produk sebagai tujuan akhir yang akan dicapai.
+4.1.1.1 DT Sprint Planning
+Pada tahapan ini dilakukan sesi perencanaan dari adaptasi sprint planning scrum pada aktivitas design thinking. Perencanaan dilakukan dengan menentukan sprint backlog item yang akan dilakukan. Hasil dari tahap ini adalah penyusunan DT sprint backlog sebagai daftar tugas/aktivitas yang dilakukan selama sprint berlangsung. Berikut adalah daftar DT sprint backlog sebagai hasil pelaksanaan DT sprint planning:
+Tabel IV.1 Daftar DT sprint backlog item (sprint 1)
+No.	DT Sprint Backlog item	Prioritas	Estimasi	Status
+1.	Penyusunan daftar pertanyaan	High	1 jam	Selesai
+2.	Pelaksanaan wawancara dan observasi	High	1,5 jam	Selesai
+3.	Transkrip dan rangkum hasil wawancara dan observasi	High	2 jam	Selesai
+4.	Pendefinisian masalah dan kebutuhan terhadap hasil wawancara	High	3 jam	Selesai
+5.	Pendefinisian basic set user story	High	3 jam	Selesai
+6.	Perancangan use case diagram	High	3 jam	Selesai
+7.	Perancangan activity diagram	Medium	16 jam	Selesai
+8.	Penentuan kebutuhan fungsional	High	2 jam	Selesai
+9.	Penentuan kebutuhan non fungsional	Medium	1 jam	Selesai
+10.	Perancangan physical data model	High	4 jam	Selesai
+11.	Perancangan kamus data untuk variabel yang akan digunakan pada fungsionalitas sistem	Medium	2 jam	Selesai
+12.	Perancangan wireframe/low fidelity design	High	16 jam	Selesai
+13.	Sesi Focus Group Discussion (FGD) untuk umpan balik terkait rancangan wireframe dan konsep hasil design thinking phase	High	1 jam	Selesai
+14.	Rangkum umpan balik dari sesi FGD (Focus Group Discussion)	Medium	1 jam	Selesai
+4.1.1.2 Emphatize
+Pelaksanaan tahap emphatize pada sprint 1 ini bertujuan untuk memahami permasalahan, kendala, harapan, dan kebutuhan pengguna melalui observasi dan wawancara langsung kepada pihak yang bersangkutan, yakni pihak penanggung jawab Rooftop Farming Center Universitas Telkom Surabaya. Pada tahap emphatize ini dilaksanakan backlog item berikut:
+Tabel IV.2 Daftar backlog item yang dilaksanakan pada tahap emphatize
+DT Sprint Backlog item	Prioritas	Estimasi	Status
+Penyusunan daftar pertanyaan	High	1 jam	Selesai
+Pelaksanaan wawancara dan observasi	High	1,5 jam	Selesai
+Transkrip dan rangkum hasil wawancara dan observasi	High	2 jam	Selesai
+Hasil dari pelaksanaan tahap emphatize ini berupa dokumentasi pelaksanaan yang telah dicantumkan pada Lampiran A Transkrip audio hasil sesi wawancara dan Lampiran B Dokumentasi sesi wawancara.
+
+4.1.1.3 Define
+Tabel IV.3 Daftar backlog item yang dilaksanakan pada tahap define
+DT Sprint Backlog item	Prioritas	Estimasi	Status
+Pendefinisian masalah dan kebutuhan terhadap hasil wawancara	High	3 jam	Selesai
+Pendefinisian basic set user story	High	3 jam	Selesai
+Pada tahap define, pelaksanaannya adalah mendefinisikan masalah dan meringkas kebutuhan sesuai hasil tahapan emphatize sebelumnya. Hasil pendefinisian tersebut telah dicantumkan pada Tabel III.2 Problem statement pada tahap define design thinking phase. Berdasarkan transkrip dan rangkuman hasil wawancara dan observasi yang telah didefinisikan menjadi problem statement didapatkan tiga poin utama, yaitu:
+1.	Manajemen data dan pelaporan
+Rooftop Farming Center membutuhkan buku catatan digital untuk menggantikan microsoft excel dan google form untuk mencatat semua data terkait aktivitas smart farming, seperti pelaporan harian tanaman, pelaporan hama dan penyakit, inventaris, dan hasil panen.
+2.	Jangkauan pemasaran terbatas
+Penjualan hasil panen dari Rooftop Farming Center masih sangat terbatas, hanya menjangkau lingkungan internal kampus, sehingga potensi pemasaran yang luas belum tercapai.
+3.	Pengingat harian
+Pengguna seringkali lupa atau melewatkan jadwal kegiatan rutin seperti pemantauan dan pelaporan, yang mengakibatkan data menjadi tidak konsisten. Selain itu, ada kebutuhan akan sistem yang sangat mudah digunakan oleh berbagai kalangan.
+Berdasarkan tiga poin utama yang didapatkan dari problem statement, dapat dilakukan pendefinisian basic user stories sebagai deskripsi singkat dari fitur yang akan diimplementasikan berdasarkan perspektif pengguna. Basic user stories yang telah didefinisikan juga telah diolah menjadi bentuk kebutuhan fungsional pada sub bab 3.6	Kebutuhan Fungsional.
+Tabel IV.4 Basic set user story
+No.	Basic set user story
+Umum
+1.	Sebagai pihak pengelola Rooftop Farming Center, saya menginginkan untuk dapat masuk ke aplikasi menggunakan email dan password, agar dapat mengakses fitur-fitur yang ada di dalam aplikasi.
+2.	Sebagai pihak pengelola Rooftop Farming Center, saya menginginkan untuk dapat keluar dari sesi akun aplikasi, agar dapat mengamankan data pribadi saya dan mencegah orang lain mengakses akun saya melalui perangkat yang sama.
+3.	Sebagai pengguna dengan izin akses yang lupa password, saya ingin dapat mengatur ulang password saya melalui email terdaftar pada aplikasi, sehingga saya dapat secara mandiri dan aman mendapatkan kembali akses ke akun saya.
+4.	Sebagai pengguna dengan izin akses yang sudah memiliki sesi masuk ke aplikasi, saya ingin untuk dapat mengubah data pribadi saya pada aplikasi, seperti foto profil, nama, dan email, sehingga profil saya dapat lebih terpersonalisasi dan mencerminkan identitas saya.
+Petugas lapangan
+5.	Sebagai pihak pengelola dengan peran petugas lapangan, saya ingin melakukan pelaporan harian terkait kondisi tanaman, sehingga data kondisi tanaman setiap harinya dapat terdokumentasi dengan baik.
+6.	Sebagai pihak pengelola dengan peran petugas lapangan, saya ingin mengunggah bukti kondisi tanaman di lapangan, sehingga pelaporan harian terkait kondisi tanaman saya menjadi lebih akurat.
+7.	Sebagai pihak pengelola dengan peran petugas lapangan, saya ingin melaporkan ada atau tidaknya hama/penyakit pada tanaman di RFC, sehingga dengan adanya laporan dapat dilakukan tindakan yang tepat.
+8.	Sebagai pihak pengelola dengan peran petugas lapangan, saya ingin melaporkan data tanaman sakit dan mati beserta jumlahnya, sehingga kondisi dan jumlah tanaman sakit dan mati dapat terpantau dan dapat dilakukan tindakan.
+9.	Sebagai pihak pengelola dengan peran petugas lapangan, saya ingin melaporkan pemberian nutrisi tanaman, seperti pupuk, vitamin, dan disinfektan, sehingga penggunaan inventaris dapat tercatat dengan baik.
+10.	Sebagai pihak pengelola dengan peran petugas lapangan, saya ingin melaporkan hasil panen, sehingga data hasil produksi dapat diketahui.
+11.	Sebagai pihak pengelola dengan peran petugas lapangan, saya ingin melakukan pendataan dan penggunaan inventaris, sehingga stok inventaris di lingkungan RFC dapat terpantau.
+12.	Sebagai pihak pengelola dengan peran petugas lapangan, saya ingin mendapatkan pengingat untuk melaporkan data harian, sehingga saya tidak lupa untuk melakukan tugas saya.
+Penanggung jawab
+13.	Sebagai pihak pengelola dengan peran penanggung jawab, saya ingin dapat memantau laporan harian tanaman dalam bentuk grafik atau data yang mudah dibaca, sehingga saya dapat dengan mudah menganalisis data untuk keperluan pengembangan smart farming.
+14.	Sebagai pihak pengelola dengan peran penanggung jawab, saya ingin dapat mengelola data pengguna, sehingga saya dapat memastikan hanya pengguna yang memiliki izin yang dapat mengakses aplikasi.
+15.	Sebagai pihak pengelola dengan peran penanggung jawab, saya ingin dapat mengelola data kebun, sehingga data budidaya kebun di lingkungan RFC dapat terkelola secara terpusat, terstruktur, dan mudah diakses untuk pemantauan harian.
+16.	Sebagai pihak pengelola dengan peran penanggung jawab, saya ingin mengelola data tanaman, sehingga informasi tentang tanaman yang dibudidayakan dapat terkelola secara terpusat, terstruktur, dan mudah diakses untuk pemantauan harian.
+17.	Sebagai pihak pengelola dengan peran penanggung jawab, saya ingin mengelola data komoditas tanaman, sehingga saya dapat memiliki informasi terkait hasil komoditas panen tanaman.
+18.	Sebagai pihak pengelola dengan peran penanggung jawab, saya ingin mengelola data grade hasil panen tanaman, sehingga saya dapat memiliki informasi terkait kategori kualitas hasil panen pada pelaporan panen.
+19.	Sebagai pihak pengelola dengan peran penanggung jawab, saya ingin mengelola data satuan, sehingga dapat saya gunakan untuk memastikan konsistensi dan standarisasi terkait satuan pada aplikasi.
+20.	Sebagai pihak pengelola dengan peran penanggung jawab, saya ingin mengelola data inventaris, sehingga inventaris yang diperlukan untuk budidaya dapat tercatat dengan baik.
+21.	Sebagai pihak pengelola dengan peran penanggung jawab, saya ingin dapat mengatur pengingat/notifikasi untuk pemantauan dan pelaporan data harian, sehingga saya dan petugas lapangan tidak lupa untuk melakukan tugas masing-masing dan dalam mengambil tindakan prevensi jika terjadi kendala.
+22.	Sebagai pihak pengelola dengan peran penanggung jawab, saya ingin memantau laporan hama/penyakit, sehingga dapat dilakukan tindakan yang tepat terhadap situasi tersebut.
+23.	Sebagai penanggung jawab atau inventor RFC, saya ingin memantau laporan data tanaman sehat, sakit, dan mati beserta jumlahnya dalam bentuk grafik atau data yang mudah dibaca, sehingga kondisi dan jumlah tanaman dapat terpantau.
+24.	Sebagai pihak pengelola dengan peran penanggung jawab, saya ingin memantau laporan pemberian nutrisi, seperti pupuk, vitamin, dan disinfektan dari petugas lapangan, sehingga dapat mengetahui informasi terkait pemberian nutrisi pada tanaman yang ada di RFC.
+25.	Sebagai pihak pengelola dengan peran penanggung jawab, saya ingin memantau laporan hasil panen dan komoditasnya dalam bentuk grafik atau data yang mudah dibaca, sehingga data hasil komoditas panen dapat diketahui.
+4.1.1.4 Ideate
+Tahap ideate merupakan tahap eksplorasi dengan sesi brainstorming untuk menghasilkan ide rancangan solusi. Hasil tahap ini berupa use case diagram telah dicantumkan pada Gambar III.3 Rancangan use case diagram, kebutuhan fungsional pada sub bab 3.6	Kebutuhan Fungsional, kebutuhan non fungsional pada sub bab 3.7	Kebutuhan Non Fungsional, perancangan kamus data pada Tabel III.3 Rancangan kamus data pelaporan dan pemantauan smart farming, physical data model, serta activity diagram yang dicantumkan pada masing-masing sprint.
+Tabel IV.5 Daftar backlog item yang dilaksanakan pada tahap ideate
+DT Sprint Backlog item	Prioritas	Estimasi	Status
+Perancangan use case diagram	High	3 jam	Selesai
+Perancangan activity diagram	Medium	16 jam	Selesai
+Penentuan kebutuhan fungsional	High	2 jam	Selesai
+Penentuan kebutuhan non fungsional	Medium	1 jam	Selesai
+Perancangan physical data model	High	4 jam	Selesai
+Perancangan kamus data untuk variabel yang akan digunakan pada fungsionalitas sistem	Medium	2 jam	Selesai
+Berikut adalah physical data model aplikasi yang merepresentasikan blueprint dari basis data relasional:
+ 
+Gambar IV.1 Physical data model (PDM)
+Rincian visual dari gambar physical data model disajikan secara terpisah pada 
+
+
+Lampiran C Physical data model untuk meningkatkan kejelasan. Physical data model ini sebagai visualisasi yang dapat mendeskripsikan bagaimana data akan disimpan dalam basis data. Data master pada model ini, yaitu data user, data jenis tanaman, data kebun, data satuan, data komoditas hasil panen, data grade hasil panen, data inventaris, dan data jenis hama. Masing-masing tabel memiliki relasi yang telah dirancang dengan seksama untuk mendukung fungsional utama dan proses bisnis pada aplikasi mobile pemantauan dan pelaporan smart farming. Physical data model mencakup dua proses bisnis berbeda yang diintegrasikan dalam sebuah basis data utama. Proses bisnis tersebut antara lain perkebunan ditandai dengan tabel berwarna biru, peternakan dengan tabel berwarna merah, dan tabel berwarna ungu sebagai tabel yang digunakan pada kedua proses bisnis.
+4.1.1.5 Low Fidelity Prototyping
+Tabel IV.6 Daftar backlog item yang dilaksanakan pada tahap prototyping
+DT Sprint Backlog item	Prioritas	Estimasi	Status
+Perancangan wireframe/low fidelity design	High	16 jam	Selesai
+Pada tahap prototyping dilakukan eksekusi rancangan tahap ideate menjadi bentuk low fidelity design atau wireframe. Bentuk low fidelity design berfokus pada tata letak fungsionalitas utama dan visualisasi alur pengguna. Perancangan dilakukan menggunakan tools Figma dan dieksekusi menyesuaikan dengan kebutuhan yang telah didefinisikan sebelumnya. Melalui wireframe ini tim dapat memiliki gambaran kasar terkait alur-alur yang terjadi pada aplikasi, seperti alur dalam mengakses data jenis tanaman, kebun, komoditas, inventaris, dan alur membuat laporan. Bentuk wireframe ini akan digunakan sebagai dasar untuk prototipe high fidelity design pada sprint selanjutnya.
+ 
+Gambar IV.2 Wireframe aplikasi
+4.1.1.6 Testing (Sprint Review)
+Tahap testing design thinking phase dilakukan dalam bentuk Focus Group Discussion (FGD) bersama pihak penanggung jawab Rooftop Farming Center untuk mendapatkan umpan balik cepat terhadap konsep dan alur yang diusulkan. Tahap ini mencerminkan sprint review untuk meninjau hasil kerja selama siklus sprint dan menerima masukan dari para pemangku kepentingan.
+Tabel IV.7 Daftar backlog item yang dilaksanakan pada tahap testing
+DT Sprint Backlog item	Prioritas	Estimasi	Status
+Sesi Focus Group Discussion (FGD) untuk umpan balik terkait rancangan wireframe dan konsep hasil design thinking phase	High	1 jam	Selesai
+Rangkum umpan balik dari sesi FGD (Focus Group Discussion)	Medium	1 jam	Selesai
+Sprint berhasil diselesaikan sesuai rencana dengan hasil konsep dan alur yang diusulkan berupa rancangan wireframe, basic set user stories, rancangan use case diagram, activity diagram, rancangan physical data model dan kamus data. Poin yang ditekankan dari hasil FGD yang dilakukan adalah pelaporan tanaman baik harian dan pelaporan lainnya ditekankan agar dijadikan satu polybag satu tanaman satu laporan. Selain itu, tidak ditemukan kendala signifikan terkait konsep dan alur yang diusulkan sehingga dapat melanjutkan ke initial development phase (sprint 2).
+4.1.1.7 DT Sprint Retrospective
+Tahap terakhir pada design thinking phase adalah DT sprint retrospective pada akhir sprint sebagai refleksi dan evaluasi terhadap produktivitas pengerjaan. Evaluasi yang didapatkan agar produktivitas sprint-sprint berikutnya tetap terjaga dan dapat selalu selesai sesuai dengan rencana. Apabila sprint selesai lebih cepat maka tim dapat memanfaatkan sisa waktu yang ada untuk aktivitas yang memberikan peningkatan nilai tambah pada hasil sprint. Refleksi yang dilakukan agar tetap menjaga konsistensi dan performa pengerjaan.
+4.1.2 Initial Development Phase (Sprint 2)
+Fase kedua implementasi pendekatan DT@Scrum adalah initial development phase. Pelaksanaan fase ini juga disebut dengan sprint 2. Hasil fase ini berupa high fidelity design yang dikerjakan dengan mengubah low fidelity design yang sederhana menjadi desain yang lebih rinci dan realistis melalui penambahan elemen visual, seperti komposisi warna, tipografi, ikon, dan gambar. Pada fase ini juga dilakukan pengujian System Usability Scale. Tujuannya adalah untuk mematangkan desain antarmuka dan pengalaman pengguna agar lebih baik lagi sebelum implementasi coding dilakukan pada sprint selanjutnya.
+4.1.2.1 Mixed Sprint Planning
+Pelaksanaan initial development phase dimulai dengan mixed sprint planning untuk menentukan daftar backlog item yang akan dilaksanakan selama siklus sprint 2. Berikut adalah daftar mixed sprint backlog item pada sprint 2:
+Tabel IV.8 Daftar mixed sprint backlog item (sprint 2)
+No.	Mixed Sprint Backlog item	Prioritas	Estimasi	Status
+1.	Pengerjaan high fidelity design 	High	32 jam	Selesai
+2.	Pengerjaan prototipe interaktif	High	8 jam	Selesai
+3.	Simulasi klik prototipe dilakukan tim penelitian	Medium	4 jam	Selesai
+4.	Pelaksanaan usability testing menggunakan SUS (System Usability Scale)	High	1 Minggu	Selesai
+5.	Identifikasi kekurangan hasil usability testing	High	4 jam	Selesai
+6.	Pengerjaan perbaikan 	High	16 jam	Selesai
+4.1.2.2 High Fidelity Prototyping
+Tahap utama initial development phase adalah mengubah low fidelity design pada design thinking phase yang sederhana menjadi desain yang lebih matang, rinci, dan realistis melalui penambahan elemen visual yang disebut high fidelity design. Pada tahap ini juga dilakukan penyusunan prototipe interaktif dari high fidelity design agar desain dapat memberikan interaktivitas kepada para pemangku kepentingan dalam bentuk simulasi klik terhadap desain. Simulasi klik atau yang disebut daily clickthrough of prototype bertujuan memastikan desain sesuai dengan alur aplikasi atau tidak, serta memastikan elemen visual dan navigasi pada prototipe berjalan dengan baik.
+ 
+Gambar IV.3 Rancangan high fidelity prototype
+Rincian visual dari gambar rancangan high fidelity design disajikan secara terpisah pada masing-masing pelaksanaan sprint untuk meningkatkan kejelasan.
+4.1.2.3 System Usability Scale
+Rancangan high fidelity design pada tahap prototyping kemudian dilakukan uji coba oleh para pemangku kepentingan dengan tujuan mendapat umpan balik kembali terkait implementasi desain dan prototipe. Para pemangku kepentingan tersebut, yaitu penanggung jawab Rooftop Farming Center, petugas lapangan, serta mahasiswa dan dosen yang sedang melakukan penelitian smart farming di Rooftop Farming Center.
+Tabel IV.9 Hasil hitung SUS initial development phase
+Skor Hasil Hitung SUS	Jumlah	Nilai
+Q1	Q2	Q3	Q4	Q5	Q6	Q7	Q8	Q9	Q10		(Jumlah x 2.5)
+2	1	1	0	2	3	3	3	2	0	17	43
+4	1	1	4	4	2	3	0	2	4	25	63
+2	2	3	3	2	3	1	3	3	2	24	60
+3	2	3	1	1	3	2	4	2	2	23	58
+4	4	4	0	4	4	4	4	4	4	36	90
+4	0	4	0	4	4	4	4	4	1	29	73
+4	4	3	3	4	4	4	4	4	4	38	95
+4	3	4	4	3	4	3	3	4	4	36	90
+4	3	3	3	2	4	4	3	2	4	32	80
+4	4	4	4	3	4	4	3	4	4	38	95
+Skor Rata-rata (Hasil Akhir)	75
+Berdasarkan hasil pelaksanaan pengujian System Usability Scale (SUS) yang diisi oleh 10 responden dengan skor beragam dari skor terendah 43 dan skor tertinggi 95. Dari keseluruhan data, skor rata-rata yang diperoleh adalah 75, yang tergolong dalam kategori "Good" atau "Baik", dan berada di atas rata-rata umum (yaitu 68). Hal ini menunjukkan bahwa hasil perancangan high fidelity prototype memiliki tingkat usability yang baik dan dapat diterima dengan positif oleh sebagian besar pengguna. Meskipun demikian, adanya skor di bawah 68 mengindikasikan bahwa masih ada beberapa aspek yang bisa menjadi kendala bagi sebagian pengguna lain. Selain data kuantitatif dari SUS, terdapat pula masukan kualitatif dari responden. Rata-rata masukan perbaikan yang diberikan terkait dengan perlunya panduan atau tutorial awal dalam menjalankan prototipe aplikasi. 
+Berdasarkan hasil pengujian, direkomendasikan untuk mempertahankan dan meningkatkan tingkat usability yang sudah baik ini. Fokus perbaikan selanjutnya adalah dengan mengembangkan panduan penggunaan aplikasi untuk membantu pengguna baru. Selain itu, perlu dilakukan analisis lebih lanjut terhadap masukan dari responden yang memberikan skor rendah untuk mengidentifikasi dan memperbaiki masalah spesifik. Tujuannya adalah untuk meningkatkan skor rata-rata SUS pada pengujian berikutnya agar dapat mencapai kategori "Excellent" (di atas 80).
+4.1.2.4 Mixed Sprint Retrospective
+Mixed sprint retrospective ini dilakukan untuk mengevaluasi initial development phase berdasarkan hasil pengujian SUS dan umpan balik kualitatif. Temuan utamanya adalah bahwa prototipe aplikasi telah mencapai tingkat kebergunaan yang "Baik" dengan skor rata-rata 75, yang menandakan desain inti dan fungsionalitasnya diterima secara positif. Namun, rentang skor yang lebar dan masukan dari responden secara konsisten menyoroti adanya tantangan utama, yaitu kurangnya panduan awal yang menyebabkan sebagian pengguna mengalami kesulitan saat pertama kali berinteraksi dengan aplikasi.
+Berdasarkan temuan tersebut, rencana aksi untuk sprint berikutnya akan difokuskan pada peningkatan pengalaman pengguna baru. Prioritas utama adalah merancang dan mengimplementasikan fitur panduan untuk memudahkan pengguna beradaptasi. Selain itu, tim akan menganalisis umpan balik dari responden dengan skor rendah untuk memperbaiki titik kesulitan spesifik. Tujuan akhirnya adalah untuk menyempurnakan alur aplikasi dan menargetkan peningkatan skor SUS hingga mencapai kategori "Excellent" pada siklus pengujian selanjutnya.
+4.1.3 Fully Integrated Phase (Sprint 3, 4, 5)
+Pada fully integrated phase dilakukan eksekusi untuk mengubah prototipe interaktif dari hasil fase sebelumnya menjadi produk jadi melalui coding. Fase ini dibagi menjadi tiga sprint, dengan masing-masing sprint memiliki backlog item masing-masing. Fase dimulai dengan penyusunan keseluruhan product backlog item yang akan dikerjakan selama siklus berlangsung. Rancangan keseluruhan product backlog item dapat dilihat pada Tabel III.5 Rancangan product backlog item.
+ 
+Gambar IV.4 Pengujian endpoint API menggunakan tools Postman
+Pada fully integrated phase, setiap sprint backlog item dikerjakan melalui alur kerja yang terstruktur. Proses ini diawali dari sisi back-end, yaitu dengan membuat logika dan endpoint API menggunakan Node.js, yang kemudian fungsionalitasnya divalidasi melalui pengujian terisolasi dengan tools Postman. Setelah sisi back-end siap, pengembangan berlanjut ke front-end dengan mengimplementasikan high fidelity prototype dari hasil initial development phase pada Flutter. Tahap krusial berikutnya adalah proses integrasi, di mana sebuah service pada aplikasi Flutter dibuat untuk mengonsumsi API yang telah tersedia. Sebagai langkah final, fitur yang sudah terintegrasi penuh akan melalui pengujian black box testing untuk memverifikasi bahwa semua fitur berfungsi dengan baik dengan manual testing dan automation testing menggunakan tools magicpod.
+ 
+Gambar IV.5 Pengujian black box testing menggunakan tools magicpod
+4.1.3.1 Sprint 3
+Pelaksanaan sprint tiga dimulai dengan sprint planning untuk menentukan backlog item mana saja yang akan dikerjakan pada sprint ini. Hasil penyusunan backlog item pada sprint tiga adalah sebagai berikut:
+Tabel IV.10 Daftar sprint backlog item pada sprint 3
+No.	Kode	Sprint Backlog item	Prioritas	Estimasi	Status
+1.	FR01	Login	High	 jam	Selesai
+2.	FR02	Logout	Medium	 jam	Selesai
+3.	FR03	Manajemen pengguna	High	 jam	Selesai
+4.	FR04	Menu beranda	High	 jam	Selesai
+5.	FR05	Manajemen jenis tanaman	High	 jam	Selesai
+6.	FR07	Manajemen kebun	High	 jam	Selesai
+7.	FR09	Manajemen satuan	High	 jam	Selesai
+8.	FR10	Manajemen komoditas	High	 jam	Selesai
+9.	FR11	Manajemen grade hasil panen	High	 jam	Selesai
+10.	FR12	Menu inventaris	High	 jam	Selesai
+11.	FR13	Manajemen kategori inventaris	High	 jam	Selesai
+12.	FR14	Manajemen inventaris	High	 jam	Selesai
+13.	FR37	Menu laporan	High	 jam	Selesai
+4.1.3.1.1 Login
+Backlog item pertama yang dikerjakan pada sprint tiga adalah fitur login. Fitur ini harus dapat memungkinkan semua aktor yang memiliki akun aplikasi dan izin akses dari penanggung jawab RFC untuk dapat masuk dan menggunakan fitur yang tersedia pada aplikasi menggunakan data akses, yaitu email dan password.
+ 
+Gambar IV.6 Antarmuka login
+Pada halaman login aplikasi pengguna diarahkan ke tampilan awal halaman untuk mengisi kolom email dan password. Pada halaman login juga terdapat tautan teks lupa password untuk mengarahkan pengguna ke halaman lupa password.
+ 
+Gambar IV.7 Activity diagram login
+Activity Diagram pada Gambar IV.7 menggambarkan alur proses login pengguna ke dalam sistem. Proses diawali dengan pengecekan apakah pengguna sudah memiliki sesi aktif atau tidak. Jika sudah, pengguna akan langsung diarahkan ke beranda aplikasi. Jika belum, sistem akan menampilkan halaman login yang meminta pengguna dengan akun (mencakup semua peran seperti penanggung jawab RFC, petugas, dan inventor) untuk memasukkan email dan password.
+Setelah pengguna memasukkan kredensialnya, sistem akan melakukan validasi. Pertama, format masukan diperiksa. Jika tidak valid, pesan kesalahan akan ditampilkan. Jika valid, sistem akan mencocokkan data tersebut dengan yang ada di tabel user. Apabila proses otentikasi berhasil, sistem akan membuat token sesi login dan mengarahkan pengguna ke beranda. Namun, jika otentikasi gagal, pengguna akan menerima pesan kesalahan dan diminta untuk mencoba kembali.
+4.1.3.1.2 Logout
+ 
+Gambar IV.8 Antarmuka logout
+Fitur logout berfungsi untuk mengakhiri sesi pengguna secara aman dan keluar dari aplikasi. Fitur ini dapat diakses dengan mudah oleh pengguna pada menu akun.
+ 
+Gambar IV.9 Activity diagram logout
+Activity diagram pada Gambar IV.9 menggambarkan alur proses logout atau keluar dari sistem yang dapat dilakukan oleh semua peran pengguna yang telah login. Proses dimulai ketika pengguna yang telah masuk ke dalam aplikasi mengakses menu akun. Sistem kemudian akan merespons dengan menampilkan halaman yang berisi berbagai menu terkait akun. Pengguna selanjutnya memilih menu untuk keluar dari akun (logout). Setelah menu keluar dipilih, sistem akan menampilkan pesan konfirmasi untuk memastikan bahwa pengguna benar-benar ingin mengakhiri sesi. Apabila proses logout berhasil, pengguna akan diarahkan kembali ke halaman login. Sebaliknya, jika terjadi kegagalan dalam proses tersebut, sistem akan menampilkan pesan kesalahan.
+
+
+4.1.3.1.3 Manajemen Pengguna
+ 
+Gambar IV.10 Antarmuka manajemen pengguna
+Manajemen pengguna adalah fitur yang berfungsi untuk mengelola data semua pengguna yang terdaftar di dalam sistem. Fitur ini mencakup proses menambah, mengubah, mengatur peran, mengaktifkan, dan menonaktifkan pengguna. 
+a.	Melihat dan mencari data pengguna
+ 
+Gambar IV.11 Activity diagram melihat dan mencari data pengguna
+Gambar IV.11 menunjukkan activity diagram untuk melihat dan mencari data pengguna. Proses diawali ketika pengguna mengakses menu akun, kemudian memilih menu manajemen pengguna. Secara otomatis, sistem akan menampilkan halaman manajemen pengguna yang berisi seluruh daftar pengguna yang tersimpan di tabel user. Jika tidak ada data yang ditemukan, sistem akan menampilkan pesan informasi.
+b.	Mendaftarkan pengguna baru
+ 
+Gambar IV.12 Activity diagram mendaftarkan pengguna baru
+Gambar IV.12 menunjukkan activity diagram untuk mendaftarkan pengguna baru. Proses penambahan pengguna diawali dengan pengisian dan penyimpanan data melalui form tambah pengguna. Setelah itu, sistem secara berurutan akan melakukan validasi, mengunggah gambar ke Cloudinary, dan menyimpan data akhir ke database. Jika ada kegagalan di setiap langkah, pengguna akan menerima pesan kesalahan untuk mencoba kembali, karena proses baru akan selesai setelah data berhasil tersimpan.
+
+
+c.	Mengubah data pengguna
+ 
+Gambar IV.13 Activity diagram mengubah data pengguna
+Gambar IV.13 menunjukkan activity diagram mengubah data pengguna. Proses pengubahan data dimulai ketika penanggung jawab RFC memilih pengguna dan menyimpan perubahan melalui form ubah data. Setelah itu, sistem akan memvalidasi data, secara kondisional mengunggah gambar baru ke Cloudinary jika ada perubahan, dan menyimpan semua pembaruan ke database, atau akan menampilkan pesan kesalahan jika proses tersebut gagal.
+d.	Mengaktivasi dan deaktivasi data pengguna
+Gambar IV.14 menunjukkan activity diagram menghapus data pengguna. Proses penghapusan data pengguna diawali saat penanggung jawab RFC menekan tombol deaktivasi pengguna pada halaman detail, yang kemudian akan memicu sebuah pesan konfirmasi dari sistem untuk mencegah kesalahan. Setelah dikonfirmasi oleh pengguna, data akan dideaktivasi jika proses berhasil, dan jika gagal sebuah pesan kesalahan akan ditampilkan.
+ 
+Gambar IV.14 Activity diagram mengaktivasi dan deaktivasi data pengguna
+4.1.3.1.4 Menu Beranda
+ 
+Gambar IV.15 Antarmuka beranda
+Halaman beranda berfungsi sebagai halaman utama yang berisi ringkasan informasi penting, statistik, dan navigasi cepat ke fitur-fitur utama setelah pengguna berhasil login. Pada beranda penanggung jawab RFC dan inventor terdapat ringkasan "Statistik Perkebunan Bulan Ini" melalui kartu-kartu visual yang informatif. Kartu-kartu ini menyoroti metrik penting seperti suhu, jumlah jenis tanaman, data tanaman mati, dan laporan panen, sehingga memberikan gambaran cepat mengenai kondisi terkini perkebunan. Pengguna juga dapat menekan tautan "Lihat Laporan" untuk beralih ke halaman laporan untuk melihat lebih detail. Pada beranda petugas ringkasan statistik digantikan dengan menu pelaporan harian dan pelaporan khusus sebagai akses utama untuk menunjang peran petugas. 
+Pada halaman ini terdapat floating button sebagai aksi cepat untuk menambah data. Kemudian, jika halaman di-scroll ke bawah, maka akan ditampilkan beberapa komponen, seperti menu manajemen, riwayat aktivitas terbaru, dan juga beberapa data dari jenis tanaman, kebun, dan komoditas ditampilkan.
+ 
+Gambar IV.16 Activity diagram menampilkan menu beranda
+Gambar IV.16 menunjukkan activity diagram untuk proses memuat data dan menampilkan menu beranda. Saat halaman diakses, sistem secara otomatis akan mengambil data terkini dari berbagai tabel di database, seperti data budidaya, laporan, dan komoditas untuk ditampilkan pada halaman menu beranda. Setelah itu, sistem akan memvalidasi keberhasilan proses tersebut. Jika berhasil, halaman beranda akan ditampilkan dengan lengkap beserta data yang tersedia. Namun, jika gagal, sistem akan menampilkan pesan kesalahan.
+4.1.3.1.5 Manajemen Jenis Tanaman
+ 
+Gambar IV.17 Antarmuka manajemen jenis tanaman
+Fitur manajemen jenis tanaman berfungsi untuk mengelola data master jenis tanaman yang akan dibudidayakan. Pengelolaannya mencakup menambah, melihat, mengubah, dan menghapus jenis tanaman.
+a.	Melihat dan mencari data jenis tanaman
+ 
+Gambar IV.18 Activity diagram melihat dan mencari data jenis tanaman
+Gambar IV.18 menunjukkan alur pengguna untuk mengakses dan mencari data jenis tanaman yang dibudidayakan. Proses dimulai saat pengguna menavigasi dari tab perkebunan di beranda ke menu manajemen jenis tanaman. Setelah berada pada halaman manajemen jenis tanaman, pengguna dapat melakukan pencarian spesifik dengan memasukkan kata kunci, yang kemudian akan digunakan sistem untuk mencari data dari tabel jenis budidaya. Berdasarkan hasil pencarian, sistem akan menampilkan daftar jenis tanaman yang sesuai, atau menampilkan pesan "Tidak ada data yang ditemukan" jika data yang dicari tidak ada.
+b.	Menambahkan data jenis tanaman
+ 
+Gambar IV.19 Activity diagram menambahkan data jenis tanaman
+Proses penambahan data diawali dengan pengisian dan penyimpanan data melalui form tambah jenis tanaman. Setelah itu, sistem secara berurutan akan melakukan validasi, mengunggah gambar ke Cloudinary, dan menyimpan data akhir ke database. Jika ada kegagalan di setiap langkah, pengguna akan menerima pesan kesalahan untuk mencoba kembali, karena proses baru akan selesai setelah data berhasil tersimpan.
+c.	Mengubah data jenis tanaman
+ 
+Gambar IV.20 Activity diagram mengubah data jenis tanaman
+Proses pengubahan data dimulai ketika penanggung jawab RFC mengakses dan mengisi form ubah data. Perubahan yang ada akan setelah sistem melakukan validasi data. Jika terjadi perubahan gambar baru, maka sistem akan mengunggah gambar baru ke Cloudinary, dan menyimpan semua pembaruan ke database, atau akan menampilkan pesan kesalahan jika proses tersebut gagal.
+d.	Menghapus data jenis tananam
+Gambar IV.21 menunjukkan proses menghapus data jenis tanaman setelah pengguna mengakses halaman detail data jenis tanaman dan menekan tombol hapus data. Sistem kemudian akan menampikan pesan konfirmasi penghapusan data dan melanjutkan proses penghapusan atau tidak sesuai dengan pesan konfirmasi yang dipilih pengguna.
+ 
+Gambar IV.21 Activity diagram menghapus data jenis tanaman
+4.1.3.1.6 Manajemen Kebun
+ 
+Gambar IV.22 Antarmuka manajemen kebun
+Fitur manajemen kebun berfungsi untuk mengelola data master kebun yang akan dibudidayakan. Pengelolaannya mencakup menambah, melihat, mengubah, dan menghapus kebun.
+a.	Melihat dan mencari data kebun
+Gambar IV.23 Activity diagram melihat dan mencari data kebun
+Gambar IV.23 menunjukkan alur pengguna untuk mengakses dan mencari data kebun yang dibudidayakan. Proses dimulai saat pengguna menavigasi dari tab perkebunan di beranda ke menu manajemen kebun. Setelah berada pada halaman manajemen kebun, pengguna dapat melihat daftar kebun yang tersedia dan melakukan pencarian data.
+b.	Menambahkan data kebun
+ 
+Gambar IV.24 Activity diagram menambahkan data kebun
+Proses dimulai dengan pengguna mengakses form tambah data kebun. Form tersebut dapat diakses melalui menu manajemen kebun atau juga melalui floating button aksi cepat tambah kebun. Setelah itu, sistem secara berurutan akan melakukan validasi, mengunggah gambar ke Cloudinary, dan menyimpan data akhir ke database. Jika ada kegagalan di setiap langkah, pengguna akan menerima pesan kesalahan untuk mencoba kembali, karena proses baru akan selesai setelah data berhasil tersimpan. Ketika menambahkan data kebun, juga menambahkan data tanaman sesuai dengan jumlah tanaman (satu tanaman satu media tanam) pada kebun pada tabel objek budidaya.
+c.	Mengubah data kebun
+Gambar IV.25 Activity diagram mengubah data kebun
+Proses pengubahan data dimulai ketika penanggung jawab RFC mengakses dan mengisi form ubah data setelah menekan tombol ubah data pada halaman detail kebun. Perubahan yang ada akan setelah sistem melakukan validasi data. Jika terjadi perubahan gambar baru, maka sistem akan mengunggah gambar baru ke Cloudinary, dan menyimpan semua pembaruan ke database, atau akan menampilkan pesan kesalahan jika proses tersebut gagal.
+d.	Menghapus data kebun
+Gambar IV.26 Activity diagram menghapus data kebun
+Gambar IV.26 menunjukkan proses menghapus data kebun setelah pengguna mengakses halaman detail data kebun dan menekan tombol hapus data. Sistem kemudian akan menampikan pesan konfirmasi penghapusan data dan melanjutkan proses penghapusan atau tidak sesuai dengan pesan konfirmasi yang dipilih pengguna. Ketika menghapus data kebun, maka data tanaman pada kebun juga dihapus.
+4.1.3.1.7 Manajemen Satuan
+Fitur manajemen satuan mengelola satuan yang digunakan dalam aplikasi untuk konsistensi data pada inventaris dan laporan panen, seperti kg, pcs, ikat, dan liter. Fitur ini hanya dapat diakses oleh penanggung jawab RFC yang tersedia pada halaman menu akun.
+ 
+Gambar IV.27 Antarmuka manajemen satuan
+a.	Melihat dan mencari data satuan
+ 
+Gambar IV.28 Activity diagram melihat dan mencari data satuan
+Proses dimulai saat pengguna mengakses fitur manajemen satuan pada halaman menu akun. Setelah berada pada halaman manajemen satuan, pengguna dapat melihat daftar satuan yang tersedia dan melakukan pencarian data melalui kolom pencarian.
+b.	Menambahkan data satuan
+Alur menambahkan data satuan prosesnya dimulai ketika pengguna mengakses form tambah satuan. Setelah form selesai diisi dan disimpan, sistem akan melakukan validasi untuk menyimpan data pada tabel satuan di database.
+ 
+Gambar IV.29 Activity diagram menambahkan data satuan
+c.	Mengubah dan menghapus data satuan
+Gambar IV.30 menunjukkan alur proses mengubah dan menghapus data satuan dengan cara pengguna memilih salah satu data yang akan diubah atau dihapus, kemudian menekan tombol ubah atau hapus untuk memicu sistem memproses permintaan ubah atau hapus data. Ketika ditekan tombol ubah maka akan ditampilkan form ubah data untuk diisi perubahan datanya, sedangkan ketika ditekan tombol hapus maka akan menampilkan pesan konfirmasi penghapusan data.
+ 
+Gambar IV.30 Activity diagram mengubah dan menghapus data satuan
+4.1.3.1.8 Manajemen Komoditas
+Fitur manajemen komoditas berfungsi untuk mengelola data komoditas hasil panen tanaman yang dibudidayakan di kebun. Pengelolaannya mencakup menambah, melihat, mengubah, dan menghapus data komoditas hasil panen tanaman.
+Pada halaman manajemen komoditas terdapat dua komponen tab, yaitu tab komoditas perkebunan dan tab komoditas peternakan. Tab komoditas perkebunan hanya menampilkan daftar data komoditas hasil panen tanaman, sedangkan tab komoditas peternakan hanya menampilkan daftar data komoditas hasil panen ternak.
+ 
+Gambar IV.31 Antarmuka manajemen komoditas perkebunan
+a.	Melihat dan mencari data komoditas
+ 
+Gambar IV.32 Activity diagram melihat dan mencari data komoditas perkebunan
+Gambar IV.32 menunjukkan proses mengakses daftar data komoditas perkebunan dan mencari data komoditas berdasarkan keyword yang dimasukkan pada kolom pencarian.
+b.	Menambahkan data komoditas
+ 
+Gambar IV.33 Activity diagram menambahkan data komoditas perkebunan
+Proses penambahan data diawali dengan pengisian melalui form tambah komoditas yang dapat diakses dengan menekan floating button pada halaman manajemen komoditas. Setelah diisi dan disimpan, sistem secara berurutan akan melakukan validasi, mengunggah gambar ke Cloudinary, dan menyimpan data akhir ke database. Jika ada kegagalan di setiap langkah, pengguna akan menerima pesan kesalahan untuk mencoba kembali, karena proses baru akan selesai setelah data berhasil tersimpan
+c.	Mengubah data komoditas
+ 
+Gambar IV.34 Activity diagram mengubah data komoditas perkebunan
+Proses pengubahan data dimulai ketika pengguna mengakses dan mengisi form ubah data. Perubahan yang ada akan setelah sistem melakukan validasi data. Jika terjadi perubahan gambar baru, maka sistem akan mengunggah gambar baru ke Cloudinary, dan menyimpan semua pembaruan ke database, atau akan menampilkan pesan kesalahan jika proses tersebut gagal
+d.	Menghapus data komoditas
+Gambar IV.35 menunjukkan proses menghapus data komoditas hasil panen perkebunan setelah pengguna mengakses halaman detail data komoditas dan menekan tombol hapus data. Sistem kemudian akan menampikan pesan konfirmasi penghapusan data dan melanjutkan proses penghapusan atau tidak sesuai dengan pesan konfirmasi yang dipilih pengguna. 
+ 
+Gambar IV.35 Activity diagram menghapus data komoditas perkebunan
+4.1.3.1.9 Manajemen Grade Hasil Panen
+ 
+Gambar IV.36 Antarmuka manajemen grade hasil panen
+Fitur manajemen grade hasil panen berfungsi untuk mengelola data grade hasil panen untuk mendefinisikan tingkatan kualitas (grade) hasil panen, seperti Grade A, B, C, dan lain sebagainya. Pengelolaannya mencakup menambah, melihat, mengubah, dan menghapus data grade hasil panen.
+a.	Melihat dan mencari data grade hasil panen
+ 
+Gambar IV.37 Activity diagram melihat dan mencari data grade hasil panen
+Gambar IV.37 menunjukkan proses mengakses daftar data grade hasil panen dan mencari data berdasarkan keyword yang dimasukkan pada kolom pencarian.
+b.	Menambahkan data grade hasil panen
+Proses penambahan data diawali dengan pengisian dan penyimpanan data melalui form tambah grade hasil panen. Setelah itu, sistem secara berurutan akan melakukan validasi, mengunggah gambar ke Cloudinary, dan menyimpan data akhir ke database. Jika ada kegagalan di setiap langkah, pengguna akan menerima pesan kesalahan untuk mencoba kembali, karena proses baru akan selesai setelah data berhasil tersimpan.
+ 
+Gambar IV.38 Activity diagram menambahkan data grade hasil panen
+c.	Mengubah dan menghapus data grade hasil panen
+Proses pengubahan data dimulai ketika pengguna mengakses dan mengisi form ubah data. Perubahan yang ada akan setelah sistem melakukan validasi data. Jika terjadi perubahan gambar baru, maka sistem akan mengunggah gambar baru ke Cloudinary, dan menyimpan semua pembaruan ke database, atau akan menampilkan pesan kesalahan jika proses tersebut gagal.
+ 
+Gambar IV.39 Activity diagram menghapus data grade hasil panen
+Proses penghapusan data dimulai setelah pengguna menekan tombol hapus data. Sistem kemudian akan menampikan pesan konfirmasi penghapusan data dan melanjutkan proses penghapusan atau tidak sesuai dengan pesan konfirmasi yang dipilih pengguna. 
+4.1.3.1.10 Menu Inventaris
+Fitur menu inventaris berfungsi sebagai halaman yang berisi ringkasan informasi stok yang tersedia dan statistik, serta navigasi cepat ke fitur-fitur pengelolaan inventaris. Pada halaman ini terdapat menu manajemen kategori inventaris, manajemen inventaris, dan riwayat pemakaian inventaris. Selain itu, juga terdapat floating button sebagai aksi cepat untuk menambah data. Kemudian, jika halaman di-scroll ke bawah, maka akan ditampilkan beberapa data dari riwayat pemakaian inventaris terbaru dan daftar inventaris ditampilkan. 
+ 
+Gambar IV.40 Antarmuka menu inventaris
+Gambar IV.41 menunjukkan activity diagram untuk proses memuat data dan menampilkan menu inventaris. Saat halaman diakses, sistem secara otomatis akan mengambil data terkini dari berbagai tabel di database, seperti data inventaris, laporan penggunaan inventaris, dan kategori inventaris untuk ditampilkan pada halaman menu inventaris.
+ 
+Gambar IV.41 Activity diagram menampilkan menu inventaris
+4.1.3.1.11 Manajemen Kategori Inventaris
+ 
+Gambar IV.42 Antarmuka manajemen kategori inventaris
+Fitur manajemen kategori inventaris berfungsi untuk mengelola daftar kategori barang inventaris sebagai upaya pengelompokan item inventaris berdasarkan kategorinya. Pengelolaan pada fitur manajemen ini mencakup menambah, melihat, mengubah, dan menghapus data kategori inventaris.
+a.	Melihat dan mencari data kategori inventaris
+ 
+Gambar IV.43 Activity diagram melihat dan mencari data kategori inventaris
+Proses dimulai saat pengguna mengakses fitur manajemen kategori inventaris pada halaman menu inventaris. Setelah berada pada halaman manajemen kategori inventaris, pengguna dapat melihat daftar data kategori inventaris yang tersedia dan dapat melakukan pencarian data melalui kolom pencarian.
+b.	Menambahkan data kategori inventaris
+Alur menambahkan data kategori inventaris prosesnya dimulai ketika pengguna mengakses form tambah kategori inventaris dengan menekan floating button pada halaman manajemen kategori inventaris. Setelah form selesai diisi dan disimpan, sistem akan melakukan validasi untuk menyimpan data pada tabel kategori inventaris di database.
+ 
+Gambar IV.44 Activity diagram menambahkan data kategori inventaris
+c.	Mengubah dan menghapus kategori inventaris
+Gambar IV.45 menunjukkan alur proses mengubah dan menghapus data kategori inventaris dengan cara pengguna memilih salah satu data yang akan diubah atau dihapus, kemudian menekan tombol ubah atau hapus untuk memicu sistem memproses permintaan ubah atau hapus data. Ketika ditekan tombol ubah maka akan ditampilkan form ubah data untuk diisi perubahan datanya, sedangkan ketika ditekan tombol hapus maka akan menampilkan pesan konfirmasi penghapusan data.
+ 
+Gambar IV.45 Activity diagram mengubah dan menghapus data kategori inventaris
+4.1.3.1.12 Manajemen Inventaris
+Fitur manajemen inventaris berfungsi untuk mengelola barang/item inventaris, termasuk menambah barang baru, melakukan penambahan dan pengurangan stok, mengubah data barang, dan menghapus data barang/item inventaris. Pada halaman manajemen inventaris terdapat dua tab utama, yaitu inventaris dan hasil panen. Pada tab inventaris menampilkan daftar barang/item inventaris, sedangkan tab hasil panen menampilkan daftar inventaris dari hasil panen, yaitu komoditas beserta stoknya.
+Pada halaman manajemen inventaris juga sudah dikategorikan berdasarkan stok seperti stok rendah, stok habis, dan stok tersedia. Terdapat komponen chip juga yang ditampilkan berdasarkan kategori inventaris, yang nantinya ketika chip tersebut dipilih akan menampilkan barang inventaris sesuai dengan kategorinya.
+ 
+Gambar IV.46 Antarmuka manajemen inventaris
+a.	Melihat dan mencari data inventaris
+ 
+Gambar IV.47 Activity diagram melihat dan mencari data inventaris
+Gambar IV.47 menunjukkan alur proses mengakses daftar data inventaris dan mencari datanya berdasarkan keyword yang dimasukkan pada kolom pencarian. Alur ini dapat dilakukan ketika pengguna mengakses menu manajemen inventaris.
+b.	Menambahkan data inventaris
+ 
+Gambar IV.48 Activity diagram menambahkan data inventaris
+Gambar IV.48 menunjukkan alur proses untuk menambahkan data inventaris yang diawali dengan pengisian form tambah inventaris. Form ini dapat diakses melalui floating button pada halaman menu inventaris atau juga pada halaman manajemen inventaris.
+c.	Mengubah data inventaris
+Gambar IV.49 menunjukkan alur proses untuk mengubah data inventaris yang diawali dengan mengakses halaman manajemen inventaris dan memilih salah satu inventaris untuk diakses halaman detail inventarisnya. Pada halaman detail inventaris terdapat tombol ubah data yang jika ditekan akan menampilkan form ubah data inventaris untuk diisi dan disimpan perubahannya.
+ 
+Gambar IV.49 Activity diagram mengubah data inventaris
+d.	Menghapus data inventaris
+ 
+Gambar IV.50 Activity diagram menghapus data inventaris
+Gambar IV.50 menunjukkan alur proses untuk menghapus data inventaris dengan mengakses halaman detail inventaris yang akan dihapus dan menekan tombol hapus data. Ketika tombol hapus ditekan akan muncul pesan konfirmasi penghapusan yang akan memicu proses penghapusan data atau tidak oleh sistem.
+4.1.3.1.13 Menu Laporan
+Fitur menu laporan berfungsi sebagai halaman yang berisi ringkasan informasi dan statisik terkait hasil semua data pelaporan yang telah dilakukan oleh peran petugas. Fitur ini dapat diakses oleh pengguna dengan peran penanggung jawab dan inventor. Komponen pada halaman ini berupa kartu-kartu visual informatif yang menyoroti metrik hasil pelaporan seperti suhu, jumlah jenis tanaman, jumlah tanaman mati, jumlah laporan panen, jumlah tanaman yang dibudidayakan, dan jumlah tanaman sakit. Selain itu terdapat juga daftar hasil laporan per jenis tanaman, daftar hasil komoditas perkebunan, dan laporan hama terbaru.
+ 
+Gambar IV.51 Antarmuka menu laporan
+Gambar IV.51 menunjukkan activity diagram untuk proses memuat data dan menampilkan menu laporan. Saat halaman diakses, sistem secara otomatis akan mengambil data terkini dari berbagai tabel di database terkait pelaporan. 
+ 
+Gambar IV.52 Activity diagram menampilkan menu laporan
+4.1.3.1.14 Hasil Pengujian Black Box Testing
+Setelah melakukan implementasi integrasi coding pada masing-masing backlog item di sprint 3. Tahapan selanjutnya yang dilakukan untuk memastikan bahwa seluruh backlog item yang dikerjakan berjalan dengan baik adalah pengujian black box. Black box testing dilakukan sesuai dengan skenario uji yang telah dibuat dalam bentuk test case pada Lampiran D Test case black box testing. Black box testing juga dilakukan dalam dua tipe, yakni manual testing dan automation testing. Automation testing menggunakan tools magicpod. Setelah pengujian sudah dilakukan sesuai skenario uji, hasilnya dilampirkan dalam bentuk summary test report. Berikut adalah tabel summary test report dari hasil black box testing:
+Tabel IV.11 Summary test report
+Summary Test Report Sprint 3
+ID	Test Case	Deskripsi	Tipe Test	Status
+TC-01	Login penanggung jawab	Menguji fungsionalitas login sebagai penanggung jawab.	Automation	Passed
+TC-02	Login petugas	Menguji fungsionalitas login sebagai petugas.	Automation	Passed
+TC-03	Login inventor	Menguji fungsionalitas login sebagai inventor.	Automation	Passed
+TC-04	Data input kosong	Menguji login dengan semua input kosong	Automation	Passed
+TC-05	Email kosong	Menguji login dengan input email kosong	Automation	Passed
+TC-06	Password kosong	Menguji login dengan input password kosong	Automation	Passed
+TC-07	Email salah	Menguji login dengan email yang tidak terdaftar/ salah	Automation	Passed
+TC-08	Password salah	Menguji login dengan password yang salah	Automation	Passed
+TC-09	Email tidak aktif	Menguji login dengan email yang tidak aktif	Automation	Passed
+TC-10	Logout dari sistem	Menguji fungsionalitas logout pengguna	Automation	Passed
+TC-11	Menambah pengguna	Menguji fungsionalitas untuk menambahkan data pengguna baru	Automation	Passed
+TC-12	Menonaktifkan pengguna	Menguji fungsionalitas untuk menonaktifkan akses pengguna baru terhadap aplikasi	Automation	Passed
+TC-13	Menambah Pengguna dengan salah satu input kosong	Menguji fungsionalitas untuk menambahkan data pengguna baru dengan salah satu input kosong	Automation	Passed
+TC-14	Menambah Pengguna dengan semua input kosong	Menguji fungsionalitas untuk menambahkan data pengguna baru dengan semua input kosong	Automation	Passed
+TC-15	Menampilkan beranda 	Menguji fungsionalitas untuk menampilkan halaman beranda	Automation	Passed
+TC-16	Menambah jenis tanaman	Menguji fungsionalitas untuk menambahkan data jenis tanaman	Automation	Passed
+TC-17	Mengubah jenis tanaman	Menguji fungsionalitas untuk mengubah data jenis tanaman	Automation	Passed
+TC-18	Menghapus jenis tanaman	Menguji fungsionalitas untuk menghapus data jenis tanaman	Automation	Passed
+TC-19	Melihat detail jenis tanaman	Menguji fungsionalitas untuk menampilkan detail data jenis tanaman	Automation	Passed
+TC-20	Melihat daftar jenis tanaman	Menguji fungsionalitas untuk menampilkan daftar data jenis tanaman	Automation	Passed
+TC-21	Menambah Jenis Tanaman dengan input kosong	Menguji fungsionalitas untuk menambahkan data jenis tanaman baru dengan semua input kosong	Automation	Passed
+TC-22	Menambah Jenis Tanaman dengan salah satu input kosong	Menguji fungsionalitas untuk menambahkan data jenis tanaman baru dengan salah satu input kosong	Automation	Passed
+TC-23	Mengubah Jenis Tanaman dengan input kosong	Menguji fungsionalitas untuk mengubah data jenis tanaman dengan semua input kosong	Automation	Passed
+TC-24	Mengubah Jenis Tanaman dengan salah satu input kosong	Menguji fungsionalitas untuk mengubah data jenis tanaman	Automation	Passed
+TC-25	Menambah jenis hewan	Menguji fungsionalitas untuk menambahkan data jenis ternak	Automation	Passed
+TC-26	Mengubah jenis hewan	Menguji fungsionalitas untuk mengubah data jenis ternak	Automation	Passed
+TC-27	Menghapus jenis hewan	Menguji fungsionalitas untuk menghapus data jenis ternak	Automation	Passed
+TC-28	Melihat detail jenis hewan	Menguji fungsionalitas untuk menampilkan detail data jenis ternak	Automation	Passed
+TC-29	Melihat daftarjenis Hewan	Menguji fungsionalitas untuk menampilkan daftar data jenis ternak	Automation	Passed
+TC-30	Menambah Jenis Hewan dengan input kosong	Menguji fungsionalitas untuk menambahkan data jenis ternak baru dengan semua input kosong	Automation	Passed
+TC-31	Menambah Jenis Hewan dengan salah satu input kosong	Menguji fungsionalitas untuk menambahkan data jenis ternak baru dengan salah satu input kosong	Automation	Passed
+TC-32	Mengubah Jenis Hewan dengan input kosong	Menguji fungsionalitas untuk mengubah data jenis ternak dengan semua input kosong	Automation	Passed
+TC-33	Mengubah Jenis Hewan dengan salah satu input kosong	Menguji fungsionalitas untuk mengubah data jenis ternak	Automation	Passed
+TC-34	Menambah kebun	Menguji fungsionalitas untuk menambahkan data kebun	Automation	Passed
+TC-35	Mengubah kebun	Menguji fungsionalitas untuk mengubah data kebun	Automation	Passed
+TC-36	Menghapus kebun	Menguji fungsionalitas untuk menghapus data kebun	Automation	Passed
+TC-37	Melihat detail kebun	Menguji fungsionalitas untuk menampilkan detail data kebun	Automation	Passed
+TC-38	Melihat daftar kebun	Menguji fungsionalitas untuk menampilkan daftar data kebun	Automation	Passed
+TC-39	Menambah Kebun dengan input kosong	Menguji fungsionalitas untuk menambahkan data kebun baru dengan semua input kosong	Automation	Passed
+TC-40	Menambah Kebun dengan salah satu input kosong	Menguji fungsionalitas untuk menambahkan data kebun baru dengan salah satu input kosong	Automation	Passed
+TC-41	Mengubah Kebun dengan input kosong	Menguji fungsionalitas untuk mengubah data kebun dengan semua input kosong	Automation	Passed
+TC-42	Mengubah Kebun dengan salah satu input kosong	Menguji fungsionalitas untuk mengubah data kebun	Automation	Passed
+TC-43	Menambah kandang	Menguji fungsionalitas untuk menambahkan data kandang	Automation	Passed
+TC-44	Mengubah kandang	Menguji fungsionalitas untuk mengubah data kandang	Automation	Passed
+TC-45	Menghapus kandang	Menguji fungsionalitas untuk menghapus data kandang	Automation	Passed
+TC-46	Melihat detail kandang	Menguji fungsionalitas untuk menampilkan detail data kandang	Automation	Passed
+TC-47	Melihat daftar kandang	Menguji fungsionalitas untuk menampilkan daftar data kandang	Automation	Passed
+TC-48	Menambah Kandang dengan input kosong	Menguji fungsionalitas untuk menambahkan data kandang baru dengan semua input kosong	Automation	Passed
+TC-49	Menambah Kandang dengan salah satu input kosong	Menguji fungsionalitas untuk menambahkan data kandang baru dengan salah satu input kosong	Automation	Passed
+TC-50	Mengubah Kandang dengan input kosong	Menguji fungsionalitas untuk mengubah data kandang dengan semua input kosong	Automation	Passed
+TC-51	Mengubah Kandang dengan salah satu input kosong	Menguji fungsionalitas untuk mengubah data kandang	Automation	Passed
+TC-52	Menambah satuan	Menguji fungsionalitas untuk menambahkan data satuan	Automation	Passed
+TC-53	Mengubah satuan	Menguji fungsionalitas untuk mengubah data satuan	Automation	Passed
+TC-54	Menghapus satuan	Menguji fungsionalitas untuk menghapus data satuan	Automation	Passed
+TC-55	Melihat daftar satuan	Menguji fungsionalitas untuk melihat daftar data satuan	Automation	Passed
+TC-56	Menambah Satuan dengan input kosong	Menguji fungsionalitas untuk menambahkan data satuan baru dengan semua input kosong	Automation	Passed
+TC-57	Menambah Satuan dengan salah satu input kosong	Menguji fungsionalitas untuk menambahkan data satuan baru dengan salah satu input kosong	Automation	Passed
+TC-58	Mengubah Satuan dengan input kosong	Menguji fungsionalitas untuk mengubah data satuan dengan semua input kosong	Automation	Passed
+TC-59	Mengubah Satuan dengan salah satu input kosong	Menguji fungsionalitas untuk mengubah data satuan	Automation	Passed
+TC-60	Menambah komoditas	Menguji fungsionalitas untuk menambahkan data komoditas	Automation	Passed
+TC-61	Mengubah komoditas	Menguji fungsionalitas untuk mengubah data komoditas	Automation	Passed
+TC-62	Menghapus komoditas	Menguji fungsionalitas untuk menghapus data komoditas	Automation	Passed
+TC-63	Melihat detail komoditas	Menguji funsionalitas untuk menampilkan detail data komoditas	Automation	Passed
+TC-64	Melihat daftar komoditas	Menguji fungsionalitas untuk melihat daftar data komoditas	Automation	Passed
+TC-65	Menambah Komoditas dengan input kosong	Menguji fungsionalitas untuk menambahkan data komoditas baru dengan semua input kosong	Automation	Passed
+TC-66	Menambah Komoditas dengan salah satu input kosong	Menguji fungsionalitas untuk menambahkan data komoditas baru dengan salah satu input kosong	Automation	Passed
+TC-67	Mengubah Komoditas dengan input kosong	Menguji fungsionalitas untuk mengubah data komoditas dengan semua input kosong	Automation	Passed
+TC-68	Mengubah Komoditas dengan salah satu input kosong	Menguji fungsionalitas untuk mengubah data satuan	Automation	Passed
+TC-69	Menambah grade hasil panen	Menguji fungsionalitas untuk menambahkan data grade hasil panen	Automation	Passed
+TC-70	Mengubah grade hasil panen	Menguji fungsionalitas untuk mengubah data grade hasil panen	Automation	Passed
+TC-71	Menghapus grade hasil panen	Menguji fungsionalitas untuk menghapus data grade hasil panen	Automation	Passed
+TC-72	Melihat daftar grade hasil panen	Menguji fungsionalitas untuk melihat daftar data grade hasil panen	Automation	Passed
+TC-73	Menambah Grade Hasil Panen dengan input kosong	Menguji fungsionalitas untuk menambahkan data grade hasil panen baru dengan semua input kosong	Automation	Passed
+TC-74	Menambah Grade Hasil Panen dengan salah satu input kosong	Menguji fungsionalitas untuk menambahkan data grade hasil panen baru dengan salah satu input kosong	Automation	Passed
+TC-75	Mengubah Grade Hasil Panen dengan input kosong	Menguji fungsionalitas untuk mengubah data grade hasil panen dengan semua input kosong	Automation	Passed
+TC-76	Mengubah Grade Hasil Panen dengan salah satu input kosong	Menguji fungsionalitas untuk mengubah data grade hasil panen dengan salah satu input kosong	Automation	Passed
+TC-77	Menampilkan menu inventaris	Menguji fungsionalitas untuk menampilkan halaman menu inventaris	Automation	Passed
+TC-78	Menambah kategori inventaris	Menguji fungsionalitas untuk menambahkan data kategori inventaris	Automation	Passed
+TC-79	Mengubah kategori inventaris	Menguji fungsionalitas untuk mengubah data kategori inventaris	Automation	Passed
+TC-80	Menghapus kategori inventaris	Menguji fungsionalitas untuk menghapus data kategori inventaris	Automation	Passed
+TC-81	Melihat daftar kategori inventaris	Menguji fungsionalitas untuk melihat daftar data kategori inventaris	Automation	Passed
+TC-82	Menambah Kategori Inventaris dengan input kosong	Menguji fungsionalitas untuk menambahkan data kategori inventaris baru dengan semua input kosong	Automation	Passed
+TC-83	Mengubah Kategori Inventaris dengan input kosong	Menguji fungsionalitas untuk mengubah data kategori inventaris dengan semua input kosong	Automation	Passed
+TC-84	Menambah inventaris	Menguji fungsionalitas untuk menambahkan data inventaris	Automation	Passed
+TC-85	Mengubah inventaris	Menguji fungsionalitas untuk mengubah data inventaris	Automation	Passed
+TC-86	Menghapus inventaris	Menguji fungsionalitas untuk menghapus data inventaris	Automation	Passed
+TC-87	Melihat detail inventaris	Menguji funsionalitas untuk menampilkan detail data inventaris	Automation	Passed
+TC-88	Melihat daftar inventaris	Menguji fungsionalitas untuk melihat daftar data inventaris	Automation	Passed
+TC-89	Menambah Inventaris dengan input kosong	Menguji fungsionalitas untuk menambahkan data inventaris baru dengan semua input kosong	Automation	Passed
+TC-90	Menambah Inventaris dengan salah satu input kosong	Menguji fungsionalitas untuk menambahkan data inventaris baru dengan salah satu input kosong	Automation	Passed
+TC-91	Mengubah Inventaris dengan input kosong	Menguji fungsionalitas untuk mengubah data inventaris dengan semua input kosong	Automation	Passed
+TC-92	Mengubah Inventaris dengan salah satu input kosong	Menguji fungsionalitas untuk mengubah data inventaris dengan salah satu input kosong	Automation	Passed
+TC-167	Menampilkan menu laporan	Menguji fungsionalitas untuk menampilkan halaman laporan	Automation	Passed
+4.1.3.1.15 Burndown Chart Sprint 3
+Berikut adalah burndown chart sprint 3:
+ 
+Berdasarkan grafik burndown chart, dapat dilihat bahwa proyek ini berhasil diselesaikan dengan sangat sukses dan satu minggu lebih cepat dari jadwal yang direncanakan. Pada paruh pertama proyek (Minggu 1 dan 2), tim menunjukkan produktivitas yang jauh melaPempaui rencana, dengan membakar total 36 jam kerja (20 jam di Minggu 1 dan 16 jam di Minggu 2) dibandingkan dengan rencana 22 jam. Upaya yang sangat agresif di awal ini menyebabkan garis sisa pekerjaan aktual (Remaining Effort) anjlok secara drastis dan konsisten berada di bawah garis ideal, yang pada akhirnya memungkinkan tim untuk menyelesaikan sisa 9 jam pekerjaan di Minggu ke-3 dan mencapai 0 sisa pekerjaan sebelum memasuki Minggu ke-4.
+Kesimpulannya, proyek ini menunjukkan efisiensi dan kapasitas kerja tim yang luar biasa tinggi, yang secara signifikan melebihi target 11 jam per minggu yang telah direncanakan. Keberhasilan ini mengindikasikan bahwa baik estimasi awal untuk setiap fitur cukup akurat, maupun kemampuan tim dalam mengeksekusi tugas sangat cepat
+4.1.3.2 Sprint 4
+Pelaksanaan sprint empat dimulai dengan sprint planning untuk menentukan backlog item mana saja yang akan dikerjakan selanjutnya pada sprint ini. Sprint ini Hasil penyusunan backlog item pada sprint empat adalah sebagai berikut:
+Tabel IV.12 Daftar sprint backlog item pada sprint 4
+No.	Sprint Backlog item	Prioritas	Estimasi	Status
+1.	Menu Inventaris	High	4 jam	Selesai
+2.	Manajemen Kategori Inventaris	High	2 jam	Selesai
+3.	Manajemen Inventaris	High	8 jam	Selesai
+4.	Pelaporan Pemakaian Inventaris	Medium	4 jam	Selesai
+5.	Pelaporan Harian	High	8 jam	Selesai
+6.	Pelaporan Hasil Panen	High	8 jam	Selesai
+7.	Pelaporan Tanaman Sakit	Medium	5 jam	Selesai
+8.	Pelaporan Tanaman Mati	Medium	5 jam	Selesai
+9.	Pelaporan Pemberian Nutrisi	Medium	5 jam	Selesai
+4.1.3.2.1 Pelaporan Harian Kebun
+Fitur pelaporan harian kebun memungkinkan pengguna dengan peran petugas untuk membuat laporan aktivitas harian terkait tanaman per media tanam di kebun yang tidak termasuk dalam kategori laporan spesifik lainnya. Data yang dilaporkan seperti apakah sudah dilakukan penyiraman, apakah dilakukan repotting/pemindahan media tanam, apakah dilakukan pemberian nutrisi, unggah bukti kondisi tanaman, pertumbuhan tinggi tanaman, kondisi daun tanaman, dan tambahkan catatan/jurnal pelaporan.
+ 
+Gambar IV.53 Antarmuka pelaporan harian
+Gambar IV.54 menunjukkan alur proses ketika pengguna dengan peran petugas melakukan pelaporan harian. Proses dimulai dengan mengakses menu pelaporan harian, kemudian pengguna memilih kebun dan tanaman yang akan dilakukan pelaporan harian terkait kondisinya. Kemudian, setelah form diisi dan disimpan, maka sistem akan melakukan validasi terlebih dahulu sebelum menyimpan data ke database. 
+ 
+Gambar IV.54 Activity diagram pelaporan harian kebun
+4.1.3.2.2 Pelaporan Hasil Panen Kebun
+Gambar IV.55 Antarmuka pelaporan hasil panen kebun
+ 
+Gambar IV.56 Activity diagram pelaporan hasil panen kebun
+4.1.3.2.3 Pelaporan Tanaman Sakit
+Gambar IV.57 Antarmuka pelaporan tanaman sakit
+ 
+Gambar IV.58 Activity diagram pelaporan tanaman sakit
+4.1.3.2.4 Pelaporan Tanaman Mati
+Gambar IV.59 Antarmuka pelaporan tanaman mati
+ 
+Gambar IV.60 Activity diagram pelaporan tanaman mati
+4.1.3.2.5 Pelaporan Pemberian Nutrisi Tanaman
+Gambar IV.61 Antarmuka pelaporan pemberian nutrisi tanaman
+ 
+Gambar IV.62 Activity diagram pelaporan pemberian nutrisi tanaman
+4.1.3.2.6 Manajemen Hama Kebun
+ 
+Gambar IV.63 Antarmuka manajemen hama kebun
+a.	Melihat dan mencari data jenis hama
+ 
+Gambar IV.64 Activity diagram melihat dan mencari data jenis hama
+b.	Menambahkan data jenis hama
+ 
+Gambar IV.65 Activity diagram menambahkan data jenis hama
+c.	Mengubah dan menghapus data jenis hama
+ 
+Gambar IV.66 Activity diagram mengubah dan menghapus data jenis hama
+4.1.3.2.7 Pelaporan Hama Kebun
+ 
+Gambar IV.67 Antarmuka pelaporan hama kebun
+a.	Pelaporan hama kebun melalui menu manajemen hama kebun
+ 
+Gambar IV.68 Activity diagram pelaporan hama kebun penanggung jawab
+a.	Pelaporan hama kebun melalui menu pelaporan khusus
+ 
+Gambar IV.69 Activity diagram pelaporan hama kebun petugas
+4.1.3.2.8 Riwayat Aktivitas Pelaporan
+Gambar IV.70 Antarmuka riwayat aktivitas pelaporan
+Gambar IV.71 Activity diagram riwayat aktivitas pelaporan
+4.1.3.2.9 Hasil Laporan Jenis Tanaman
+Gambar IV.72 Antarmuka hasil laporan jenis tanaman
+Gambar IV.73 Activity diagram hasil laporan jenis tanaman
+4.1.3.2.10 Hasil Laporan Hama
+ 
+Gambar IV.74 Antarmuka hasil laporan hama
+Gambar IV.75 Activity diagram hasil laporan hama
+4.1.3.2.11 Hasil Pengujian Black Box Testing
+Pada sprint 4 juga dilakukan pengujian black box testing setelah dilakukan implementasi coding, seperti sprint 3. Berikut adalah tabel summary test report dari hasil black box testing sprint 4:
+Summary Test Report Sprint 4
+ID	Test Case	Deskripsi	Tipe Test	Status
+TC-93	Membuat laporan pemakaian inventaris	Menguji fungsionalitas untuk membuat laporan pemakaian inventaris	Manual	Passed
+TC-94	Membuat laporan pemakaian inventaris dengan input kosong	Menguji fungsionalitas untuk membuat laporan pemakaian inventaris dengan semua input kosong	Manual	Passed
+TC-95	Membuat laporan pemakaian inventaris dengan salah satu input kosong	Menguji fungsionalitas untuk membuat laporan pemakaian inventaris dengan salah satu input kosong	Manual	Passed
+TC-96	Membuat laporan harian kebun	Menguji fungsionalitas untuk membuat laporan harian kebun	Manual	Passed
+TC-97	Membuat laporan harian kebun dengan input kosong	Menguji fungsionalitas untuk membuat laporan harian kebun dengan semua input kosong	Manual	Passed
+TC-98	Membuat laporan harian kebun dengan salah satu input kosong	Menguji fungsionalitas untuk membuat laporan harian kebun dengan salah satu input kosong	Manual	Passed
+TC-99	Membuat laporan harian ternak	Menguji fungsionalitas untuk membuat laporan harian kandang	Manual	Passed
+TC-100	Membuat laporan harian ternak dengan input kosong	Menguji fungsionalitas untuk membuat laporan harian kandang dengan semua input kosong	Manual	Passed
+TC-101	Membuat laporan harian ternak dengan salah satu input kosong	Menguji fungsionalitas untuk membuat laporan harian kandang dengan salah satu input kosong	Manual	Passed
+TC-102	Membuat laporan hasil panen kebun	Menguji fungsionalitas untuk membuat laporan panen kebun	Manual	Passed
+TC-103	Membuat laporan hasil panen kebun dengan input kosong	Menguji fungsionalitas untuk membuat laporan panen kebun dengan semua input kosong	Manual	Passed
+TC-104	Membuat laporan hasil panen kebun dengan salah satu input kosong	Menguji fungsionalitas untuk membuat laporan panen kebun dengan salah satu input kosong	Manual	Passed
+TC-105	Membuat laporan hasil panen ternak	Menguji fungsionalitas untuk membuat laporan panen ternak	Manual	Passed
+TC-106	Membuat laporan hasil panen ternak dengan input kosong	Menguji fungsionalitas untuk membuat laporan panen ternak dengan semua input kosong	Manual	Passed
+TC-107	Membuat laporan hasil panen ternak dengan salah satu input kosong	Menguji fungsionalitas untuk membuat laporan panen ternak dengan salah satu input kosong	Manual	Passed
+TC-108	Membuat laporan tanaman sakit	Menguji fungsionalitas untuk membuat laporan tanaman sakit	Manual	Passed
+TC-109	Membuat laporan tanaman sakit dengan input kosong	Menguji fungsionalitas untuk membuat laporan tanaman sakit dengan semua input kosong	Manual	Passed
+TC-110	Membuat laporan tanaman sakit dengan salah satu input kosong	Menguji fungsionalitas untuk membuat laporan tanaman sakit dengan salah satu input kosong	Manual	Passed
+TC-111	Membuat laporan hewan sakit	Menguji fungsionalitas untuk membuat laporan hewan sakit	Manual	Passed
+TC-112	Membuat laporan hewan sakit dengan input kosong	Menguji fungsionalitas untuk membuat laporan hewan sakit dengan semua input kosong	Manual	Passed
+TC-113	Membuat laporan hewan sakit dengan salah satu input kosong	Menguji fungsionalitas untuk membuat laporan hewan sakit dengan salah satu input kosong	Manual	Passed
+TC-114	Membuat laporan tanaman mati	Menguji fungsionalitas untuk membuat laporan tanaman mati	Manual	Passed
+TC-115	Membuat laporan tanaman mati dengan input kosong	Menguji fungsionalitas untuk membuat laporan tanaman mati dengan semua input kosong	Manual	Passed
+TC-116	Membuat laporan tanaman mati dengan salah satu input kosong	Menguji fungsionalitas untuk membuat laporan tanaman mati dengan salah satu input kosong	Manual	Passed
+TC-117	Membuat laporan hewan mati	Menguji fungsionalitas untuk membuat laporan hewan mati	Manual	Passed
+TC-118	Membuat laporan hewan mati dengan input kosong	Menguji fungsionalitas untuk membuat laporan hewan mati dengan semua input kosong	Manual	Passed
+TC-119	Membuat laporan hewan mati dengan salah satu input kosong	Menguji fungsionalitas untuk membuat laporan hewan mati dengan salah satu input kosong	Manual	Passed
+TC-120	Membuat laporan pemberian nutrisi tanaman	Menguji fungsionalitas untuk membuat laporan pemberian nutrisi tanaman	Manual	Passed
+TC-121	Membuat laporan pemberian nutrisi tanaman dengan input kosong	Menguji fungsionalitas untuk membuat laporan pemberian nutrisi tanaman dengan semua input kosong	Manual	Passed
+TC-122	Membuat laporan pemberian nutrisi tanaman dengan salah satu input kosong	Menguji fungsionalitas untuk membuat laporan pemberian nutrisi tanaman dengan salah satu input kosong	Manual	Passed
+TC-123	Membuat laporan pemberian nutrisi hewan	Menguji fungsionalitas untuk membuat laporan pemberian nutrisi hewan	Manual	Passed
+TC-124	Membuat laporan pemberian nutrisi hewan dengan input kosong	Menguji fungsionalitas untuk membuat laporan pemberian nutrisi hewan dengan semua input kosong	Manual	Passed
+TC-125	Membuat laporan pemberian nutrisi hewan dengan salah satu input kosong	Menguji fungsionalitas untuk membuat laporan pemberian nutrisi hewan dengan salah satu input kosong	Manual	Passed
+TC-126	Menambah hama kebun	Menguji fungsionalitas untuk menambahkan data hama kebun	Manual	Passed
+TC-127	Mengubah hama kebun	Menguji fungsionalitas untuk mengubah data hama kebun	Manual	Passed
+TC-128	Menghapus hama kebun	Menguji fungsionalitas untuk menghapus data hama kebun	Manual	Passed
+TC-129	Melihat daftar hama kebun	Menguji fungsionalitas untuk melihat daftar data hama kebun	Manual	Passed
+TC-130	Menambah hama kebun dengan input kosong	Menguji fungsionalitas untuk menambahkan data hama kebun baru dengan semua input kosong	Manual	Passed
+TC-131	Mengubah hama kebun dengan input kosong	Menguji fungsionalitas untuk mengubah data hama kebun dengan semua input kosong	Manual	Passed
+TC-132	Membuat laporan hama kebun	Menguji fungsionalitas untuk membuat laporan hama kebun	Manual	Passed
+TC-133	Membuat laporan hama kebun dengan input kosong	Menguji fungsionalitas untuk membuat laporan hama kebun dengan semua input kosong	Manual	Passed
+TC-134	Membuat laporan hama kebun dengan salah satu input kosong	Menguji fungsionalitas untuk membuat laporan hama kebun dengan salah satu input kosong	Manual	Passed
+TC-172	Menampilkan daftar riwayat pelaporan	Menguji gunsionalitas untuk menampilkan halaman riwayat pelaporan	Manual	Passed
+TC-168	Menampilkan detail laporan jenis tanaman	Menguji fungsionalitas untuk menampilkan halaman detail laporan jenis tanaman	Manual	Passed
+TC-169	Menampilkan detail laporan jenis hewan	Menguji fungsionalitas untuk menampilkan halaman detail laporan jenis hewan	Manual	Passed
+TC-170	Menampilkan daftar laporan hama	Menguji fungsionalitas untuk menampilkan halaman laporan hama	Manual	Passed
+TC-171	Menampilkan detail laporan hama	Menguji fungsionalitas untuk menampilkan halaman detail laporan hama	Manual	Passed
+4.1.3.2.12 Burndown Chart Sprint 4
+ 
+Berdasarkan grafik burndown chart, menunjukkan akselerasi kerja yang luar biasa dan berhasil diselesaikan dua minggu lebih cepat dari jadwal empat minggu yang direncanakan. Meskipun tim memulai sedikit lebih cepat dari jadwal di Minggu ke-1 dengan 16 jam kerja aktual dibandingkan rencana 12 jam, pencapaian utamanya terjadi di Minggu ke-2. Pada minggu tersebut, tim mengerahkan usaha masif sebesar 33 jam kerja, hampir tiga kali lipat dari yang direncanakan. Upaya masif ini secara efektif menghabiskan seluruh sisa pekerjaan, yang terlihat jelas pada grafik di mana garis sisa pekerjaan (Remaining Effort) menukik tajam ke angka nol, jauh melampaui jalur penurunan ideal.
+Kesimpulannya, keberhasilan penyelesaian proyek yang sangat cepat ini menyoroti adanya ketidakselarasan antara perencanaan kapasitas dan alokasi tugas yang sebenarnya. Meskipun hasilnya sangat positif, grafik menunjukkan bahwa rencana kerja mingguan (12 jam/minggu) tidak mencerminkan beban kerja nyata yang ternyata sangat padat di awal proyek. 
+4.1.3.3 Sprint 5
+
+No.	Sprint Backlog item	Prioritas	Estimasi	Status
+1.	Manajemen Hama Kebun	Medium	2 jam	Selesai
+2.	Pelaporan Hama	Medium	4 jam	Selesai
+3.	Riwayat Aktivitas Pelaporan	High	8 jam	Selesai
+4.	Ubah Profil	Low	4 jam	Selesai
+5.	Manajemen Notifikasi Global	High	8 jam	Selesai
+6.	Notifikasi	High	8 jam	Selesai
+7.	Lupa Password/Ubah Password	Low	8 jam	Selesai
+8.	Menu Laporan	High	8 jam	
+9.	Hasil Laporan Jenis Tanaman	High	16 jam	
+10.	Hasil Laporan Hama	Medium	5 jam	
+4.1.3.3.1 Ubah Profil
+Gambar IV.76 Antarmuka ubah profil
+Gambar IV.77 Activity diagram ubah profil
+4.1.3.3.2 Lupa Password/Ubah Password
+Gambar IV.78 Antarmuka lupa password
+ 
+Gambar IV.79 Activity diagram lupa password
+4.1.3.3.3 Manajemen Notifikasi Global
+Gambar IV.80 Antarmuka manajemen notifikasi global
+a.	Melihat dan mencari data notifikasi global
+Gambar IV.81 Activity diagram melihat dan mencari data notifikasi global
+b.	Menambahkan data notifikasi global
+ 
+Gambar IV.82 Activity diagram menambahkan data notifikasi global
+c.	Mengubah data notifikasi global
+ 
+Gambar IV.83 Activity diagram mengubah data notifikasi global
+d.	Menghapus data notifikasi global
+ 
+Gambar IV.84 Activity diagram menghapus data notifikasi global
+4.1.3.3.4 Menampilkan Notifikasi Global
+Gambar IV.85 Antarmukan notifikasi global
+Gambar IV.86 Activity diagram menampilkan notifikasi global
+4.1.3.3.5 Manajemen Notifikasi Pengingat Laporan Kebun
+Gambar IV.87 Antarmuka manajemen notifikasi pengingat laporan kebun
+a.	Melihat data notifikasi pengingat laporan kebun
+Gambar IV.88 Activity diagram melihat notifikasi pengingat laporan kebun
+b.	Menambahkan data notifikasi pengingat laporan kebun
+Gambar IV.89 Activity diagram menambahkan notifikasi pengingat laporan kebun
+c.	Mengubah data notifikasi pengingat laporan kebun
+Gambar IV.90 Activity diagram mengubah notifikasi pengingat laporan kebun
+d.	Menghapus data notifikasi pengingat laporan kebun
+Gambar IV.91 Activity diagram menghapus notifikasi pengingat laporan kebun
+4.1.3.3.6 Menampilkan Notifikasi Pengingat Laporan Kebun
+Gambar IV.92 Antarmuka notifikasi pengingat laporan kebun
+Gambar IV.93 Activity diagram menampilkan notifikasi pengingat laporan kebun
+4.1.3.3.7 Hasil Pengujian Black Box Testing
+Berikut adalah tabel summary test report sprint 5:
+Summary Test Report Sprint 5
+ID	Test Case	Deskripsi	Tipe Test	Status
+TC-134	Mengubah profile	Menguji fungsionalitas untuk mengubah data profile	Manual	Passed
+TC-135	Mengubah Profile dengan salah satu input kosong	Menguji fungsionalitas untuk mengubah data profile dengan salah satu input kosong	Manual	Passed
+TC-136	Menambah notifikasi global	Menguji fungsionalitas untuk menambahkan data notifikasi global	Manual	Passed
+TC-137	Mengubah notifikasi global	Menguji fungsionalitas untuk mengubah data notifikasi global	Manual	Passed
+TC-138	Menghapus notifikasi global	Menguji fungsionalitas untuk menghapus data notifikasi global	Manual	Passed
+TC-139	Melihat daftar notifikasi global	Menguji fungsionalitas untuk menampilkan detail data notifikasi global	Manual	Passed
+TC-140	Melihat detail notifikasi global	Menguji fungsionalitas untuk menampilkan daftar data notifikasi global	Manual	Passed
+TC-141	Menambah Notifikasi Global dengan input kosong	Menguji fungsionalitas untuk menambahkan data notifikasi global baru dengan semua input kosong	Manual	Passed
+TC-142	Menambah Notifikasi Global dengan salah satu input kosong	Menguji fungsionalitas untuk menambahkan data notifikasi global baru dengan salah satu input kosong	Manual	Passed
+TC-143	Mengubah Notifikasi Global dengan input kosong	Menguji fungsionalitas untuk mengubah data notifikasi global dengan semua input kosong	Manual	Passed
+TC-144	Mengubah Notifikasi Global dengan salah satu input kosong	Menguji fungsionalitas untuk mengubah data notifikasi global dengan salah satu input kosong	Manual	Passed
+TC-145	Menampilkan notifikasi sesuai jadwal yang telah diatur	Menguji fungsionalitas untuk menampilkan notifikasi global sesuai pengaturan penanggung jawab	Manual	Passed
+TC-146	Menambah notifikasi pengingat laporan kebun	Menguji fungsionalitas untuk menambahkan data notifikasi pengingat laporan kebun	Manual	Passed
+TC-147	Mengubah notifikasi pengingat laporan kebun	Menguji fungsionalitas untuk mengubah data notifikasi pengingat laporan kebun	Manual	Passed
+TC-148	Menghapus notifikasi pengingat laporan kebun	Menguji fungsionalitas untuk menghapus data notifikasi pengingat laporan kebun	Manual	Passed
+TC-149	Melihat detail notifikasi pengingat laporan kebun	Menguji fungsionalitas untuk menampilkan detail data notifikasi pengingat laporan kebun	Manual	Passed
+TC-150	Menambah Notifikasi Pengingat Laporan Kebun dengan input kosong	Menguji fungsionalitas untuk menambahkan data notifikasi pengingat laporan kebun baru dengan semua input kosong	Manual	Passed
+TC-151	Menambah Notifikasi Pengingat Laporan Kebun dengan salah satu input kosong	Menguji fungsionalitas untuk menambahkan data notifikasi pengingat laporan kebun baru dengan salah satu input kosong	Manual	Passed
+TC-152	Mengubah Notifikasi Pengingat Laporan Kebun dengan input kosong	Menguji fungsionalitas untuk mengubah data notifikasi pengingat laporan kebun dengan semua input kosong	Manual	Passed
+TC-153	Mengubah Notifikasi Pengingat Laporan Kebun dengan salah satu input kosong	Menguji fungsionalitas untuk mengubah data notifikasi pengingat laporan kebun dengan salah satu input kosong	Manual	Passed
+TC-154	Menampilkan Notifikasi Pengingat Laporan Kebun sesuai jadwal yang telah diatur	Menguji fungsionalitas untuk menampilkan notifikasi pengingat laporan kebunl sesuai pengaturan penanggung jawab	Manual	Passed
+TC-155	Menambah notifikasi pengingat laporan kandang	Menguji fungsionalitas untuk menambahkan data notifikasi pengingat laporan kandang	Manual	Passed
+TC-156	Mengubah notifikasi pengingat laporan kandang	Menguji fungsionalitas untuk mengubah data notifikasi pengingat laporan kandang	Manual	Passed
+TC-157	Menghapus notifikasi pengingat laporan kandang	Menguji fungsionalitas untuk menghapus data notifikasi pengingat laporan kandang	Manual	Passed
+TC-158	Melihat detail notifikasi pengingat laporan kandang	Menguji fungsionalitas untuk menampilkan detail data notifikasi pengingat laporan kandang	Manual	Passed
+TC-159	Menambah Notifikasi Pengingat Laporan Kandang dengan input kosong	Menguji fungsionalitas untuk menambahkan data notifikasi pengingat laporan kandang baru dengan semua input kosong	Manual	Passed
+TC-160	Menambah Notifikasi Pengingat Laporan Kandang dengan salah satu input kosong	Menguji fungsionalitas untuk menambahkan data notifikasi pengingat laporan kandang baru dengan salah satu input kosong	Manual	Passed
+TC-161	Mengubah Notifikasi Pengingat Laporan Kandang dengan input kosong	Menguji fungsionalitas untuk mengubah data notifikasi pengingat laporan kandang dengan semua input kosong	Manual	Passed
+TC-162	Mengubah Notifikasi Pengingat Laporan Kandang dengan salah satu input kosong	Menguji fungsionalitas untuk mengubah data notifikasi pengingat laporan kandang dengan salah satu input kosong	Manual	Passed
+TC-163	Menampilkan Notifikasi Pengingat Laporan Kandang sesuai jadwal yang telah diatur	Menguji fungsionalitas untuk menampilkan notifikasi pengingat laporan kandangl sesuai pengaturan penanggung jawab	Manual	Passed
+TC-164	Mengubah password	Menguji fungsionalitas untuk mengubah password user	Manual	Passed
+TC-165	Mengubah Password dengan email yang salah	Menguji fungsionalitas untuk mengubah password user dengan memasukkan email yang tidak terdaftar	Manual	Passed
+TC-166	Mengubah Password dengan OTP yang salah	Menguji fungsionalitas untuk mengubah password user dengan memasukkan otp yang salah	Manual	Passed
+4.1.3.3.8 Burndown Chart Sprint 5
+ 
+4.2 Pengumpulan Data
+Cerita persiapan & pelaksanaan SUS dan test case

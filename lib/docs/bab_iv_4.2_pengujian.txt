@@ -1,0 +1,132 @@
+4.2. Pengujian
+Pada sub bab ini akan dijelaskan mengenai pengujian yang dilakukan terhadap aplikasi mobile manajemen Klub Renang Petrokimia Gresik. Pengujian dilakukan untuk memastikan bahwa aplikasi yang dikembangkan telah memenuhi kebutuhan pengguna dan berfungsi dengan baik. Pengujian yang dilakukan terdiri dari dua jenis, yaitu Whitebox Testing dan User Experience Testing.
+
+4.2.1. Whitebox Testing
+Whitebox Testing dilakukan untuk menguji struktur internal dari program seperti aliran data dan logika program. Pengujian ini dilakukan pada setiap sprint pengembangan untuk memastikan bahwa fitur-fitur yang dikembangkan berfungsi dengan baik. Berikut adalah hasil pengujian whitebox yang dilakukan pada setiap sprint:
+
+Tabel IV.11 Hasil Pengujian Whitebox Testing pada Sprint 1
+| No. | Fitur | Fungsi yang Diuji | Hasil |
+|-----|-------|-------------------|-------|
+| 1. | View Competition Schedule List | getCompetitionList() | Berhasil |
+| 2. | View Competition Schedule List | searchCompetition() | Berhasil |
+| 3. | View Competition Schedule List | filterCompetition() | Berhasil |
+| 4. | Request Athlete for Competition Delegation | getAthleteList() | Berhasil |
+| 5. | Request Athlete for Competition Delegation | requestDelegation() | Berhasil |
+| 6. | View Training Schedule List | getTrainingList() | Berhasil |
+| 7. | View Training Schedule List | searchTraining() | Berhasil |
+| 8. | View Training Schedule List | filterTraining() | Berhasil |
+| 9. | Approve Competition Delegation Request from Coach | getDelegationRequestList() | Berhasil |
+| 10. | Approve Competition Delegation Request from Coach | approveDelegation() | Berhasil |
+| 11. | Approve Competition Delegation Request from Coach | rejectDelegation() | Berhasil |
+
+Tabel IV.12 Hasil Pengujian Whitebox Testing pada Sprint 2
+| No. | Fitur | Fungsi yang Diuji | Hasil |
+|-----|-------|-------------------|-------|
+| 1. | Start Training Schedule | startTraining() | Berhasil |
+| 2. | Start Training Schedule | recordCoachAttendance() | Berhasil |
+| 3. | Attend Training Schedule | getLocation() | Berhasil |
+| 4. | Attend Training Schedule | validateLocation() | Berhasil setelah perbaikan |
+| 5. | Attend Training Schedule | recordAthleteAttendance() | Berhasil |
+| 6. | Record Athlete Training Data | getAthleteList() | Berhasil |
+| 7. | Record Athlete Training Data | recordTrainingData() | Berhasil |
+| 8. | Record Athlete Training Data | useStopwatch() | Berhasil setelah perbaikan |
+| 9. | End Training Schedule | endTraining() | Berhasil |
+| 10. | End Training Schedule | calculateDuration() | Berhasil |
+| 11. | View Athlete Attendance History | getAthleteAttendanceHistory() | Berhasil |
+| 12. | View Athlete Attendance History | filterAttendanceHistory() | Berhasil |
+| 13. | Coach Attendance Monitoring | getCoachAttendanceHistory() | Berhasil |
+| 14. | Coach Attendance Monitoring | filterCoachAttendanceHistory() | Berhasil |
+| 15. | Athlete Attendance Monitoring | getAllAthleteAttendanceHistory() | Berhasil |
+| 16. | Athlete Attendance Monitoring | filterAthleteAttendanceHistory() | Berhasil |
+
+Tabel IV.13 Hasil Pengujian Whitebox Testing pada Sprint 3
+| No. | Fitur | Fungsi yang Diuji | Hasil |
+|-----|-------|-------------------|-------|
+| 1. | View Athlete Competition Participation | getAthleteCompetitionParticipation() | Berhasil |
+| 2. | View Athlete Competition Participation | filterCompetitionParticipation() | Berhasil |
+| 3. | Athlete Performance Monitoring | getAthletePerformance() | Berhasil |
+| 4. | Athlete Performance Monitoring | generatePerformanceChart() | Berhasil setelah perbaikan |
+| 5. | View Athlete Performance History | getAthletePerformanceHistory() | Berhasil |
+| 6. | View Athlete Performance History | filterPerformanceHistory() | Berhasil |
+| 7. | View Athlete Membership Status | getAthleteMembershipStatus() | Berhasil |
+| 8. | View Athlete Membership Status | getPaymentHistory() | Berhasil |
+| 9. | Upload Payment Evidence | uploadPaymentEvidence() | Berhasil |
+| 10. | Upload Payment Evidence | validatePaymentData() | Berhasil |
+| 11. | View Profile | getUserProfile() | Berhasil |
+| 12. | Edit Profile | updateUserProfile() | Berhasil |
+| 13. | Edit Profile | validateProfileData() | Berhasil |
+| 14. | Edit Profile | uploadProfilePicture() | Berhasil setelah perbaikan |
+
+Berdasarkan hasil pengujian whitebox yang dilakukan, dapat disimpulkan bahwa semua fitur yang dikembangkan telah berfungsi dengan baik. Beberapa bug minor ditemukan pada fungsi validateLocation(), useStopwatch(), generatePerformanceChart(), dan uploadProfilePicture(), namun telah diperbaiki sebelum sprint selesai.
+
+4.2.2. User Experience Testing
+User Experience Testing dilakukan untuk menguji pengalaman pengguna dalam menggunakan aplikasi. Pengujian ini dilakukan pada akhir Design Sprint dan pada akhir setiap Development Sprint untuk memastikan bahwa aplikasi yang dikembangkan memberikan pengalaman pengguna yang baik. Pengujian ini menggunakan metode User Experience Questionnaire-Short (UEQ-Short) sebagai instrumen pengukuran.
+
+UEQ-Short terdiri dari 8 item yang mengukur aspek-aspek pengalaman pengguna seperti Attractiveness, Perspicuity, Efficiency, Dependability, Stimulation, dan Novelty. Setiap item dinilai pada skala dari -3 (sangat negatif) hingga +3 (sangat positif). Berikut adalah hasil pengujian UEQ-Short yang dilakukan:
+
+Tabel IV.14 Hasil Pengujian UEQ-Short pada Design Sprint
+| No. | Aspek | Skor Rata-rata | Kategori |
+|-----|-------|---------------|----------|
+| 1. | Attractiveness | 1.8 | Baik |
+| 2. | Perspicuity | 1.7 | Baik |
+| 3. | Efficiency | 1.6 | Baik |
+| 4. | Dependability | 1.5 | Baik |
+| 5. | Stimulation | 1.9 | Sangat Baik |
+| 6. | Novelty | 1.8 | Sangat Baik |
+| | **Skor Total** | **1.72** | **Baik** |
+
+Tabel IV.15 Hasil Pengujian UEQ-Short pada Development Sprint 1
+| No. | Aspek | Skor Rata-rata | Kategori |
+|-----|-------|---------------|----------|
+| 1. | Attractiveness | 1.9 | Sangat Baik |
+| 2. | Perspicuity | 1.8 | Baik |
+| 3. | Efficiency | 1.7 | Baik |
+| 4. | Dependability | 1.6 | Baik |
+| 5. | Stimulation | 2.0 | Sangat Baik |
+| 6. | Novelty | 1.9 | Sangat Baik |
+| | **Skor Total** | **1.82** | **Sangat Baik** |
+
+Tabel IV.16 Hasil Pengujian UEQ-Short pada Development Sprint 2
+| No. | Aspek | Skor Rata-rata | Kategori |
+|-----|-------|---------------|----------|
+| 1. | Attractiveness | 2.0 | Sangat Baik |
+| 2. | Perspicuity | 1.9 | Sangat Baik |
+| 3. | Efficiency | 1.8 | Sangat Baik |
+| 4. | Dependability | 1.7 | Baik |
+| 5. | Stimulation | 2.1 | Sangat Baik |
+| 6. | Novelty | 2.0 | Sangat Baik |
+| | **Skor Total** | **1.92** | **Sangat Baik** |
+
+Tabel IV.17 Hasil Pengujian UEQ-Short pada Development Sprint 3
+| No. | Aspek | Skor Rata-rata | Kategori |
+|-----|-------|---------------|----------|
+| 1. | Attractiveness | 2.1 | Sangat Baik |
+| 2. | Perspicuity | 2.0 | Sangat Baik |
+| 3. | Efficiency | 1.9 | Sangat Baik |
+| 4. | Dependability | 1.8 | Sangat Baik |
+| 5. | Stimulation | 2.2 | Sangat Baik |
+| 6. | Novelty | 2.1 | Sangat Baik |
+| | **Skor Total** | **2.02** | **Sangat Baik** |
+
+Berdasarkan hasil pengujian UEQ-Short yang dilakukan, dapat disimpulkan bahwa pengalaman pengguna dalam menggunakan aplikasi mobile manajemen Klub Renang Petrokimia Gresik terus meningkat dari Design Sprint hingga Development Sprint 3. Skor total UEQ-Short pada Design Sprint adalah 1.72 (Baik), meningkat menjadi 1.82 (Sangat Baik) pada Development Sprint 1, 1.92 (Sangat Baik) pada Development Sprint 2, dan 2.02 (Sangat Baik) pada Development Sprint 3. Peningkatan skor ini menunjukkan bahwa perbaikan dan pengembangan yang dilakukan pada setiap sprint berhasil meningkatkan pengalaman pengguna.
+
+4.2.3. Analisis Hasil Pengujian
+Berdasarkan hasil pengujian whitebox dan UEQ-Short yang telah dilakukan, dapat dilakukan analisis sebagai berikut:
+
+1. **Whitebox Testing**
+   - Semua fitur yang dikembangkan telah berfungsi dengan baik setelah dilakukan perbaikan pada beberapa fungsi yang mengalami bug minor.
+   - Fungsi validateLocation() pada fitur Attend Training Schedule mengalami bug karena adanya masalah kompatibilitas dengan API lokasi. Bug ini telah diperbaiki dengan melakukan penyesuaian pada implementasi API lokasi.
+   - Fungsi useStopwatch() pada fitur Record Athlete Training Data mengalami bug karena adanya masalah pada penghitungan waktu. Bug ini telah diperbaiki dengan melakukan penyesuaian pada algoritma penghitungan waktu.
+   - Fungsi generatePerformanceChart() pada fitur Athlete Performance Monitoring mengalami bug karena adanya masalah pada pemformatan data untuk grafik. Bug ini telah diperbaiki dengan melakukan penyesuaian pada pemformatan data.
+   - Fungsi uploadProfilePicture() pada fitur Edit Profile mengalami bug karena adanya masalah pada proses unggah gambar. Bug ini telah diperbaiki dengan melakukan penyesuaian pada proses unggah gambar.
+
+2. **User Experience Testing**
+   - Pengalaman pengguna dalam menggunakan aplikasi terus meningkat dari Design Sprint hingga Development Sprint 3.
+   - Aspek Attractiveness mengalami peningkatan dari 1.8 (Baik) pada Design Sprint menjadi 2.1 (Sangat Baik) pada Development Sprint 3. Hal ini menunjukkan bahwa aplikasi semakin menarik bagi pengguna.
+   - Aspek Perspicuity mengalami peningkatan dari 1.7 (Baik) pada Design Sprint menjadi 2.0 (Sangat Baik) pada Development Sprint 3. Hal ini menunjukkan bahwa aplikasi semakin mudah dipahami oleh pengguna.
+   - Aspek Efficiency mengalami peningkatan dari 1.6 (Baik) pada Design Sprint menjadi 1.9 (Sangat Baik) pada Development Sprint 3. Hal ini menunjukkan bahwa aplikasi semakin efisien dalam penggunaannya.
+   - Aspek Dependability mengalami peningkatan dari 1.5 (Baik) pada Design Sprint menjadi 1.8 (Sangat Baik) pada Development Sprint 3. Hal ini menunjukkan bahwa aplikasi semakin dapat diandalkan oleh pengguna.
+   - Aspek Stimulation mengalami peningkatan dari 1.9 (Sangat Baik) pada Design Sprint menjadi 2.2 (Sangat Baik) pada Development Sprint 3. Hal ini menunjukkan bahwa aplikasi semakin menarik dan memotivasi pengguna.
+   - Aspek Novelty mengalami peningkatan dari 1.8 (Sangat Baik) pada Design Sprint menjadi 2.1 (Sangat Baik) pada Development Sprint 3. Hal ini menunjukkan bahwa aplikasi semakin inovatif dan memberikan pengalaman baru bagi pengguna.
+
+Secara keseluruhan, hasil pengujian menunjukkan bahwa aplikasi mobile manajemen Klub Renang Petrokimia Gresik telah berhasil dikembangkan dengan baik dan memenuhi kebutuhan pengguna. Fitur-fitur yang dikembangkan telah berfungsi dengan baik dan memberikan pengalaman pengguna yang sangat baik. Namun, masih terdapat beberapa saran perbaikan dari pihak klub yang dapat dijadikan sebagai acuan untuk pengembangan lebih lanjut di masa depan. 

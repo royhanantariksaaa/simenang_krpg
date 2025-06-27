@@ -1,0 +1,81 @@
+'Aplikasi SiMenang KRPG' {
+    |Pengguna, Sistem| {
+        $Pengguna$
+        (Pengguna) Buka Aplikasi;
+        (Sistem) Tampilkan Halaman Login;
+        (Pengguna) Masukkan kredensial;
+        (Sistem) Validasi kredensial;
+        <Sistem> Apakah kredensial valid? {
+            -Ya- {
+                (Sistem) Arahkan ke Halaman Utama;
+                (Pengguna) Lihat Halaman Utama;
+                <Pengguna> Pilih menu navigasi {
+                    -Profil- {
+                        (Sistem) Tampilkan Halaman Profil;
+                        (Pengguna) Lihat & edit profil;
+                    }
+                    -Atlet- {
+                        (Sistem) Tampilkan Daftar Atlet;
+                        (Pengguna) Pilih satu atlet;
+                        (Sistem) Tampilkan Detail Atlet;
+                    }
+                    -Kelas- {
+                        (Sistem) Tampilkan Daftar Kelas;
+                        (Pengguna) Pilih satu kelas;
+                        (Sistem) Tampilkan Detail Kelas;
+                    }
+                    -Kompetisi- {
+                        (Sistem) Tampilkan Daftar Kompetisi;
+                        (Pengguna) Pilih satu kompetisi;
+                        (Sistem) Tampilkan Detail Kompetisi;
+                    }
+                    -Latihan- {
+                        (Sistem) Tampilkan Halaman Latihan;
+                        (Pengguna) Pilih jadwal latihan;
+                        (Sistem) Tampilkan Detail Latihan;
+                        <Pengguna> Mulai Latihan? {
+                            -Ya- {
+                                (Sistem) Tampilkan Layar Sesi Latihan;
+                                (Pengguna) Melakukan sesi latihan;
+                                (Sistem) Lacak data GPS & waktu;
+                                <Pengguna> Selesaikan Latihan? {
+                                    -Ya- {
+                                        (Sistem) Tampilkan Dialog Perekaman Statistik;
+                                        (Pengguna) Isi statistik;
+                                        (Sistem) Simpan sesi latihan;
+                                        (Sistem) Kembali ke Detail Latihan;
+                                    }
+                                    -Tidak- {
+                                        (Pengguna) Lanjutkan sesi;
+                                    }
+                                }
+                                >Sistem<;
+                            }
+                            -Tidak- {
+                                <Pengguna> Ambil Absen? {
+                                    -Ya- {
+                                        (Sistem) Tampilkan Halaman Absensi;
+                                        (Pengguna) Mengambil absen (misal: scan QR);
+                                        (Sistem) Validasi & simpan absen;
+                                    }
+                                    -Tidak- {
+                                        // Kembali
+                                    }
+                                }
+                                >Sistem<;
+                            }
+                        }
+                        >Sistem<;
+                    }
+                }
+                >Sistem<;
+            }
+            -Tidak- {
+                (Sistem) Tampilkan pesan error;
+                (Pengguna) Coba lagi;
+            }
+        }
+        >Sistem<;
+        @Pengguna@
+    }
+} 

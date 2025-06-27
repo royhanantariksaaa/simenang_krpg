@@ -1,0 +1,43 @@
+'Proses Autentikasi Pengguna' {
+    |Pengguna, Aplikasi Mobile, API, Sistem Backend| {
+        $Pengguna$
+        (Pengguna) Buka Aplikasi;
+        (Aplikasi Mobile) Tampilkan Halaman Login;
+        (Pengguna) Masukkan email dan password;
+        (Pengguna) Tekan tombol Login;
+        (Aplikasi Mobile) Validasi format input;
+        <Aplikasi Mobile> Apakah input valid? {
+            -Ya- {
+                (Aplikasi Mobile) Buat permintaan login;
+                (API) POST /api/login [email, password];
+                (Sistem Backend) Terima permintaan dari API;
+                (Sistem Backend) Cari pengguna berdasarkan email;
+                <Sistem Backend> Pengguna ditemukan & password cocok? {
+                    -Ya- {
+                        (Sistem Backend) Buat token autentikasi (Sanctum);
+                        (Sistem Backend) Kirim respons sukses dengan token & data pengguna;
+                        (API) Teruskan respons 200 OK ke aplikasi;
+                        (Aplikasi Mobile) Terima respons sukses;
+                        (Aplikasi Mobile) Simpan token autentikasi di secure storage;
+                        (Aplikasi Mobile) Arahkan ke Halaman Utama;
+                        (Pengguna) Lihat Halaman Utama;
+                    }
+                    -Tidak- {
+                        (Sistem Backend) Kirim respons error (misal: 401 Unauthorized);
+                        (API) Teruskan respons error ke aplikasi;
+                        (Aplikasi Mobile) Terima respons error;
+                        (Aplikasi Mobile) Tampilkan pesan "Email atau password salah";
+                        (Pengguna) Lihat pesan error;
+                    }
+                }
+                >Sistem Backend<;
+            }
+            -Tidak- {
+                (Aplikasi Mobile) Tampilkan pesan error validasi (misal: "Email tidak valid");
+                (Pengguna) Lihat pesan error;
+            }
+        }
+        >Aplikasi Mobile<;
+        @Pengguna@
+    }
+} 

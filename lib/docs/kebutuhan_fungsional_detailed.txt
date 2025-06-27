@@ -1,0 +1,513 @@
+# KEBUTUHAN FUNGSIONAL DETAILED - APLIKASI MOBILE MANAJEMEN KLUB RENANG PETROKIMIA GRESIK
+
+## 1. MANAJEMEN AUTENTIKASI
+
+### 1.1 Login
+**Kode:** FR-AUTH-001  
+**Deskripsi:** Sistem dapat memverifikasi kredensial pengguna dan memberikan akses ke aplikasi  
+**Aktor:** Semua pengguna (Atlet, Pelatih, Ketua, Admin)  
+**Prioritas:** High  
+**Input:** Email, Password  
+**Output:** Session token, Redirect ke Dashboard  
+**Validasi:**
+- Email tidak boleh kosong
+- Password tidak boleh kosong
+- Format email harus valid
+- Email harus terdaftar di sistem
+- Password harus benar
+- Akun harus aktif
+
+### 1.2 Logout
+**Kode:** FR-AUTH-002  
+**Deskripsi:** Sistem dapat mengakhiri sesi pengguna secara aman  
+**Aktor:** Semua pengguna  
+**Prioritas:** Medium  
+**Input:** Konfirmasi logout  
+**Output:** Session dihapus, Redirect ke Login  
+**Validasi:**
+- Konfirmasi logout dari pengguna
+
+### 1.3 Lupa Password
+**Kode:** FR-AUTH-003  
+**Deskripsi:** Sistem dapat membantu pengguna reset password melalui email  
+**Aktor:** Semua pengguna  
+**Prioritas:** Medium  
+**Input:** Email  
+**Output:** Email reset password  
+**Validasi:**
+- Email tidak boleh kosong
+- Email harus terdaftar
+- Email harus aktif
+
+## 2. MANAJEMEN KOMPETISI
+
+### 2.1 Lihat Daftar Kompetisi
+**Kode:** FR-COMP-001  
+**Deskripsi:** Sistem dapat menampilkan daftar semua kompetisi yang tersedia  
+**Aktor:** Pelatih, Atlet  
+**Prioritas:** High  
+**Input:** Filter (status, level, tanggal)  
+**Output:** Daftar kompetisi dengan detail  
+**Validasi:**
+- Data kompetisi tersedia
+
+### 2.2 Detail Kompetisi
+**Kode:** FR-COMP-002  
+**Deskripsi:** Sistem dapat menampilkan detail lengkap kompetisi tertentu  
+**Aktor:** Pelatih, Atlet  
+**Prioritas:** High  
+**Input:** ID Kompetisi  
+**Output:** Detail kompetisi, daftar peserta, jadwal  
+**Validasi:**
+- Kompetisi harus ada
+
+### 2.3 Request Delegasi Atlet
+**Kode:** FR-COMP-003  
+**Deskripsi:** Pelatih dapat mengajukan permintaan delegasi atlet untuk kompetisi  
+**Aktor:** Pelatih  
+**Prioritas:** High  
+**Input:** ID Kompetisi, ID Atlet, Alasan delegasi  
+**Output:** Request delegasi, notifikasi ke Ketua  
+**Validasi:**
+- Kompetisi harus tersedia
+- Atlet harus memenuhi syarat
+- Atlet belum didelegasikan
+- Alasan delegasi harus diisi
+
+### 2.4 Approve/Reject Delegasi
+**Kode:** FR-COMP-004  
+**Deskripsi:** Ketua dapat menyetujui atau menolak request delegasi  
+**Aktor:** Ketua  
+**Prioritas:** High  
+**Input:** ID Request, Keputusan, Alasan (jika reject)  
+**Output:** Status delegasi, notifikasi ke Pelatih dan Atlet  
+**Validasi:**
+- Request delegasi harus ada
+- Request masih valid
+- Slot kompetisi tersedia (jika approve)
+- Alasan harus diisi (jika reject)
+
+### 2.5 Lihat Riwayat Partisipasi Kompetisi
+**Kode:** FR-COMP-005  
+**Deskripsi:** Sistem dapat menampilkan riwayat partisipasi atlet dalam kompetisi  
+**Aktor:** Pelatih, Atlet  
+**Prioritas:** Low  
+**Input:** ID Atlet, Periode waktu  
+**Output:** Riwayat kompetisi dengan hasil  
+**Validasi:**
+- Data partisipasi tersedia
+
+## 3. MANAJEMEN LATIHAN
+
+### 3.1 Lihat Jadwal Latihan
+**Kode:** FR-TRAIN-001  
+**Deskripsi:** Sistem dapat menampilkan jadwal latihan yang tersedia  
+**Aktor:** Pelatih, Atlet  
+**Prioritas:** Medium  
+**Input:** Filter (hari, pelatih, kelas)  
+**Output:** Daftar jadwal latihan  
+**Validasi:**
+- Jadwal latihan tersedia
+
+### 3.2 Mulai Sesi Latihan
+**Kode:** FR-TRAIN-002  
+**Deskripsi:** Pelatih dapat memulai sesi latihan sesuai jadwal  
+**Aktor:** Pelatih  
+**Prioritas:** High  
+**Input:** ID Jadwal Latihan, Lokasi GPS  
+**Output:** Sesi latihan aktif, presensi pelatih  
+**Validasi:**
+- Jadwal latihan tersedia
+- Waktu latihan sudah tiba
+- Lokasi dalam radius kolam renang
+- Pelatih belum memulai sesi lain
+
+### 3.3 Presensi Atlet
+**Kode:** FR-TRAIN-003  
+**Deskripsi:** Atlet dapat melakukan presensi pada sesi latihan aktif  
+**Aktor:** Atlet  
+**Prioritas:** High  
+**Input:** ID Sesi Latihan, Lokasi GPS  
+**Output:** Presensi atlet, notifikasi ke Pelatih  
+**Validasi:**
+- Sesi latihan aktif
+- Lokasi dalam radius kolam renang
+- Atlet belum presensi
+- Atlet terdaftar dalam jadwal
+
+### 3.4 Catat Data Performa
+**Kode:** FR-TRAIN-004  
+**Deskripsi:** Pelatih dapat mencatat data performa atlet selama latihan  
+**Aktor:** Pelatih  
+**Prioritas:** High  
+**Input:** ID Atlet, ID Program Latihan, Waktu, Data tambahan  
+**Output:** Data performa tersimpan, statistik terupdate  
+**Validasi:**
+- Atlet sudah presensi
+- Program latihan tersedia
+- Data performa valid
+- Waktu latihan masuk akal
+
+### 3.5 Akhiri Sesi Latihan
+**Kode:** FR-TRAIN-005  
+**Deskripsi:** Pelatih dapat mengakhiri sesi latihan  
+**Aktor:** Pelatih  
+**Prioritas:** High  
+**Input:** ID Sesi Latihan  
+**Output:** Sesi selesai, ringkasan latihan, notifikasi ke Atlet  
+**Validasi:**
+- Sesi latihan aktif
+- Semua atlet sudah dicatat performanya
+
+### 3.6 Lihat Riwayat Presensi
+**Kode:** FR-TRAIN-006  
+**Deskripsi:** Sistem dapat menampilkan riwayat presensi atlet  
+**Aktor:** Atlet, Pelatih  
+**Prioritas:** Low  
+**Input:** ID Atlet, Periode waktu  
+**Output:** Riwayat presensi dengan detail  
+**Validasi:**
+- Data presensi tersedia
+
+### 3.7 Monitoring Presensi Pelatih
+**Kode:** FR-TRAIN-007  
+**Deskripsi:** Sistem dapat menampilkan riwayat presensi pelatih  
+**Aktor:** Pelatih  
+**Prioritas:** Medium  
+**Input:** ID Pelatih, Periode waktu  
+**Output:** Riwayat presensi pelatih  
+**Validasi:**
+- Data presensi tersedia
+
+### 3.8 Monitoring Presensi Atlet
+**Kode:** FR-TRAIN-008  
+**Deskripsi:** Pelatih dapat memantau presensi semua atlet  
+**Aktor:** Pelatih  
+**Prioritas:** Low  
+**Input:** Periode waktu, Filter (status, kelas)  
+**Output:** Daftar presensi atlet  
+**Validasi:**
+- Data presensi tersedia
+
+## 4. MANAJEMEN PERFORMANCE
+
+### 4.1 Monitoring Performa Atlet
+**Kode:** FR-PERF-001  
+**Deskripsi:** Pelatih dapat memantau performa semua atlet  
+**Aktor:** Pelatih  
+**Prioritas:** Low  
+**Input:** Periode waktu, Filter (atlet, program)  
+**Output:** Data performa dengan grafik dan statistik  
+**Validasi:**
+- Data performa tersedia
+
+### 4.2 Riwayat Performa Atlet
+**Kode:** FR-PERF-002  
+**Deskripsi:** Atlet dapat melihat riwayat performa pribadi  
+**Aktor:** Atlet  
+**Prioritas:** Low  
+**Input:** Periode waktu, Filter (program)  
+**Output:** Riwayat performa dengan grafik  
+**Validasi:**
+- Data performa tersedia
+
+### 4.3 Analisis Trend Performa
+**Kode:** FR-PERF-003  
+**Deskripsi:** Sistem dapat menganalisis trend performa atlet  
+**Aktor:** Pelatih  
+**Prioritas:** Low  
+**Input:** ID Atlet, Periode waktu, Metrik  
+**Output:** Grafik trend performa, rekomendasi  
+**Validasi:**
+- Data performa cukup untuk analisis
+
+### 4.4 Bandingkan Performa
+**Kode:** FR-PERF-004  
+**Deskripsi:** Pelatih dapat membandingkan performa antar atlet  
+**Aktor:** Pelatih  
+**Prioritas:** Low  
+**Input:** Daftar ID Atlet, Periode waktu, Metrik  
+**Output:** Grafik perbandingan performa  
+**Validasi:**
+- Data performa tersedia untuk semua atlet
+
+## 5. MANAJEMEN KEUANGAN
+
+### 5.1 Lihat Status Keanggotaan
+**Kode:** FR-FIN-001  
+**Deskripsi:** Atlet dapat melihat status keanggotaan dan tagihan  
+**Aktor:** Atlet  
+**Prioritas:** High  
+**Input:** ID Atlet  
+**Output:** Status keanggotaan, daftar tagihan  
+**Validasi:**
+- Data keanggotaan tersedia
+
+### 5.2 Upload Bukti Pembayaran
+**Kode:** FR-FIN-002  
+**Deskripsi:** Atlet dapat mengupload bukti pembayaran  
+**Aktor:** Atlet  
+**Prioritas:** High  
+**Input:** Foto bukti pembayaran, Data pembayaran  
+**Output:** Bukti pembayaran tersimpan, notifikasi ke Admin  
+**Validasi:**
+- Ada tagihan yang belum dibayar
+- Format gambar valid
+- Data pembayaran lengkap
+- Ukuran file tidak melebihi batas
+
+### 5.3 Verifikasi Pembayaran
+**Kode:** FR-FIN-003  
+**Deskripsi:** Admin dapat memverifikasi bukti pembayaran  
+**Aktor:** Admin  
+**Prioritas:** High  
+**Input:** ID Bukti Pembayaran, Status verifikasi  
+**Output:** Status pembayaran terupdate, notifikasi ke Atlet  
+**Validasi:**
+- Bukti pembayaran tersedia
+- Status verifikasi valid
+
+### 5.4 Generate Laporan Keuangan
+**Kode:** FR-FIN-004  
+**Deskripsi:** Admin dapat generate laporan keuangan  
+**Aktor:** Admin  
+**Prioritas:** Medium  
+**Input:** Periode waktu, Tipe laporan  
+**Output:** Laporan keuangan dalam format PDF/Excel  
+**Validasi:**
+- Data keuangan tersedia
+
+## 6. MANAJEMEN PROFIL
+
+### 6.1 Lihat Profil
+**Kode:** FR-PROF-001  
+**Deskripsi:** Pengguna dapat melihat profil pribadi  
+**Aktor:** Semua pengguna  
+**Prioritas:** Low  
+**Input:** ID User  
+**Output:** Data profil lengkap  
+**Validasi:**
+- Data profil tersedia
+
+### 6.2 Edit Profil
+**Kode:** FR-PROF-002  
+**Deskripsi:** Pengguna dapat mengubah data profil  
+**Aktor:** Semua pengguna  
+**Prioritas:** Low  
+**Input:** Data profil yang diubah  
+**Output:** Profil terupdate  
+**Validasi:**
+- Data profil valid
+- Email tidak duplikat (jika diubah)
+- Format data sesuai
+
+### 6.3 Upload Foto Profil
+**Kode:** FR-PROF-003  
+**Deskripsi:** Pengguna dapat mengupload foto profil  
+**Aktor:** Semua pengguna  
+**Prioritas:** Low  
+**Input:** Foto profil  
+**Output:** Foto profil terupdate  
+**Validasi:**
+- Format gambar valid
+- Ukuran file tidak melebihi batas
+- Resolusi gambar memadai
+
+## 7. MANAJEMEN NOTIFIKASI
+
+### 7.1 Kirim Notifikasi
+**Kode:** FR-NOTIF-001  
+**Deskripsi:** Sistem dapat mengirim notifikasi ke pengguna  
+**Aktor:** Sistem  
+**Prioritas:** Medium  
+**Input:** ID User, Tipe notifikasi, Pesan  
+**Output:** Notifikasi terkirim  
+**Validasi:**
+- User valid
+- Pesan tidak kosong
+
+### 7.2 Lihat Notifikasi
+**Kode:** FR-NOTIF-002  
+**Deskripsi:** Pengguna dapat melihat daftar notifikasi  
+**Aktor:** Semua pengguna  
+**Prioritas:** Medium  
+**Input:** Filter (status, tipe)  
+**Output:** Daftar notifikasi  
+**Validasi:**
+- Data notifikasi tersedia
+
+### 7.3 Tandai Notifikasi Dibaca
+**Kode:** FR-NOTIF-003  
+**Deskripsi:** Pengguna dapat menandai notifikasi sebagai dibaca  
+**Aktor:** Semua pengguna  
+**Prioritas:** Medium  
+**Input:** ID Notifikasi  
+**Output:** Status notifikasi terupdate  
+**Validasi:**
+- Notifikasi tersedia
+
+## 8. MANAJEMEN DATA MASTER
+
+### 8.1 Manajemen Program Latihan
+**Kode:** FR-MASTER-001  
+**Deskripsi:** Admin dapat mengelola program latihan  
+**Aktor:** Admin  
+**Prioritas:** Medium  
+**Input:** Data program latihan  
+**Output:** Program latihan tersimpan/terupdate  
+**Validasi:**
+- Data program latihan valid
+- Nama program unik
+
+### 8.2 Manajemen Kelas Atlet
+**Kode:** FR-MASTER-002  
+**Deskripsi:** Admin dapat mengelola kelas atlet  
+**Aktor:** Admin  
+**Prioritas:** Medium  
+**Input:** Data kelas atlet  
+**Output:** Kelas atlet tersimpan/terupdate  
+**Validasi:**
+- Data kelas atlet valid
+- Nama kelas unik
+
+### 8.3 Manajemen Level Kompetisi
+**Kode:** FR-MASTER-003  
+**Deskripsi:** Admin dapat mengelola level kompetisi  
+**Aktor:** Admin  
+**Prioritas:** Medium  
+**Input:** Data level kompetisi  
+**Output:** Level kompetisi tersimpan/terupdate  
+**Validasi:**
+- Data level kompetisi valid
+- Nama level unik
+
+## 9. MANAJEMEN LAPORAN
+
+### 9.1 Generate Laporan Presensi
+**Kode:** FR-REPORT-001  
+**Deskripsi:** Sistem dapat generate laporan presensi  
+**Aktor:** Pelatih, Admin  
+**Prioritas:** Medium  
+**Input:** Periode waktu, Filter (atlet, kelas)  
+**Output:** Laporan presensi dalam format PDF/Excel  
+**Validasi:**
+- Data presensi tersedia
+
+### 9.2 Generate Laporan Performa
+**Kode:** FR-REPORT-002  
+**Deskripsi:** Sistem dapat generate laporan performa  
+**Aktor:** Pelatih, Admin  
+**Prioritas:** Medium  
+**Input:** Periode waktu, Filter (atlet, program)  
+**Output:** Laporan performa dalam format PDF/Excel  
+**Validasi:**
+- Data performa tersedia
+
+### 9.3 Generate Laporan Kompetisi
+**Kode:** FR-REPORT-003  
+**Deskripsi:** Sistem dapat generate laporan kompetisi  
+**Aktor:** Pelatih, Admin  
+**Prioritas:** Medium  
+**Input:** ID Kompetisi atau Periode waktu  
+**Output:** Laporan kompetisi dalam format PDF/Excel  
+**Validasi:**
+- Data kompetisi tersedia
+
+## 10. MANAJEMEN SISTEM
+
+### 10.1 Backup Data
+**Kode:** FR-SYS-001  
+**Deskripsi:** Sistem dapat melakukan backup data secara otomatis  
+**Aktor:** Sistem  
+**Prioritas:** Low  
+**Input:** Jadwal backup  
+**Output:** File backup tersimpan  
+**Validasi:**
+- Kapasitas penyimpanan mencukupi
+
+### 10.2 Restore Data
+**Kode:** FR-SYS-002  
+**Deskripsi:** Admin dapat melakukan restore data dari backup  
+**Aktor:** Admin  
+**Prioritas:** Low  
+**Input:** File backup  
+**Output:** Data ter-restore  
+**Validasi:**
+- File backup valid
+- Format backup sesuai
+
+### 10.3 Log Aktivitas
+**Kode:** FR-SYS-003  
+**Deskripsi:** Sistem dapat mencatat log aktivitas pengguna  
+**Aktor:** Sistem  
+**Prioritas:** Low  
+**Input:** Aktivitas pengguna  
+**Output:** Log aktivitas tersimpan  
+**Validasi:**
+- Data aktivitas valid
+
+### 10.4 Monitoring Sistem
+**Kode:** FR-SYS-004  
+**Deskripsi:** Admin dapat memantau status sistem  
+**Aktor:** Admin  
+**Prioritas:** Low  
+**Input:** Metrik sistem  
+**Output:** Status sistem, alert jika ada masalah  
+**Validasi:**
+- Metrik sistem tersedia
+
+## 11. FITUR TAMBAHAN
+
+### 11.1 Chat Internal
+**Kode:** FR-CHAT-001  
+**Deskripsi:** Pengguna dapat berkomunikasi melalui chat internal  
+**Aktor:** Semua pengguna  
+**Prioritas:** Low  
+**Input:** Pesan chat  
+**Output:** Pesan terkirim dan diterima  
+**Validasi:**
+- Pesan tidak kosong
+- Penerima valid
+
+### 11.2 Kalender Latihan
+**Kode:** FR-CAL-001  
+**Deskripsi:** Sistem dapat menampilkan kalender latihan  
+**Aktor:** Semua pengguna  
+**Prioritas:** Medium  
+**Input:** Bulan/tahun  
+**Output:** Kalender dengan jadwal latihan  
+**Validasi:**
+- Data jadwal tersedia
+
+### 11.3 Reminder Latihan
+**Kode:** FR-REM-001  
+**Deskripsi:** Sistem dapat mengirim reminder latihan  
+**Aktor:** Sistem  
+**Prioritas:** Medium  
+**Input:** Jadwal reminder  
+**Output:** Notifikasi reminder  
+**Validasi:**
+- Jadwal reminder valid
+
+### 11.4 Export Data
+**Kode:** FR-EXP-001  
+**Deskripsi:** Pengguna dapat mengekspor data ke format lain  
+**Aktor:** Semua pengguna  
+**Prioritas:** Low  
+**Input:** Data yang akan diekspor, Format  
+**Output:** File ekspor  
+**Validasi:**
+- Data tersedia
+- Format ekspor didukung
+
+### 11.5 Import Data
+**Kode:** FR-IMP-001  
+**Deskripsi:** Admin dapat mengimpor data dari file eksternal  
+**Aktor:** Admin  
+**Prioritas:** Low  
+**Input:** File data  
+**Output:** Data terimpor  
+**Validasi:**
+- Format file didukung
+- Data valid
+- Tidak ada duplikasi 

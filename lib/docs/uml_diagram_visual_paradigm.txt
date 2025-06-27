@@ -1,0 +1,233 @@
+# PANDUAN UML DIAGRAM MENGGUNAKAN VISUAL PARADIGM
+# Aplikasi Mobile Manajemen Klub Renang Petrokimia Gresik
+
+## 1. CLASS DIAGRAM
+
+### Package: Authentication
+- **LoginScreen**
+  - Attributes: email (String), password (String), isLoading (boolean)
+  - Methods: login(), validateInput(), showError()
+
+### Package: Home
+- **HomeScreen**
+  - Attributes: competitions (List), trainings (List), statistics (List)
+  - Methods: loadDashboardData(), navigateToCompetition(), navigateToTraining(), refreshData()
+
+### Package: Competition Management
+- **CompetitionScreen**
+  - Attributes: competitions (List), isLoading (boolean)
+  - Methods: loadCompetitions(), searchCompetition(), filterCompetition(), navigateToDetail()
+
+- **CompetitionDetailScreen**
+  - Attributes: competition (dynamic), participants (List)
+  - Methods: loadCompetitionDetail(), requestDelegation(), approveDelegation(), rejectDelegation()
+
+### Package: Training Management
+- **TrainingScreen**
+  - Attributes: trainings (List), isLoading (boolean)
+  - Methods: loadTrainings(), searchTraining(), filterTraining(), navigateToDetail()
+
+- **TrainingDetailScreen**
+  - Attributes: training (dynamic), attendees (List), isStarted (boolean)
+  - Methods: startTraining(), endTraining(), recordAttendance(), recordTrainingData()
+
+- **TrainingSessionScreen**
+  - Attributes: training (dynamic), athletes (List), trainingData (Map)
+  - Methods: startSession(), recordPerformance(), useStopwatch(), useTimer(), saveSession()
+
+- **AttendanceCheckScreen**
+  - Attributes: training (dynamic), athletes (List), attendance (Map)
+  - Methods: checkLocation(), recordAttendance(), validateLocation()
+
+- **SimpleAttendanceScreen**
+  - Attributes: training (dynamic), athletes (List), attendance (Map)
+  - Methods: recordAttendance(), submitAttendance()
+
+- **TrainingSessionHistoryScreen**
+  - Attributes: sessions (List)
+  - Methods: loadSessionHistory(), filterSessions(), viewSessionDetail()
+
+### Package: Athlete Management
+- **AthletesScreen**
+  - Attributes: athletes (List), isLoading (boolean)
+  - Methods: loadAthletes(), searchAthlete(), filterAthlete(), navigateToDetail()
+
+- **AthleteDetailScreen**
+  - Attributes: athlete (dynamic), performance (List), attendance (List), competitions (List)
+  - Methods: loadAthleteDetail(), viewPerformance(), viewAttendance(), viewCompetitions()
+
+### Package: Profile Management
+- **ProfileScreen**
+  - Attributes: userProfile (dynamic), isEditing (boolean)
+  - Methods: loadProfile(), editProfile(), updateProfile(), uploadPhoto(), changePassword()
+
+### Package: Statistics & Performance
+- **StatisticsRecordingDialog**
+  - Attributes: athlete (dynamic), statistics (Map)
+  - Methods: recordStatistics(), validateData(), saveStatistics()
+
+## 2. USE CASE DIAGRAM
+
+### Actors:
+1. **Atlet** - Anggota klub renang
+2. **Pelatih** - Pelatih klub renang
+3. **Ketua** - Ketua klub renang
+4. **Admin** - Administrator sistem
+
+### Use Cases by Package:
+
+#### Authentication Package:
+- Login
+- Logout
+- Lupa Password
+
+#### Competition Management Package:
+- View Competition Schedule List
+- Request Athlete for Competition Delegation
+- Approve Competition Delegation Request
+- View Athlete Competition Participation
+
+#### Training Management Package:
+- View Training Schedule List
+- Start Training Schedule
+- Attend Training Schedule
+- Record Athlete Training Data
+- End Training Schedule
+- View Athlete Attendance History
+- Coach Attendance Monitoring
+- Athlete Attendance Monitoring
+
+#### Performance Management Package:
+- Athlete Performance Monitoring
+- View Athlete Performance History
+
+#### Membership Management Package:
+- View Athlete Membership Status
+- Upload Payment Evidence
+
+#### Profile Management Package:
+- View Profile
+- Edit Profile
+
+### Relationships:
+- Atlet dapat mengakses: Login, Logout, Lupa Password, View Competition Schedule List, View Athlete Competition Participation, View Training Schedule List, Attend Training Schedule, View Athlete Attendance History, View Athlete Performance History, View Athlete Membership Status, Upload Payment Evidence, View Profile, Edit Profile
+
+- Pelatih dapat mengakses: Semua yang dapat diakses Atlet + Request Athlete for Competition Delegation, Start Training Schedule, Record Athlete Training Data, End Training Schedule, Coach Attendance Monitoring, Athlete Attendance Monitoring, Athlete Performance Monitoring
+
+- Ketua dapat mengakses: Login, Logout, Lupa Password, Approve Competition Delegation Request, View Profile, Edit Profile
+
+- Admin dapat mengakses: Login, Logout, Lupa Password, View Profile, Edit Profile
+
+## 3. ACTIVITY DIAGRAM - Training Session
+
+### Main Flow:
+1. Start
+2. Coach Login
+3. Coach memilih jadwal latihan
+4. Coach memulai sesi latihan
+5. Decision: Lokasi valid?
+   - If Yes: Lanjut ke step 6
+   - If No: Tampilkan pesan error lokasi → End
+6. Sistem mencatat presensi coach
+7. Sistem menampilkan daftar atlet
+8. Loop: Ada atlet yang belum presensi?
+   - If Yes: 
+     - Atlet melakukan presensi
+     - Decision: Lokasi atlet valid?
+       - If Yes: Lanjut ke step 9
+       - If No: Tampilkan pesan error → Continue loop
+     - Sistem mencatat presensi atlet
+     - Sistem menampilkan program latihan
+     - Loop: Ada program latihan?
+       - If Yes:
+         - Coach memilih program latihan
+         - Coach mencatat data performa atlet
+         - Decision: Program menggunakan stopwatch?
+           - If Yes: Coach menggunakan stopwatch
+           - If No: Coach menggunakan timer
+         - Coach menyimpan data performa
+         - Continue inner loop
+       - If No: Break inner loop
+     - Continue outer loop
+   - If No: Break outer loop
+9. Coach mengakhiri sesi latihan
+10. Sistem menyimpan data sesi
+11. Sistem menampilkan ringkasan
+12. End
+
+## 4. SEQUENCE DIAGRAM - Training Session
+
+### Participants:
+- Coach (Actor)
+- TrainingScreen
+- TrainingSessionScreen
+- AttendanceCheckScreen
+- StatisticsRecordingDialog
+- API Service
+- Database
+
+### Sequence Flow:
+1. Coach → TrainingScreen: Pilih jadwal latihan
+2. TrainingScreen → API Service: Get training schedule
+3. API Service → Database: Query training data
+4. Database → API Service: Return training data
+5. API Service → TrainingScreen: Return training schedule
+6. TrainingScreen → Coach: Tampilkan detail latihan
+
+7. Coach → TrainingScreen: Mulai sesi latihan
+8. TrainingScreen → TrainingSessionScreen: Navigate to session
+9. TrainingSessionScreen → API Service: Start training session
+10. API Service → Database: Create session record
+11. Database → API Service: Session created
+12. API Service → TrainingSessionScreen: Session started
+13. TrainingSessionScreen → Coach: Tampilkan interface sesi
+
+14. Coach → TrainingSessionScreen: Cek presensi atlet
+15. TrainingSessionScreen → AttendanceCheckScreen: Open attendance screen
+16. AttendanceCheckScreen → API Service: Get athlete list
+17. API Service → Database: Query athletes
+18. Database → API Service: Return athletes
+19. API Service → AttendanceCheckScreen: Return athlete list
+20. AttendanceCheckScreen → Coach: Tampilkan daftar atlet
+
+21. Loop: Untuk setiap atlet
+    - Coach → AttendanceCheckScreen: Record attendance
+    - AttendanceCheckScreen → API Service: Submit attendance
+    - API Service → Database: Save attendance
+    - Database → API Service: Attendance saved
+    - API Service → AttendanceCheckScreen: Attendance recorded
+    - AttendanceCheckScreen → Coach: Update UI
+
+22. Coach → TrainingSessionScreen: Record performance data
+23. TrainingSessionScreen → StatisticsRecordingDialog: Open statistics dialog
+24. StatisticsRecordingDialog → Coach: Tampilkan form data
+25. Coach → StatisticsRecordingDialog: Input performance data
+26. StatisticsRecordingDialog → API Service: Save performance data
+27. API Service → Database: Store performance
+28. Database → API Service: Data saved
+29. API Service → StatisticsRecordingDialog: Performance recorded
+30. StatisticsRecordingDialog → TrainingSessionScreen: Close dialog
+31. TrainingSessionScreen → Coach: Update session data
+
+32. Coach → TrainingSessionScreen: End training session
+33. TrainingSessionScreen → API Service: End session
+34. API Service → Database: Update session status
+35. Database → API Service: Session ended
+36. API Service → TrainingSessionScreen: Session completed
+37. TrainingSessionScreen → Coach: Show summary
+
+## 5. IMPLEMENTASI DI VISUAL PARADIGM
+
+### Langkah-langkah:
+1. Buka Visual Paradigm
+2. Buat project baru
+3. Buat diagram sesuai dengan panduan di atas
+4. Gunakan warna dan styling yang konsisten
+5. Export diagram dalam format yang diinginkan (PNG, PDF, atau format lainnya)
+
+### Tips:
+- Gunakan package untuk mengelompokkan class yang berhubungan
+- Berikan nama yang jelas untuk setiap elemen
+- Tambahkan komentar jika diperlukan
+- Pastikan relasi antar elemen sudah benar
+- Gunakan stereotype jika diperlukan untuk memperjelas fungsi 

@@ -1,0 +1,126 @@
+BAB IV
+IMPLEMENTASI DAN PENGUJIAN
+
+4.1. Implementasi
+Pada sub bab ini memuat uraian proses dan hasil implementasi dari pendekatan integrasi User-Centered Design dan Scrum terhadap pengembangan aplikasi mobile manajemen Klub Renang Petrokimia Gresik. Implementasi ini mencakup tahapan-tahapan yang telah dilakukan selama pelaksanaan penelitian sesuai dengan metodologi yang telah dijabarkan pada BAB III.
+
+Berdasarkan pendekatan integrasi User-Centered Design dan Scrum sebagaimana telah disebutkan pada bahasan sebelumnya, implementasi dibagi menjadi empat sprint utama, yakni Design Sprint (Sprint 0) dan tiga Development Sprint (Sprint 1, 2, dan 3). Masing-masing sprint memiliki siklus tersendiri yang telah dilaksanakan dan akan dijelaskan sebagai berikut:
+
+4.1.1. Design Sprint (Sprint 0)
+Sebagaimana pada pembahasan sebelumnya, fase ini merupakan fase yang berfokus pada aktivitas pemahaman masalah dan kebutuhan pengguna untuk menghasilkan desain antarmuka yang sesuai dengan kebutuhan pengguna. Pelaksanaan fase ini disebut juga dengan Sprint 0 dan dilakukan dalam siklus yang memiliki beberapa tahap, yaitu Sprint Planning, User Research, Define, Ideate, Prototyping, Testing, dan Sprint Retrospective. Hasil dari siklus Sprint 0 berupa high fidelity prototype, dan product backlog sebagai acuan pengembangan pada sprint selanjutnya.
+
+4.1.1.1. Sprint Planning
+Pada tahapan ini dilakukan sesi perencanaan dari adaptasi sprint planning Scrum pada aktivitas User-Centered Design. Perencanaan dilakukan dengan menentukan sprint backlog item yang akan dilakukan. Hasil dari tahap ini adalah penyusunan Design Sprint backlog sebagai daftar tugas/aktivitas yang dilakukan selama sprint berlangsung. Berikut adalah daftar Design Sprint backlog sebagai hasil pelaksanaan Design Sprint planning:
+
+Tabel IV.1 Daftar Design Sprint backlog item (Sprint 0)
+| No. | Design Sprint Backlog item | Prioritas | Estimasi | Status |
+|-----|---------------------------|-----------|----------|--------|
+| 1.  | Penyusunan daftar pertanyaan | High | 1 jam | Selesai |
+| 2.  | Pelaksanaan wawancara dan observasi | High | 2 jam | Selesai |
+| 3.  | Transkrip dan rangkum hasil wawancara dan observasi | High | 2 jam | Selesai |
+| 4.  | Pendefinisian masalah dan kebutuhan terhadap hasil wawancara | High | 3 jam | Selesai |
+| 5.  | Pendefinisian product backlog | High | 3 jam | Selesai |
+| 6.  | Perancangan use case diagram | High | 3 jam | Selesai |
+| 7.  | Perancangan activity diagram | Medium | 16 jam | Selesai |
+| 8.  | Penentuan kebutuhan fungsional | High | 2 jam | Selesai |
+| 9.  | Penentuan kebutuhan non fungsional | Medium | 1 jam | Selesai |
+| 10. | Perancangan kamus data untuk variabel yang akan digunakan pada fungsionalitas sistem | Medium | 2 jam | Selesai |
+| 11. | Perancangan wireframe/low fidelity design | High | 16 jam | Selesai |
+| 12. | Perancangan high fidelity design | High | 24 jam | Selesai |
+| 13. | Sesi Focus Group Discussion (FGD) untuk umpan balik terkait rancangan high fidelity design | High | 1 jam | Selesai |
+| 14. | Rangkum umpan balik dari sesi FGD (Focus Group Discussion) | Medium | 1 jam | Selesai |
+
+4.1.1.2. User Research
+Pelaksanaan tahap User Research pada Sprint 0 ini bertujuan untuk memahami permasalahan, kendala, harapan, dan kebutuhan pengguna melalui observasi dan wawancara langsung kepada pihak yang bersangkutan, yakni pihak Klub Renang Petrokimia Gresik. Pada tahap User Research ini dilaksanakan backlog item berikut:
+
+Tabel IV.2 Daftar backlog item yang dilaksanakan pada tahap User Research
+| Design Sprint Backlog item | Prioritas | Estimasi | Status |
+|---------------------------|-----------|----------|--------|
+| Penyusunan daftar pertanyaan | High | 1 jam | Selesai |
+| Pelaksanaan wawancara dan observasi | High | 2 jam | Selesai |
+| Transkrip dan rangkum hasil wawancara dan observasi | High | 2 jam | Selesai |
+
+Hasil dari pelaksanaan tahap User Research ini berupa dokumentasi pelaksanaan yang telah dicantumkan pada Lampiran A Hasil sesi wawancara dan Lampiran B Dokumentasi Requirement Analysis dengan Petrokimia Gresik. Wawancara dilakukan dengan Bapak Chandra selaku pelatih Klub Renang Petrokimia Gresik dan Bapak Satria selaku sekretaris Klub Renang Petrokimia Gresik.
+
+4.1.1.3. Define
+Tabel IV.3 Daftar backlog item yang dilaksanakan pada tahap Define
+| Design Sprint Backlog item | Prioritas | Estimasi | Status |
+|---------------------------|-----------|----------|--------|
+| Pendefinisian masalah dan kebutuhan terhadap hasil wawancara | High | 3 jam | Selesai |
+| Pendefinisian product backlog | High | 3 jam | Selesai |
+
+Pada tahap Define, pelaksanaannya adalah mendefinisikan masalah dan meringkas kebutuhan sesuai hasil tahapan User Research sebelumnya. Berdasarkan transkrip dan rangkuman hasil wawancara dan observasi yang telah didefinisikan menjadi problem statement didapatkan tiga poin utama, yaitu:
+
+1. **Pencarian data prestasi atlet**
+   Pelatih Klub Renang Petrokimia Gresik mengalami kendala dalam melakukan seleksi kandidat atlet yang akan mengikuti kompetisi karena pencarian data prestasi atlet untuk seleksi kandidat kompetisi belum tersimpan secara terstruktur.
+
+2. **Pencatatan data latihan**
+   Pelatih mengalami kendala dalam mencatat data latihan dan memantau performa atlet secara berkelanjutan yang disebabkan oleh sistem pencatatan yang belum terorganisir dan data hasil pencatatan yang tidak terkalkulasikan secara otomatis.
+
+3. **Pemantauan performa atlet**
+   Atlet mengalami kendala dalam memantau perkembangan performa mereka karena data yang disajikan tidak diperbarui secara realtime.
+
+Berdasarkan tiga poin utama yang didapatkan dari problem statement, dapat dilakukan pendefinisian product backlog sebagai deskripsi singkat dari fitur yang akan diimplementasikan berdasarkan perspektif pengguna. Product backlog yang telah didefinisikan juga telah diolah menjadi bentuk kebutuhan fungsional pada sub bab 3.6 Kebutuhan Fungsional.
+
+Tabel IV.4 Product Backlog
+| No. | Product Backlog Item | Prioritas |
+|-----|----------------------|-----------|
+| 1.  | View Competition Schedule List | High |
+| 2.  | Request Athlete for Competition Delegation | High |
+| 3.  | View Training Schedule List | Medium |
+| 4.  | Start Training Schedule | High |
+| 5.  | Attend Training Schedule | High |
+| 6.  | Record Athlete Training Data | High |
+| 7.  | End Training Schedule | High |
+| 8.  | View Athlete Attendance History | Low |
+| 9.  | Coach Attendance Monitoring | Medium |
+| 10. | Athlete Attendance Monitoring | Low |
+| 11. | View Athlete Competition Participation | Low |
+| 12. | Athlete Performance Monitoring | Low |
+| 13. | View Athlete Performance History | Low |
+| 14. | View Athlete Membership Status | High |
+| 15. | Upload Payment Evidence | High |
+| 16. | View Profile | Low |
+| 17. | Edit Profile | Low |
+| 18. | Approve Competition Delegation Request from Coach | High |
+
+4.1.1.4. Ideate
+Tahap Ideate merupakan tahap eksplorasi dengan sesi brainstorming untuk menghasilkan ide rancangan solusi. Hasil tahap ini berupa use case diagram telah dicantumkan pada Gambar III.3 Use Case Diagram Aplikasi Mobile Manajemen Klub Renang Petrokimia Gresik, kebutuhan fungsional pada sub bab 3.6 Kebutuhan Fungsional, kebutuhan non fungsional pada sub bab 3.7 Kebutuhan Non Fungsional, perancangan kamus data pada Tabel III.2 Rancangan kamus data sementara aplikasi mobile, serta activity diagram yang akan dicantumkan pada masing-masing sprint.
+
+Tabel IV.5 Daftar backlog item yang dilaksanakan pada tahap Ideate
+| Design Sprint Backlog item | Prioritas | Estimasi | Status |
+|---------------------------|-----------|----------|--------|
+| Perancangan use case diagram | High | 3 jam | Selesai |
+| Perancangan activity diagram | Medium | 16 jam | Selesai |
+| Penentuan kebutuhan fungsional | High | 2 jam | Selesai |
+| Penentuan kebutuhan non fungsional | Medium | 1 jam | Selesai |
+| Perancangan kamus data untuk variabel yang akan digunakan pada fungsionalitas sistem | Medium | 2 jam | Selesai |
+
+4.1.1.5. Prototyping
+Tabel IV.6 Daftar backlog item yang dilaksanakan pada tahap Prototyping
+| Design Sprint Backlog item | Prioritas | Estimasi | Status |
+|---------------------------|-----------|----------|--------|
+| Perancangan wireframe/low fidelity design | High | 16 jam | Selesai |
+| Perancangan high fidelity design | High | 24 jam | Selesai |
+
+Pada tahap Prototyping dilakukan eksekusi rancangan tahap Ideate menjadi bentuk low fidelity design atau wireframe, kemudian dilanjutkan dengan perancangan high fidelity design. Bentuk low fidelity design berfokus pada tata letak fungsionalitas utama dan visualisasi alur pengguna. Perancangan dilakukan menggunakan tools Figma dan dieksekusi menyesuaikan dengan kebutuhan yang telah didefinisikan sebelumnya. Melalui wireframe ini tim dapat memiliki gambaran kasar terkait alur-alur yang terjadi pada aplikasi, seperti alur dalam mengakses data jadwal latihan, jadwal kompetisi, dan alur membuat presensi.
+
+Gambar IV.1 Wireframe aplikasi
+
+Setelah wireframe selesai dibuat, tahap selanjutnya adalah mengubah low fidelity design yang sederhana menjadi desain yang lebih matang, rinci, dan realistis melalui penambahan elemen visual yang disebut high fidelity design. Pada tahap ini juga dilakukan penyusunan prototipe interaktif dari high fidelity design agar desain dapat memberikan interaktivitas kepada para pemangku kepentingan dalam bentuk simulasi klik terhadap desain.
+
+Gambar IV.2 High fidelity prototype
+
+4.1.1.6. Testing (Sprint Review)
+Tahap Testing Design Sprint phase dilakukan dalam bentuk Focus Group Discussion (FGD) bersama pihak Klub Renang Petrokimia Gresik untuk mendapatkan umpan balik cepat terhadap konsep dan alur yang diusulkan. Tahap ini mencerminkan sprint review untuk meninjau hasil kerja selama siklus sprint dan menerima masukan dari para pemangku kepentingan.
+
+Tabel IV.7 Daftar backlog item yang dilaksanakan pada tahap Testing
+| Design Sprint Backlog item | Prioritas | Estimasi | Status |
+|---------------------------|-----------|----------|--------|
+| Sesi Focus Group Discussion (FGD) untuk umpan balik terkait rancangan high fidelity design | High | 1 jam | Selesai |
+| Rangkum umpan balik dari sesi FGD (Focus Group Discussion) | Medium | 1 jam | Selesai |
+
+Sprint berhasil diselesaikan sesuai rencana dengan hasil konsep dan alur yang diusulkan berupa rancangan high fidelity prototype, product backlog, rancangan use case diagram, activity diagram, rancangan kamus data. Poin yang ditekankan dari hasil FGD yang dilakukan adalah presensi atlet harus berdasarkan lokasi atlet dari tempat latihan agar presensi valid. Selain itu, tidak ditemukan kendala signifikan terkait konsep dan alur yang diusulkan sehingga dapat melanjutkan ke Development Sprint 1.
+
+4.1.1.7. Sprint Retrospective
+Tahap terakhir pada Design Sprint adalah Sprint Retrospective pada akhir sprint sebagai refleksi dan evaluasi terhadap produktivitas pengerjaan. Evaluasi yang didapatkan agar produktivitas sprint-sprint berikutnya tetap terjaga dan dapat selalu selesai sesuai dengan rencana. Apabila sprint selesai lebih cepat maka tim dapat memanfaatkan sisa waktu yang ada untuk aktivitas yang memberikan peningkatan nilai tambah pada hasil sprint. Refleksi yang dilakukan agar tetap menjaga konsistensi dan performa pengerjaan. 

@@ -1,0 +1,652 @@
+# ACTIVITY DIAGRAM DETAILED - APLIKASI MOBILE MANAJEMEN KLUB RENANG PETROKIMIA GRESIK
+
+## 1. ACTIVITY DIAGRAM - LOGIN
+
+@startuml Login Activity Diagram
+
+!theme plain
+skinparam backgroundColor #FFFFFF
+skinparam activityBackgroundColor #E8F4FD
+skinparam activityBorderColor #2E86AB
+skinparam activityDiamondBackgroundColor #FFE6CC
+skinparam activityDiamondBorderColor #FF8C00
+
+start
+
+:User membuka aplikasi;
+:User melihat halaman login;
+
+:User memasukkan email;
+:User memasukkan password;
+
+if (Email kosong?) then (ya)
+    :Tampilkan pesan "Email tidak boleh kosong";
+    stop
+else (tidak)
+    if (Password kosong?) then (ya)
+        :Tampilkan pesan "Password tidak boleh kosong";
+        stop
+    else (tidak)
+        if (Format email valid?) then (tidak)
+            :Tampilkan pesan "Format email tidak valid";
+            stop
+        else (ya)
+            :User menekan tombol Login;
+            :Sistem mengirim request ke API;
+            
+            if (Koneksi internet tersedia?) then (tidak)
+                :Tampilkan pesan "Tidak ada koneksi internet";
+                stop
+            else (ya)
+                :API memvalidasi kredensial;
+                
+                if (Email terdaftar?) then (tidak)
+                    :Tampilkan pesan "Email tidak terdaftar";
+                    stop
+                else (ya)
+                    if (Password benar?) then (tidak)
+                        :Tampilkan pesan "Password salah";
+                        stop
+                    else (ya)
+                        if (Akun aktif?) then (tidak)
+                            :Tampilkan pesan "Akun tidak aktif";
+                            stop
+                        else (ya)
+                            :Sistem membuat session token;
+                            :Sistem menyimpan data user;
+                            :Sistem redirect ke Home Screen;
+                            :Tampilkan halaman Dashboard;
+                        endif
+                    endif
+                endif
+            endif
+        endif
+    endif
+endif
+
+stop
+
+@enduml
+
+## 2. ACTIVITY DIAGRAM - COMPETITION DELEGATION REQUEST
+
+@startuml Competition Delegation Request Activity Diagram
+
+!theme plain
+skinparam backgroundColor #FFFFFF
+skinparam activityBackgroundColor #E8F4FD
+skinparam activityBorderColor #2E86AB
+skinparam activityDiamondBackgroundColor #FFE6CC
+skinparam activityDiamondBorderColor #FF8C00
+
+start
+
+:Pelatih login ke aplikasi;
+:Pelatih mengakses menu Competition;
+:Pelatih memilih kompetisi tertentu;
+
+if (Kompetisi tersedia?) then (tidak)
+    :Tampilkan pesan "Kompetisi tidak ditemukan";
+    stop
+else (ya)
+    :Pelatih melihat detail kompetisi;
+    :Pelatih menekan tombol "Request Delegation";
+    
+    if (Ada atlet yang memenuhi syarat?) then (tidak)
+        :Tampilkan pesan "Tidak ada atlet yang memenuhi syarat";
+        stop
+    else (ya)
+        :Sistem menampilkan daftar atlet;
+        :Pelatih memilih atlet;
+        
+        if (Atlet sudah didelegasikan?) then (ya)
+            :Tampilkan pesan "Atlet sudah didelegasikan";
+            stop
+        else (tidak)
+            :Pelatih mengisi alasan delegasi;
+            :Pelatih menekan tombol "Submit Request";
+            
+            if (Alasan delegasi kosong?) then (ya)
+                :Tampilkan pesan "Alasan delegasi harus diisi";
+                stop
+            else (tidak)
+                :Sistem menyimpan request delegasi;
+                :Sistem mengirim notifikasi ke Ketua;
+                :Tampilkan pesan "Request delegasi berhasil dikirim";
+                :Sistem menampilkan status "Pending Approval";
+            endif
+        endif
+    endif
+endif
+
+stop
+
+@enduml
+
+## 3. ACTIVITY DIAGRAM - APPROVE/REJECT DELEGATION
+
+@startuml Approve Reject Delegation Activity Diagram
+
+!theme plain
+skinparam backgroundColor #FFFFFF
+skinparam activityBackgroundColor #E8F4FD
+skinparam activityBorderColor #2E86AB
+skinparam activityDiamondBackgroundColor #FFE6CC
+skinparam activityDiamondBorderColor #FF8C00
+
+start
+
+:Ketua login ke aplikasi;
+:Ketua menerima notifikasi request delegasi;
+:Ketua mengakses menu "Pending Requests";
+
+if (Ada request delegasi?) then (tidak)
+    :Tampilkan pesan "Tidak ada request delegasi";
+    stop
+else (ya)
+    :Ketua melihat daftar request delegasi;
+    :Ketua memilih request delegasi tertentu;
+    :Ketua melihat detail request;
+    
+    if (Request masih valid?) then (tidak)
+        :Tampilkan pesan "Request sudah tidak valid";
+        stop
+    else (ya)
+        :Ketua mempertimbangkan request;
+        
+        if (Ketua menyetujui?) then (ya)
+            :Ketua menekan tombol "Approve";
+            :Sistem memvalidasi slot kompetisi;
+            
+            if (Slot masih tersedia?) then (tidak)
+                :Tampilkan pesan "Slot kompetisi sudah penuh";
+                stop
+            else (ya)
+                :Sistem menyimpan approval;
+                :Sistem mengirim notifikasi ke Pelatih;
+                :Sistem mengirim notifikasi ke Atlet;
+                :Tampilkan pesan "Request delegasi disetujui";
+                :Status berubah menjadi "Approved";
+            endif
+        else (tidak)
+            :Ketua menekan tombol "Reject";
+            :Ketua mengisi alasan penolakan;
+            
+            if (Alasan penolakan kosong?) then (ya)
+                :Tampilkan pesan "Alasan penolakan harus diisi";
+                stop
+            else (tidak)
+                :Sistem menyimpan rejection;
+                :Sistem mengirim notifikasi ke Pelatih;
+                :Tampilkan pesan "Request delegasi ditolak";
+                :Status berubah menjadi "Rejected";
+            endif
+        endif
+    endif
+endif
+
+stop
+
+@enduml
+
+## 4. ACTIVITY DIAGRAM - START TRAINING SESSION
+
+@startuml Start Training Session Activity Diagram
+
+!theme plain
+skinparam backgroundColor #FFFFFF
+skinparam activityBackgroundColor #E8F4FD
+skinparam activityBorderColor #2E86AB
+skinparam activityDiamondBackgroundColor #FFE6CC
+skinparam activityDiamondBorderColor #FF8C00
+
+start
+
+:Pelatih login ke aplikasi;
+:Pelatih mengakses menu Training;
+:Pelatih memilih jadwal latihan;
+
+if (Jadwal latihan tersedia?) then (tidak)
+    :Tampilkan pesan "Jadwal latihan tidak ditemukan";
+    stop
+else (ya)
+    :Pelatih melihat detail jadwal latihan;
+    
+    if (Waktu latihan sudah tiba?) then (tidak)
+        :Tampilkan pesan "Belum waktunya untuk memulai latihan";
+        stop
+    else (ya)
+        :Pelatih menekan tombol "Start Training";
+        :Sistem meminta izin lokasi;
+        
+        if (Lokasi diizinkan?) then (tidak)
+            :Tampilkan pesan "Izin lokasi diperlukan";
+            stop
+        else (ya)
+            :Sistem mendapatkan koordinat GPS;
+            :Sistem memvalidasi lokasi;
+            
+            if (Lokasi dalam radius kolam renang?) then (tidak)
+                :Tampilkan pesan "Anda harus berada di kolam renang";
+                stop
+            else (ya)
+                :Sistem mencatat presensi pelatih;
+                :Sistem membuat sesi latihan baru;
+                :Sistem menampilkan daftar atlet;
+                :Sistem menampilkan program latihan;
+                :Status sesi berubah menjadi "Active";
+                :Tampilkan pesan "Sesi latihan dimulai";
+            endif
+        endif
+    endif
+endif
+
+stop
+
+@enduml
+
+## 5. ACTIVITY DIAGRAM - ATHLETE ATTENDANCE
+
+@startuml Athlete Attendance Activity Diagram
+
+!theme plain
+skinparam backgroundColor #FFFFFF
+skinparam activityBackgroundColor #E8F4FD
+skinparam activityBorderColor #2E86AB
+skinparam activityDiamondBackgroundColor #FFE6CC
+skinparam activityDiamondBorderColor #FF8C00
+
+start
+
+:Atlet login ke aplikasi;
+:Atlet menerima notifikasi sesi latihan dimulai;
+:Atlet mengakses menu Training;
+
+if (Ada sesi latihan aktif?) then (tidak)
+    :Tampilkan pesan "Tidak ada sesi latihan aktif";
+    stop
+else (ya)
+    :Atlet melihat sesi latihan aktif;
+    :Atlet menekan tombol "Attend";
+    :Sistem meminta izin lokasi;
+    
+    if (Lokasi diizinkan?) then (tidak)
+        :Tampilkan pesan "Izin lokasi diperlukan";
+        stop
+    else (ya)
+        :Sistem mendapatkan koordinat GPS;
+        :Sistem memvalidasi lokasi atlet;
+        
+        if (Lokasi dalam radius kolam renang?) then (tidak)
+            :Tampilkan pesan "Anda harus berada di kolam renang";
+            stop
+        else (ya)
+            if (Atlet sudah presensi?) then (ya)
+                :Tampilkan pesan "Anda sudah melakukan presensi";
+                stop
+            else (tidak)
+                :Sistem mencatat presensi atlet;
+                :Sistem mencatat waktu presensi;
+                :Sistem mencatat lokasi presensi;
+                :Status presensi berubah menjadi "Present";
+                :Tampilkan pesan "Presensi berhasil";
+                :Sistem mengirim notifikasi ke Pelatih;
+            endif
+        endif
+    endif
+endif
+
+stop
+
+@enduml
+
+## 6. ACTIVITY DIAGRAM - RECORD PERFORMANCE DATA
+
+@startuml Record Performance Data Activity Diagram
+
+!theme plain
+skinparam backgroundColor #FFFFFF
+skinparam activityBackgroundColor #E8F4FD
+skinparam activityBorderColor #2E86AB
+skinparam activityDiamondBackgroundColor #FFE6CC
+skinparam activityDiamondBorderColor #FF8C00
+
+start
+
+:Pelatih dalam sesi latihan aktif;
+:Pelatih memilih atlet untuk mencatat performa;
+:Pelatih memilih program latihan;
+
+if (Program latihan tersedia?) then (tidak)
+    :Tampilkan pesan "Program latihan tidak ditemukan";
+    stop
+else (ya)
+    :Pelatih melihat detail program latihan;
+    
+    if (Program menggunakan stopwatch?) then (ya)
+        :Pelatih menekan tombol "Start Stopwatch";
+        :Sistem memulai stopwatch;
+        :Atlet melakukan latihan;
+        :Pelatih menekan tombol "Stop Stopwatch";
+        :Sistem mencatat waktu latihan;
+    else (tidak)
+        :Pelatih menekan tombol "Start Timer";
+        :Sistem memulai timer dengan target waktu;
+        :Atlet melakukan latihan;
+        :Timer selesai atau Pelatih menekan "Stop";
+        :Sistem mencatat waktu latihan;
+    endif
+    
+    :Pelatih mengisi data performa tambahan;
+    
+    if (Data performa wajib diisi?) then (ya)
+        if (Data performa lengkap?) then (tidak)
+            :Tampilkan pesan "Data performa harus lengkap";
+            stop
+        else (ya)
+            :Sistem memvalidasi data performa;
+            
+            if (Data performa valid?) then (tidak)
+                :Tampilkan pesan "Data performa tidak valid";
+                stop
+            else (ya)
+                :Sistem menyimpan data performa;
+                :Sistem menghitung statistik performa;
+                :Tampilkan pesan "Data performa berhasil disimpan";
+                :Sistem menampilkan ringkasan performa;
+            endif
+        endif
+    else (tidak)
+        :Sistem menyimpan data performa;
+        :Tampilkan pesan "Data performa berhasil disimpan";
+    endif
+endif
+
+stop
+
+@enduml
+
+## 7. ACTIVITY DIAGRAM - END TRAINING SESSION
+
+@startuml End Training Session Activity Diagram
+
+!theme plain
+skinparam backgroundColor #FFFFFF
+skinparam activityBackgroundColor #E8F4FD
+skinparam activityBorderColor #2E86AB
+skinparam activityDiamondBackgroundColor #FFE6CC
+skinparam activityDiamondBorderColor #FF8C00
+
+start
+
+:Pelatih dalam sesi latihan aktif;
+:Pelatih menekan tombol "End Training";
+
+if (Semua atlet sudah dicatat performanya?) then (tidak)
+    :Tampilkan pesan "Masih ada atlet yang belum dicatat performanya";
+    :Tampilkan daftar atlet yang belum dicatat;
+    stop
+else (ya)
+    :Sistem memvalidasi data sesi;
+    
+    if (Data sesi lengkap?) then (tidak)
+        :Tampilkan pesan "Data sesi tidak lengkap";
+        stop
+    else (ya)
+        :Sistem menghitung durasi sesi;
+        :Sistem menghitung statistik keseluruhan;
+        :Sistem menyimpan data sesi;
+        :Sistem mengirim notifikasi ke semua atlet;
+        :Status sesi berubah menjadi "Completed";
+        :Tampilkan ringkasan sesi latihan;
+        
+        if (Pelatih ingin melihat detail?) then (ya)
+            :Sistem menampilkan detail statistik;
+            :Sistem menampilkan grafik performa;
+            :Sistem menampilkan daftar presensi;
+        else (tidak)
+            :Sistem kembali ke halaman Training;
+        endif
+    endif
+endif
+
+stop
+
+@enduml
+
+## 8. ACTIVITY DIAGRAM - UPLOAD PAYMENT EVIDENCE
+
+@startuml Upload Payment Evidence Activity Diagram
+
+!theme plain
+skinparam backgroundColor #FFFFFF
+skinparam activityBackgroundColor #E8F4FD
+skinparam activityBorderColor #2E86AB
+skinparam activityDiamondBackgroundColor #FFE6CC
+skinparam activityDiamondBorderColor #FF8C00
+
+start
+
+:Atlet login ke aplikasi;
+:Atlet mengakses menu Profile;
+:Atlet memilih "Membership Status";
+:Atlet melihat status keanggotaan;
+
+if (Ada tagihan yang belum dibayar?) then (tidak)
+    :Tampilkan pesan "Tidak ada tagihan yang perlu dibayar";
+    stop
+else (ya)
+    :Atlet menekan tombol "Upload Payment Evidence";
+    :Sistem meminta izin kamera/galeri;
+    
+    if (Izin diberikan?) then (tidak)
+        :Tampilkan pesan "Izin kamera/galeri diperlukan";
+        stop
+    else (ya)
+        :Atlet memilih sumber gambar;
+        
+        if (Dari kamera?) then (ya)
+            :Sistem membuka kamera;
+            :Atlet mengambil foto bukti pembayaran;
+        else (tidak)
+            :Sistem membuka galeri;
+            :Atlet memilih foto bukti pembayaran;
+        endif
+        
+        if (Foto berhasil dipilih?) then (tidak)
+            :Tampilkan pesan "Gagal memilih foto";
+            stop
+        else (ya)
+            :Atlet mengisi data pembayaran;
+            
+            if (Data pembayaran lengkap?) then (tidak)
+                :Tampilkan pesan "Data pembayaran harus lengkap";
+                stop
+            else (ya)
+                :Sistem memvalidasi format gambar;
+                
+                if (Format gambar valid?) then (tidak)
+                    :Tampilkan pesan "Format gambar tidak valid";
+                    stop
+                else (ya)
+                    :Sistem mengkompres gambar;
+                    :Sistem mengupload gambar ke server;
+                    
+                    if (Upload berhasil?) then (tidak)
+                        :Tampilkan pesan "Gagal mengupload gambar";
+                        stop
+                    else (ya)
+                        :Sistem menyimpan data pembayaran;
+                        :Sistem mengirim notifikasi ke Admin;
+                        :Status pembayaran berubah menjadi "Pending Verification";
+                        :Tampilkan pesan "Bukti pembayaran berhasil diupload";
+                    endif
+                endif
+            endif
+        endif
+    endif
+endif
+
+stop
+
+@enduml
+
+## 9. ACTIVITY DIAGRAM - VIEW PERFORMANCE HISTORY
+
+@startuml View Performance History Activity Diagram
+
+!theme plain
+skinparam backgroundColor #FFFFFF
+skinparam activityBackgroundColor #E8F4FD
+skinparam activityBorderColor #2E86AB
+skinparam activityDiamondBackgroundColor #FFE6CC
+skinparam activityDiamondBorderColor #FF8C00
+
+start
+
+:User login ke aplikasi;
+:User mengakses menu Performance;
+
+if (User adalah Atlet?) then (ya)
+    :Atlet melihat performa pribadi;
+    :Sistem memuat data performa atlet;
+else (tidak)
+    if (User adalah Pelatih?) then (ya)
+        :Pelatih memilih atlet;
+        :Sistem memuat data performa atlet yang dipilih;
+    else (tidak)
+        :Tampilkan pesan "Akses ditolak";
+        stop
+    endif
+endif
+
+if (Data performa tersedia?) then (tidak)
+    :Tampilkan pesan "Tidak ada data performa";
+    stop
+else (ya)
+    :Sistem menampilkan daftar sesi latihan;
+    :User memilih periode waktu;
+    :Sistem memfilter data berdasarkan periode;
+    
+    if (Data terfilter tersedia?) then (tidak)
+        :Tampilkan pesan "Tidak ada data untuk periode tersebut";
+        stop
+    else (ya)
+        :Sistem menampilkan grafik performa;
+        :Sistem menampilkan tabel data performa;
+        :Sistem menampilkan statistik ringkasan;
+        
+        if (User ingin melihat detail?) then (ya)
+            :User memilih sesi latihan tertentu;
+            :Sistem menampilkan detail sesi latihan;
+            :Sistem menampilkan data performa per program;
+        else (tidak)
+            :User dapat melihat ringkasan performa;
+        endif
+        
+        if (User ingin mengekspor data?) then (ya)
+            :Sistem mengekspor data ke PDF/Excel;
+            :Sistem mengirim file ke email user;
+        else (tidak)
+            :User dapat melihat data di aplikasi;
+        endif
+    endif
+endif
+
+stop
+
+@enduml
+
+## 10. ACTIVITY DIAGRAM - EDIT PROFILE
+
+@startuml Edit Profile Activity Diagram
+
+!theme plain
+skinparam backgroundColor #FFFFFF
+skinparam activityBackgroundColor #E8F4FD
+skinparam activityBorderColor #2E86AB
+skinparam activityDiamondBackgroundColor #FFE6CC
+skinparam activityDiamondBorderColor #FF8C00
+
+start
+
+:User login ke aplikasi;
+:User mengakses menu Profile;
+:User melihat profil saat ini;
+:User menekan tombol "Edit Profile";
+
+:Sistem menampilkan form edit profil;
+:User mengubah data profil;
+
+if (User ingin mengubah foto profil?) then (ya)
+    :Sistem meminta izin kamera/galeri;
+    
+    if (Izin diberikan?) then (tidak)
+        :Tampilkan pesan "Izin kamera/galeri diperlukan";
+    else (ya)
+        :User memilih sumber gambar;
+        
+        if (Dari kamera?) then (ya)
+            :Sistem membuka kamera;
+            :User mengambil foto;
+        else (tidak)
+            :Sistem membuka galeri;
+            :User memilih foto;
+        endif
+        
+        if (Foto berhasil dipilih?) then (ya)
+            :Sistem memvalidasi format gambar;
+            
+            if (Format gambar valid?) then (ya)
+                :Sistem mengkompres gambar;
+                :Sistem mengupload gambar ke server;
+                
+                if (Upload berhasil?) then (ya)
+                    :Sistem menyimpan URL foto baru;
+                else (tidak)
+                    :Tampilkan pesan "Gagal mengupload foto";
+                endif
+            else (tidak)
+                :Tampilkan pesan "Format gambar tidak valid";
+            endif
+        else (tidak)
+            :Tampilkan pesan "Gagal memilih foto";
+        endif
+    endif
+else (tidak)
+    :User tidak mengubah foto profil;
+endif
+
+:User mengisi data profil yang diubah;
+:User menekan tombol "Save";
+
+if (Data profil valid?) then (tidak)
+    :Tampilkan pesan "Data profil tidak valid";
+    stop
+else (ya)
+    :Sistem memvalidasi data;
+    
+    if (Email berubah?) then (ya)
+        :Sistem memvalidasi format email;
+        
+        if (Format email valid?) then (tidak)
+            :Tampilkan pesan "Format email tidak valid";
+            stop
+        else (ya)
+            if (Email sudah digunakan?) then (ya)
+                :Tampilkan pesan "Email sudah digunakan";
+                stop
+            else (tidak)
+                :Sistem menyimpan perubahan profil;
+                :Tampilkan pesan "Profil berhasil diperbarui";
+            endif
+        endif
+    else (tidak)
+        :Sistem menyimpan perubahan profil;
+        :Tampilkan pesan "Profil berhasil diperbarui";
+    endif
+endif
+
+stop
+
+@enduml 

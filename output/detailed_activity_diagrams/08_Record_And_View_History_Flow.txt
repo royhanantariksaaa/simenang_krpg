@@ -1,0 +1,46 @@
+'Alur Merekam Statistik & Melihat Riwayat' {
+    |Pengguna, Aplikasi Mobile, API, Sistem Backend| {
+        $Pengguna$
+        // Diasumsikan sesi latihan baru saja berakhir untuk Atlet
+        (Pengguna) Diarahkan ke form rekam statistik;
+        (Aplikasi Mobile) Tampilkan form input statistik (jarak, durasi, dll);
+        (Pengguna) Isi data statistik;
+        (Pengguna) Tekan tombol 'Simpan';
+        (Aplikasi Mobile) Kirim data statistik ke server;
+        (API) POST /api/training/sessions/{sessionId}/statistics [data statistik];
+        (Sistem Backend) Terima dan validasi data;
+        (Sistem Backend) Simpan data statistik ke database, kaitkan dengan pengguna & sesi;
+        (API) Kirim respons sukses;
+        (Aplikasi Mobile) Terima respons dan kembali ke halaman detail latihan;
+        
+        // Alur untuk melihat riwayat (bisa dilakukan kapan saja)
+        (Pengguna) Navigasi ke Riwayat Latihan;
+        (Aplikasi Mobile) Minta data riwayat latihan pengguna;
+        // Endpoint bervariasi tergantung peran, misal:
+        // GET /api/profile/athletes/{athleteId}/training-history
+        // GET /api/training/sessions?status=completed
+        (API) GET /api/.../training-history;
+        (Sistem Backend) Ambil data riwayat latihan yang relevan dari database;
+        (Sistem Backend) Kirim respons dengan daftar riwayat;
+        (API) Teruskan respons;
+        (Aplikasi Mobile) Tampilkan daftar riwayat latihan;
+        (Pengguna) Lihat daftar riwayat;
+        
+        <Pengguna> Pilih satu riwayat? {
+            -Ya- {
+                (Pengguna) Memilih item riwayat;
+                (Aplikasi Mobile) Minta data statistik detail untuk sesi tersebut;
+                (API) GET /api/training/sessions/{sessionId}/statistics;
+                (Sistem Backend) Ambil data statistik lengkap;
+                (API) Kirim respons dengan data;
+                (Aplikasi Mobile) Tampilkan detail statistik sesi latihan;
+                (Pengguna) Lihat detail statistik;
+            }
+            -Tidak- {
+                // Tetap di daftar riwayat
+            }
+        }
+        >Pengguna<;
+        @Pengguna@
+    }
+} 

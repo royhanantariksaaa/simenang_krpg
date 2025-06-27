@@ -1,0 +1,33 @@
+'Proses Melihat Data Kelas' {
+    |Pengguna, Aplikasi Mobile, API, Sistem Backend| {
+        $Pengguna$
+        (Pengguna) Navigasi ke Halaman Kelas;
+        (Aplikasi Mobile) Minta daftar kelas;
+        (API) GET /api/classrooms;
+        (Sistem Backend) Terima permintaan;
+        (Sistem Backend) Ambil daftar kelas yang dapat diakses pengguna;
+        (Sistem Backend) Kirim respons dengan daftar kelas;
+        (API) Teruskan respons 200 OK;
+        (Aplikasi Mobile) Terima dan tampilkan daftar kelas;
+        (Pengguna) Lihat daftar kelas;
+        
+        <Pengguna> Ingin melihat detail kelas? {
+            -Ya- {
+                (Pengguna) Pilih satu kelas dari daftar;
+                (Aplikasi Mobile) Minta data detail untuk kelas yang dipilih;
+                (API) GET /api/classrooms/{id_kelas};
+                (Sistem Backend) Terima permintaan;
+                (Sistem Backend) Ambil detail kelas (termasuk daftar siswa);
+                (Sistem Backend) Kirim respons dengan data detail;
+                (API) Teruskan respons 200 OK;
+                (Aplikasi Mobile) Terima dan tampilkan halaman detail kelas;
+                (Pengguna) Lihat detail informasi kelas dan daftar siswanya;
+            }
+            -Tidak- {
+                // Selesai
+            }
+        }
+        >Pengguna<;
+        @Pengguna@
+    }
+} 

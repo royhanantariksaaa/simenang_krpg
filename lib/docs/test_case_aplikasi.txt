@@ -1,0 +1,53 @@
+# Test Case Aplikasi Manajemen Klub Renang Petrokimia Gresik
+
+| ID    | Test Case                                         | Deskripsi                                                                 | Tipe Test   | Status        |
+|-------|---------------------------------------------------|---------------------------------------------------------------------------|-------------|---------------|
+| TC-01 | Registrasi Akun Atlet                             | Menguji proses registrasi akun baru sebagai atlet                         | Blackbox    | Not Executed  |
+| TC-02 | Registrasi Akun Pelatih                           | Menguji proses registrasi akun baru sebagai pelatih                       | Blackbox    | Not Executed  |
+| TC-03 | Registrasi Akun Admin/Ketua                       | Menguji proses registrasi akun baru sebagai admin/ketua                   | Blackbox    | Not Executed  |
+| TC-04 | Login Atlet                                       | Menguji login dengan role atlet (valid/invalid)                           | Blackbox    | Not Executed  |
+| TC-05 | Login Pelatih                                     | Menguji login dengan role pelatih (valid/invalid)                         | Blackbox    | Not Executed  |
+| TC-06 | Login Admin/Ketua                                 | Menguji login dengan role admin/ketua (valid/invalid)                     | Blackbox    | Not Executed  |
+| TC-07 | Login: Negative - Password Salah                  | Menguji login dengan password salah                                       | Blackbox    | Not Executed  |
+| TC-08 | Login: Negative - Username Tidak Terdaftar        | Menguji login dengan username tidak terdaftar                             | Blackbox    | Not Executed  |
+| TC-09 | Login: Negative - Role Salah                      | Menguji login dengan role yang tidak sesuai                               | Blackbox    | Not Executed  |
+| TC-10 | Lihat Profil                                      | Menguji tampilan data profil pengguna                                     | Blackbox    | Not Executed  |
+| TC-11 | Edit Profil                                       | Menguji proses update data profil                                         | Blackbox    | Not Executed  |
+| TC-12 | Edit Profil: Negative - Data Tidak Valid          | Menguji update profil dengan data tidak valid (misal email salah format)  | Blackbox    | Not Executed  |
+| TC-13 | Presensi Atlet                                    | Menguji proses presensi atlet pada jadwal latihan                         | Blackbox    | Not Executed  |
+| TC-14 | Presensi Pelatih                                  | Menguji proses presensi pelatih pada jadwal latihan                       | Blackbox    | Not Executed  |
+| TC-15 | Presensi: Negative - Di Luar Lokasi               | Menguji presensi saat tidak berada di lokasi latihan                      | Blackbox    | Not Executed  |
+| TC-16 | Presensi: Negative - Sudah Presensi Hari Ini      | Menguji presensi ganda pada hari yang sama                                | Blackbox    | Not Executed  |
+| TC-17 | Lihat Riwayat Presensi                            | Menguji tampilan riwayat presensi atlet/pelatih                           | Blackbox    | Not Executed  |
+| TC-18 | Buat Jadwal Latihan                               | Menguji proses pembuatan jadwal latihan oleh pelatih                      | Blackbox    | Not Executed  |
+| TC-19 | Buat Jadwal: Negative - Data Tidak Lengkap        | Menguji pembuatan jadwal dengan data tidak lengkap                        | Blackbox    | Not Executed  |
+| TC-20 | Mulai & Akhiri Sesi Latihan                       | Menguji proses mulai dan akhiri sesi latihan                              | Blackbox    | Not Executed  |
+| TC-21 | Catat Performa Latihan                            | Menguji pencatatan data performa latihan (jarak, waktu, dsb)              | Blackbox    | Not Executed  |
+| TC-22 | Catat Performa: Negative - Data Tidak Valid       | Menguji pencatatan performa dengan data tidak valid                       | Blackbox    | Not Executed  |
+| TC-23 | Lihat Riwayat Performa                            | Menguji tampilan riwayat performa latihan atlet                           | Blackbox    | Not Executed  |
+| TC-24 | Daftar Kompetisi                                  | Menguji proses pendaftaran atlet ke kompetisi                             | Blackbox    | Not Executed  |
+| TC-25 | Delegasi Atlet ke Kompetisi                       | Menguji proses delegasi atlet oleh pelatih                                | Blackbox    | Not Executed  |
+| TC-26 | Delegasi: Negative - Atlet Tidak Memenuhi Syarat  | Menguji delegasi atlet yang tidak memenuhi syarat                         | Blackbox    | Not Executed  |
+| TC-27 | Approval Delegasi oleh Ketua/Admin                | Menguji proses approval delegasi atlet ke kompetisi                       | Blackbox    | Not Executed  |
+| TC-28 | Lihat Jadwal Kompetisi                            | Menguji tampilan daftar kompetisi yang tersedia                           | Blackbox    | Not Executed  |
+| TC-29 | Upload Bukti Pembayaran                           | Menguji upload bukti pembayaran oleh atlet                                | Blackbox    | Not Executed  |
+| TC-30 | Upload Bukti: Negative - File Tidak Valid         | Menguji upload bukti pembayaran dengan file tidak valid                   | Blackbox    | Not Executed  |
+| TC-31 | Validasi Pembayaran oleh Admin                    | Menguji proses validasi pembayaran oleh admin                             | Blackbox    | Not Executed  |
+| TC-32 | Lihat Status Pembayaran                           | Menguji tampilan status pembayaran atlet                                  | Blackbox    | Not Executed  |
+| TC-33 | API: POST /login Atlet                            | Menguji endpoint login API untuk atlet                                    | API         | Not Executed  |
+| TC-34 | API: POST /login Pelatih                          | Menguji endpoint login API untuk pelatih                                  | API         | Not Executed  |
+| TC-35 | API: POST /login Admin/Ketua                      | Menguji endpoint login API untuk admin/ketua                              | API         | Not Executed  |
+| TC-36 | API: POST /login Negative                         | Menguji endpoint login API dengan data salah                              | API         | Not Executed  |
+| TC-37 | API: GET /profile                                | Menguji endpoint ambil data profil                                        | API         | Not Executed  |
+| TC-38 | API: POST /attendance                             | Menguji endpoint presensi (input valid/invalid/lokasi)                    | API         | Not Executed  |
+| TC-39 | API: GET /attendance/history                      | Menguji endpoint riwayat presensi                                         | API         | Not Executed  |
+| TC-40 | API: POST /training                               | Menguji endpoint pembuatan jadwal latihan                                 | API         | Not Executed  |
+| TC-41 | API: POST /performance                            | Menguji endpoint pencatatan performa latihan                              | API         | Not Executed  |
+| TC-42 | API: GET /competition                             | Menguji endpoint daftar kompetisi                                         | API         | Not Executed  |
+| TC-43 | API: POST /competition/delegate                   | Menguji endpoint delegasi atlet ke kompetisi                              | API         | Not Executed  |
+| TC-44 | API: POST /payment/upload                         | Menguji endpoint upload bukti pembayaran                                  | API         | Not Executed  |
+| TC-45 | API: GET /payment/status                          | Menguji endpoint status pembayaran                                        | API         | Not Executed  |
+| TC-46 | Whitebox: Validasi logika presensi                | Unit test validasi presensi (hanya di lokasi, tidak ganda, dsb)           | Whitebox    | Not Executed  |
+| TC-47 | Whitebox: Validasi logika performa latihan        | Unit test perhitungan performa (jarak, waktu, dsb)                        | Whitebox    | Not Executed  |
+| TC-48 | Whitebox: Validasi approval kompetisi             | Unit test logika approval delegasi kompetisi                              | Whitebox    | Not Executed  |
+| TC-49 | Whitebox: Validasi status pembayaran              | Unit test logika status pembayaran (pending, approved, rejected)          | Whitebox    | Not Executed  | 

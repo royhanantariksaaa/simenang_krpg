@@ -1,0 +1,137 @@
+# KEBUTUHAN FUNGSIONAL APLIKASI MOBILE MANAJEMEN KLUB RENANG PETROKIMIA GRESIK
+
+## Tabel Kebutuhan Fungsional
+
+| Kode | Kebutuhan Fungsional | Deskripsi | Aktor | Prioritas |
+|------|---------------------|-----------|-------|-----------|
+| **AUTHENTICATION** | | | | |
+| FR01 | Login | Aplikasi dapat memungkinkan pengguna masuk ke sistem menggunakan email dan password yang valid | Semua Aktor | High |
+| FR02 | Logout | Aplikasi dapat memungkinkan pengguna keluar dari sistem secara aman | Semua Aktor | Medium |
+| FR03 | Lupa Password | Aplikasi dapat memungkinkan pengguna mengatur ulang password melalui email terdaftar | Semua Aktor | Medium |
+| **HOME & DASHBOARD** | | | | |
+| FR04 | View Dashboard | Aplikasi dapat menampilkan ringkasan data kompetisi, latihan, dan statistik di halaman utama | Semua Aktor | High |
+| FR05 | Refresh Dashboard Data | Aplikasi dapat memperbarui data dashboard secara real-time | Semua Aktor | Medium |
+| **COMPETITION MANAGEMENT** | | | | |
+| FR06 | View Competition Schedule List | Aplikasi dapat menampilkan daftar semua jadwal kompetisi yang tersedia | Pelatih, Atlet | High |
+| FR07 | Search Competition | Aplikasi dapat mencari kompetisi berdasarkan kata kunci | Pelatih, Atlet | Medium |
+| FR08 | Filter Competition | Aplikasi dapat memfilter kompetisi berdasarkan tingkat, tanggal, atau status | Pelatih, Atlet | Medium |
+| FR09 | View Competition Detail | Aplikasi dapat menampilkan detail informasi kompetisi | Pelatih, Atlet | High |
+| FR10 | Request Athlete for Competition Delegation | Pelatih dapat memilih atlet untuk didaftarkan pada kompetisi berdasarkan track record prestasi dan performa latihan | Pelatih | High |
+| FR11 | Approve Competition Delegation Request | Ketua dapat menyetujui permintaan delegasi atlet yang diajukan pelatih | Ketua | High |
+| FR12 | Reject Competition Delegation Request | Ketua dapat menolak permintaan delegasi atlet yang diajukan pelatih | Ketua | High |
+| FR13 | View Athlete Competition Participation | Aplikasi dapat menampilkan riwayat partisipasi kompetisi atlet | Pelatih, Atlet | Low |
+| **TRAINING MANAGEMENT** | | | | |
+| FR14 | View Training Schedule List | Aplikasi dapat menampilkan daftar semua jadwal latihan yang tersedia | Pelatih, Atlet | Medium |
+| FR15 | Search Training | Aplikasi dapat mencari jadwal latihan berdasarkan kata kunci | Pelatih, Atlet | Medium |
+| FR16 | Filter Training | Aplikasi dapat memfilter jadwal latihan berdasarkan hari, kelas, atau status | Pelatih, Atlet | Medium |
+| FR17 | View Training Detail | Aplikasi dapat menampilkan detail informasi jadwal latihan | Pelatih, Atlet | High |
+| FR18 | Start Training Schedule | Pelatih dapat memulai sesi latihan sesuai jadwal yang ditentukan | Pelatih | High |
+| FR19 | End Training Schedule | Pelatih dapat mengakhiri sesi latihan setelah semua data atlet tercatat | Pelatih | High |
+| FR20 | Attend Training Schedule | Atlet dapat melakukan presensi sesuai jadwal latihan kelas yang diikuti berdasarkan lokasi | Atlet | High |
+| FR21 | Record Athlete Training Data | Pelatih dapat mencatat data latihan atlet menggunakan stopwatch/timer sesuai program latihan | Pelatih | High |
+| FR22 | Use Stopwatch | Aplikasi dapat menyediakan fitur stopwatch untuk mencatat waktu latihan | Pelatih | High |
+| FR23 | Use Timer | Aplikasi dapat menyediakan fitur timer untuk mencatat waktu latihan dengan target waktu | Pelatih | High |
+| FR24 | Validate Location | Aplikasi dapat memvalidasi lokasi atlet untuk memastikan presensi valid | Sistem | High |
+| FR25 | View Training Session History | Aplikasi dapat menampilkan riwayat sesi latihan yang telah dilakukan | Pelatih | Low |
+| **ATTENDANCE MANAGEMENT** | | | | |
+| FR26 | View Athlete Attendance History | Aplikasi dapat menampilkan riwayat presensi atlet | Atlet | Low |
+| FR27 | Coach Attendance Monitoring | Aplikasi dapat menampilkan riwayat presensi pelatih | Pelatih | Medium |
+| FR28 | Athlete Attendance Monitoring | Aplikasi dapat menampilkan riwayat presensi semua atlet | Pelatih | Low |
+| FR29 | Record Coach Attendance | Aplikasi dapat mencatat presensi pelatih saat memulai sesi latihan | Sistem | High |
+| FR30 | Record Athlete Attendance | Aplikasi dapat mencatat presensi atlet dengan validasi lokasi | Sistem | High |
+| **PERFORMANCE MANAGEMENT** | | | | |
+| FR31 | Athlete Performance Monitoring | Aplikasi dapat menampilkan performa dari semua atlet baik dalam kompetisi maupun latihan | Pelatih | Low |
+| FR32 | View Athlete Performance History | Aplikasi dapat menampilkan riwayat performa atlet dalam bentuk grafik dan tabel | Atlet | Low |
+| FR33 | Record Performance Statistics | Aplikasi dapat mencatat statistik performa atlet seperti waktu, jarak, dan metrik lainnya | Pelatih | High |
+| FR34 | Generate Performance Chart | Aplikasi dapat menghasilkan grafik performa atlet untuk analisis | Sistem | Low |
+| FR35 | Filter Performance History | Aplikasi dapat memfilter riwayat performa berdasarkan periode waktu | Atlet | Low |
+| **ATHLETE MANAGEMENT** | | | | |
+| FR36 | View Athletes List | Aplikasi dapat menampilkan daftar semua atlet yang terdaftar | Pelatih | Medium |
+| FR37 | Search Athlete | Aplikasi dapat mencari atlet berdasarkan nama atau ID | Pelatih | Medium |
+| FR38 | Filter Athlete | Aplikasi dapat memfilter atlet berdasarkan kelas, status, atau kriteria lainnya | Pelatih | Medium |
+| FR39 | View Athlete Detail | Aplikasi dapat menampilkan detail informasi atlet termasuk performa dan riwayat | Pelatih | High |
+| **MEMBERSHIP MANAGEMENT** | | | | |
+| FR40 | View Athlete Membership Status | Aplikasi dapat menampilkan status keanggotaan atlet di klub | Atlet | High |
+| FR41 | Upload Payment Evidence | Atlet dapat mengunggah bukti pembayaran keanggotaan | Atlet | High |
+| FR42 | View Payment History | Aplikasi dapat menampilkan riwayat pembayaran atlet | Atlet | Medium |
+| FR43 | Validate Payment Data | Aplikasi dapat memvalidasi data pembayaran yang diunggah | Sistem | High |
+| **PROFILE MANAGEMENT** | | | | |
+| FR44 | View Profile | Aplikasi dapat menampilkan informasi profil pengguna | Semua Aktor | Low |
+| FR45 | Edit Profile | Pengguna dapat mengubah informasi profil mereka | Semua Aktor | Low |
+| FR46 | Upload Profile Picture | Pengguna dapat mengunggah foto profil baru | Semua Aktor | Low |
+| FR47 | Change Password | Pengguna dapat mengubah password akun mereka | Semua Aktor | Medium |
+| **SYSTEM FEATURES** | | | | |
+| FR48 | Data Validation | Aplikasi dapat memvalidasi semua input data sebelum disimpan | Sistem | High |
+| FR49 | Error Handling | Aplikasi dapat menampilkan pesan error yang informatif | Sistem | High |
+| FR50 | Offline Mode | Aplikasi dapat berfungsi dalam mode offline dengan sinkronisasi data | Sistem | Medium |
+| FR51 | Data Export | Aplikasi dapat mengekspor data dalam format PDF atau Excel | Pelatih, Ketua | Low |
+| FR52 | Push Notification | Aplikasi dapat mengirim notifikasi untuk jadwal latihan atau kompetisi | Sistem | Medium |
+
+## Deskripsi Aktor
+
+### 1. Atlet
+- **Deskripsi**: Anggota klub renang yang mengikuti latihan dan kompetisi
+- **Hak Akses**: 
+  - Melihat jadwal latihan dan kompetisi
+  - Melakukan presensi latihan
+  - Melihat riwayat performa pribadi
+  - Mengelola profil pribadi
+  - Mengunggah bukti pembayaran
+
+### 2. Pelatih
+- **Deskripsi**: Pelatih yang bertanggung jawab melatih atlet dan mengelola sesi latihan
+- **Hak Akses**:
+  - Semua hak akses Atlet
+  - Memulai dan mengakhiri sesi latihan
+  - Mencatat data performa atlet
+  - Memantau presensi atlet
+  - Mendelegasikan atlet untuk kompetisi
+  - Melihat statistik performa atlet
+
+### 3. Ketua
+- **Deskripsi**: Ketua klub yang bertanggung jawab mengelola klub secara keseluruhan
+- **Hak Akses**:
+  - Semua hak akses Pelatih
+  - Menyetujui atau menolak delegasi atlet untuk kompetisi
+  - Mengakses laporan statistik klub
+  - Mengelola data master klub
+
+### 4. Admin
+- **Deskripsi**: Administrator sistem yang mengelola pengguna dan sistem
+- **Hak Akses**:
+  - Mengelola akun pengguna
+  - Mengatur hak akses
+  - Memantau sistem
+  - Backup dan restore data
+
+## Prioritas Kebutuhan Fungsional
+
+### High Priority
+- Fitur autentikasi (login, logout)
+- Manajemen kompetisi (view, request delegation, approve/reject)
+- Manajemen latihan (start, end, record data)
+- Presensi dengan validasi lokasi
+- Pencatatan performa atlet
+- Manajemen keanggotaan dan pembayaran
+
+### Medium Priority
+- Fitur pencarian dan filter
+- Monitoring presensi
+- Manajemen profil
+- Notifikasi sistem
+- Validasi data
+
+### Low Priority
+- Riwayat dan laporan detail
+- Grafik performa
+- Ekspor data
+- Mode offline
+- Fitur tambahan untuk analisis
+
+## Catatan Implementasi
+
+1. **Validasi Lokasi**: Sistem menggunakan GPS untuk memvalidasi lokasi atlet saat presensi
+2. **Real-time Data**: Data diperbarui secara real-time untuk memastikan akurasi informasi
+3. **Offline Capability**: Aplikasi dapat berfungsi offline dengan sinkronisasi data saat online
+4. **Security**: Semua komunikasi menggunakan HTTPS dan data sensitif dienkripsi
+5. **Performance**: Aplikasi dioptimalkan untuk performa yang baik pada perangkat mobile 

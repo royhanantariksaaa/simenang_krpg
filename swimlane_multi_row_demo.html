@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Row Swimlane Layout Demo</title>
+    <style>
+        body {
+            background: #f4f4f4;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            margin: 0;
+        }
+
+        .diagram-container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 20px;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .diagram-title {
+            text-align: center;
+            color: #0070c0;
+            font-size: 1.8em;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+
+        .swimlanes-container {
+            position: relative;
+            border: 2px solid #222;
+            background: white;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .swimlane {
+            position: relative;
+            border-right: 2px solid #222;
+            background: #f8f8f8;
+            min-height: 600px;
+            float: left;
+        }
+
+        .swimlane:last-child {
+            border-right: none;
+        }
+
+        .swimlane:nth-child(even) {
+            background: #fff;
+        }
+
+        .swimlane-header {
+            text-align: center;
+            font-weight: bold;
+            font-size: 18px;
+            padding: 15px 10px;
+            border-bottom: 2px solid #222;
+            background: #e6f3ff;
+            color: #222;
+        }
+
+        .swimlane-content {
+            position: relative;
+            padding: 20px;
+            height: calc(100% - 60px);
+        }
+
+        /* Node Styles */
+        .node {
+            position: absolute;
+            background: #7fbcff;
+            border: 2px solid #222;
+            border-radius: 10px;
+            padding: 12px 15px;
+            font-size: 14px;
+            text-align: center;
+            color: #222;
+            min-width: 150px;
+            box-sizing: border-box;
+            z-index: 10;
+        }
+
+        .decision-node {
+            background: #fff;
+            border: 2px solid #222;
+            width: 80px;
+            height: 80px;
+            transform: rotate(45deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            z-index: 10;
+        }
+
+        .decision-label {
+            position: absolute;
+            background: white;
+            padding: 4px 8px;
+            font-size: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            z-index: 15;
+            white-space: nowrap;
+        }
+
+        .start-node {
+            background: #222;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            position: absolute;
+            z-index: 10;
+        }
+
+        .end-node {
+            background: #fff;
+            border: 3px solid #222;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            position: absolute;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .end-node-inner {
+            width: 20px;
+            height: 20px;
+            background: #222;
+            border-radius: 50%;
+        }
+
+        .merge-node {
+            background: #ff9500;
+            border: 3px solid #222;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            position: absolute;
+            z-index: 10;
+        }
+
+        .datastore {
+            background: #a9dcfc;
+            border: 2px solid #222;
+            border-radius: 4px;
+            padding: 15px 10px 10px 10px;
+            position: absolute;
+            min-width: 150px;
+            z-index: 10;
+        }
+
+        .datastore::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 10px;
+            right: 10px;
+            height: 2px;
+            background: #222;
+        }
+
+        .datastore-label {
+            font-style: italic;
+            font-size: 11px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        /* SVG for arrows */
+        .arrows-svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        /* Arrow labels */
+        .arrow-label {
+            position: absolute;
+            background: white;
+            padding: 2px 6px;
+            font-size: 11px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            z-index: 15;
+        }
+
+        /* Layout helpers */
+        .clearfix::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .swimlane {
+                min-width: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="diagram-container">
+        <div class="diagram-title">Multi-Row Swimlane Layout Demo</div>
+        <div class="diagram-subtitle" style="text-align: center; margin-bottom: 20px; color: #666; font-style: italic;">
+            Konsep: Satu swimlane, banyak row - menghindari panah silang
+        </div>
+        
+        <div class="swimlanes-container clearfix" id="diagram">
+            <!-- System Swimlane -->
+            <div class="swimlane" style="width: 300px;">
+                <div class="swimlane-header">System</div>
+                <div class="swimlane-content">
+                    <!-- Row 1: Start -->
+                    <div class="start-node" style="top: 20px; left: 135px;"></div>
+                    
+                    <!-- Row 2: Decision -->
+                    <div class="decision-node" style="top: 80px; left: 110px;"></div>
+                    <div class="decision-label" style="top: 75px; left: 170px;">Select Payment<br>Method</div>
+                    
+                    <!-- Row 3: Credit Card Path -->
+                    <div class="node" style="top: 160px; left: 20px;">Process credit card</div>
+                    
+                    <!-- Row 4: Bank Transfer Path -->
+                    <div class="node" style="top: 160px; left: 180px;">Generate virtual<br>account</div>
+                    
+                    <!-- Row 5: Credit Card Decision -->
+                    <div class="decision-node" style="top: 240px; left: 50px;"></div>
+                    <div class="decision-label" style="top: 235px; left: 110px;">Payment<br>Success?</div>
+                    
+                    <!-- Row 6: Success Path -->
+                    <div class="node" style="top: 320px; left: 20px;">Finalize order</div>
+                    
+                    <!-- Row 7: Error Path -->
+                    <div class="node" style="top: 320px; left: 180px;">Show error<br>message</div>
+                    
+                    <!-- Row 8: Show Options -->
+                    <div class="node" style="top: 400px; left: 180px;">Show payment<br>options</div>
+                    
+                    <!-- Row 9: Awaiting Payment -->
+                    <div class="node" style="top: 400px; left: 20px;">Awaiting payment</div>
+                    
+                    <!-- Row 10: Merge Node (lebih ke bawah) -->
+                    <div class="merge-node" style="top: 480px; left: 130px;"></div>
+                    
+                    <!-- Row 11: Final Action -->
+                    <div class="node" style="top: 540px; left: 75px;">Send confirmation<br>email</div>
+                </div>
+            </div>
+
+            <!-- Payment Gateway Swimlane -->
+            <div class="swimlane" style="width: 250px;">
+                <div class="swimlane-header">Payment Gateway</div>
+                <div class="swimlane-content">
+                    <!-- Payment Processing -->
+                    <div class="datastore" style="top: 160px; left: 50px;">
+                        <div class="datastore-label">&lt;&lt;external&gt;&gt;</div>
+                        Credit Card<br>Processor
+                    </div>
+                    
+                    <!-- Payment Result -->
+                    <div class="node" style="top: 240px; left: 50px;">Return payment<br>result</div>
+                </div>
+            </div>
+
+            <!-- Database Swimlane -->
+            <div class="swimlane" style="width: 200px;">
+                <div class="swimlane-header">Database</div>
+                <div class="swimlane-content">
+                    <!-- Save Order -->
+                    <div class="datastore" style="top: 320px; left: 25px;">
+                        <div class="datastore-label">&lt;&lt;datastore&gt;&gt;</div>
+                        Order DB
+                    </div>
+                    
+                    <!-- Save Payment -->
+                    <div class="datastore" style="top: 480px; left: 25px;">
+                        <div class="datastore-label">&lt;&lt;datastore&gt;&gt;</div>
+                        Payment Log
+                    </div>
+                </div>
+            </div>
+
+            <!-- SVG for Arrows -->
+            <svg class="arrows-svg">
+                <defs>
+                    <marker id="arrowhead" markerWidth="10" markerHeight="7" 
+                            refX="9" refY="3.5" orient="auto">
+                        <polygon points="0 0, 10 3.5, 0 7" fill="#000" />
+                    </marker>
+                </defs>
+                
+                <!-- Start to Decision -->
+                <line x1="150" y1="50" x2="150" y2="80" stroke="#000" stroke-width="2" marker-end="url(#arrowhead)"/>
+                
+                <!-- Decision to Credit Card -->
+                <line x1="130" y1="120" x2="95" y2="160" stroke="#000" stroke-width="2" marker-end="url(#arrowhead)"/>
+                
+                <!-- Decision to Bank Transfer -->
+                <line x1="170" y1="120" x2="255" y2="160" stroke="#000" stroke-width="2" marker-end="url(#arrowhead)"/>
+                
+                <!-- Credit Card to Payment Gateway -->
+                <line x1="170" y1="180" x2="300" y2="180" stroke="#000" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrowhead)"/>
+                
+                <!-- Credit Card to Decision -->
+                <line x1="95" y1="200" x2="90" y2="240" stroke="#000" stroke-width="2" marker-end="url(#arrowhead)"/>
+                
+                <!-- Payment Gateway Response -->
+                <line x1="350" y1="240" x2="350" y2="260" stroke="#000" stroke-width="2" marker-end="url(#arrowhead)"/>
+                
+                <!-- Success Path -->
+                <line x1="70" y1="280" x2="95" y2="320" stroke="#000" stroke-width="2" marker-end="url(#arrowhead)"/>
+                
+                <!-- Error Path -->
+                <line x1="110" y1="280" x2="255" y2="320" stroke="#000" stroke-width="2" marker-end="url(#arrowhead)"/>
+                
+                <!-- Error to Show Options -->
+                <line x1="255" y1="360" x2="255" y2="400" stroke="#000" stroke-width="2" marker-end="url(#arrowhead)"/>
+                
+                <!-- Bank Transfer to Awaiting -->
+                <line x1="255" y1="200" x2="95" y2="400" stroke="#000" stroke-width="2" marker-end="url(#arrowhead)"/>
+                
+                <!-- All paths to Merge (lebih ke bawah) -->
+                <line x1="95" y1="360" x2="150" y2="480" stroke="#000" stroke-width="2" marker-end="url(#arrowhead)"/>
+                <line x1="255" y1="440" x2="150" y2="480" stroke="#000" stroke-width="2" marker-end="url(#arrowhead)"/>
+                <line x1="95" y1="440" x2="150" y2="480" stroke="#000" stroke-width="2" marker-end="url(#arrowhead)"/>
+                
+                <!-- Merge to Final -->
+                <line x1="150" y1="520" x2="150" y2="540" stroke="#000" stroke-width="2" marker-end="url(#arrowhead)"/>
+                
+                <!-- Database connections -->
+                <line x1="170" y1="340" x2="550" y2="340" stroke="#000" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrowhead)"/>
+                <line x1="170" y1="500" x2="550" y2="500" stroke="#000" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrowhead)"/>
+            </svg>
+
+            <!-- Arrow Labels -->
+            <div class="arrow-label" style="top: 130px; left: 80px;">Credit Card</div>
+            <div class="arrow-label" style="top: 130px; left: 220px;">Bank Transfer</div>
+            <div class="arrow-label" style="top: 290px; left: 50px;">Yes</div>
+            <div class="arrow-label" style="top: 290px; left: 180px;">No</div>
+            <div class="arrow-label" style="top: 450px; left: 120px;">:join:</div>
+        </div>
+
+        <!-- Explanation -->
+        <div style="margin-top: 30px; padding: 20px; background: #f0f8ff; border-left: 4px solid #0070c0; border-radius: 4px;">
+            <h3 style="margin-top: 0; color: #0070c0;">Konsep Multi-Row Swimlane:</h3>
+            <ul style="line-height: 1.6;">
+                <li><strong>Satu swimlane, banyak row:</strong> Semua node System berada di swimlane yang sama, tapi di row berbeda secara vertikal.</li>
+                <li><strong>Merge node lebih ke bawah:</strong> Node merge (bulat orange) diletakkan di row terpisah yang lebih bawah.</li>
+                <li><strong>Panah tidak silang:</strong> Semua panah dari berbagai branch turun ke merge node tanpa saling bersilangan.</li>
+                <li><strong>Layout adaptif:</strong> Jika ada lebih banyak branch, tinggal tambah row di swimlane yang sama.</li>
+                <li><strong>Datastore dan External:</strong> Ditandai dengan style berbeda dan panah putus-putus.</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html> 

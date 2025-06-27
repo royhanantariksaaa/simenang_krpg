@@ -1,0 +1,185 @@
+# Kamus Data Sistem Manajemen Klub Renang Petrokimia Gresik
+
+Berikut adalah kamus data lengkap berdasarkan implementasi backend Laravel:
+
+## 1. accounts
+| Kolom         | Tipe Data   | Deskripsi                        |
+|---------------|-------------|----------------------------------|
+| id_account    | int (PK)    | ID unik akun                     |
+| username      | varchar     | Username akun                    |
+| password      | varchar     | Password (terenkripsi)           |
+| email         | varchar     | Email akun                       |
+| role          | enum        | Peran (athlete, coach, admin, dst)|
+| status        | varchar     | Status akun (active, pending, dst)|
+| delete_YN     | char(1)     | Penanda soft delete              |
+
+## 2. profile_managements
+| Kolom         | Tipe Data   | Deskripsi                        |
+|---------------|-------------|----------------------------------|
+| id_profile    | int (PK)    | ID profil                        |
+| id_account    | int (FK)    | Relasi ke akun                   |
+| address       | varchar     | Alamat                           |
+| name          | varchar     | Nama lengkap                     |
+| birth_date    | date        | Tanggal lahir                    |
+| gender        | enum        | Jenis kelamin                    |
+| phone_number  | varchar     | Nomor telepon                    |
+| city          | varchar     | Kota                             |
+| status        | varchar     | Status keanggotaan               |
+| join_date     | date        | Tanggal bergabung                |
+| profit        | decimal     | (opsional, bisa diabaikan)       |
+| profile_picture| varchar    | Path foto profil                 |
+| id_classrooms | int (FK)    | Relasi ke kelas                  |
+| delete_YN     | char(1)     | Penanda soft delete              |
+
+## 3. classrooms
+| Kolom         | Tipe Data   | Deskripsi                        |
+|---------------|-------------|----------------------------------|
+| id_classrooms | int (PK)    | ID kelas                         |
+| classroom_name| varchar     | Nama kelas                       |
+| id_coach      | int (FK)    | ID pelatih                       |
+| create_id     | int         | ID pembuat                       |
+| create_date   | datetime    | Tanggal dibuat                   |
+| delete_YN     | char(1)     | Penanda soft delete              |
+
+## 4. trainings
+| Kolom         | Tipe Data   | Deskripsi                        |
+|---------------|-------------|----------------------------------|
+| id_training   | int (PK)    | ID latihan                       |
+| title         | varchar     | Nama latihan                     |
+| description   | text        | Deskripsi latihan                |
+| datetime      | datetime    | Waktu latihan                    |
+| id_training_phase| int (FK) | Fase latihan                     |
+| id_competition| int (FK)    | Relasi ke kompetisi (jika ada)   |
+| status        | varchar     | Status latihan                   |
+| id_location   | int (FK)    | Lokasi latihan                   |
+| start_time    | time        | Jam mulai                        |
+| end_time      | time        | Jam selesai                      |
+| recurrence_days| int        | Bitmap hari berulang             |
+| recurring_YN  | char(1)     | Apakah berulang (Y/N)            |
+| delete_YN     | char(1)     | Penanda soft delete              |
+
+## 5. training_session
+| Kolom             | Tipe Data   | Deskripsi                        |
+|-------------------|-------------|----------------------------------|
+| id_training_session| int (PK)   | ID sesi latihan                  |
+| id_training       | int (FK)    | Relasi ke latihan                |
+| schedule_date     | date        | Tanggal sesi                     |
+| start_time        | time        | Jam mulai                        |
+| end_time          | time        | Jam selesai                      |
+| started_at        | datetime    | Waktu mulai aktual               |
+| ended_at          | datetime    | Waktu selesai aktual             |
+| status            | int/enum    | Status sesi                      |
+| create_date       | datetime    | Tanggal dibuat                   |
+| create_id         | int         | ID pembuat                       |
+
+## 6. attendances
+| Kolom             | Tipe Data   | Deskripsi                        |
+|-------------------|-------------|----------------------------------|
+| id_attendance     | int (PK)    | ID presensi                      |
+| id_profile        | int (FK)    | ID profil                        |
+| id_training_session| int (FK)   | ID sesi latihan                  |
+| status            | enum/int    | Status kehadiran                 |
+| date_time         | datetime    | Waktu presensi                   |
+| note              | text        | Catatan                          |
+| delete_YN         | char(1)     | Penanda soft delete              |
+
+## 7. training_performances
+| Kolom         | Tipe Data   | Deskripsi                        |
+|---------------|-------------|----------------------------------|
+| id_performance| int (PK)    | ID performa                      |
+| id_attendance | int (FK)    | Relasi ke presensi               |
+| distance      | decimal     | Jarak tempuh (meter)             |
+| time_seconds  | int         | Waktu tempuh (detik)             |
+| create_date   | datetime    | Tanggal input                    |
+| delete_YN     | char(1)     | Penanda soft delete              |
+
+## 8. statistic_trainings
+| Kolom         | Tipe Data   | Deskripsi                        |
+|---------------|-------------|----------------------------------|
+| id_static_training| int (PK)| ID statistik latihan             |
+| note          | text        | Catatan                          |
+| stroke        | varchar     | Gaya renang                      |
+| duration      | int         | Durasi latihan                   |
+| distance      | decimal     | Jarak                            |
+| energy_system | varchar     | Sistem energi (Aerobic, dst)     |
+| id_attendance | int (FK)    | Relasi ke presensi               |
+| delete_YN     | char(1)     | Penanda soft delete              |
+
+## 9. competitions
+| Kolom             | Tipe Data   | Deskripsi                        |
+|-------------------|-------------|----------------------------------|
+| id_competition    | int (PK)    | ID kompetisi                     |
+| competition_name  | varchar     | Nama kompetisi                   |
+| organizer         | varchar     | Penyelenggara                    |
+| competition_level | enum        | Level kompetisi                  |
+| athlete_level     | enum        | Level atlet                      |
+| status            | int/enum    | Status kompetisi                 |
+| location          | varchar     | Lokasi                           |
+| link              | varchar     | Link info                        |
+| contact_person    | varchar     | Kontak                           |
+| description       | text        | Deskripsi                        |
+| image             | varchar     | Gambar/banner                    |
+| prize             | varchar     | Hadiah                           |
+| start_time        | datetime    | Waktu mulai                      |
+| end_time          | datetime    | Waktu selesai                    |
+| start_register_time| datetime   | Awal pendaftaran                 |
+| end_register_time | datetime    | Akhir pendaftaran                |
+| create_date       | datetime    | Tanggal dibuat                   |
+| create_id         | int         | ID pembuat                       |
+| delete_YN         | char(1)     | Penanda soft delete              |
+
+## 10. registered_participant_competitions
+| Kolom         | Tipe Data   | Deskripsi                        |
+|---------------|-------------|----------------------------------|
+| id_registered_participant_competition | int (PK) | ID relasi         |
+| id_profile    | int (FK)    | ID profil atlet                  |
+| id_competition| int (FK)    | ID kompetisi                     |
+| create_date   | datetime    | Tanggal daftar                   |
+| status        | int/enum    | Status delegasi                  |
+| create_id     | int         | ID pembuat                       |
+| delete_YN     | char(1)     | Penanda soft delete              |
+
+## 11. competition_results
+| Kolom         | Tipe Data   | Deskripsi                        |
+|---------------|-------------|----------------------------------|
+| id_result     | int (PK)    | ID hasil kompetisi               |
+| id_competition| int (FK)    | ID kompetisi                     |
+| id_profile    | int (FK)    | ID profil atlet                  |
+| position      | int         | Posisi/juara                     |
+| time_result   | int         | Waktu hasil (detik)              |
+| points        | decimal     | Poin                             |
+| status        | varchar     | Status hasil (completed, dnf, dsq)|
+| notes         | text        | Catatan                          |
+| category      | varchar     | Kategori lomba                   |
+| result_date   | datetime    | Tanggal hasil                    |
+| create_id     | int         | ID pembuat                       |
+| delete_YN     | char(1)     | Penanda soft delete              |
+
+## 12. invoice
+| Kolom         | Tipe Data   | Deskripsi                        |
+|---------------|-------------|----------------------------------|
+| id_invoice    | int (PK)    | ID invoice/pembayaran            |
+| id_payer      | int (FK)    | ID pembayar (akun atlet)         |
+| id_validator  | int (FK)    | ID validator (admin)             |
+| note          | text        | Catatan pembayaran               |
+| amount        | decimal     | Nominal                          |
+| payment_method| varchar     | Metode pembayaran                |
+| payment_status| int/enum    | Status pembayaran                |
+| payment_proof | varchar     | Bukti transfer (file path)       |
+| payment_category| int/enum  | Kategori pembayaran              |
+| update_date   | datetime    | Tanggal update                   |
+| create_date   | datetime    | Tanggal dibuat                   |
+| delete_YN     | char(1)     | Penanda soft delete              |
+
+## 13. health_datas
+| Kolom         | Tipe Data   | Deskripsi                        |
+|---------------|-------------|----------------------------------|
+| id_health     | int (PK)    | ID data kesehatan                |
+| height        | decimal     | Tinggi badan                     |
+| weight        | decimal     | Berat badan                      |
+| bloodType     | varchar     | Golongan darah                   |
+| allergies     | text        | Alergi                           |
+| disease_history| text       | Riwayat penyakit                 |
+| id_profile    | int (FK)    | Relasi ke profil                 |
+
+</rewritten_file> 

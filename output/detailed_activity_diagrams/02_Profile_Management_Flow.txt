@@ -1,0 +1,50 @@
+'Proses Manajemen Profil' {
+    |Pengguna, Aplikasi Mobile, API, Sistem Backend| {
+        $Pengguna$
+        (Pengguna) Navigasi ke Halaman Profil;
+        (Aplikasi Mobile) Buat permintaan untuk mendapatkan data profil;
+        (API) GET /api/profile;
+        (Sistem Backend) Terima permintaan;
+        (Sistem Backend) Ambil data pengguna yang terautentikasi dari database;
+        (Sistem Backend) Kirim respons dengan data profil;
+        (API) Teruskan respons 200 OK ke aplikasi;
+        (Aplikasi Mobile) Terima data profil;
+        (Aplikasi Mobile) Tampilkan data profil di UI;
+        (Pengguna) Lihat data profil;
+
+        <Pengguna> Ingin mengubah profil? {
+            -Ya- {
+                (Pengguna) Tekan tombol 'Edit';
+                (Pengguna) Ubah data pada form (nama, dll.);
+                (Pengguna) Tekan tombol 'Simpan';
+                (Aplikasi Mobile) Kumpulkan data yang diubah;
+                (Aplikasi Mobile) Buat permintaan pembaruan profil;
+                (API) PUT /api/profile [data yang diubah];
+                (Sistem Backend) Terima permintaan;
+                (Sistem Backend) Validasi data yang masuk;
+                <Sistem Backend> Data valid? {
+                    -Ya- {
+                        (Sistem Backend) Perbarui data pengguna di database;
+                        (Sistem Backend) Kirim respons sukses;
+                        (API) Teruskan respons 200 OK;
+                        (Aplikasi Mobile) Terima respons sukses;
+                        (Aplikasi Mobile) Tampilkan notifikasi "Profil berhasil diperbarui";
+                        (Pengguna) Lihat notifikasi;
+                    }
+                    -Tidak- {
+                        (Sistem Backend) Kirim respons error validasi (422);
+                        (API) Teruskan respons error;
+                        (Aplikasi Mobile) Terima dan tampilkan pesan error spesifik;
+                        (Pengguna) Lihat pesan error;
+                    }
+                }
+                >Sistem Backend<;
+            }
+            -Tidak- {
+                // Selesai
+            }
+        }
+        >Pengguna<;
+        @Pengguna@
+    }
+} 

@@ -1,0 +1,143 @@
+4.1.3. Development Sprint 2
+Fase ketiga implementasi pendekatan integrasi User-Centered Design dan Scrum adalah Development Sprint 2. Pada fase ini, tim melanjutkan pengembangan aplikasi dengan fokus pada fitur-fitur yang berkaitan dengan presensi dan pencatatan data latihan atlet. Fase ini menggunakan hasil evaluasi dan umpan balik dari Sprint 1 sebagai acuan untuk perbaikan dan pengembangan fitur-fitur baru.
+
+4.1.3.1. Sprint Planning
+Pelaksanaan Development Sprint 2 dimulai dengan Sprint Planning untuk menentukan daftar backlog item yang akan dilaksanakan selama siklus sprint 2. Berikut adalah daftar Sprint Backlog item pada Sprint 2:
+
+Tabel IV.9 Daftar Sprint Backlog item (Sprint 2)
+| No. | Sprint Backlog item | Prioritas | Estimasi | Status |
+|-----|---------------------|-----------|----------|--------|
+| 1.  | Start Training Schedule | High | 12 jam | Selesai |
+| 2.  | Attend Training Schedule | High | 12 jam | Selesai |
+| 3.  | Record Athlete Training Data | High | 16 jam | Selesai |
+| 4.  | End Training Schedule | High | 8 jam | Selesai |
+| 5.  | View Athlete Attendance History | Low | 8 jam | Selesai |
+| 6.  | Coach Attendance Monitoring | Medium | 10 jam | Selesai |
+| 7.  | Athlete Attendance Monitoring | Low | 10 jam | Selesai |
+
+4.1.3.2. Start Training Schedule
+Fitur Start Training Schedule memungkinkan pelatih untuk memulai sesi latihan sesuai dengan jadwal yang telah ditentukan. Ketika pelatih memulai jadwal latihan, sistem akan mencatat presensi pelatih secara otomatis.
+
+Gambar IV.11 Antarmuka Start Training Schedule
+
+Pada halaman Start Training Schedule, pelatih dapat melihat jadwal latihan yang tersedia pada hari tersebut. Pelatih dapat memilih jadwal latihan yang akan dimulai dan menekan tombol "Mulai Latihan". Sistem akan mencatat waktu mulai latihan dan presensi pelatih.
+
+Gambar IV.12 Activity Diagram Start Training Schedule
+
+Activity Diagram pada Gambar IV.12 menggambarkan alur proses memulai jadwal latihan. Proses dimulai ketika pelatih mengakses menu jadwal latihan dan memilih jadwal latihan yang akan dimulai. Sistem akan memvalidasi apakah jadwal latihan tersebut belum dimulai. Jika belum, sistem akan mencatat waktu mulai latihan dan presensi pelatih. Jika jadwal latihan sudah dimulai, sistem akan menampilkan pesan bahwa jadwal latihan sudah dimulai sebelumnya.
+
+4.1.3.3. Attend Training Schedule
+Fitur Attend Training Schedule memungkinkan atlet untuk melakukan presensi pada sesi latihan yang sedang berlangsung. Presensi dilakukan berdasarkan lokasi atlet dari tempat latihan untuk memastikan kehadiran yang valid.
+
+Gambar IV.13 Antarmuka Attend Training Schedule
+
+Pada halaman Attend Training Schedule, atlet dapat melihat jadwal latihan yang sedang berlangsung. Atlet dapat melakukan presensi dengan menekan tombol "Hadir". Sistem akan memeriksa lokasi atlet dan membandingkannya dengan lokasi tempat latihan. Jika lokasi valid, sistem akan mencatat presensi atlet.
+
+Gambar IV.14 Activity Diagram Attend Training Schedule
+
+Activity Diagram pada Gambar IV.14 menggambarkan alur proses presensi atlet. Proses dimulai ketika atlet mengakses menu jadwal latihan dan memilih jadwal latihan yang sedang berlangsung. Sistem akan memeriksa apakah jadwal latihan tersebut sedang berlangsung. Jika ya, sistem akan meminta izin untuk mengakses lokasi atlet. Setelah mendapatkan lokasi atlet, sistem akan membandingkannya dengan lokasi tempat latihan. Jika lokasi valid, sistem akan mencatat presensi atlet. Jika tidak, sistem akan menampilkan pesan bahwa atlet tidak berada di lokasi latihan.
+
+4.1.3.4. Record Athlete Training Data
+Fitur Record Athlete Training Data memungkinkan pelatih untuk mencatat data latihan atlet seperti waktu, jarak, dan catatan lainnya. Data ini akan digunakan untuk memantau performa atlet.
+
+Gambar IV.15 Antarmuka Record Athlete Training Data
+
+Pada halaman Record Athlete Training Data, pelatih dapat melihat daftar atlet yang hadir pada sesi latihan yang sedang berlangsung. Pelatih dapat memilih atlet dan mencatat data latihan seperti waktu, jarak, dan catatan lainnya. Pelatih juga dapat menggunakan stopwatch atau timer yang tersedia pada aplikasi untuk mencatat waktu atlet.
+
+Gambar IV.16 Activity Diagram Record Athlete Training Data
+
+Activity Diagram pada Gambar IV.16 menggambarkan alur proses pencatatan data latihan atlet. Proses dimulai ketika pelatih mengakses menu pencatatan data latihan dan memilih atlet yang akan dicatat datanya. Sistem akan menampilkan form pencatatan data latihan. Pelatih mengisi form tersebut dan menyimpannya. Sistem akan memvalidasi data yang dimasukkan dan menyimpannya ke database jika valid. Jika data berhasil disimpan, sistem akan menampilkan pesan sukses.
+
+4.1.3.5. End Training Schedule
+Fitur End Training Schedule memungkinkan pelatih untuk mengakhiri sesi latihan yang sedang berlangsung. Ketika pelatih mengakhiri sesi latihan, sistem akan mencatat waktu selesai latihan.
+
+Gambar IV.17 Antarmuka End Training Schedule
+
+Pada halaman End Training Schedule, pelatih dapat melihat informasi sesi latihan yang sedang berlangsung seperti waktu mulai, durasi, dan jumlah atlet yang hadir. Pelatih dapat mengakhiri sesi latihan dengan menekan tombol "Akhiri Latihan". Sistem akan mencatat waktu selesai latihan.
+
+Gambar IV.18 Activity Diagram End Training Schedule
+
+Activity Diagram pada Gambar IV.18 menggambarkan alur proses mengakhiri sesi latihan. Proses dimulai ketika pelatih mengakses menu jadwal latihan dan memilih jadwal latihan yang sedang berlangsung. Sistem akan memvalidasi apakah jadwal latihan tersebut sedang berlangsung. Jika ya, sistem akan mencatat waktu selesai latihan dan memperbarui status jadwal latihan menjadi selesai. Jika tidak, sistem akan menampilkan pesan bahwa jadwal latihan belum dimulai atau sudah selesai.
+
+4.1.3.6. View Athlete Attendance History
+Fitur View Athlete Attendance History memungkinkan atlet untuk melihat riwayat presensi mereka pada sesi latihan yang telah berlalu.
+
+Gambar IV.19 Antarmuka View Athlete Attendance History
+
+Pada halaman View Athlete Attendance History, atlet dapat melihat daftar presensi mereka pada sesi latihan yang telah berlalu. Atlet dapat melihat detail presensi seperti tanggal, waktu, dan status presensi (hadir, terlambat, atau tidak hadir). Atlet juga dapat melakukan filter berdasarkan tanggal atau status presensi.
+
+Gambar IV.20 Activity Diagram View Athlete Attendance History
+
+Activity Diagram pada Gambar IV.20 menggambarkan alur proses melihat riwayat presensi atlet. Proses dimulai ketika atlet mengakses menu riwayat presensi. Sistem akan mengambil data presensi atlet dari database dan menampilkannya dalam bentuk daftar. Jika tidak ada data presensi yang ditemukan, sistem akan menampilkan pesan "Tidak ada data presensi". Atlet dapat melakukan filter untuk menemukan data presensi yang diinginkan.
+
+4.1.3.7. Coach Attendance Monitoring
+Fitur Coach Attendance Monitoring memungkinkan pelatih untuk memantau presensi mereka sendiri pada sesi latihan yang telah berlalu.
+
+Gambar IV.21 Antarmuka Coach Attendance Monitoring
+
+Pada halaman Coach Attendance Monitoring, pelatih dapat melihat daftar presensi mereka pada sesi latihan yang telah berlalu. Pelatih dapat melihat detail presensi seperti tanggal, waktu mulai, waktu selesai, dan durasi latihan. Pelatih juga dapat melakukan filter berdasarkan tanggal.
+
+Gambar IV.22 Activity Diagram Coach Attendance Monitoring
+
+Activity Diagram pada Gambar IV.22 menggambarkan alur proses memantau presensi pelatih. Proses dimulai ketika pelatih mengakses menu pemantauan presensi. Sistem akan mengambil data presensi pelatih dari database dan menampilkannya dalam bentuk daftar. Jika tidak ada data presensi yang ditemukan, sistem akan menampilkan pesan "Tidak ada data presensi". Pelatih dapat melakukan filter untuk menemukan data presensi yang diinginkan.
+
+4.1.3.8. Athlete Attendance Monitoring
+Fitur Athlete Attendance Monitoring memungkinkan pelatih untuk memantau presensi atlet pada sesi latihan yang telah berlalu.
+
+Gambar IV.23 Antarmuka Athlete Attendance Monitoring
+
+Pada halaman Athlete Attendance Monitoring, pelatih dapat melihat daftar atlet beserta riwayat presensi mereka pada sesi latihan yang telah berlalu. Pelatih dapat melihat detail presensi seperti tanggal, waktu, dan status presensi (hadir, terlambat, atau tidak hadir). Pelatih juga dapat melakukan filter berdasarkan nama atlet, tanggal, atau status presensi.
+
+Gambar IV.24 Activity Diagram Athlete Attendance Monitoring
+
+Activity Diagram pada Gambar IV.24 menggambarkan alur proses memantau presensi atlet oleh pelatih. Proses dimulai ketika pelatih mengakses menu pemantauan presensi atlet. Sistem akan mengambil data presensi atlet dari database dan menampilkannya dalam bentuk daftar. Jika tidak ada data presensi yang ditemukan, sistem akan menampilkan pesan "Tidak ada data presensi". Pelatih dapat melakukan filter untuk menemukan data presensi yang diinginkan.
+
+4.1.3.9. Pengujian Whitebox Testing
+Setelah melakukan implementasi pada masing-masing backlog item di Sprint 2, tahapan selanjutnya yang dilakukan untuk memastikan bahwa seluruh backlog item yang dikerjakan berjalan dengan baik adalah pengujian whitebox. Berikut adalah beberapa contoh pengujian whitebox yang dilakukan pada Sprint 2:
+
+1. **Unit Testing untuk Start Training Schedule**
+   - Pengujian fungsi startTraining() untuk memastikan bahwa fungsi tersebut dapat memperbarui status jadwal latihan menjadi "sedang berlangsung" dengan benar.
+   - Pengujian fungsi recordCoachAttendance() untuk memastikan bahwa fungsi tersebut dapat mencatat presensi pelatih dengan benar.
+
+2. **Unit Testing untuk Attend Training Schedule**
+   - Pengujian fungsi getLocation() untuk memastikan bahwa fungsi tersebut dapat mengambil lokasi atlet dengan benar.
+   - Pengujian fungsi validateLocation() untuk memastikan bahwa fungsi tersebut dapat memvalidasi lokasi atlet dengan benar.
+   - Pengujian fungsi recordAthleteAttendance() untuk memastikan bahwa fungsi tersebut dapat mencatat presensi atlet dengan benar.
+
+3. **Unit Testing untuk Record Athlete Training Data**
+   - Pengujian fungsi getAthleteList() untuk memastikan bahwa fungsi tersebut dapat mengambil daftar atlet yang hadir pada sesi latihan dengan benar.
+   - Pengujian fungsi recordTrainingData() untuk memastikan bahwa fungsi tersebut dapat mencatat data latihan atlet dengan benar.
+   - Pengujian fungsi useStopwatch() untuk memastikan bahwa fungsi tersebut dapat mencatat waktu dengan benar.
+
+4. **Unit Testing untuk End Training Schedule**
+   - Pengujian fungsi endTraining() untuk memastikan bahwa fungsi tersebut dapat memperbarui status jadwal latihan menjadi "selesai" dengan benar.
+   - Pengujian fungsi calculateDuration() untuk memastikan bahwa fungsi tersebut dapat menghitung durasi latihan dengan benar.
+
+5. **Unit Testing untuk View Athlete Attendance History**
+   - Pengujian fungsi getAthleteAttendanceHistory() untuk memastikan bahwa fungsi tersebut dapat mengambil riwayat presensi atlet dengan benar.
+   - Pengujian fungsi filterAttendanceHistory() untuk memastikan bahwa fungsi tersebut dapat melakukan filter riwayat presensi dengan benar.
+
+6. **Unit Testing untuk Coach Attendance Monitoring**
+   - Pengujian fungsi getCoachAttendanceHistory() untuk memastikan bahwa fungsi tersebut dapat mengambil riwayat presensi pelatih dengan benar.
+   - Pengujian fungsi filterCoachAttendanceHistory() untuk memastikan bahwa fungsi tersebut dapat melakukan filter riwayat presensi pelatih dengan benar.
+
+7. **Unit Testing untuk Athlete Attendance Monitoring**
+   - Pengujian fungsi getAllAthleteAttendanceHistory() untuk memastikan bahwa fungsi tersebut dapat mengambil riwayat presensi semua atlet dengan benar.
+   - Pengujian fungsi filterAthleteAttendanceHistory() untuk memastikan bahwa fungsi tersebut dapat melakukan filter riwayat presensi atlet dengan benar.
+
+Hasil pengujian whitebox menunjukkan bahwa semua fungsi yang diuji telah berjalan dengan baik dan sesuai dengan yang diharapkan. Beberapa bug minor ditemukan pada fungsi validateLocation() dan useStopwatch(), namun telah diperbaiki sebelum sprint selesai.
+
+4.1.3.10. Sprint Review & Retrospective
+Setelah semua backlog item pada Sprint 2 selesai dikerjakan dan diuji, dilakukan Sprint Review untuk meninjau hasil kerja selama siklus sprint dan Sprint Retrospective untuk melakukan refleksi dan evaluasi terhadap produktivitas pengerjaan.
+
+Pada Sprint Review, tim mendemonstrasikan fitur-fitur yang telah dikembangkan kepada pihak Klub Renang Petrokimia Gresik. Pihak klub memberikan umpan balik positif terhadap fitur-fitur yang telah dikembangkan. Beberapa saran perbaikan yang diberikan antara lain:
+- Penambahan fitur untuk menandai atlet yang terlambat pada fitur Attend Training Schedule.
+- Penambahan fitur untuk melihat statistik kehadiran atlet pada fitur Athlete Attendance Monitoring.
+- Penambahan fitur untuk mengekspor data latihan atlet pada fitur Record Athlete Training Data.
+
+Pada Sprint Retrospective, tim melakukan refleksi terhadap proses pengerjaan Sprint 2. Beberapa hal yang menjadi catatan antara lain:
+- Pengerjaan fitur Record Athlete Training Data memakan waktu lebih lama dari yang diperkirakan karena kompleksitas implementasi stopwatch dan timer.
+- Integrasi dengan API lokasi memerlukan waktu lebih lama dari yang diperkirakan karena masalah kompatibilitas.
+- Komunikasi dengan pihak klub sudah lebih baik dibandingkan dengan Sprint 1, namun masih perlu ditingkatkan.
+
+Secara keseluruhan, Sprint 2 telah berhasil diselesaikan dengan baik meskipun terdapat beberapa tantangan dalam implementasi. Semua backlog item telah selesai dikerjakan dan diuji. Umpan balik dari pihak klub akan digunakan untuk perbaikan pada sprint selanjutnya. 

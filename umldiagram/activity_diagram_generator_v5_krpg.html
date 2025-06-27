@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activity Diagram Generator v5 – SiMenang KRPG Flows</title>
+    <style>
+        html,body { height:100%; margin:0; }
+        #genFrame { width:100%; height:100%; border:none; }
+        /* overlay panel styles */
+        #krpg-bar {
+            position:fixed; top:10px; right:10px; z-index:9999; background:#0070c0; color:#fff;
+            padding:8px 14px; border-radius:8px; font-family:'Segoe UI',Tahoma,Arial,sans-serif;
+            box-shadow:0 4px 12px rgba(0,0,0,.15); display:flex; gap:8px; flex-wrap:wrap;
+        }
+        #krpg-bar button { background:#fff; color:#0070c0; border:none; padding:6px 10px; border-radius:6px; cursor:pointer; font-weight:600; }
+        #krpg-bar button:hover { background:#e3f2fd; }
+    </style>
+</head>
+<body>
+    <!-- Fixed quick-access bar that will communicate with the iframe -->
+    <div id="krpg-bar">
+        <button onclick="setExample('auth')">Auth Flow</button>
+        <button onclick="setExample('profile')">Profile</button>
+        <button onclick="setExample('dashboard')">Dashboard</button>
+        <button onclick="setExample('list')">View Lists</button>
+        <button onclick="setExample('coach')">Coach Training</button>
+        <button onclick="setExample('athlete')">Athlete Training</button>
+        <button onclick="setExample('history')">History & Stats</button>
+    </div>
+
+    <!-- Original generator embedded -->
+    <iframe id="genFrame" src="activity_diagram_generator_v5.html"></iframe>
+
+<script>
+// ---- Example source strings ----
+const EXAMPLES = {
+    auth: `'Authentication Flow' {
+        |User, System, API| {
+            $User$
+            (User) Opens the application;
+            (System) Displays Login Screen;
+            (User) Enters credentials and taps Login;
+            (System) Sends login request to API;
+            (API) Validates credentials;
+            <System> Are credentials valid? {
+                -Yes- {
+                    (API) Returns success response with user data;
+                    (System) Stores session token;
+                    (System) Navigates to Home Screen;
+                    @User@
+                }
+                -No- {
+                    (API) Returns error response;
+                    (System) Displays login error message;
+                }
+            }
+            >System<;
+        }
+    }`,
+    profile: `'Profile Management Flow' {
+        |User, System, API| {
+            $User$
+            (User) Navigates to Profile screen;
+            (System) Requests user profile data from API;
+            (API) Returns current user data;
+            (System) Displays user profile information;
+            (User) Taps 'Edit Profile';
+            (System) Shows form with editable fields;
+            (User) Modifies data and taps 'Save';
+            (System) Sends update request to API;
+            <API> Update successful? {
+                -Yes- {
+                    (API) Returns success message;
+                    (System) Displays success notification;
+                    (System) Refreshes profile information;
+                }
+                -No- {
+                    (API) Returns error message;
+                    (System) Displays error notification;
+                }
+            }
+            >System<;
+            @User@
+        }
+    }`,
+    dashboard: `'Home Dashboard Flow' {
+        |User, System, API| {
+            $System$
+            (System) Requests dashboard data (stats, activities) from API;
+            (API) Returns dashboard data;
+            (System) Displays welcome message, quick stats, and recent activities;
+            @User@
+        }
+    }`,
+    list: `'Generic List View Flow' {
+        |User, System, API| {
+            $User$
+            (User) Navigates to a list screen (e.g., Athletes);
+            (System) Requests list data from API;
+            (API) Returns list of items;
+            (System) Displays the list of items;
+            (User) Taps on an item;
+            (System) Navigates to the detail screen for that item;
+            @User@
+        }
+    }`,
+    coach: `'Coach Training Management Flow' {
+        |Coach, System, API| {
+            $Coach$
+            (Coach) Navigates to Training screen;
+            (System) Displays list of training sessions;
+            (Coach) Selects a training session;
+            (System) Displays training detail;
+            (Coach) Taps 'Start Session';
+            (System) Validates location and time;
+            <System> Is validation successful? {
+                -Yes- {
+                    (System) Navigates to the live Training Session screen;
+                    (System) Activates location tracking and stopwatch features;
+                    (Coach) Manages attendance and records athlete times;
+                    (System) Sends live data (attendance, times) to API;
+                    (API) Stores session data;
+                    (Coach) Taps 'End Session';
+                    (System) Sends final session data to API;
+                    @Coach@
+                }
+                -No- {
+                    (System) Shows error message (e.g., 'Not at location');
+                }
+            }
+            >System<;
+        }
+    }`,
+    athlete: `'Athlete Training & Attendance Flow' {
+        |Athlete, System, API| {
+            $Athlete$
+            (Athlete) Joins a scheduled training;
+            (System) Navigates to Attendance Check screen;
+            (System) Gets device location;
+            <System> Is athlete at the venue? {
+                -Yes- {
+                    (System) Enables 'Mark Attendance' button;
+                    (Athlete) Taps 'Mark Attendance';
+                    (System) Sends attendance status to API;
+                    (API) Records attendance;
+                    (System) Shows success message;
+                    @Athlete@
+                }
+                -No- {
+                    (System) Disables button and shows 'Out of range' message;
+                }
+            }
+            >System<;
+        }
+    }`,
+    history: `'View History & Statistics' {
+        |User, System, API| {
+            $User$
+            (User) Navigates to a detail screen (e.g., Athlete Detail);
+            (User) Selects the 'Statistics' or 'History' tab;
+            (System) Requests relevant historical/statistical data from API;
+            (API) Queries and returns the calculated data;
+            (System) Displays charts, graphs, and data lists;
+            @User@
+        }
+    }`
+};
+
+// Helper to inject loader functions into iframe once it is ready
+function injectExamples(frameWin){
+    // this function is no longer needed with postMessage approach
+}
+
+// Remove old ready-check interval and use simple init via postMessage
+const iframe = document.getElementById('genFrame');
+iframe.addEventListener('load', ()=>{
+    // load default diagram after iframe content is ready
+    setExample('auth');
+});
+
+// Send the selected example to the generator via postMessage
+function setExample(key){
+    const payload = EXAMPLES[key];
+    if(!payload) return;
+    iframe.contentWindow.postMessage({type:'setDiagram', payload}, '*');
+}
+</script>
+</body>
+</html> 

@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SiMenang KRPG - Simplified Activity Diagrams</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; color: #333; margin: 0; padding: 20px; }
+        .main-header { text-align: center; margin-bottom: 40px; }
+        .main-header h1 { font-size: 2.5em; color: #0070c0; }
+        .main-header p { font-size: 1.2em; color: #555; }
+        .diagram-section { background-color: white; border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.08); overflow: hidden; margin-bottom: 30px; }
+        .diagram-section-header { padding: 20px; border-bottom: 1px solid #e0e0e0; }
+        .diagram-section-header h3 { margin: 0; font-size: 1.5em; color: #005a9c; }
+        .diagram-section-header p { margin: 5px 0 0 0; color: #666; font-size: 1.1em; }
+        .diagram-section-header span { background: #e0f7fa; color: #007c91; padding: 3px 8px; border-radius: 8px; font-weight: 500; font-size: 0.9em; }
+        .diagram-content { padding: 20px; overflow-x: auto;}
+        
+        /* Styles from Generator */
+        .swimlanes-container { position: relative; border: 2px solid #333; margin-top: 20px; background: #fff; border-radius: 8px; overflow-x: auto; min-height: 500px; }
+        .swimlane { position: absolute; top: 0; height: 100%; border-right: 2px solid #ccc; box-sizing: border-box; background-color: #f8f9fa; }
+        .swimlane:nth-child(even) { background-color: #fff; }
+        .swimlane:last-child { border-right: none; }
+        .swimlane-title { text-align: center; font-weight: bold; padding: 15px; border-bottom: 2px solid #ccc; background: #e9ecef; color: #333; font-size: 1.1em; position: sticky; top: 0; z-index: 10; }
+        .diagram-container { background: white; border-radius: 8px; padding: 20px; min-height: 500px; border: 2px solid #e0e0e0; }
+        .diagram-title { text-align: center; font-size: 1.8em; font-weight: bold; color: #0070c0; margin-bottom: 30px; padding: 15px; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-radius: 8px; }
+        .node { position: absolute; transform: translate(-50%, -50%); z-index: 5; box-shadow: 0 3px 10px rgba(0,0,0,0.2); border-radius: 8px; font-size: 14px; font-weight: 500; text-align: center; padding: 12px 16px; word-wrap: break-word; }
+        .node-activity { background: linear-gradient(135deg, #7fbcff 0%, #5a9cff 100%); border: 2px solid #0070c0; color: #1a1a1a; }
+        .node-start { background: #333; border: 3px solid #333; color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+        .node-end { background: white; border: 3px solid #333; color: #333; width: 46px; height: 46px; border-radius: 50%; display: flex; align-items: center; justify-content: center; position: relative; }
+        .node-end::after { content: ''; width: 32px; height: 32px; background: #333; border-radius: 50%; }
+        .node-decision { background: linear-gradient(135deg, #fce5a7 0%, #f7d06e 100%); border: 2px solid #c69500; color: #333; width: 80px; height: 80px; transform: translate(-50%, -50%) rotate(45deg); }
+        .node-decision-text { height: 100%; width: 100%; display: flex; align-items: center; justify-content: center; transform: rotate(-45deg); word-break: break-word; padding: 5px; }
+        .node-datastore { background: linear-gradient(135deg, #a9dcfc 0%, #87ceeb 100%); border: 2px solid #0070c0; color: #1a1a1a; }
+        .node-merge { background: linear-gradient(135deg, #7fbcff 0%, #5a9cff 100%); border: 2px solid #0070c0; color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+        .connection-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
+        .connection-line { stroke: #333; stroke-width: 2; fill: none; }
+        .connection-label { position: absolute; background: white; padding: 4px 8px; border-radius: 4px; font-size: 12px; color: #333; border: 1px solid #ccc; z-index: 6; white-space: nowrap; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .error-message { background: linear-gradient(135deg, #dc3545 0%, #c82333 100%); color: white; padding: 20px; border-radius: 8px; text-align: center; font-weight: bold; margin: 20px 0; }
+    </style>
+</head>
+<body>
+
+    <div class="main-header">
+        <h1>Simplified Activity Diagrams</h1>
+        <p>A high-level overview of the SiMenang KRPG application flows.</p>
+    </div>
+
+    <div id="diagrams-container">
+        <!-- Diagrams will be injected here -->
+    </div>
+    
+    <script>
+        // --- Diagram Data ---
+        const diagramData = [
+            {
+                title: 'Authentication Flow',
+                relatedScreen: 'Login Screen',
+                syntax: `'Authentication Flow' {
+                    |User, System, API| {
+                        $User$
+                        (User) Opens the application;
+                        (System) Displays Login Screen;
+                        (User) Enters credentials and taps Login;
+                        (System) Sends login request to API;
+                        (API) Validates credentials;
+                        <System> Are credentials valid? {
+                            -Yes- {
+                                (API) Returns success response with user data;
+                                (System) Stores session token;
+                                (System) Navigates to Home Screen;
+                                @User@
+                            }
+                            -No- {
+                                (API) Returns error response;
+                                (System) Displays login error message;
+                            }
+                        }
+                        >System<;
+                    }
+                }`
+            },
+            {
+                title: 'Profile Management Flow',
+                relatedScreen: 'Profile Screen',
+                syntax: `'Profile Management Flow' {
+                    |User, System, API| {
+                        $User$
+                        (User) Navigates to Profile screen;
+                        (System) Requests user profile data from API;
+                        (API) Returns current user data;
+                        (System) Displays user profile information;
+                        (User) Taps 'Edit Profile';
+                        (System) Shows form with editable fields;
+                        (User) Modifies data and taps 'Save';
+                        (System) Sends update request to API;
+                        <API> Update successful? {
+                            -Yes- {
+                                (API) Returns success message;
+                                (System) Displays success notification;
+                                (System) Refreshes profile information;
+                            }
+                            -No- {
+                                (API) Returns error message;
+                                (System) Displays error notification;
+                            }
+                        }
+                        >System<;
+                        @User@
+                    }
+                }`
+            },
+            {
+                title: 'Home Dashboard Flow',
+                relatedScreen: 'Home Screen',
+                syntax: `'Home Dashboard Flow' {
+                    |User, System, API| {
+                        $System$
+                        (System) Requests dashboard data (stats, activities) from API;
+                        (API) Returns dashboard data;
+                        (System) Displays welcome message, quick stats, and recent activities;
+                        @User@
+                    }
+                }`
+            },
+            {
+                title: 'View Lists (Athletes, Classrooms, etc.)',
+                relatedScreen: 'Athletes, Classroom, Competition Lists',
+                syntax: `'Generic List View Flow' {
+                    |User, System, API| {
+                        $User$
+                        (User) Navigates to a list screen (e.g., Athletes);
+                        (System) Requests list data from API;
+                        (API) Returns list of items;
+                        (System) Displays the list of items;
+                        (User) Taps on an item;
+                        (System) Navigates to the detail screen for that item;
+                        @User@
+                    }
+                }`
+            },
+            {
+                title: 'Coach Training Flow',
+                relatedScreen: 'Training & Training Session Screens',
+                syntax: `'Coach Training Management Flow' {
+                    |Coach, System, API| {
+                        $Coach$
+                        (Coach) Navigates to Training screen;
+                        (System) Displays list of training sessions;
+                        (Coach) Selects a training session;
+                        (System) Displays training detail;
+                        (Coach) Taps 'Start Session';
+                        (System) Validates location and time;
+                        <System> Is validation successful? {
+                            -Yes- {
+                                (System) Navigates to the live Training Session screen;
+                                (System) Activates location tracking and stopwatch features;
+                                (Coach) Manages attendance and records athlete times;
+                                (System) Sends live data (attendance, times) to API;
+                                (API) Stores session data;
+                                (Coach) Taps 'End Session';
+                                (System) Sends final session data to API;
+                                @Coach@
+                            }
+                            -No- {
+                                (System) Shows error message (e.g., 'Not at location');
+                            }
+                        }
+                        >System<;
+                    }
+                }`
+            },
+            {
+                title: 'Athlete Training & Attendance Flow',
+                relatedScreen: 'Training Screen & Attendance Check',
+                syntax: `'Athlete Training & Attendance Flow' {
+                    |Athlete, System, API| {
+                        $Athlete$
+                        (Athlete) Joins a scheduled training;
+                        (System) Navigates to Attendance Check screen;
+                        (System) Gets device location;
+                        <System> Is athlete at the venue? {
+                            -Yes- {
+                                (System) Enables 'Mark Attendance' button;
+                                (Athlete) Taps 'Mark Attendance';
+                                (System) Sends attendance status to API;
+                                (API) Records attendance;
+                                (System) Shows success message;
+                                @Athlete@
+                            }
+                            -No- {
+                                (System) Disables button and shows 'Out of range' message;
+                            }
+                        }
+                        >System<;
+                    }
+                }`
+            },
+             {
+                title: 'View History & Statistics Flow',
+                relatedScreen: 'Any Detail Screen (Statistics/History Tab)',
+                syntax: `'View History & Statistics' {
+                    |User, System, API| {
+                        $User$
+                        (User) Navigates to a detail screen (e.g., Athlete Detail);
+                        (User) Selects the 'Statistics' or 'History' tab;
+                        (System) Requests relevant historical/statistical data from API;
+                        (API) Queries and returns the calculated data;
+                        (System) Displays charts, graphs, and data lists;
+                        @User@
+                    }
+                }`
+            }
+        ];
+
+        // --- Correct V5 Rendering Engine ---
+        let textMeasureEl;
+        const CONFIG = {
+            HEADER_HEIGHT: 60, SWIMLANE_PADDING: 40, NODE_V_SPACING: 120,
+            NODE_H_SPACING: 80, START_END_SIZE: 40, DECISION_SIZE: 100,
+            MERGE_SIZE: 30, NODE_PADDING: { x: 20, y: 15 }, FONT_SIZE: 14,
+            FONT_FAMILY: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+            MAX_NODE_WIDTH: 280, MIN_NODE_WIDTH: 100, CONNECTOR_V_MARGIN: 5,
+        };
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            textMeasureEl = document.createElement('span');
+            Object.assign(textMeasureEl.style, { 
+                visibility: 'hidden', position: 'absolute', whiteSpace: 'pre', 
+                fontSize: `${CONFIG.FONT_SIZE}px`, fontWeight: '500', 
+                fontFamily: CONFIG.FONT_FAMILY 
+            });
+            document.body.appendChild(textMeasureEl);
+            
+            const container = document.getElementById('diagrams-container');
+            diagramData.forEach((data, index) => {
+                const section = document.createElement('div');
+                section.className = 'diagram-section';
+
+                section.innerHTML = `
+                    <div class="diagram-section-header">
+                        <h3>${index + 1}. ${data.title}</h3>
+                        <p>Related Screen(s): <span>${data.relatedScreen}</span></p>
+                    </div>
+                    <div class="diagram-content" id="diagram-output-${index}"></div>
+                `;
+                container.appendChild(section);
+
+                try {
+                    const output = section.querySelector(`#diagram-output-${index}`);
+                    const parsed = parseToAST(data.syntax);
+                    const layout = calculateLayout(parsed);
+                    renderDiagram(layout, output);
+                } catch (error) {
+                    console.error(`Error rendering diagram '${data.title}':`, error);
+                    section.querySelector(`#diagram-output-${index}`).innerHTML = `<div class="error-message">❌ Error: ${error.message}</div>`;
+                }
+            });
+        });
+
+        function analyzeCompleteStructure(ast) {
+            const nodeMap = new Map();
+            const decisions = [];
+
+            function traverseNodes(nodes, parentDecision = null, parentBranch = null) {
+                nodes.forEach(node => {
+                    node.parentDecision = parentDecision;
+                    node.parentBranch = parentBranch;
+                    nodeMap.set(node.id, node);
+
+                    if (node.type === 'decision') {
+                        decisions.push(node);
+                        node.branches.forEach(branch => {
+                            traverseNodes(branch.nodes, node, branch);
+                        });
+                    }
+                });
+            }
+
+            traverseNodes(ast);
+            return { 
+                nodeMap, 
+                decisions, 
+                allNodes: Array.from(nodeMap.values()) 
+            };
+        }
+
+        function calculateDecisionWidth(decision, analysis) {
+            const subInfo = analyzeDecisionSubdivision(decision, analysis);
+            if (!subInfo || subInfo.branches.length < 2) return 1;
+
+            let totalWidth = 0;
+            subInfo.branches.forEach(branchInfo => {
+                const branch = decision.branches.find(b => b.label === branchInfo.label);
+                const nestedDecisions = branch.nodes.filter(n => n.type === 'decision' && n.lane === decision.lane);
+                
+                let widthOfBranch = 1;
+                if (nestedDecisions.length > 0) {
+                    widthOfBranch = nestedDecisions
+                        .map(d => calculateDecisionWidth(d, analysis))
+                        .reduce((sum, width) => sum + width, 0);
+                }
+                totalWidth += widthOfBranch;
+            });
+            return totalWidth;
+        }
+        
+        function planSwimlaneSubdivisions(analysis, originalSwimlanes) {
+            const plan = new Map();
+
+            const decisionsInLanes = new Map();
+            analysis.decisions.forEach(d => {
+                if (!decisionsInLanes.has(d.lane)) decisionsInLanes.set(d.lane, []);
+                decisionsInLanes.get(d.lane).push(d);
+            });
+
+            for (const [laneName, decisions] of decisionsInLanes.entries()) {
+                const topLevelDecisions = decisions.filter(d => !d.parentDecision || d.parentDecision.lane !== laneName);
+                
+                let maxSublanes = 1;
+                if(topLevelDecisions.length > 0){
+                    maxSublanes = topLevelDecisions
+                        .map(d => calculateDecisionWidth(d, analysis))
+                        .reduce((sum, width) => sum + width, 0);
+                }
+                
+                if (maxSublanes <= 1 && decisions.length > 0) {
+                    const hasAnySubdivision = decisions.some(d => analyzeDecisionSubdivision(d, analysis));
+                    if(hasAnySubdivision && maxSublanes < 2){
+                        maxSublanes = 1;
+                        decisions.forEach(d => {
+                            const s = analyzeDecisionSubdivision(d, analysis);
+                            if(s) maxSublanes += s.subdivisionCount -1;
+                        });
+                    }
+                }
+                
+                if (maxSublanes > 1) {
+                    plan.set(laneName, { maxSublanes });
+                }
+            }
+
+            const crossLaneExtra = new Map(); 
+
+            analysis.decisions.forEach(dec => {
+                const decIndex = originalSwimlanes.indexOf(dec.lane);
+                if (decIndex === -1) return;
+                dec.branches.forEach(br => {
+                    if (br.nodes.length === 0) return;
+                    const firstLane = br.nodes[0].lane;
+                    const targetIndex = originalSwimlanes.indexOf(firstLane);
+                    if (firstLane && firstLane !== dec.lane && targetIndex !== -1 && targetIndex < decIndex) {
+                        crossLaneExtra.set(firstLane, (crossLaneExtra.get(firstLane) || 0) + 1);
+                    }
+                });
+            });
+
+            for (const [laneName, extra] of crossLaneExtra.entries()) {
+                const current = plan.get(laneName)?.maxSublanes || 1;
+                const needed = Math.max(2, current, extra + 1);
+                if (needed > current) {
+                    plan.set(laneName, { maxSublanes: needed });
+                }
+            }
+            return plan;
+        }
+        
+        function analyzeDecisionSubdivision(decision) {
+            const branchesStartingInSameLane = [];
+            
+            decision.branches.forEach(branch => {
+                const containsSameLaneNode = branch.nodes.some(n => n.lane === decision.lane);
+                if (containsSameLaneNode) {
+                    branchesStartingInSameLane.push({
+                        label: branch.label,
+                        nodes: branch.nodes
+                    });
+                }
+            });
+            
+            if (branchesStartingInSameLane.length >= 2) {
+                return {
+                    decisionId: decision.id,
+                    lane: decision.lane,
+                    branches: branchesStartingInSameLane,
+                    subdivisionCount: branchesStartingInSameLane.length
+                };
+            }
+            
+            return null;
+        }
+        
+        function applySubdivisionPlan(originalSwimlanes, subdivisionPlan) {
+            const technicalSwimlanes = [];
+            const visualSwimlanes = [];
+            let currentX = 0;
+            const baseLaneWidth = 300;
+            
+            originalSwimlanes.forEach((laneName) => {
+                const lanePlan = subdivisionPlan.get(laneName);
+                const maxSubdivisionCount = lanePlan ? lanePlan.maxSublanes : 1;
+                const totalLaneWidth = baseLaneWidth * maxSubdivisionCount;
+                
+                if (maxSubdivisionCount > 1) {
+                    const subLaneWidth = totalLaneWidth / maxSubdivisionCount;
+                    
+                    for (let i = 0; i < maxSubdivisionCount; i++) {
+                        technicalSwimlanes.push({
+                            id: `${laneName}-${i + 1}`, originalId: laneName, width: subLaneWidth, x: currentX + (i * subLaneWidth),
+                            subdivisionIndex: i, isSubdivision: true,
+                        });
+                    }
+                } else {
+                    technicalSwimlanes.push({
+                        id: laneName, originalId: laneName, width: totalLaneWidth, x: currentX,
+                        subdivisionIndex: 0, isSubdivision: false,
+                    });
+                }
+                
+                visualSwimlanes.push({
+                    id: laneName, originalId: laneName, width: totalLaneWidth, x: currentX, subdivisionCount: maxSubdivisionCount
+                });
+                
+                currentX += totalLaneWidth;
+            });
+            
+            return {
+                technical: technicalSwimlanes,
+                visual: visualSwimlanes
+            };
+        }
+        
+        function getTargetLane(node, parentContext, laneData) {
+            if (parentContext && parentContext.availableSublanes && parentContext.availableSublanes.length > 0 && node.lane === parentContext.decisionLane) {
+                return parentContext.availableSublanes[0];
+            }
+            
+            if (parentContext && parentContext.decisionLane && node.lane !== parentContext.decisionLane) {
+                const allSubs = Array.from(laneData.values()).filter(l => l.isSubdivision && l.originalId === node.lane);
+                if (allSubs.length > 0) {
+                    return allSubs.reduce((max, curr) => (curr.x > max.x ? curr : max), allSubs[0]);
+                }
+            }
+            
+            let targetLane = laneData.get(node.lane);
+            if (targetLane && !targetLane.isSubdivision) {
+                return targetLane;
+            }
+            
+            for (const laneInfo of laneData.values()) {
+                if (laneInfo.originalId === node.lane) {
+                    return laneInfo;
+                }
+            }
+            
+            return null;
+        }
+        
+        function createSubdivisionMapping(decisionNode, availableSublanes, analysis) {
+            const mapping = new Map();
+            const subInfo = analyzeDecisionSubdivision(decisionNode, analysis);
+            if (!subInfo) return mapping;
+
+            let orderedBranches = subInfo.branches;
+            if (subInfo.branches.length === 2) {
+                const lowerLabels = subInfo.branches.map(b => b.label.toLowerCase());
+                if (lowerLabels.includes('yes') && lowerLabels.includes('no')) {
+                    orderedBranches = subInfo.branches.sort((a, b) => a.label.toLowerCase() === 'no' ? -1 : 1);
+                } else if (lowerLabels.includes('true') && lowerLabels.includes('false')) {
+                    orderedBranches = subInfo.branches.sort((a, b) => a.label.toLowerCase() === 'false' ? -1 : 1);
+                }
+            }
+
+            let sublaneCursor = 0;
+            orderedBranches.forEach(branchInfo => {
+                const branch = decisionNode.branches.find(b => b.label === branchInfo.label);
+                const nestedDecisions = branch.nodes.filter(n => n.type === 'decision' && n.lane === decisionNode.lane);
+                
+                let widthOfBranch = 1;
+                if (nestedDecisions.length > 0) {
+                    widthOfBranch = nestedDecisions
+                        .map(d => calculateDecisionWidth(d, analysis))
+                        .reduce((sum, width) => sum + width, 0);
+                }
+
+                const assignedSublanes = availableSublanes.slice(sublaneCursor, sublaneCursor + widthOfBranch);
+                mapping.set(branch.label, assignedSublanes);
+                sublaneCursor += widthOfBranch;
+            });
+            
+            return mapping;
+        }
+
+        function parseToAST(text) {
+            text = text.replace(/\/\*[\s\S]*?\*\//g, '').trim(); 
+            if (text.startsWith('@v=')) {
+                const newlineIdx = text.indexOf('\n');
+                text = newlineIdx !== -1 ? text.substring(newlineIdx + 1).trim() : '';
+            }
+
+            function getContentOfOuterBlock(str, openChar = '{', closeChar = '}') {
+                const firstBrace = str.indexOf(openChar);
+                if (firstBrace === -1) return null;
+                let balance = 1;
+                for (let i = firstBrace + 1; i < str.length; i++) {
+                    if (str[i] === openChar) balance++;
+                    else if (str[i] === closeChar) balance--;
+                    if (balance === 0) return str.substring(firstBrace + 1, i).trim();
+                }
+                return null;
+            }
+
+            text = text.trim();
+            const titleMatch = text.match(/^'([^']*)'/);
+            if (!titleMatch) throw new Error("Diagram must be wrapped in 'Title' { ... }");
+            const title = titleMatch[1];
+            
+            let diagramBody = getContentOfOuterBlock(text.substring(titleMatch[0].length).trim());
+            if (diagramBody === null) throw new Error("Unmatched '{' or '}' for diagram title block.");
+
+            const swimlaneMatch = diagramBody.match(/^\|([^|]*)\|/);
+            if(!swimlaneMatch) throw new Error("Swimlanes must be defined with |Lane1, Lane2| { ... }");
+            const rawLanes = swimlaneMatch[1].split(',').map(s => s.trim()).filter(Boolean);
+            const aliasMap = new Map();
+            const swimlanes = [];
+            rawLanes.forEach(l => {
+                if (l.includes('=')) {
+                    const [alias, real] = l.split('=').map(s => s.trim());
+                    if(alias) aliasMap.set(alias, real || alias);
+                    swimlanes.push(real || alias);
+                } else {
+                    swimlanes.push(l);
+                }
+            });
+            const uniqueSwimlanes = [...new Set(swimlanes)];
+
+            function translateLane(name){ return aliasMap.get(name) || name; }
+
+            let mainContent = getContentOfOuterBlock(diagramBody.substring(swimlaneMatch[0].length).trim());
+            if (mainContent === null) throw new Error("Unmatched '{' or '}' for swimlane block.");
+            
+            const lines = mainContent.split('\n').map(l => l.trim()).filter(l => l && !l.startsWith('//'));
+            
+            let i = 0;
+            function buildBlock(depth = 0) {
+                const block = [];
+
+                while (i < lines.length) {
+                    const line = lines[i];
+
+                    if (line.match(/^-(.*?)-\s*\{$/)) {
+                        break;
+                    }
+                    if (line.trim() === '}') {
+                        const nextLine = lines[i + 1] || '';
+                        if (nextLine.trim() === '' || nextLine.trim() === '}' || nextLine.match(/^-(.*?)-\s*\{$/)) {
+                            break;
+                        } else {
+                            i++;
+                            continue;
+                        }
+                    }
+                    
+                    i++;
+                    const node = { id: `node_${Math.random().toString(36).substr(2, 9)}` };
+
+                    const decisionMatch = line.match(/^<(.*?)>\s*(.*?)\s*\{$/);
+                    if (decisionMatch) {
+                        Object.assign(node, { type: 'decision', lane: translateLane(decisionMatch[1].trim()), label: decisionMatch[2].trim(), branches: [] });
+                        
+                        while (i < lines.length && lines[i].match(/^-(.*?)-\s*\{$/)) {
+                            const branchLine = lines[i];
+                            const branchLabelMatch = branchLine.match(/^-(.*?)-\s*\{$/);
+                            const branchLabel = branchLabelMatch[1].trim();
+                            i++;
+                            node.branches.push({ id: `branch_${Math.random().toString(36).substr(2, 9)}`, label: branchLabel, nodes: buildBlock(depth + 1) });
+                            if (i < lines.length && lines[i] === '}') { i++; }
+                        }
+                    } else if (line.match(/^\$.*\$$/)) Object.assign(node, { type: 'start', lane: translateLane(line.match(/^\$(.*)\$$/)[1].trim()) });
+                    else if (line.match(/^@.*@$/)) Object.assign(node, { type: 'end', lane: translateLane(line.match(/^@(.*)@$/)[1].trim()) });
+                    else if (line.match(/^\(.*\).*;$/)) Object.assign(node, { type: 'activity', lane: translateLane(line.match(/^\((.*?)\)\s*(.*?);$/)[1].trim()), label: line.match(/^\((.*?)\)\s*(.*?);$/)[2].trim() });
+                    else if (line.match(/^\[.*\].*;$/)) Object.assign(node, { type: 'datastore', lane: translateLane(line.match(/^\[(.*?)\]\s*(.*?);$/)[1].trim()), label: line.match(/^\[(.*?)\]\s*(.*?);$/)[2].trim() });
+                    else if (line.match(/^>.*?<;$/)) Object.assign(node, { type: 'merge', lane: translateLane(line.match(/^>(.*?)<;/)[1].trim()), label: '' });
+                    else continue;
+                    
+                    block.push(node);
+                }
+                return block;
+            }
+            return { title, swimlanes: uniqueSwimlanes, ast: buildBlock() };
+        }
+
+        function calculateLayout(data) {
+            const { ast, swimlanes, title } = data;
+            const measureText = text => { 
+                textMeasureEl.textContent = text || ''; 
+                return { 
+                    width: Math.min(CONFIG.MAX_NODE_WIDTH, Math.max(CONFIG.MIN_NODE_WIDTH, textMeasureEl.offsetWidth + CONFIG.NODE_PADDING.x * 2)), 
+                    height: textMeasureEl.offsetHeight + CONFIG.NODE_PADDING.y * 2 
+                }; 
+            };
+            
+            const structureAnalysis = analyzeCompleteStructure(ast);
+            const subdivisionPlan = planSwimlaneSubdivisions(structureAnalysis, swimlanes);
+            
+            const allNodes = new Map();
+            const allConnections = [];
+            const swimlaneStructure = applySubdivisionPlan(swimlanes, subdivisionPlan);
+            const technicalLanes = swimlaneStructure.technical;
+            const visualLanes = swimlaneStructure.visual;
+            const laneData = new Map();
+            
+            technicalLanes.forEach((lane, i) => {
+                laneData.set(lane.id, { 
+                    id: lane.id, index: i, width: lane.width, x: lane.x,
+                    originalId: lane.originalId || lane.id, isSubdivision: lane.isSubdivision || false,
+                    subdivisionIndex: lane.subdivisionIndex || 0
+                });
+            });
+
+            function layoutBlock(nodes, startY, predecessors, parentContext = null, analysis) {
+                let currentY = startY;
+                let lastNodeIds = predecessors;
+                
+                for (const node of nodes) {
+                    allNodes.set(node.id, node);
+                    
+                    const targetLane = getTargetLane(node, parentContext, laneData);
+                    if (!targetLane) throw new Error(`Swimlane for "${node.lane}" not found.`);
+                    
+                    node.x = targetLane.x + targetLane.width / 2;
+                    node.assignedLane = targetLane.id;
+                    Object.assign(node, node.type.match(/start|end/) ? {width: CONFIG.START_END_SIZE, height: CONFIG.START_END_SIZE} : node.type === 'decision' ? {width: CONFIG.DECISION_SIZE, height: CONFIG.DECISION_SIZE} : node.type === 'merge' ? {width: CONFIG.MERGE_SIZE, height: CONFIG.MERGE_SIZE} : measureText(node.label) );
+                    
+                    node.y = currentY + node.height / 2;
+
+                    const predecessorNodes = lastNodeIds.map(pred => allNodes.get(pred.id)).filter(Boolean);
+
+                    if (node.type === 'merge') {
+                        const predLaneIds = predecessorNodes.map(p => p && (p.assignedLane || p.lane)).filter(Boolean);
+                        const distinctPredLanes = new Set(predLaneIds);
+
+                        if (distinctPredLanes.size > 1) {
+                            const predLaneInfos = Array.from(distinctPredLanes).map(id => laneData.get(id)).filter(Boolean);
+                            const originalLanePreds = predLaneInfos.filter(info => info && info.originalId === node.lane);
+
+                            if (originalLanePreds.length > 0) {
+                                const chosen = originalLanePreds.reduce((min, curr) => curr.x < min.x ? curr : min, originalLanePreds[0]);
+                                node.x = chosen.x + chosen.width / 2;
+                            } else {
+                                const distinctOriginals = new Set(predLaneInfos.map(info => info.originalId || info.id));
+                                if (distinctOriginals.size === 1) {
+                                    const leftmost = predLaneInfos.reduce((min, curr) => curr.x < min.x ? curr : min, predLaneInfos[0]);
+                                    node.x = leftmost.x + leftmost.width / 2;
+                                } else {
+                                    const originalLaneVisual = visualLanes.find(l => l.id === node.lane);
+                                    if (originalLaneVisual) {
+                                        node.x = originalLaneVisual.x + originalLaneVisual.width / 2;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    lastNodeIds.forEach(pred => {
+                        allConnections.push({ from: pred.id, to: node.id, label: pred.label });
+                    });
+
+                    currentY += node.height + CONFIG.NODE_V_SPACING;
+                    
+                    if (node.type === 'decision') {
+                        const branchStartY = currentY;
+                        const branchExitPoints = [];
+                        let maxBranchHeight = 0;
+
+                        let decisionLaneSublanes = Array.from(laneData.values())
+                              .filter(l => l.isSubdivision && l.originalId === node.lane)
+                              .sort((a,b) => a.x - b.x);
+
+                        const currentSubIndex = decisionLaneSublanes.findIndex(l => l.id === node.assignedLane);
+                        if (currentSubIndex >= 0) {
+                            decisionLaneSublanes = decisionLaneSublanes.slice(currentSubIndex);
+                        }
+
+                        const decisionMapping = createSubdivisionMapping( node, decisionLaneSublanes, analysis);
+
+                        node.branches.forEach((branch) => {
+                            const inheritedSublanes = decisionMapping.get(branch.label) && decisionMapping.get(branch.label).length > 0 ? decisionMapping.get(branch.label) : (parentContext && parentContext.availableSublanes ? parentContext.availableSublanes : []);
+
+                            const branchContext = {
+                                decisionId: node.id, decisionLane: node.lane, branchLabel: branch.label,
+                                availableSublanes: inheritedSublanes
+                            };
+                            
+                            const layout = layoutBlock(branch.nodes, branchStartY, [{ id: node.id, label: branch.label }], branchContext, analysis);
+                            branchExitPoints.push(...layout.exitPoints);
+                            maxBranchHeight = Math.max(maxBranchHeight, layout.height);
+                        });
+                        
+                        currentY += maxBranchHeight;
+                        lastNodeIds = branchExitPoints;
+                    } else {
+                        lastNodeIds = [{ id: node.id }];
+                    }
+                }
+                return { height: currentY - startY, exitPoints: lastNodeIds };
+            }
+            
+            layoutBlock(ast, CONFIG.HEADER_HEIGHT, [], null, structureAnalysis);
+
+            const allNodesArray = Array.from(allNodes.values());
+            
+            allNodesArray.forEach(node => {
+                if (node.type !== 'start' && node.type !== 'merge' && node.type !== 'decision' && node.type !== 'end') {
+                    const hasIncoming = allConnections.some(conn => conn.to === node.id);
+                    if (!hasIncoming) {
+                        const nodesAbove = allNodesArray.filter(n => n.y < node.y);
+                        if (nodesAbove.length > 0) {
+                            const nearest = nodesAbove.reduce((prev, curr) => 
+                                Math.abs(curr.y - node.y) < Math.abs(prev.y - node.y) ? curr : prev
+                            );
+                            allConnections.push({ from: nearest.id, to: node.id });
+                        }
+                    }
+                }
+            });
+
+            const finalHeight = Math.max(600, Math.max(...allNodesArray.map(n => n.y)) + 200);
+            const totalWidth = visualLanes.reduce((total, lane) => Math.max(total, lane.x + lane.width), 0);
+            
+            return { 
+                nodes: allNodesArray, connections: allConnections, lanes: visualLanes,
+                technicalLanes: Array.from(laneData.values()), width: totalWidth, 
+                height: finalHeight, title, swimlanes: visualLanes, 
+                originalSwimlanes: swimlanes 
+            };
+        }
+        
+        function renderDiagram(layout, container) {
+            container.innerHTML = '';
+            if(!layout.title || !layout.swimlanes) return;
+            
+            const swimlanesContainer = Object.assign(document.createElement('div'), { 
+                className: 'swimlanes-container' 
+            });
+            Object.assign(swimlanesContainer.style, { 
+                width: `${layout.width}px`, 
+                height: `${layout.height}px` 
+            });
+            
+            // Tambahkan judul diagram sebelum container swimlane untuk konsistensi dengan generator v5
+            const titleDiv = Object.assign(document.createElement('div'), {
+                className: 'diagram-title',
+                textContent: layout.title
+            });
+            container.append(titleDiv, swimlanesContainer);
+            
+            const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            svg.setAttribute('class', 'connection-svg');
+            const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+            defs.innerHTML = `<marker id="arrowhead" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto" fill="#333"><polygon points="0 0, 10 3.5, 0 7" /></marker>`;
+            svg.appendChild(defs);
+            swimlanesContainer.appendChild(svg);
+
+            layout.lanes.forEach(lane => {
+                const el = Object.assign(document.createElement('div'), { className: 'swimlane' });
+                Object.assign(el.style, { left: `${lane.x}px`, width: `${lane.width}px` });
+                
+                const laneTitle = lane.originalId || lane.id;
+                
+                const titleEl = Object.assign(document.createElement('div'), { 
+                    className: 'swimlane-title', 
+                    textContent: laneTitle 
+                });
+                el.appendChild(titleEl);
+                swimlanesContainer.appendChild(el);
+                
+                if (lane.subdivisionCount > 1) {
+                    const subWidth = lane.width / lane.subdivisionCount;
+                    for (let i = 1; i < lane.subdivisionCount; i++) {
+                        const guideline = document.createElement('div');
+                        Object.assign(guideline.style, {
+                            position: 'absolute',
+                            left: `${lane.x + (i * subWidth)}px`,
+                            top: '0',
+                            width: '1px',
+                            height: '100%',
+                            background: 'rgba(0,0,0,0.1)',
+                            pointerEvents: 'none',
+                            zIndex: '1'
+                        });
+                        swimlanesContainer.appendChild(guideline);
+                    }
+                }
+            });
+            
+            layout.nodes.forEach(node => {
+                if(node.x === undefined || node.y === undefined) return;
+                const el = Object.assign(document.createElement('div'), { 
+                    id: node.id, 
+                    className: `node node-${node.type}` 
+                });
+                Object.assign(el.style, { 
+                    left: `${node.x}px`, 
+                    top: `${node.y}px`, 
+                    width: `${node.width}px`, 
+                    height: `${node.height}px` 
+                });
+                
+                if (node.type === 'decision') {
+                    el.style.transform = `translate(-50%, -50%) rotate(45deg)`;
+                    el.innerHTML = `<div class="node-decision-text">${node.label}</div>`;
+                } else {
+                    el.style.transform = `translate(-50%, -50%)`;
+                    el.textContent = node.label || '';
+                }
+                if (node.type === 'end') el.innerHTML = '';
+                swimlanesContainer.appendChild(el);
+            });
+
+            layout.connections.forEach(conn => {
+                const from = layout.nodes.find(n => n.id === conn.from);
+                const to = layout.nodes.find(n => n.id === conn.to);
+                if (!from || !to || from.x === undefined || to.x === undefined) return;
+                
+                const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                path.setAttribute('marker-end', 'url(#arrowhead)');
+                path.setAttribute('class', 'connection-line');
+                
+                const fromY = from.y + from.height / 2;
+                const toY = to.y - to.height / 2;
+
+                let d = `M ${from.x} ${fromY} C ${from.x} ${fromY + 50}, ${to.x} ${toY - 50}, ${to.x} ${toY}`;
+                
+                path.setAttribute('d', d);
+                svg.appendChild(path);
+
+                if (conn.label) {
+                    const label = Object.assign(document.createElement('div'), { className: 'connection-label', textContent: conn.label });
+                    const labelX = from.x + (to.x - from.x) * 0.15;
+                    const labelY = fromY + 25;
+                    Object.assign(label.style, { left: `${labelX}px`, top: `${labelY}px`, transform: 'translateX(-50%)' });
+                    swimlanesContainer.appendChild(label);
+                }
+            });
+        }
+    </script>
+</body>
+</html> 

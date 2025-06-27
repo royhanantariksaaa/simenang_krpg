@@ -1,0 +1,18 @@
+'Proses Pemuatan Data Beranda (Dashboard)' {
+    |Pengguna, Aplikasi Mobile, API, Sistem Backend| {
+        $Pengguna$
+        (Pengguna) Berada di Halaman Utama;
+        (Aplikasi Mobile) Secara otomatis memicu pemuatan data dashboard;
+        (Aplikasi Mobile) Buat permintaan untuk mendapatkan data beranda;
+        (API) GET /api/home;
+        (Sistem Backend) Terima permintaan;
+        (Sistem Backend) Identifikasi peran pengguna (Atlet, Pelatih, Ketua) dari token;
+        (Sistem Backend) Ambil data yang relevan dengan peran pengguna (misal: jadwal latihan terdekat, statistik ringkas, pengumuman);
+        (Sistem Backend) Kirim respons dengan data dashboard yang sesuai;
+        (API) Teruskan respons 200 OK ke aplikasi;
+        (Aplikasi Mobile) Terima data dashboard;
+        (Aplikasi Mobile) Render komponen UI berdasarkan data yang diterima (misal: Kartu Jadwal, Kartu Statistik);
+        (Pengguna) Lihat informasi ringkas di Halaman Utama;
+        @Pengguna@
+    }
+} 

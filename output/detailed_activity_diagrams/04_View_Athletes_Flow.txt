@@ -1,0 +1,33 @@
+'Proses Melihat Data Atlet' {
+    |Pengguna, Aplikasi Mobile, API, Sistem Backend| {
+        $Pengguna$
+        (Pengguna) Navigasi ke Halaman Atlet;
+        (Aplikasi Mobile) Minta halaman pertama dari daftar atlet;
+        (API) GET /api/athletes;
+        (Sistem Backend) Terima permintaan;
+        (Sistem Backend) Ambil daftar atlet yang diotorisasi untuk dilihat oleh pengguna;
+        (Sistem Backend) Kirim respons dengan daftar atlet (paginasi);
+        (API) Teruskan respons 200 OK;
+        (Aplikasi Mobile) Terima dan tampilkan daftar atlet;
+        (Pengguna) Lihat daftar atlet;
+        
+        <Pengguna> Ingin melihat detail? {
+            -Ya- {
+                (Pengguna) Pilih satu atlet dari daftar;
+                (Aplikasi Mobile) Minta data detail untuk atlet yang dipilih;
+                (API) GET /api/athletes/{id_atlet};
+                (Sistem Backend) Terima permintaan;
+                (Sistem Backend) Ambil detail lengkap atlet dari database;
+                (Sistem Backend) Kirim respons dengan data detail;
+                (API) Teruskan respons 200 OK;
+                (Aplikasi Mobile) Terima dan tampilkan halaman detail atlet;
+                (Pengguna) Lihat detail informasi atlet;
+            }
+            -Tidak- {
+                // Selesai
+            }
+        }
+        >Pengguna<;
+        @Pengguna@
+    }
+} 
